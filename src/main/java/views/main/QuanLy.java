@@ -1,8 +1,8 @@
 package views.main;
 
-public class Main extends javax.swing.JFrame {
+public class QuanLy extends javax.swing.JFrame {
 
-    public Main() {
+    public QuanLy() {
         initComponents();
     }
 
@@ -29,7 +29,7 @@ public class Main extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new QuanLy().setVisible(true);
             }
         });
     }
