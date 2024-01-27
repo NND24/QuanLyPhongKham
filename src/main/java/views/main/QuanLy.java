@@ -20,6 +20,8 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy = new javax.swing.JLayeredPane();
         tabTiepNhanBenhNhan = new javax.swing.JTabbedPane();
         tiepNhanBenhNhan2 = new views.main.TiepNhanBenhNhan();
+        tabQuanLyBenhNhan = new javax.swing.JTabbedPane();
+        dSBenhNhan1 = new views.list.DSBenhNhan();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -31,7 +33,7 @@ public class QuanLy extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mniTiepNhanBenhNhan = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        mniQuanLyBenhNhan = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -65,6 +67,10 @@ public class QuanLy extends javax.swing.JFrame {
         tabTiepNhanBenhNhan.addTab("Tiếp nhận bệnh nhân", tiepNhanBenhNhan2);
 
         lypQuanLy.add(tabTiepNhanBenhNhan, "card2");
+
+        tabQuanLyBenhNhan.addTab("Quản lý bệnh nhân", dSBenhNhan1);
+
+        lypQuanLy.add(tabQuanLyBenhNhan, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -144,9 +150,9 @@ public class QuanLy extends javax.swing.JFrame {
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 30));
 
         mniTiepNhanBenhNhan.setText("Tiếp nhận bệnh nhân");
-        mniTiepNhanBenhNhan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniTiepNhanBenhNhanActionPerformed(evt);
+        mniTiepNhanBenhNhan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniTiepNhanBenhNhanMouseClicked(evt);
             }
         });
         jMenuBar1.add(mniTiepNhanBenhNhan);
@@ -154,8 +160,13 @@ public class QuanLy extends javax.swing.JFrame {
         jMenu2.setText("Khám bệnh");
         jMenuBar1.add(jMenu2);
 
-        jMenu4.setText("Quản lý bệnh nhân");
-        jMenuBar1.add(jMenu4);
+        mniQuanLyBenhNhan.setText("Quản lý bệnh nhân");
+        mniQuanLyBenhNhan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniQuanLyBenhNhanMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(mniQuanLyBenhNhan);
 
         jMenu5.setText("Quản lý viện phí");
         jMenuBar1.add(jMenu5);
@@ -257,17 +268,24 @@ public class QuanLy extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniTiepNhanBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTiepNhanBenhNhanActionPerformed
-        lypQuanLy.removeAll();
-        lypQuanLy.add(tabTiepNhanBenhNhan);
-        lypQuanLy.repaint();
-        lypQuanLy.revalidate();
-    }//GEN-LAST:event_mniTiepNhanBenhNhanActionPerformed
-
     private void mniDSKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDSKhoaActionPerformed
         new DSKhoa().setVisible(true);
         new DSKhoa().setAlwaysOnTop(true);
     }//GEN-LAST:event_mniDSKhoaActionPerformed
+
+    private void mniQuanLyBenhNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyBenhNhanMouseClicked
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyBenhNhan);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyBenhNhanMouseClicked
+
+    private void mniTiepNhanBenhNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniTiepNhanBenhNhanMouseClicked
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabTiepNhanBenhNhan);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniTiepNhanBenhNhanMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -294,6 +312,7 @@ public class QuanLy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
+    private views.list.DSBenhNhan dSBenhNhan1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -303,7 +322,6 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -324,7 +342,9 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLayeredPane lypQuanLy;
     private javax.swing.JMenuItem mniDSKhoa;
+    private javax.swing.JMenu mniQuanLyBenhNhan;
     private javax.swing.JMenu mniTiepNhanBenhNhan;
+    private javax.swing.JTabbedPane tabQuanLyBenhNhan;
     private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
     private views.main.TiepNhanBenhNhan tiepNhanBenhNhan2;
     // End of variables declaration//GEN-END:variables

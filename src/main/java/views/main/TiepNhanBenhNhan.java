@@ -50,17 +50,23 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     }
 
     private void lamMoiTTBenhNhan() {
-        txtMaBenhNhan.setText("");
-        txtHoTen.setText("");
-        txtDiaChi.setText("");
-        cmbGioiTinh.setSelectedIndex(0);
-        txtNamSinh.setText(null);
-        txtCanCuoc.setText("");
-        txtBHYT.setText("");
-        txtNgheNghiep.setText("");
-        txtSoDienThoai.setText("");
-        txtDanToc.setText("");
-        txtQuocTich.setText("");
+        try {
+            txtMaBenhNhan.setText("");
+            txtHoTen.setText("");
+            txtDiaChi.setText("");
+            cmbGioiTinh.setSelectedIndex(0);
+            txtNamSinh.setText(null);
+            txtCanCuoc.setText("");
+            txtBHYT.setText("");
+            txtNgheNghiep.setText("");
+            txtSoDienThoai.setText("");
+            txtDanToc.setText("");
+            txtQuocTich.setText("");
+
+            hienThiTatCaBenhNhan();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void lamMoiTTKhamBenh() {
@@ -435,7 +441,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("DANH SÁCH BỆNH NHÂN");
 
-        cmbLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ", "Khác" }));
+        cmbLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ" }));
         cmbLoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbLocActionPerformed(evt);
@@ -759,7 +765,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             String quocTich = txtQuocTich.getText();
 
             if (!txtMaBenhNhan.getText().isEmpty()) {
-                DialogHelper.showError("Đã có bệnh nhân");
+                DialogHelper.showError("Bệnh nhân đã tồn tại");
             } else if (hoTen.isEmpty()) {
                 DialogHelper.showError("Họ tên không được để trống");
             } else if (namSinh.isEmpty()) {
@@ -921,7 +927,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                     BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
                     BenhNhanCtrl.capNhatBenhNhan(bn);
                     hienThiTatCaBenhNhan();
-                    DialogHelper.showError("Sửa thông tin bệnh nhân thành công");
+                    DialogHelper.showMessage("Sửa thông tin bệnh nhân thành công");
                 }
             }
         } catch (ClassNotFoundException ex) {

@@ -992,11 +992,10 @@
             <Component class="javax.swing.JComboBox" name="cmbLoc">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
+                  <StringArray count="3">
                     <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
                     <StringItem index="1" value="Nam"/>
                     <StringItem index="2" value="N&#x1eef;"/>
-                    <StringItem index="3" value="Kh&#xe1;c"/>
                   </StringArray>
                 </Property>
               </Properties>
