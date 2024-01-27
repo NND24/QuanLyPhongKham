@@ -246,7 +246,19 @@ public class BenhNhanCtrl {
         }
     }
 
-    public static void exportToExcel(List<BenhNhanModel> dsDichVu, String filePath) {
+    public static void XoaBenhNhan(String maBN) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
+                "UPDATE BENHNHAN SET TrangThaiXoa='1' WHERE MaBenhNhan=?")) {
+
+            statement.setString(1, maBN);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void xuatFileExcel(List<BenhNhanModel> dsDichVu, String filePath) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("DanhSachBenhNhan");
 
