@@ -4,9 +4,7 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
-
 import views.list.DSKhoa;
-
 
 public class QuanLy extends javax.swing.JFrame {
 
@@ -19,13 +17,11 @@ public class QuanLy extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-
         lypQuanLy = new javax.swing.JLayeredPane();
         tabTiepNhanBenhNhan = new javax.swing.JTabbedPane();
         tiepNhanBenhNhan2 = new views.main.TiepNhanBenhNhan();
         tabQuanLyBenhNhan = new javax.swing.JTabbedPane();
         dSBenhNhan1 = new views.list.DSBenhNhan();
-
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -34,20 +30,10 @@ public class QuanLy extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        tabTiepNhanBenhNhan = new javax.swing.JTabbedPane();
-        tiepNhanBenhNhan1 = new views.main.TiepNhanBenhNhan();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        mniTiepNhanBenhNhan = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-
         jMenuBar1 = new javax.swing.JMenuBar();
         mniTiepNhanBenhNhan = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         mniQuanLyBenhNhan = new javax.swing.JMenu();
-
         jMenu5 = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -57,11 +43,7 @@ public class QuanLy extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-
-        jMenuItem12 = new javax.swing.JMenuItem();
-
         mniDSKhoa = new javax.swing.JMenuItem();
-
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -75,10 +57,6 @@ public class QuanLy extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-
-        setPreferredSize(new java.awt.Dimension(1360, 715));
-
-
         setIconImage(getIconImage());
         setPreferredSize(new java.awt.Dimension(1360, 715));
 
@@ -93,7 +71,6 @@ public class QuanLy extends javax.swing.JFrame {
         tabQuanLyBenhNhan.addTab("Quản lý bệnh nhân", dSBenhNhan1);
 
         lypQuanLy.add(tabQuanLyBenhNhan, "card2");
-
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -170,17 +147,6 @@ public class QuanLy extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-
-        jLayeredPane1.setLayout(new java.awt.CardLayout());
-
-        tabTiepNhanBenhNhan.addTab("Tiếp nhận bệnh nhân", tiepNhanBenhNhan1);
-
-        jLayeredPane1.add(tabTiepNhanBenhNhan, "card2");
-
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 30));
-
-        mniTiepNhanBenhNhan.setText("Tiếp nhận bệnh nhân");
-
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 30));
 
         mniTiepNhanBenhNhan.setText("Tiếp nhận bệnh nhân");
@@ -189,15 +155,10 @@ public class QuanLy extends javax.swing.JFrame {
                 mniTiepNhanBenhNhanMouseClicked(evt);
             }
         });
-
         jMenuBar1.add(mniTiepNhanBenhNhan);
 
         jMenu2.setText("Khám bệnh");
         jMenuBar1.add(jMenu2);
-
-
-        jMenu4.setText("Quản lý bệnh nhân");
-        jMenuBar1.add(jMenu4);
 
         mniQuanLyBenhNhan.setText("Quản lý bệnh nhân");
         mniQuanLyBenhNhan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -206,7 +167,6 @@ public class QuanLy extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(mniQuanLyBenhNhan);
-
 
         jMenu5.setText("Quản lý viện phí");
         jMenuBar1.add(jMenu5);
@@ -241,11 +201,6 @@ public class QuanLy extends javax.swing.JFrame {
 
         jMenu8.setText("Quản lý khám bệnh");
 
-
-        jMenuItem12.setText("Danh sách khoa");
-        jMenuItem12.setPreferredSize(new java.awt.Dimension(132, 30));
-        jMenu8.add(jMenuItem12);
-
         mniDSKhoa.setText("Danh sách khoa");
         mniDSKhoa.setPreferredSize(new java.awt.Dimension(132, 30));
         mniDSKhoa.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +209,6 @@ public class QuanLy extends javax.swing.JFrame {
             }
         });
         jMenu8.add(mniDSKhoa);
-
         jMenu8.add(jSeparator1);
 
         jMenuItem6.setText("Danh sách nhóm thuốc");
@@ -294,29 +248,20 @@ public class QuanLy extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-
-            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLayeredPane1)
-
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lypQuanLy, javax.swing.GroupLayout.PREFERRED_SIZE, 1360, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
-
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-
-                .addComponent(jLayeredPane1))
-
                 .addComponent(lypQuanLy, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
-
         );
 
         pack();
@@ -367,26 +312,16 @@ public class QuanLy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
-
     private views.list.DSBenhNhan dSBenhNhan1;
-
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-
-    private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -394,9 +329,6 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-
-    private javax.swing.JMenuItem jMenuItem12;
-
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -408,11 +340,6 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-
-    private javax.swing.JMenu mniTiepNhanBenhNhan;
-    private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
-    private views.main.TiepNhanBenhNhan tiepNhanBenhNhan1;
-
     private javax.swing.JLayeredPane lypQuanLy;
     private javax.swing.JMenuItem mniDSKhoa;
     private javax.swing.JMenu mniQuanLyBenhNhan;
@@ -420,7 +347,6 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabQuanLyBenhNhan;
     private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
     private views.main.TiepNhanBenhNhan tiepNhanBenhNhan2;
-
     // End of variables declaration//GEN-END:variables
 
 }
