@@ -13,7 +13,11 @@ import models.DangKyModel;
 
 public class DangKyCtrl {
 
+
     public static void themBenhDangKy(DangKyModel dk) throws ClassNotFoundException {
+
+    public static void themBenhNhanCho(DangKyModel dk) throws ClassNotFoundException {
+
         String sql = "INSERT INTO DANGKY (MaDangKy, MaBenhNhan, MaDichVuKham, MaPhongKham, LyDoKham, NgayKham, TrangThai, ThuTu) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -27,6 +31,7 @@ public class DangKyCtrl {
             statement.setInt(8, dk.getThuTuKham());
 
             statement.executeUpdate();
+
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
