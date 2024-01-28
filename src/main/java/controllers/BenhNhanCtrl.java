@@ -21,16 +21,14 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
 public class BenhNhanCtrl {
 
     public static List<BenhNhanModel> timTatCaBenhNhan() throws ClassNotFoundException {
         List<BenhNhanModel> dsBenhNhan = new ArrayList<>();
-
         try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
-
             String sql = "SELECT * FROM BENHNHAN";
             ResultSet resultSet = statement.executeQuery(sql);
-
             while (resultSet.next()) {
                 if (resultSet.getInt("TrangThaiXoa") == 0) {
                     BenhNhanModel bn = new BenhNhanModel(
@@ -59,10 +57,8 @@ public class BenhNhanCtrl {
         List<BenhNhanModel> dsBenhNhan = new ArrayList<>();
         String sql = "SELECT * FROM BENHNHAN WHERE MaBenhNhan=?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setString(1, maBenhNhan);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 if (resultSet.getInt("TrangThaiXoa") == 0) {
                     BenhNhanModel bn = new BenhNhanModel(
@@ -102,10 +98,15 @@ public class BenhNhanCtrl {
                 statement.setString(2, "%" + timKiem + "%");
                 statement.setString(3, "%" + timKiem + "%");
                 statement.setString(4, "%" + timKiem + "%");
-
                 ResultSet resultSet = statement.executeQuery();
-
                 while (resultSet.next()) {
+
+                    BenhNhanModel bn = new BenhNhanModel(resultSet.getString("MaBenhNhan"), resultSet.getString("HoTen"),
+                            resultSet.getString("GioiTinh"), resultSet.getString("NamSinh"),
+                            resultSet.getString("DiaChi"), resultSet.getString("CanCuoc"),
+                            resultSet.getString("BHYT"), resultSet.getString("SoDienThoai"), resultSet.getString("ngheNghiep"),
+                            resultSet.getString("DanToc"), resultSet.getString("QuocTich"));
+                    dsBenhNhan.add(bn);
                     if (resultSet.getInt("TrangThaiXoa") == 0) {
                         BenhNhanModel bn = new BenhNhanModel(
                                 resultSet.getString("MaBenhNhan"),
@@ -127,10 +128,15 @@ public class BenhNhanCtrl {
                 String sql = "SELECT * FROM BENHNHAN WHERE GioiTinh LIKE ?";
                 statement = connection.prepareStatement(sql);
                 statement.setString(1, "%" + gioiTinh + "%");
-
                 ResultSet resultSet = statement.executeQuery();
-
                 while (resultSet.next()) {
+                    BenhNhanModel bn = new BenhNhanModel(resultSet.getString("MaBenhNhan"), resultSet.getString("HoTen"),
+                            resultSet.getString("GioiTinh"), resultSet.getString("NamSinh"),
+                            resultSet.getString("DiaChi"), resultSet.getString("CanCuoc"),
+                            resultSet.getString("BHYT"), resultSet.getString("SoDienThoai"), resultSet.getString("ngheNghiep"),
+                            resultSet.getString("DanToc"), resultSet.getString("QuocTich"));
+                    dsBenhNhan.add(bn);
+
                     if (resultSet.getInt("TrangThaiXoa") == 0) {
                         BenhNhanModel bn = new BenhNhanModel(
                                 resultSet.getString("MaBenhNhan"),
@@ -157,10 +163,16 @@ public class BenhNhanCtrl {
                 statement.setString(3, "%" + timKiem + "%");
                 statement.setString(4, "%" + timKiem + "%");
                 statement.setString(5, "%" + gioiTinh + "%");
-
                 ResultSet resultSet = statement.executeQuery();
-
                 while (resultSet.next()) {
+                    BenhNhanModel bn = new BenhNhanModel(resultSet.getString("MaBenhNhan"), resultSet.getString("HoTen"),
+                            resultSet.getString("GioiTinh"), resultSet.getString("NamSinh"),
+                            resultSet.getString("DiaChi"), resultSet.getString("CanCuoc"),
+                            resultSet.getString("BHYT"), resultSet.getString("SoDienThoai"), resultSet.getString("ngheNghiep"),
+                            resultSet.getString("DanToc"), resultSet.getString("QuocTich"));
+                    dsBenhNhan.add(bn);
+                }
+            }
                     if (resultSet.getInt("TrangThaiXoa") == 0) {
                         BenhNhanModel bn = new BenhNhanModel(
                                 resultSet.getString("MaBenhNhan"),
@@ -198,13 +210,17 @@ public class BenhNhanCtrl {
                 }
             }
         }
-
         return dsBenhNhan;
     }
 
+
+    public static void ThemBenhNhan(BenhNhanModel bn) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO BENHNHAN (MaBenhNhan, HoTen, GioiTinh, NamSinh, DiaChi, CanCuoc, SoDienThoai, NgheNghiep, DanToc, BHYT, QuocTich) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
     public static void themBenhNhan(BenhNhanModel bn) throws ClassNotFoundException {
         String sql = "INSERT INTO BENHNHAN (MaBenhNhan, HoTen, GioiTinh, NamSinh, DiaChi, CanCuoc, SoDienThoai, NgheNghiep, DanToc, BHYT, QuocTich) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
 
             statement.setString(1, bn.getMaBenhNhan());
             statement.setString(2, bn.getHoTen());
@@ -224,7 +240,11 @@ public class BenhNhanCtrl {
         }
     }
 
+
+    public static void CapNhatBenhNhan(BenhNhanModel bn) throws ClassNotFoundException {
+
     public static void capNhatBenhNhan(BenhNhanModel bn) throws ClassNotFoundException {
+
         String sql = "UPDATE BENHNHAN SET HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?,CanCuoc=?,SoDienThoai=?,NgheNghiep=?,DanToc=?,BHYT=?,QuocTich=? WHERE MaBenhNhan=?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -247,8 +267,13 @@ public class BenhNhanCtrl {
     }
 
     public static void XoaBenhNhan(String maBN) throws ClassNotFoundException {
+
+        String sql = "UPDATE BENHNHAN SET HoTen='1' WHERE MaBenhNhan=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
                 "UPDATE BENHNHAN SET TrangThaiXoa='1' WHERE MaBenhNhan=?")) {
+
 
             statement.setString(1, maBN);
             statement.executeUpdate();
@@ -257,6 +282,7 @@ public class BenhNhanCtrl {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 
     public static void xuatFileExcel(List<BenhNhanModel> dsDichVu, String filePath) {
         try (Workbook workbook = new XSSFWorkbook()) {
@@ -301,6 +327,7 @@ public class BenhNhanCtrl {
             e.printStackTrace();
         }
     }
+
 
     public static boolean kiemTraCccdCoTonTai(String cccd) throws ClassNotFoundException {
         boolean flag = false;
