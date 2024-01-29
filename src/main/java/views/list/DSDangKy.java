@@ -1,19 +1,16 @@
 package views.list;
 
-import controllers.BenhAnCtrl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
-import javax.swing.JOptionPane;
 import controllers.DangKyCtrl;
-import controllers.KhamLamSanCtrl;
 import controllers.DangKyBenhNhanCtrl;
-import models.BenhAnModel;
 import models.DangKyModel;
 import models.DangKyBenhNhanModel;
+import utils.DialogHelper;
 
 public class DSDangKy extends javax.swing.JPanel {
 
@@ -28,6 +25,7 @@ public class DSDangKy extends javax.swing.JPanel {
 
             hienThiBenhNhan();
         } catch (ClassNotFoundException ex) {
+            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -475,18 +473,19 @@ public class DSDangKy extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -504,7 +503,7 @@ public class DSDangKy extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -523,25 +522,17 @@ public class DSDangKy extends javax.swing.JPanel {
         String lyDoKham = txtLyDoKham.getText();
         String trangThai = cmbTrangThai.getSelectedItem().toString();
         String maDangKy = txtMaDangKy.getText();
-        String maBenhAn = BenhAnCtrl.generateMaBenhAn();
 
         if (dichVuKham.equals("---Dịch vụ---")) {
-            JOptionPane.showMessageDialog(null, "Dịch vụ khám bệnh không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Dịch vụ khám bệnh không được để trống");
         } else if (phongKham.equals("---Phòng khám---")) {
-            JOptionPane.showMessageDialog(null, "Phòng khám không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Phòng khám không được để trống");
         } else if (lyDoKham.equals("")) {
-            JOptionPane.showMessageDialog(null, "Lý do khám không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Lý do khám không được để trống");
         } else if (!trangThai.equals("Đợi khám")) {
-            JOptionPane.showMessageDialog(null, "Bệnh án đã được tạo vui lòng sang mục khám bệnh", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Bệnh án đã được tạo vui lòng sang mục khám bệnh");
         } else {
             try {
-
-                String maKhamLamSan = KhamLamSanCtrl.generateMaKhamLamSan();
-
-                BenhAnModel ba = new BenhAnModel(maBenhAn, maDangKy, maKhamLamSan, maBenhNhan);
-                BenhAnCtrl.ThemBenhBenhAn(ba);
-                JOptionPane.showMessageDialog(null, "Tạo bệnh án thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
                 DangKyModel dk = new DangKyModel(maDangKy, "Đang khám");
                 DangKyCtrl.capNhatTrangThai(dk);
 
@@ -551,6 +542,7 @@ public class DSDangKy extends javax.swing.JPanel {
                 cmbLocTrangThai.setSelectedIndex(0);
                 txtTimKiemBN.setText("");
             } catch (ClassNotFoundException ex) {
+                DialogHelper.showError("Đã có lỗi xảy ra");
                 Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -623,30 +615,31 @@ public class DSDangKy extends javax.swing.JPanel {
     private void btnSuaThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinActionPerformed
         try {
             String maDangKy = txtMaDangKy.getText();
-            String yeuCauKham = cmbDichVuKham.getSelectedItem().toString();
+            String dichVuKham = cmbDichVuKham.getSelectedItem().toString();
             String phongKham = cmbPhongKham.getSelectedItem().toString();
             String lyDoKham = txtLyDoKham.getText();
             String trangThai = cmbTrangThai.getSelectedItem().toString();
 
-            String[] options = {"Đồng ý", "Thoát"};
-            int option = JOptionPane.showOptionDialog(
-                    null,
-                    "Bạn có chắc muốn sửa thông tin khám bệnh này",
-                    "Cảnh báo",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[1]
-            );
+            if (maDangKy.isEmpty()) {
+                DialogHelper.showError("Mã đăng ký không được để trống");
+            } else if (dichVuKham.equals("---Dịch vụ---")) {
+                DialogHelper.showError("Dịch vụ không được để trống");
+            } else if (phongKham.equals("---Phòng khám---")) {
+                DialogHelper.showError("Phòng khám không được để trống");
+            } else if (phongKham.equals("---Trạng thái---")) {
+                DialogHelper.showError("Trạng thái không được để trống");
+            } else {
+                boolean flag = DialogHelper.showConfirmation("Bạn có chắc muốn sửa thông tin khám bệnh này");
 
-            if (option == 0) {
-                DangKyModel dk = new DangKyModel(maDangKy, yeuCauKham.split(" ")[0], phongKham.split(" ")[0], lyDoKham, trangThai);
-                DangKyCtrl.capNhatDangKy(dk);
-                JOptionPane.showMessageDialog(null, "Sửa thông tin khám bệnh thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-                hienThiBenhNhan();
+                if (flag) {
+                    DangKyModel dk = new DangKyModel(maDangKy, dichVuKham.split(" ")[0], phongKham.split(" ")[0], lyDoKham, trangThai);
+                    DangKyCtrl.capNhatDangKy(dk);
+                    DialogHelper.showMessage("Sửa thông tin khám bệnh thành công!");
+                    hienThiBenhNhan();
+                }
             }
         } catch (ClassNotFoundException ex) {
+            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSuaThongTinActionPerformed
@@ -661,28 +654,24 @@ public class DSDangKy extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         String maDangKy = txtMaDangKy.getText();
-        String[] options = {"Đồng ý", "Thoát"};
-        int option = JOptionPane.showOptionDialog(
-                null,
-                "Bạn có chắc muốn xóa thông tin khám bệnh này",
-                "Cảnh báo",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[1]
-        );
 
-        if (option == 0) {
-            try {
-                DangKyCtrl.xoaDangKy(maDangKy);
-                hienThiBenhNhan();
-                JOptionPane.showMessageDialog(null, "Xóa bệnh án thành công", "Thông báo", JOptionPane.WARNING_MESSAGE);
-                cmbLocPhong.setSelectedIndex(0);
-                cmbLocTrangThai.setSelectedIndex(0);
-                txtTimKiemBN.setText("");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+        if (maDangKy.isEmpty()) {
+            DialogHelper.showError("Mã đăng ký không được để trống");
+        } else {
+            boolean flag = DialogHelper.showConfirmation("Bạn có chắc muốn xóa thông tin khám bệnh này");
+
+            if (flag) {
+                try {
+                    DangKyCtrl.xoaDangKy(maDangKy);
+                    hienThiBenhNhan();
+                    DialogHelper.showMessage("Xóa thông tin đăng ký thành công");
+                    cmbLocPhong.setSelectedIndex(0);
+                    cmbLocTrangThai.setSelectedIndex(0);
+                    txtTimKiemBN.setText("");
+                } catch (ClassNotFoundException ex) {
+                    DialogHelper.showError("Đã có lỗi xảy ra");
+                    Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
