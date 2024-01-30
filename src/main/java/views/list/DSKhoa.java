@@ -308,6 +308,7 @@ public class DSKhoa extends javax.swing.JFrame {
                 } else {
                     KhoaCtrl.themKhoa(khoa);
                     hienThiCacKhoa();
+                    DialogHelper.showMessage("Thêm thành công");
                     lamMoi();
                 }
             } catch (ClassNotFoundException ex) {
@@ -368,18 +369,25 @@ public class DSKhoa extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectedIndex = tblDanhSachKhoa.getSelectedRow();
         if (selectedIndex >= 0) {
-            KhoaModel khoa = dsKhoa.get(selectedIndex);
-            boolean option = DialogHelper.showConfirmation("Bạn có muốn xóa khoa này không?");
-
-            if (option) {
-                try {
-                    KhoaCtrl.xoaKhoa(khoa.getMaKhoa());
-                    hienThiCacKhoa();
-                    lamMoi();
-                    DialogHelper.showMessage("Xóa thành công");
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(KhoaCtrl.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                KhoaModel khoa = dsKhoa.get(selectedIndex);
+                if (KhoaCtrl.kiemTraKhoaCoBacSi(khoa.getMaKhoa())) {
+                    DialogHelper.showError("Đang có bác sĩ làm việc ở Khoa này");
+                } else {
+                    boolean option = DialogHelper.showConfirmation("Bạn có muốn xóa khoa này không?");
+                    if (option) {
+                        try {
+                            KhoaCtrl.xoaKhoa(khoa.getMaKhoa());
+                            hienThiCacKhoa();
+                            lamMoi();
+                            DialogHelper.showMessage("Xóa thành công");
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(KhoaCtrl.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DSKhoa.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
