@@ -41,15 +41,10 @@ public class BacSiCtrl {
     
     public static List<BacSiModel> hienThiTatCa() throws ClassNotFoundException {
         List<BacSiModel> dsBacSi = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
-
-        try {
-            connection = ConnectDB.getConnection();
+        try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
             String sql = "SELECT BS.MaBacSi, BS.Email, KH.MaKhoa, KH.TenKhoa,BS.HoTen, BS.GioiTinh, "
                     + "BS.NamSinh, BS.DiaChi, BS.SoDienThoai, BS.CanCuoc, BS.TrinhDo, BS.Anh "
                     + "FROM BACSI AS BS, KHOA AS KH WHERE BS.MaKhoa = KH.MaKhoa AND BS.TrangThaiXoa=0";
-            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
@@ -70,36 +65,16 @@ public class BacSiCtrl {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
         return dsBacSi;
     }
     
     public static void themBacSi(BacSiModel bacSi) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
+        String sql = "INSERT INTO BACSI(MaBacSi, Email, MaKhoa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, TrinhDo, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             String maBacSi = generateMaBacSi();
             String matKhau = generatePassword(maBacSi, bacSi.getNamSinh());
-            TaiKhoanCtrl.themTaiKhoan(bacSi.getEmail(), "BS", matKhau);
-            connection = ConnectDB.getConnection();
-            String sql = "INSERT INTO BACSI(MaBacSi, Email, MaKhoa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, TrinhDo, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            statement = connection.prepareStatement(sql);
+            TaiKhoanCtrl.themTaiKhoan(bacSi.getEmail(), "BS", matKhau);         
             statement.setString(1,maBacSi);
             statement.setString(2,bacSi.getEmail());
             statement.setString(3,bacSi.getMaKhoa());
@@ -115,32 +90,13 @@ public class BacSiCtrl {
 
         } catch (SQLException ex) {
             Logger.getLogger(KhoaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(KhoaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(KhoaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
     }
     
     public static boolean kiemTraEmailCoTonTai(String email) throws ClassNotFoundException {
         boolean flag = false;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM BACSI WHERE Email=?";
-            statement = connection.prepareStatement(sql);
+        String sql = "SELECT * FROM BACSI WHERE Email=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
 
@@ -150,33 +106,14 @@ public class BacSiCtrl {
 
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
         return flag;
     }
 
     public static boolean kiemTraCanCuocCoTonTai(String canCuoc) throws ClassNotFoundException {
         boolean flag = false;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM BACSI WHERE CanCuoc=?";
-            statement = connection.prepareStatement(sql);
+        String sql = "SELECT * FROM BACSI WHERE CanCuoc=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, canCuoc);
             ResultSet resultSet = statement.executeQuery();
 
@@ -186,34 +123,13 @@ public class BacSiCtrl {
 
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
         return flag;
     }
     
     public static void capNhatBacSi(BacSiModel bs) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "UPDATE BACSI SET Email=?, MaKhoa=?, HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?, TrinhDo=?, Anh=? WHERE MaBacSi=?";
-
-            statement = connection.prepareCall(sql);
-
+        String sql = "UPDATE BACSI SET Email=?, MaKhoa=?, HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?, TrinhDo=?, Anh=? WHERE MaBacSi=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){           
             statement.setString(1, bs.getEmail());
             statement.setString(2, bs.getMaKhoa());
             statement.setString(3, bs.getHoTen());
@@ -229,34 +145,12 @@ public class BacSiCtrl {
 
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
     }
     
     public static void xoaBacSi(BacSiModel bs) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "UPDATE BACSI SET TrangThaiXoa=? WHERE MaBacSi=?";
-
-            statement = connection.prepareCall(sql);
-
+        String sql = "UPDATE BACSI SET TrangThaiXoa=? WHERE MaBacSi=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){     
             statement.setBoolean(1, true);
             statement.setString(2, bs.getMaBacSi());
             statement.executeUpdate();
@@ -264,37 +158,15 @@ public class BacSiCtrl {
 
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
     }
     
     public static List<BacSiModel> timKiemBacSi(String tuKhoa) throws ClassNotFoundException {
         List<BacSiModel> ketQua = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT MaBacSi, Email, KHOA.MaKhoa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, TrinhDo, KHOA.TenKhoa "
+        String sql = "SELECT MaBacSi, Email, KHOA.MaKhoa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, TrinhDo, KHOA.TenKhoa "
                     + "FROM BACSI, KHOA WHERE BACSI.MaKhoa = KHOA.MaKhoa AND BacSi.TrangThaiXoa=0 "
                     + "AND(MaBacSi LIKE ? OR Email LIKE ? OR KHOA.MaKhoa LIKE ? OR HoTen LIKE ? OR GioiTinh LIKE ? OR NamSinh LIKE ? OR DiaChi LIKE ? OR SoDienThoai LIKE ? OR CanCuoc LIKE ? OR TrinhDo LIKE ? OR TenKhoa LIKE ?)";
-            statement = connection.prepareStatement(sql);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             String keyword = "%" + tuKhoa + "%";
             statement.setString(1, keyword);
             statement.setString(2, keyword);
@@ -307,7 +179,7 @@ public class BacSiCtrl {
             statement.setString(9, keyword);
             statement.setString(10, keyword);
             statement.setString(11, keyword);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
 
@@ -328,23 +200,7 @@ public class BacSiCtrl {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
         return ketQua;
     }
-    
 }
