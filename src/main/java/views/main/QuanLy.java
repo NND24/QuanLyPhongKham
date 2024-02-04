@@ -24,6 +24,7 @@ public class QuanLy extends javax.swing.JFrame {
         dSBenhNhan1 = new views.list.DSBenhNhan();
         tabKhamBenh = new javax.swing.JTabbedPane();
         dSDangKy1 = new views.list.DSDangKy();
+        khamBenh1 = new views.main.KhamBenh();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -75,6 +76,7 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.add(tabQuanLyBenhNhan, "card2");
 
         tabKhamBenh.addTab("Danh sách đăng ký", dSDangKy1);
+        tabKhamBenh.addTab("Khám bệnh", khamBenh1);
 
         lypQuanLy.add(tabKhamBenh, "card2");
 
@@ -358,6 +360,7 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private views.main.KhamBenh khamBenh1;
     private javax.swing.JLayeredPane lypQuanLy;
     private javax.swing.JMenuItem mniDSKhoa;
     private javax.swing.JMenu mniKhamBenh;

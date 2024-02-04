@@ -14,17 +14,16 @@ import models.DangKyModel;
 public class DangKyCtrl {
 
     public static void themBenhNhanCho(DangKyModel dk) throws ClassNotFoundException {
-        String sql = "INSERT INTO DANGKY (MaDangKy, MaBenhNhan, MaDichVuKham, MaPhongKham, LyDoKham, NgayKham, TrangThai, ThuTu) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO DANGKY (MaDangKy, MaDichVuKB, MaPhongKham, LyDoKham, NgayKham, TrangThai, ThuTu) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, dk.getMaDangKy());
-            statement.setString(2, dk.getMaBenhNhan());
-            statement.setString(3, dk.getMaDichVuKB());
-            statement.setString(4, dk.getMaPhongKham());
-            statement.setString(5, dk.getLyDoKham());
-            statement.setDate(6, dk.getNgayKham());
-            statement.setString(7, dk.getTrangThai());
-            statement.setInt(8, dk.getThuTuKham());
+            statement.setString(2, dk.getMaDichVuKB());
+            statement.setString(3, dk.getMaPhongKham());
+            statement.setString(4, dk.getLyDoKham());
+            statement.setDate(5, dk.getNgayKham());
+            statement.setString(6, dk.getTrangThai());
+            statement.setInt(7, dk.getThuTuKham());
 
             statement.executeUpdate();
 

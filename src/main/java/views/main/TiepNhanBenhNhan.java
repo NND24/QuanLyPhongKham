@@ -1,5 +1,6 @@
 package views.main;
 
+import controllers.BenhAnCtrl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import models.BenhNhanModel;
 import models.DangKyModel;
 import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
+import controllers.KhamLamSangCtrl;
+import models.BenhAnModel;
 import utils.Validator;
 import utils.DialogHelper;
 
@@ -368,13 +371,13 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("Dịch vụ khám");
 
-        cmbDichVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Dịch vụ---" }));
+        cmbDichVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Dịch vụ---", "KB654321 Khám họng" }));
         cmbDichVu.setPreferredSize(new java.awt.Dimension(106, 30));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Phòng khám");
 
-        PhongKhamComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Phòng khám---" }));
+        PhongKhamComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Phòng khám---", "PK123456 Tai mũi họng" }));
         PhongKhamComboBox.setPreferredSize(new java.awt.Dimension(132, 30));
 
         jLabel17.setForeground(new java.awt.Color(255, 0, 0));
@@ -855,6 +858,12 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showMessage("Lưu thông tin đăng ký thành công!");
 
                 txtMaDangKy.setText(maDangKy);
+                String maKhamLamSang = KhamLamSangCtrl.generateMaKhamLamSang();
+                KhamLamSangCtrl.themMaKhamLamSang(maKhamLamSang);
+
+                String maBenhAn = BenhAnCtrl.generateMaBenhAn();
+                BenhAnModel ba = new BenhAnModel(maBenhAn, maDangKy, maKhamLamSang, maBenhNhan);
+                BenhAnCtrl.themBenhAn(ba);
             }
         } catch (ClassNotFoundException ex) {
             DialogHelper.showError("Đã có lỗi xảy ra");

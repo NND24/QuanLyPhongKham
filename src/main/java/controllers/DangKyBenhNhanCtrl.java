@@ -20,7 +20,7 @@ public class DangKyBenhNhanCtrl {
         try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
 
             String sql = """
-                         SELECT .DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
+                         SELECT .DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, BENHNHAN.MaBenhNhan, LyDoKham, NgayKham, DANGKY.TrangThai,
                          HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa
                          FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
                          WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
@@ -41,9 +41,11 @@ public class DangKyBenhNhanCtrl {
                             resultSet.getString("MaDichVuKB"),
                             resultSet.getString("MaPhongKham"),
                             resultSet.getString("LyDoKham"),
-                            resultSet.getInt("ThuTuKham"),
+                            resultSet.getInt("ThuTu"),
                             resultSet.getDate("NgayKham"),
-                            resultSet.getString("TrangThai")
+                            resultSet.getString("TrangThai"),
+                            resultSet.getString("TenPhongKham"),
+                            resultSet.getString("TenDichVuKB")
                     );
                     dsBenhNhan.add(bn);
 
@@ -136,7 +138,7 @@ public class DangKyBenhNhanCtrl {
                          HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa
                          FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
                          WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
-                         AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy AND DANGKY.TrangThai LIKE ? 
+                         AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy AND DANGKY.TrangThai LIKE ?
                          ORDER BY ThuTu ASC
                          """;
                 statement = connection.prepareStatement(sql);
