@@ -296,6 +296,15 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Component class="views.main.KhamBenh" name="khamBenh1">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Kh&#xe1;m b&#x1ec7;nh">
+                    <Property name="tabTitle" type="java.lang.String" value="Kh&#xe1;m b&#x1ec7;nh"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

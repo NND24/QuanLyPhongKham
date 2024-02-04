@@ -762,8 +762,9 @@
         <Component class="javax.swing.JComboBox" name="cmbDichVu">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
+              <StringArray count="2">
                 <StringItem index="0" value="---D&#x1ecb;ch v&#x1ee5;---"/>
+                <StringItem index="1" value="KB654321 Kh&#xe1;m h&#x1ecd;ng"/>
               </StringArray>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -785,8 +786,9 @@
         <Component class="javax.swing.JComboBox" name="PhongKhamComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
+              <StringArray count="2">
                 <StringItem index="0" value="---Ph&#xf2;ng kh&#xe1;m---"/>
+                <StringItem index="1" value="PK123456 Tai m&#x169;i h&#x1ecd;ng"/>
               </StringArray>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

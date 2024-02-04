@@ -6,10 +6,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
-import controllers.DangKyCtrl;
-import controllers.DangKyBenhNhanCtrl;
 import models.DangKyModel;
 import models.DangKyBenhNhanModel;
+import views.main.KhamBenh;
+import views.main.KhamLamSang;
+import controllers.DangKyCtrl;
+import controllers.DangKyBenhNhanCtrl;
+import controllers.BenhAnCtrl;
 import utils.DialogHelper;
 
 public class DSDangKy extends javax.swing.JPanel {
@@ -23,14 +26,14 @@ public class DSDangKy extends javax.swing.JPanel {
 
             tableModel = (DefaultTableModel) tblDSDangKy.getModel();
 
-            hienThiBenhNhan();
+            hienThiDSDangKy();
         } catch (ClassNotFoundException ex) {
             DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void hienThiBenhNhan() throws ClassNotFoundException {
+    private void hienThiDSDangKy() throws ClassNotFoundException {
         dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDK();
         tableModel.setRowCount(0);
 
@@ -262,11 +265,6 @@ public class DSDangKy extends javax.swing.JPanel {
         btnSuaThongTin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSuaThongTin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSuaThongTin.setPreferredSize(new java.awt.Dimension(190, 26));
-        btnSuaThongTin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSuaThongTinMouseClicked(evt);
-            }
-        });
         btnSuaThongTin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaThongTinActionPerformed(evt);
@@ -298,13 +296,13 @@ public class DSDangKy extends javax.swing.JPanel {
         txtNamSinh.setBorder(null);
 
         cmbDichVuKham.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbDichVuKham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Dịch vụ---" }));
+        cmbDichVuKham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Dịch vụ---", "KB654321" }));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Phòng khám");
 
         cmbPhongKham.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbPhongKham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Phòng khám---" }));
+        cmbPhongKham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Phòng khám---", "PK123456" }));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel24.setText("Lý do khám");
@@ -481,11 +479,10 @@ public class DSDangKy extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane1)
-                .addGap(0, 0, 0))
+                .addComponent(jScrollPane1))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -503,48 +500,60 @@ public class DSDangKy extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSuaThongTinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaThongTinMouseClicked
-
-    }//GEN-LAST:event_btnSuaThongTinMouseClicked
-
     private void btnBatDauKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatDauKhamActionPerformed
-        // TODO add your handling code here:
-        String maBenhNhan = txtMaBenhNhan.getText();
-        String hoTen = txtHoTen.getText();
-        String gioiTinh = txtGioiTinh.getText();
-        String ngayKham = txtNgayKham.getText();
-        String phongKham = cmbPhongKham.getSelectedItem().toString();
-        String dichVuKham = cmbDichVuKham.getSelectedItem().toString();
-        String lyDoKham = txtLyDoKham.getText();
-        String trangThai = cmbTrangThai.getSelectedItem().toString();
-        String maDangKy = txtMaDangKy.getText();
+        try {
+            // TODO add your handling code here:
+            String maBenhNhan = txtMaBenhNhan.getText();
+            String hoTen = txtHoTen.getText();
+            String gioiTinh = txtGioiTinh.getText();
+            String ngayKham = txtNgayKham.getText();
+            String phongKham = cmbPhongKham.getSelectedItem().toString();
+            String dichVuKham = cmbDichVuKham.getSelectedItem().toString();
+            String lyDoKham = txtLyDoKham.getText();
+            String trangThai = cmbTrangThai.getSelectedItem().toString();
+            String maDangKy = txtMaDangKy.getText();
+            String maBenhAn = BenhAnCtrl.timMaBenhAnTheoDK(maDangKy);
 
-        if (dichVuKham.equals("---Dịch vụ---")) {
-            DialogHelper.showError("Dịch vụ khám bệnh không được để trống");
-        } else if (phongKham.equals("---Phòng khám---")) {
-            DialogHelper.showError("Phòng khám không được để trống");
-        } else if (lyDoKham.equals("")) {
-            DialogHelper.showError("Lý do khám không được để trống");
-        } else if (!trangThai.equals("Đợi khám")) {
-            DialogHelper.showError("Bệnh án đã được tạo vui lòng sang mục khám bệnh");
-        } else {
-            try {
-                DangKyModel dk = new DangKyModel(maDangKy, "Đang khám");
-                DangKyCtrl.capNhatTrangThai(dk);
+            if (dichVuKham.equals("---Dịch vụ---")) {
+                DialogHelper.showError("Dịch vụ khám bệnh không được để trống");
+            } else if (phongKham.equals("---Phòng khám---")) {
+                DialogHelper.showError("Phòng khám không được để trống");
+            } else if (lyDoKham.equals("")) {
+                DialogHelper.showError("Lý do khám không được để trống");
+            } else if (!trangThai.equals("Đợi khám")) {
+                DialogHelper.showError("Bệnh nhân đang khám bệnh vui lòng sang mục khám bệnh");
+            } else {
+                try {
+                    KhamBenh.Instance.MaBNLabel.setText(maBenhNhan);
+                    KhamBenh.Instance.NameLabel.setText(hoTen);
+                    KhamBenh.Instance.SexLabel.setText(gioiTinh);
+                    KhamBenh.Instance.DateLabel.setText(ngayKham);
+                    KhamBenh.Instance.RoomLabel.setText(phongKham);
+                    KhamBenh.Instance.MaBALabel.setText(maBenhAn);
+                    KhamBenh.Instance.ServiceLabel.setText(dichVuKham);
+                    KhamLamSang.Instance.reasonTextField.setText(lyDoKham);
 
-                hienThiBenhNhan();
-                lamMoiThongTin();
-                cmbLocPhong.setSelectedIndex(0);
-                cmbLocTrangThai.setSelectedIndex(0);
-                txtTimKiemBN.setText("");
-            } catch (ClassNotFoundException ex) {
-                DialogHelper.showError("Đã có lỗi xảy ra");
-                Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+                    DialogHelper.showMessage("Bắt đầu khám bệnh!");
+
+                    DangKyModel dk = new DangKyModel(maDangKy, "Đang khám");
+                    DangKyCtrl.capNhatTrangThai(dk);
+
+                    hienThiDSDangKy();
+                    lamMoiThongTin();
+                    cmbLocPhong.setSelectedIndex(0);
+                    cmbLocTrangThai.setSelectedIndex(0);
+                    txtTimKiemBN.setText("");
+                } catch (ClassNotFoundException ex) {
+                    DialogHelper.showError("Đã có lỗi xảy ra");
+                    Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBatDauKhamActionPerformed
 
@@ -553,7 +562,7 @@ public class DSDangKy extends javax.swing.JPanel {
             if (cmbLocPhong.getSelectedItem() != null) {
                 String chonPhong = cmbLocPhong.getSelectedItem().toString();
                 if (chonPhong.equals("---Phòng khám---")) {
-                    hienThiBenhNhan();
+                    hienThiDSDangKy();
                 } else {
                     dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDKTheoDieuKien(chonPhong.split(" ")[0], "", "Tất cả");
                     tableModel.setRowCount(0);
@@ -574,7 +583,7 @@ public class DSDangKy extends javax.swing.JPanel {
         try {
             String trangThai = cmbLocTrangThai.getSelectedItem().toString();
             if (trangThai.equals("Tất cả")) {
-                hienThiBenhNhan();
+                hienThiDSDangKy();
             } else {
                 dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDKTheoDieuKien("---Phòng khám---", "", trangThai);
                 tableModel.setRowCount(0);
@@ -595,7 +604,7 @@ public class DSDangKy extends javax.swing.JPanel {
         try {
             String timKiem = txtTimKiemBN.getText();
             if (timKiem.equals("")) {
-                hienThiBenhNhan();
+                hienThiDSDangKy();
             } else {
                 dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDKTheoDieuKien("---Phòng khám---", timKiem, "Tất cả");
                 tableModel.setRowCount(0);
@@ -635,7 +644,7 @@ public class DSDangKy extends javax.swing.JPanel {
                     DangKyModel dk = new DangKyModel(maDangKy, dichVuKham.split(" ")[0], phongKham.split(" ")[0], lyDoKham, trangThai);
                     DangKyCtrl.capNhatDangKy(dk);
                     DialogHelper.showMessage("Sửa thông tin khám bệnh thành công!");
-                    hienThiBenhNhan();
+                    hienThiDSDangKy();
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -646,7 +655,7 @@ public class DSDangKy extends javax.swing.JPanel {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         try {
-            hienThiBenhNhan();
+            hienThiDSDangKy();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -663,7 +672,7 @@ public class DSDangKy extends javax.swing.JPanel {
             if (flag) {
                 try {
                     DangKyCtrl.xoaDangKy(maDangKy);
-                    hienThiBenhNhan();
+                    hienThiDSDangKy();
                     DialogHelper.showMessage("Xóa thông tin đăng ký thành công");
                     cmbLocPhong.setSelectedIndex(0);
                     cmbLocTrangThai.setSelectedIndex(0);
@@ -681,17 +690,17 @@ public class DSDangKy extends javax.swing.JPanel {
 
         int selectedIndex = tblDSDangKy.getSelectedRow();
         if (selectedIndex >= 0) {
-            DangKyBenhNhanModel bn = dsDangKy.get(selectedIndex);
-            txtMaBenhNhan.setText(bn.getMaBenhNhan());
-            txtHoTen.setText(bn.getHoTen());
-            txtNamSinh.setText(bn.getNamSinh());
-            txtGioiTinh.setText(bn.getGioiTinh());
-            txtLyDoKham.setText(bn.getLyDoKham());
-            // DichVuKhamComboBox.setSelectedItem(bn.getMaDichVuKham() + " " + bn.getTenDichVuKham());
-            cmbPhongKham.setSelectedItem(bn.getMaPhongKham() + " " + bn.getTenPhongKham());
-            txtMaDangKy.setText(bn.getMaDangKy());
-            cmbTrangThai.setSelectedItem(bn.getTrangThai());
-            String dateString = dateFormat.format(bn.getNgayKham());
+            DangKyBenhNhanModel dangKy = dsDangKy.get(selectedIndex);
+            txtMaBenhNhan.setText(dangKy.getMaBenhNhan());
+            txtHoTen.setText(dangKy.getHoTen());
+            txtNamSinh.setText(dangKy.getNamSinh());
+            txtGioiTinh.setText(dangKy.getGioiTinh());
+            txtLyDoKham.setText(dangKy.getLyDoKham());
+            cmbDichVuKham.setSelectedItem(dangKy.getMaDichVuKB() + " " + dangKy.getTenDichVuKB());
+            cmbPhongKham.setSelectedItem(dangKy.getMaPhongKham() + " " + dangKy.getTenPhongKham());
+            txtMaDangKy.setText(dangKy.getMaDangKy());
+            cmbTrangThai.setSelectedItem(dangKy.getTrangThai());
+            String dateString = dateFormat.format(dangKy.getNgayKham());
             txtNgayKham.setText(dateString);
         }
     }//GEN-LAST:event_tblDSDangKyMouseClicked
