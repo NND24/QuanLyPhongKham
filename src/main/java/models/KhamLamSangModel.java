@@ -13,10 +13,8 @@ public class KhamLamSangModel {
         this.giaTien = giaTien;
     }
 
-    public KhamLamSangModel(String maKhamLamSang, String maPhongKham, String maDichVu, String maBacSi, Date ngayKham, String canNang, String chieuCao, String nhietDo, String nhipTho, String huyetAp, String mach, String BMI, String lyDoKhamBenh, String chuanDoan, String benhChinh, String benhPhu, String huongXuLy, String loiDan, String benhSu, String tienSu, String khamToanThan, String khamBoPhan, String tomTatKetQuaCLS) {
+    public KhamLamSangModel(String maKhamLamSang, String maBacSi, Date ngayKham, String canNang, String chieuCao, String nhietDo, String nhipTho, String huyetAp, String mach, String BMI, String lyDoKhamBenh, String chuanDoan, String benhChinh, String benhPhu, String huongXuLy, String loiDan, String benhSu, String tienSu, String khamToanThan, String khamBoPhan, String tomTatKetQuaCLS) {
         this.maKhamLamSang = maKhamLamSang;
-        this.maPhongKham = maPhongKham;
-        this.maDichVu = maDichVu;
         this.maBacSi = maBacSi;
         this.ngayKham = ngayKham;
         this.canNang = canNang;
