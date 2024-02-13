@@ -32,7 +32,7 @@ public class BenhNhanCtrl {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                if (resultSet.getInt("TrangThaiXoa") == 0) {
+                if (!resultSet.getBoolean("TrangThaiXoa")) {
                     BenhNhanModel bn = new BenhNhanModel(
                             resultSet.getString("MaBenhNhan"),
                             resultSet.getString("HoTen"),
@@ -64,7 +64,7 @@ public class BenhNhanCtrl {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                if (resultSet.getInt("TrangThaiXoa") == 0) {
+                if (!resultSet.getBoolean("TrangThaiXoa")) {
                     BenhNhanModel bn = new BenhNhanModel(
                             resultSet.getString("MaBenhNhan"),
                             resultSet.getString("HoTen"),
@@ -131,7 +131,7 @@ public class BenhNhanCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    if (resultSet.getInt("TrangThaiXoa") == 0) {
+                    if (!resultSet.getBoolean("TrangThaiXoa")) {
                         BenhNhanModel bn = new BenhNhanModel(
                                 resultSet.getString("MaBenhNhan"),
                                 resultSet.getString("HoTen"),
@@ -161,7 +161,7 @@ public class BenhNhanCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    if (resultSet.getInt("TrangThaiXoa") == 0) {
+                    if (!resultSet.getBoolean("TrangThaiXoa")) {
                         BenhNhanModel bn = new BenhNhanModel(
                                 resultSet.getString("MaBenhNhan"),
                                 resultSet.getString("HoTen"),

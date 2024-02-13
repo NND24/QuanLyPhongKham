@@ -30,7 +30,7 @@ public class DangKyBenhNhanCtrl {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                if (!resultSet.getString("TrangThai").equals("Đã khám") && resultSet.getString("TrangThaiXoa").equals("0")) {
+                if (!resultSet.getString("TrangThai").equals("Đã khám") && !resultSet.getBoolean("TrangThaiXoa")) {
 
                     DangKyBenhNhanModel bn = new DangKyBenhNhanModel(
                             resultSet.getString("HoTen"),
@@ -90,7 +90,7 @@ public class DangKyBenhNhanCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    if (!resultSet.getString("TrangThai").equals("Đã khám")) {
+                    if (!resultSet.getString("TrangThai").equals("Đã khám") && !resultSet.getBoolean("TrangThaiXoa")) {
                         DangKyBenhNhanModel bn = new DangKyBenhNhanModel(
                                 resultSet.getString("HoTen"), resultSet.getString("GioiTinh"),
                                 resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
@@ -119,7 +119,7 @@ public class DangKyBenhNhanCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    if (!resultSet.getString("TrangThai").equals("Đã khám")) {
+                    if (!resultSet.getString("TrangThai").equals("Đã khám") && !resultSet.getBoolean("TrangThaiXoa")) {
                         DangKyBenhNhanModel bn = new DangKyBenhNhanModel(
                                 resultSet.getString("HoTen"), resultSet.getString("GioiTinh"),
                                 resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
@@ -147,7 +147,7 @@ public class DangKyBenhNhanCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    if (!resultSet.getString("TrangThai").equals("Đã khám")) {
+                    if (!resultSet.getString("TrangThai").equals("Đã khám") && !resultSet.getBoolean("TrangThaiXoa")) {
                         DangKyBenhNhanModel bn = new DangKyBenhNhanModel(
                                 resultSet.getString("HoTen"), resultSet.getString("GioiTinh"),
                                 resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),

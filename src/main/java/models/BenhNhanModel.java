@@ -29,6 +29,12 @@ public class BenhNhanModel {
         this.maBenhNhan = maBenhNhan;
     }
 
+    public BenhNhanModel(String maBenhNhan, String hoTen, String gioiTinh) {
+        this.maBenhNhan = maBenhNhan;
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+    }
+
     public String getMaBenhNhan() {
         return maBenhNhan;
     }
