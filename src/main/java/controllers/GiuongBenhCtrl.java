@@ -123,7 +123,7 @@ public class GiuongBenhCtrl {
                 statement.setBoolean(2, false);
                 statement.setString(3, maPhong);
                 statement.setBoolean(4, true);
-                
+
                 statement.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(GiuongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,7 +132,7 @@ public class GiuongBenhCtrl {
             System.out.println("Số lần khôi phục không hợp lệ.");
         }
     }
-    
+
     public static void giamGiuongBenh(String maPhong, int soGiuongCanGiam) throws ClassNotFoundException {
         if (soGiuongCanGiam > 0) {
             String sql = "UPDATE TOP (?) GIUONGBENH SET TrangThaiXoa=? WHERE MaPhong=? AND TrangThaiXoa=?";
@@ -141,13 +141,36 @@ public class GiuongBenhCtrl {
                 statement.setInt(1, soGiuongCanGiam);
                 statement.setBoolean(2, true);
                 statement.setString(3, maPhong);
-                statement.setBoolean(4, false);        
+                statement.setBoolean(4, false);
                 statement.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(GiuongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             System.out.println("Số lần giảm không hợp lệ.");
+        }
+    }
+
+    public static void nhapVien(String maGiuong) throws ClassNotFoundException {
+        String sql = "UPDATE GIUONGBENH SET CoNguoi=? WHERE MaGiuong = ?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "Có người");
+            statement.setString(2, maGiuong);
+
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GiuongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void khoiPhucTrangThaiGiuong(String maGiuong) throws ClassNotFoundException {
+        String sql = "UPDATE GIUONGBENH SET CoNguoi = ? WHERE MaGiuong = ?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "-");
+            statement.setString(2, maGiuong);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GiuongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
