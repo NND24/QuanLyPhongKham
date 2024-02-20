@@ -17,6 +17,13 @@ public class GiuongBenhModel {
         this.maPhong = maPhong;
     }
 
+    public GiuongBenhModel(String maGiuong, String maPhong, String tenPhong, String tenLoaiPhong) {
+        this.maGiuong = maGiuong;
+        this.maPhong = maPhong;
+        this.tenPhong = tenPhong;
+        this.tenLoaiPhong = tenLoaiPhong;
+    }
+    
     public GiuongBenhModel(String maGiuong, String maPhong, String tenPhong, String tenLoaiPhong, String coNguoi, int donGia) {
         this.maGiuong = maGiuong;
         this.maPhong = maPhong;
