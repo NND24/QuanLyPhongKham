@@ -49,7 +49,8 @@ public class DangKyCtrl {
     }
 
     public static void capNhatTrangThai(DangKyModel dk) throws ClassNotFoundException {
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("UPDATE DANGKY SET TrangThai=? WHERE MaDangKy=?")) {
+        String sql = "UPDATE DANGKY SET TrangThai=? WHERE MaDangKy=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, dk.getTrangThai());
             statement.setString(2, dk.getMaDangKy());

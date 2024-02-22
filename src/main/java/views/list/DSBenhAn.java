@@ -11,9 +11,11 @@ import java.util.Date;
 import models.KhamLamSangModel;
 import models.BenhAnModel;
 import controllers.BenhAnCtrl;
+import controllers.ChiDinhCtrl;
 import controllers.KhamLamSangCtrl;
 import views.main.KhamBenh;
 import views.main.KhamLamSang;
+import views.main.ChiDinh;
 import utils.DialogHelper;
 
 public class DSBenhAn extends javax.swing.JPanel {
@@ -340,6 +342,13 @@ public class DSBenhAn extends javax.swing.JPanel {
                     KhamLamSang.Instance.partTextArea.setText(kb.getKhamBoPhan());
                     KhamLamSang.Instance.summaryTextArea.setText(kb.getTomTatKetQuaCLS());
                 });
+
+                try {
+                    ChiDinh.Instance.dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(ba.getMaBenhAn());
+                    ChiDinh.Instance.hienThiDSDichvu();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(DSBenhAn.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (ParseException | ClassNotFoundException ex) {
                 Logger.getLogger(DSBenhAn.class.getName()).log(Level.SEVERE, null, ex);
             }

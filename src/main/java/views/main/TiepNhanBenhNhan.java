@@ -797,28 +797,26 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showMessage("Thêm bệnh nhân thành công");
                 hienThiTatCaBenhNhan();
 
-                dsBenhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
-                dsBenhNhan.forEach(benhNhan -> {
-                    int index = 0;
-                    txtMaBenhNhan.setText(benhNhan.getMaBenhNhan());
-                    txtHoTen.setText(benhNhan.getHoTen());
-                    txtDiaChi.setText(benhNhan.getDiaChi());
-                    if (benhNhan.getGioiTinh().equalsIgnoreCase("Nam")) {
-                        index = 0;
-                    } else if (benhNhan.getGioiTinh().equalsIgnoreCase("Nữ")) {
-                        index = 1;
-                    } else {
-                        index = 2;
-                    }
-                    cmbGioiTinh.setSelectedIndex(index);
-                    txtNamSinh.setText(benhNhan.getNamSinh());
-                    txtCanCuoc.setText(benhNhan.getCanCuoc());
-                    txtBHYT.setText(benhNhan.getBhyt());
-                    txtNgheNghiep.setText(benhNhan.getNgheNghiep());
-                    txtSoDienThoai.setText(benhNhan.getSoDienThoai());
-                    txtDanToc.setText(benhNhan.getDanToc());
-                    txtQuocTich.setText(benhNhan.getQuocTich());
-                });
+                BenhNhanModel benhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
+
+                int index = 0;
+                txtMaBenhNhan.setText(benhNhan.getMaBenhNhan());
+                txtHoTen.setText(benhNhan.getHoTen());
+                txtDiaChi.setText(benhNhan.getDiaChi());
+                if (benhNhan.getGioiTinh().equalsIgnoreCase("Nam")) {
+                    index = 0;
+                } else if (benhNhan.getGioiTinh().equalsIgnoreCase("Nữ")) {
+                    index = 1;
+                }
+                cmbGioiTinh.setSelectedIndex(index);
+                txtNamSinh.setText(benhNhan.getNamSinh());
+                txtCanCuoc.setText(benhNhan.getCanCuoc());
+                txtBHYT.setText(benhNhan.getBhyt());
+                txtNgheNghiep.setText(benhNhan.getNgheNghiep());
+                txtSoDienThoai.setText(benhNhan.getSoDienThoai());
+                txtDanToc.setText(benhNhan.getDanToc());
+                txtQuocTich.setText(benhNhan.getQuocTich());
+
             }
         } catch (ClassNotFoundException ex) {
             DialogHelper.showError("Đã có lỗi xảy ra");

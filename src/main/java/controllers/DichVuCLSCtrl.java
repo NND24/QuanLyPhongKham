@@ -73,7 +73,7 @@ public class DichVuCLSCtrl {
 
         try {
             connection = ConnectDB.getConnection();
-            String sql = "SELECT MaDichVu, TenDichVu, DICHVUCLS.MaNhomDichVu, TenNhomDichVu, GiaTien, GiaBaoHiem, DICHVUCLS.TrangThai FROM DICHVUCLS, NHOMDICHVUCLS WHERE DICHVUCLS.MaNhomDichVu=NHOMDICHVUCLS.MaNhomDichVu AND DICHVUCLS.MaNhomDichVu=?";
+            String sql = "SELECT MaDichVuCLS, TenDichVuCLS, DICHVUCLS.MaNhomDichVuCLS, TenNhomDichVuCLS, GiaTien, GiaBaoHiem, DICHVUCLS.TrangThai FROM DICHVUCLS, NHOMDICHVUCLS WHERE DICHVUCLS.MaNhomDichVuCLS=NHOMDICHVUCLS.MaNhomDichVuCLS AND DICHVUCLS.MaNhomDichVuCLS=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, maNhomDichVu);
 
@@ -81,10 +81,10 @@ public class DichVuCLSCtrl {
 
             while (resultSet.next()) {
                 DichVuCLSModel dv = new DichVuCLSModel(
-                        resultSet.getString("MaDichVu"),
-                        resultSet.getString("TenDichVu"),
-                        resultSet.getString("MaNhomDichVu"),
-                        resultSet.getString("TenNhomDichVu"),
+                        resultSet.getString("MaDichVuCLS"),
+                        resultSet.getString("TenDichVuCLS"),
+                        resultSet.getString("MaNhomDichVuCLS"),
+                        resultSet.getString("TenNhomDichVuCLS"),
                         resultSet.getInt("GiaTien"),
                         resultSet.getInt("GiaBaoHiem"),
                         resultSet.getString("TrangThai"));
@@ -217,7 +217,7 @@ public class DichVuCLSCtrl {
 
         try {
             connection = ConnectDB.getConnection();
-            String sql = "SELECT MaDichVu, TenDichVu, DICHVUCLS.MaNhomDichVu, TenNhomDichVu, GiaTien, GiaBaoHiem, DICHVUCLS.TrangThai FROM DICHVUCLS, NHOMDICHVUCLS WHERE DICHVUCLS.MaNhomDichVu=NHOMDICHVUCLS.MaNhomDichVu AND DICHVUCLS.MaDichVu=?";
+            String sql = "SELECT MaDichVuCLS, TenDichVuCLS, DICHVUCLS.MaNhomDichVuCLS, TenNhomDichVuCLS, GiaTien, GiaBaoHiem, DICHVUCLS.TrangThai FROM DICHVUCLS, NHOMDICHVUCLS WHERE DICHVUCLS.MaNhomDichVuCLS=NHOMDICHVUCLS.MaNhomDichVuCLS AND DICHVUCLS.MaDichVuCLS=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, maDichVu);
 
@@ -225,10 +225,10 @@ public class DichVuCLSCtrl {
 
             while (resultSet.next()) {
                 DichVuCLSModel dv = new DichVuCLSModel(
-                        resultSet.getString("MaDichVu"),
-                        resultSet.getString("TenDichVu"),
-                        resultSet.getString("MaNhomDichVu"),
-                        resultSet.getString("TenNhomDichVu"),
+                        resultSet.getString("MaDichVuCLS"),
+                        resultSet.getString("TenDichVuCLS"),
+                        resultSet.getString("MaNhomDichVuCLS"),
+                        resultSet.getString("TenNhomDichVuCLS"),
                         resultSet.getInt("GiaTien"),
                         resultSet.getInt("GiaBaoHiem"),
                         resultSet.getString("TrangThai"));

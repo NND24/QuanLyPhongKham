@@ -55,8 +55,8 @@ public class BenhNhanCtrl {
         return dsBenhNhan;
     }
 
-    public static List<BenhNhanModel> timBenhNhanTheoMa(String maBenhNhan) throws ClassNotFoundException {
-        List<BenhNhanModel> dsBenhNhan = new ArrayList<>();
+    public static BenhNhanModel timBenhNhanTheoMa(String maBenhNhan) throws ClassNotFoundException {
+        BenhNhanModel benhNhan = null;
         String sql = "SELECT * FROM BENHNHAN WHERE MaBenhNhan=?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -78,13 +78,13 @@ public class BenhNhanCtrl {
                             resultSet.getString("DanToc"),
                             resultSet.getString("QuocTich")
                     );
-                    dsBenhNhan.add(bn);
+                    benhNhan = bn;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dsBenhNhan;
+        return benhNhan;
     }
 
     public static List<BenhNhanModel> timBenhNhanTheoDK(String timKiem, String gioiTinh) throws ClassNotFoundException {

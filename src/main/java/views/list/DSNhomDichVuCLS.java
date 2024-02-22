@@ -311,10 +311,9 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
         try {
             lamMoi();
             hienThiTatCaNhomDichVu();
-        } 
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSNhomDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
-       
+
         }
 
     }//GEN-LAST:event_btnNhapMoiActionPerformed
@@ -327,19 +326,16 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
 
         if (tenNhomDichVu.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tên nhóm dịch vụ không được để trống!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        }
-        else if (!txtMaNhomDichVu.getText().isEmpty()) {
+        } else if (!txtMaNhomDichVu.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nhóm dịch vụ đã tồn tại", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        }
-        else {
+        } else {
             try {
                 NhomDichVuCLSModel ndv = new NhomDichVuCLSModel(maNhomDichVu, tenNhomDichVu, trangThai);
                 NhomDichVuCLSCtrl.ThemNhomDichVuCLS(ndv);
                 // JOptionPane.showMessageDialog(null, "Thêm nhóm dịch vụ khám bệnh thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 lamMoi();
                 hienThiTatCaNhomDichVu();
-            }
-            catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DSNhomDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -361,7 +357,7 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
                         null,
                         options,
                         options[1]
-                );                
+                );
                 if (option == 0) {
                     NhomDichVuCLSCtrl.XoaNhomDichVuCLS(maNhomDichVu);
                     JOptionPane.showMessageDialog(null, "Xóa nhóm dịch vụ cận lâm sàn thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -369,8 +365,7 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
                     hienThiTatCaNhomDichVu();
                 }
             }
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSNhomDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -423,7 +418,7 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
     }//GEN-LAST:event_tbldsNhomDichVuKBMouseClicked
 
     private void btnxuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatDSActionPerformed
-        
+
     }//GEN-LAST:event_btnxuatDSActionPerformed
 
     private void txttimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKiemKeyTyped

@@ -36,8 +36,8 @@ public class NhomDichVuCLSCtrl {
 
             while (resultSet.next()) {
                 NhomDichVuCLSModel dvkb = new NhomDichVuCLSModel(
-                        resultSet.getString("MaNhomDichVu"),
-                        resultSet.getString("TenNhomDichVu"),
+                        resultSet.getString("MaNhomDichVuCLS"),
+                        resultSet.getString("TenNhomDichVuCLS"),
                         resultSet.getString("TrangThai"));
                 dsNhomDichVu.add(dvkb);
             }
