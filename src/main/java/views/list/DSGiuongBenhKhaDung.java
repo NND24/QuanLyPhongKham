@@ -9,7 +9,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import models.GiuongBenhModel;
 import utils.DialogHelper;
-import views.main.XepGiuong1;
 
 /**
  *
@@ -21,7 +20,6 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
     public JTextField txtMaXepGiuong;
     public JTextField txtMaGiuongBenhNhanDangDung;
     public JTextField txtTenLoaiPhong;
-
 
     DefaultTableModel tableModel;
     List<GiuongBenhModel> dsGiuongKhaDung = new ArrayList<>();
@@ -38,7 +36,7 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSGiuongBenhKhaDung.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -46,7 +44,7 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-        
+
     }
 
     private void hienThiGiuongBenhKhaDung() throws ClassNotFoundException {
@@ -58,6 +56,7 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
                 xg.getTenPhong(), xg.getTenLoaiPhong(), xg.getCoNguoi(), xg.getDonGia()});
         });
     }
+
     private void timKiemGiuongBenhKhaDung(String loaiPhong, String tuKhoa) throws ClassNotFoundException {
         dsGiuongKhaDung = XepGiuongCtrl.timKiemGiuongBenhKhaDung(loaiPhong, tuKhoa);
         tableModel.setRowCount(0);
@@ -66,7 +65,6 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
                 xg.getTenPhong(), xg.getTenLoaiPhong(), xg.getCoNguoi(), xg.getDonGia()});
         });
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -285,7 +283,7 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
     private void btnTimPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimPhongActionPerformed
         lamMoi();
     }//GEN-LAST:event_btnTimPhongActionPerformed
-        
+
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         // TODO add your handling code here:
         int selectedIndex = tblDanhSachGiuongBenhKhaDung.getSelectedRow();
@@ -298,7 +296,7 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
                 if (XepGiuongCtrl.loaiPhong(maGiuongHienTai).equals(XepGiuongCtrl.loaiPhong(maGiuongMuonDoi))) {
                     XepGiuongCtrl.doiGiuongBenh(maGiuongHienTai, maGiuongMuonDoi, maXepGiuong);
                     DialogHelper.showMessage("Cập nhật giường bệnh mới cho bệnh nhân thành công");
-                    
+
                 } else {
                     DialogHelper.showError("Phòng đổi không hợp lệ!\nVui lòng ấn nút Làm Mới hoặc Tìm phòng rồi chọn lại");
                 }
@@ -352,7 +350,7 @@ public class DSGiuongBenhKhaDung extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
