@@ -41,7 +41,7 @@ public class BacSiModel {
         this.trinhDo = trinhDo;
         this.anh = anh;
     }
-
+    
     public BacSiModel(String email, String maKhoa, String hoTen, String gioiTinh, String namSinh, String diaChi, String soDienThoai, String canCuoc, String trinhDo, String anh) {
         this.email = email;
         this.maKhoa = maKhoa;
@@ -54,7 +54,19 @@ public class BacSiModel {
         this.trinhDo = trinhDo;
         this.anh = anh;
     }
-
+    
+    public BacSiModel(String maKhoa, String hoTen, String gioiTinh, String namSinh, String diaChi, String soDienThoai, String canCuoc, String trinhDo, String anh) {
+        this.maKhoa = maKhoa;
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.namSinh = namSinh;
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+        this.canCuoc = canCuoc;
+        this.trinhDo = trinhDo;
+        this.anh = anh;
+    }
+    
     public BacSiModel(String maBacSi, String email, String maKhoa, String hoTen, String gioiTinh, String namSinh, String diaChi, String soDienThoai, String canCuoc, String trinhDo, String anh) {
         this.maBacSi = maBacSi;
         this.email = email;

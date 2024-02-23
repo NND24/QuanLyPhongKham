@@ -59,4 +59,32 @@ public class TaiKhoanCtrl {
             Logger.getLogger(TaiKhoanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
+    
+    public static boolean kiemTraEmailCoTonTai(String email) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT * FROM TaiKhoan WHERE Email=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                flag = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaiKhoanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
+    
+    
+    public static void khoiPhucTaiKhoa(String email) throws ClassNotFoundException {
+        String sql = "UPDATE TAIKHOAN SET TrangThaiXoa=? WHERE Email=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setBoolean(1, false);
+            statement.setString(2, email);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TaiKhoanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
 }
