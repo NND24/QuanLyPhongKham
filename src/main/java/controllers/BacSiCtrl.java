@@ -6,38 +6,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.BacSiModel;
+import utils.GenerateCode;
 
 /**
  *
  * @author Phu Bao
  */
 public class BacSiCtrl {
-    
-    public static String generateMaBacSi() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "BS" + timeString + randomNumber;
-        return randomString;
-    }
-    
-    public static String generatePassword (String ma, String namSinh){
-        String password = ma + "#" + namSinh;
-        return password;           
-    }
     
     public static List<BacSiModel> hienThiTatCa() throws ClassNotFoundException {
         List<BacSiModel> dsBacSi = new ArrayList<>();
@@ -69,14 +55,46 @@ public class BacSiCtrl {
         return dsBacSi;
     }
     
+    public static List<BacSiModel> hienThiDanhSachTheoKhoa(String maKhoa) throws ClassNotFoundException {
+        List<BacSiModel> dsBacSi = new ArrayList<>();
+        String sql = "SELECT BS.MaBacSi, BS.Email, KH.MaKhoa, KH.TenKhoa,BS.HoTen, BS.GioiTinh, "
+                    + "BS.NamSinh, BS.DiaChi, BS.SoDienThoai, BS.CanCuoc, BS.TrinhDo, BS.Anh "
+                    + "FROM BACSI AS BS, KHOA AS KH WHERE BS.MaKhoa = KH.MaKhoa AND BS.TrangThaiXoa=0 "
+                    + "AND BS.MaKhoa = ?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, maKhoa);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                BacSiModel bs = new BacSiModel(
+                        resultSet.getString("MaBacSi"),
+                        resultSet.getString("Email"),
+                        resultSet.getString("MaKhoa"),
+                        resultSet.getString("TenKhoa"),
+                        resultSet.getString("HoTen"),
+                        resultSet.getString("GioiTinh"),
+                        resultSet.getString("NamSinh"),
+                        resultSet.getString("DiaChi"),
+                        resultSet.getString("SoDienThoai"), 
+                        resultSet.getString("CanCuoc"),
+                        resultSet.getString("TrinhDo"),
+                        resultSet.getString("Anh"));
+                dsBacSi.add(bs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dsBacSi;
+    }
+    
     public static void themBacSi(BacSiModel bacSi) throws ClassNotFoundException {
         String sql = "INSERT INTO BACSI(MaBacSi, Email, MaKhoa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, TrinhDo, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
-            String maBacSi = generateMaBacSi();
-            String matKhau = generatePassword(maBacSi, bacSi.getNamSinh());
-            TaiKhoanCtrl.themTaiKhoan(bacSi.getEmail(), "BS", matKhau);         
+            String maBacSi = GenerateCode.generateMa("BS");
+            String matKhau = GenerateCode.generatePassword(maBacSi, bacSi.getNamSinh());
+            String email = GenerateCode.generateEmail(maBacSi, "doctor");
+            TaiKhoanCtrl.themTaiKhoan(email, "BS", matKhau);         
             statement.setString(1,maBacSi);
-            statement.setString(2,bacSi.getEmail());
+            statement.setString(2,email);
             statement.setString(3,bacSi.getMaKhoa());
             statement.setString(4,bacSi.getHoTen());
             statement.setString(5,bacSi.getGioiTinh());
@@ -95,7 +113,7 @@ public class BacSiCtrl {
     
     public static boolean kiemTraEmailCoTonTai(String email) throws ClassNotFoundException {
         boolean flag = false;
-        String sql = "SELECT * FROM BACSI WHERE Email=?";
+        String sql = "SELECT * FROM BACSI WHERE Email=? AND TrangThaiXoa=0";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
@@ -112,7 +130,7 @@ public class BacSiCtrl {
 
     public static boolean kiemTraCanCuocCoTonTai(String canCuoc) throws ClassNotFoundException {
         boolean flag = false;
-        String sql = "SELECT * FROM BACSI WHERE CanCuoc=?";
+        String sql = "SELECT * FROM BACSI WHERE CanCuoc=? AND TrangThaiXoa=0";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, canCuoc);
             ResultSet resultSet = statement.executeQuery();
@@ -127,20 +145,37 @@ public class BacSiCtrl {
         return flag;
     }
     
+    public static boolean kiemTraCanCuocCoTonTai_CapNhat(String canCuoc, String maBacSi) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT * FROM BACSI WHERE CanCuoc=? AND MaBacSi!=? AND TrangThaiXoa=0";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, canCuoc);
+            statement.setString(2, maBacSi);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return flag;
+    }
+    
     public static void capNhatBacSi(BacSiModel bs) throws ClassNotFoundException {
-        String sql = "UPDATE BACSI SET Email=?, MaKhoa=?, HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?, TrinhDo=?, Anh=? WHERE MaBacSi=?";
+        String sql = "UPDATE BACSI SET MaKhoa=?, HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?, TrinhDo=?, Anh=? WHERE MaBacSi=?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){           
-            statement.setString(1, bs.getEmail());
-            statement.setString(2, bs.getMaKhoa());
-            statement.setString(3, bs.getHoTen());
-            statement.setString(4, bs.getGioiTinh());
-            statement.setString(5, bs.getNamSinh());
-            statement.setString(6, bs.getDiaChi());
-            statement.setString(7, bs.getSoDienThoai());
-            statement.setString(8, bs.getCanCuoc());
-            statement.setString(9, bs.getTrinhDo());
-            statement.setString(10, bs.getAnh());
-            statement.setString(11, bs.getMaBacSi());
+            statement.setString(1, bs.getMaKhoa());
+            statement.setString(2, bs.getHoTen());
+            statement.setString(3, bs.getGioiTinh());
+            statement.setString(4, bs.getNamSinh());
+            statement.setString(5, bs.getDiaChi());
+            statement.setString(6, bs.getSoDienThoai());
+            statement.setString(7, bs.getCanCuoc());
+            statement.setString(8, bs.getTrinhDo());
+            statement.setString(9, bs.getAnh());
+            statement.setString(10, bs.getMaBacSi());
             statement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -203,4 +238,32 @@ public class BacSiCtrl {
         } 
         return ketQua;
     }
+    
+    public static List<BacSiModel> sapXepTheoTen_AZ() throws ClassNotFoundException {
+        List<BacSiModel> dsBacSi = hienThiTatCa();
+        Collator collator = Collator.getInstance();
+        collator.setStrength(Collator.PRIMARY);
+        Collections.sort(dsBacSi, Comparator.comparing(bs -> bs.getHoTen().substring(bs.getHoTen().lastIndexOf(" ") + 1), collator));
+        return dsBacSi;
+    }
+
+    public static List<BacSiModel> sapXepTheoTen_ZA() throws ClassNotFoundException {
+        List<BacSiModel> dsBacSi = sapXepTheoTen_AZ();
+        Collections.reverse(dsBacSi);
+        return dsBacSi;
+    }
+    
+    public static List<BacSiModel> sapXepTheoNamSinh_TangDan() throws ClassNotFoundException {
+        List<BacSiModel> dsBacSi = hienThiTatCa();
+        dsBacSi.sort(Comparator.comparing(BacSiModel::getNamSinh));
+        return dsBacSi;
+    }
+
+    public static List<BacSiModel> sapXepTheoNamSinh_GiamDan() throws ClassNotFoundException {
+        List<BacSiModel> dsBacSi = hienThiTatCa();
+        dsBacSi.sort(Comparator.comparing(BacSiModel::getNamSinh).reversed());
+        return dsBacSi;
+    }
+    
+    
 }
