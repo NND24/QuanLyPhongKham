@@ -318,12 +318,13 @@ public class BenhNhanCtrl {
         return flag;
     }
 
-    public static boolean kiemTrabHYTCoTonTai(String bhyt) throws ClassNotFoundException {
+    public static boolean kiemTrabHYTCoTonTai(String bhyt, String maBenhNhan) throws ClassNotFoundException {
         boolean flag = false;
 
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM BENHNHAN WHERE BHYT=?")) {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM BENHNHAN WHERE BHYT=? AND MaBenhNhan!=?")) {
 
             statement.setString(1, bhyt);
+            statement.setString(2, maBenhNhan);
             ResultSet resultSet = statement.executeQuery();
 
             flag = resultSet.next();
