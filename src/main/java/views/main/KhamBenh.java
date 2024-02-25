@@ -55,6 +55,7 @@ public class KhamBenh extends javax.swing.JPanel {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         pnlKhamLamSan = new views.main.KhamLamSang();
         pnlChiDinh = new views.main.ChiDinh();
+        pnlChonThuoc = new views.main.ChonThuoc();
         pnlBenhAn = new views.list.DSBenhAn();
         jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -360,6 +361,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLayeredPane1.add(pnlKhamLamSan, "card2");
         jLayeredPane1.add(pnlChiDinh, "card4");
+        jLayeredPane1.add(pnlChonThuoc, "card5");
         jLayeredPane1.add(pnlBenhAn, "card3");
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -499,6 +501,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void btnKhamLamSanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhamLamSanMouseClicked
         pnlKhamLamSan.setVisible(true);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnKhamLamSan.setBackground(new Color(0, 102, 255));
@@ -520,6 +523,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void btnChiDinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChiDinhMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(true);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnChiDinh.setBackground(new Color(0, 102, 255));
@@ -541,6 +545,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void btnChonThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChonThuocMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(true);
         pnlBenhAn.setVisible(false);
 
         btnChonThuoc.setBackground(new Color(0, 102, 255));
@@ -562,6 +567,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void lblMaBenhNhanPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblMaBenhNhanPropertyChange
         KhamLamSang.Instance.maBenhNhan = lblMaBenhNhan.getText();
         ChiDinh.Instance.maBenhNhan = lblMaBenhNhan.getText();
+        ChonThuoc.Instance.maBenhNhan = lblMaBenhNhan.getText();
     }//GEN-LAST:event_lblMaBenhNhanPropertyChange
 
     private void lblNgayKhamPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNgayKhamPropertyChange
@@ -578,11 +584,15 @@ public class KhamBenh extends javax.swing.JPanel {
 
         ChiDinh.Instance.maBenhAn = lblMaBenhAn.getText();
         ChiDinh.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
+
+        ChonThuoc.Instance.maBenhAn = lblMaBenhAn.getText();
+        ChonThuoc.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
     }//GEN-LAST:event_lblMaBenhAnPropertyChange
 
     private void btnDSBenhAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSBenhAnMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(true);
 
         btnDSBenhAn.setBackground(new Color(0, 102, 255));
@@ -608,6 +618,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void lblKhamLamSangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhamLamSangMouseClicked
         pnlKhamLamSan.setVisible(true);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnKhamLamSan.setBackground(new Color(0, 102, 255));
@@ -629,6 +640,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void lblChiDinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChiDinhMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(true);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnChiDinh.setBackground(new Color(0, 102, 255));
@@ -650,6 +662,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void lblChonThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChonThuocMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(true);
         pnlBenhAn.setVisible(false);
 
         btnChonThuoc.setBackground(new Color(0, 102, 255));
@@ -671,6 +684,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void lblDSBenhAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDSBenhAnMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(true);
 
         btnDSBenhAn.setBackground(new Color(0, 102, 255));
@@ -692,6 +706,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void lblKetQuaCLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKetQuaCLSMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnKetQuaCLS.setBackground(new Color(0, 102, 255));
@@ -713,6 +728,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private void btnKetQuaCLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKetQuaCLSMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
+        pnlChonThuoc.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnKetQuaCLS.setBackground(new Color(0, 102, 255));
@@ -765,6 +781,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private javax.swing.JLabel pkLabel;
     private views.list.DSBenhAn pnlBenhAn;
     private views.main.ChiDinh pnlChiDinh;
+    private views.main.ChonThuoc pnlChonThuoc;
     private views.main.KhamLamSang pnlKhamLamSan;
     // End of variables declaration//GEN-END:variables
 }

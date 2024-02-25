@@ -58,7 +58,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             txtHoTen.setText("");
             txtDiaChi.setText("");
             cmbGioiTinh.setSelectedIndex(0);
-            txtNamSinh.setText(null);
+            txtNamSinh.setText("");
             txtCanCuoc.setText("");
             txtBHYT.setText("");
             txtNgheNghiep.setText("");
@@ -789,7 +789,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showError("CCCD đã tồn tại");
             } else if (!BHYT.isEmpty() && !Validator.isValidBhyt(BHYT)) {
                 DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
-            } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT)) {
+            } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT, maBenhNhan)) {
                 DialogHelper.showError("BHYT đã tồn tại");
             } else {
                 BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
@@ -927,6 +927,8 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showError("Căn cước công dân không hợp lệ");
             } else if (!BHYT.isEmpty() && !Validator.isValidBhyt(BHYT)) {
                 DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
+            } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT, maBenhNhan)) {
+                DialogHelper.showError("Bảo hiểm y tế đã tồn tại");
             } else {
                 boolean flag = DialogHelper.showConfirmation("Bạn có chắc sửa thông tin bệnh nhân này");
 
@@ -1004,11 +1006,12 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
     private void txtBHYTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBHYTFocusLost
         String bhyt = txtBHYT.getText();
+        String maBenhNhan = txtMaBenhNhan.getText();
         if (!bhyt.isEmpty() && !Validator.isValidBhyt(bhyt)) {
             DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
             txtBHYT.requestFocus();
         } else try {
-            if (!bhyt.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(bhyt)) {
+            if (!bhyt.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(bhyt, maBenhNhan)) {
                 DialogHelper.showError("BHYT đã tồn tại");
                 txtBHYT.requestFocus();
             }
