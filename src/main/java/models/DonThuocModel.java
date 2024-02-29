@@ -2,13 +2,12 @@ package models;
 
 public class DonThuocModel {
 
-    private String maDonThuoc, maBenhAn, maBenhNhan, maThuoc, tenThuoc, maNhomThuoc, tenNhomThuoc, duongDung, cachDung;
+    private String maDonThuoc, maBenhAn, maThuoc, tenThuoc, maNhomThuoc, tenNhomThuoc, duongDung, cachDung;
     private int soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien;
 
-    public DonThuocModel(String maDonThuoc, String maBenhAn, String maBenhNhan, String maThuoc, String tenThuoc, String duongDung, String cachDung, int soNgay, int soLuong, int sang, int trua, int chieu, int toi, int donGia, int thanhTien) {
+    public DonThuocModel(String maDonThuoc, String maBenhAn, String maThuoc, String tenThuoc, String duongDung, String cachDung, int soNgay, int soLuong, int sang, int trua, int chieu, int toi, int donGia, int thanhTien) {
         this.maDonThuoc = maDonThuoc;
         this.maBenhAn = maBenhAn;
-        this.maBenhNhan = maBenhNhan;
         this.maThuoc = maThuoc;
         this.tenThuoc = tenThuoc;
         this.duongDung = duongDung;
@@ -23,10 +22,9 @@ public class DonThuocModel {
         this.thanhTien = thanhTien;
     }
 
-    public DonThuocModel(String maDonThuoc, String maBenhAn, String maBenhNhan, String maThuoc, String tenThuoc, String maNhomThuoc, String tenNhomThuoc, String duongDung, String cachDung, int soNgay, int soLuong, int sang, int trua, int chieu, int toi, int donGia, int thanhTien) {
+    public DonThuocModel(String maDonThuoc, String maBenhAn, String maThuoc, String tenThuoc, String maNhomThuoc, String tenNhomThuoc, String duongDung, String cachDung, int soNgay, int soLuong, int sang, int trua, int chieu, int toi, int donGia, int thanhTien) {
         this.maDonThuoc = maDonThuoc;
         this.maBenhAn = maBenhAn;
-        this.maBenhNhan = maBenhNhan;
         this.maThuoc = maThuoc;
         this.tenThuoc = tenThuoc;
         this.maNhomThuoc = maNhomThuoc;
@@ -81,14 +79,6 @@ public class DonThuocModel {
 
     public void setMaBenhAn(String maBenhAn) {
         this.maBenhAn = maBenhAn;
-    }
-
-    public String getMaBenhNhan() {
-        return maBenhNhan;
-    }
-
-    public void setMaBenhNhan(String maBenhNhan) {
-        this.maBenhNhan = maBenhNhan;
     }
 
     public String getMaThuoc() {

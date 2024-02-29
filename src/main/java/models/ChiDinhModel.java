@@ -38,6 +38,12 @@ public class ChiDinhModel {
         this.ketQua = ketQua;
     }
 
+    public ChiDinhModel(String maChiDinh, String maBacSi, String ketQua) {
+        this.maChiDinh = maChiDinh;
+        this.maBacSi = maBacSi;
+        this.ketQua = ketQua;
+    }
+
     public String getMaNhomDichVuCLS() {
         return maNhomDichVuCLS;
     }

@@ -91,16 +91,16 @@ public class ChiDinhCtrl {
         }
     }
 
-    public static String generateMaChiDinh() {
-        Date now = new Date();
+    public static void capNhatKetQua(ChiDinhModel kq) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("UPDATE CHIDINH SET MaBacSi=?, KetQua=? WHERE MaChiDinh=?")) {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
+            statement.setString(1, kq.getMaBacSi());
+            statement.setString(2, kq.getKetQua());
+            statement.setString(3, kq.getMaChiDinh());
 
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "CD" + timeString + randomNumber;
-        return randomString;
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

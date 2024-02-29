@@ -57,6 +57,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlChiDinh = new views.main.ChiDinh();
         pnlChonThuoc = new views.main.ChonThuoc();
         pnlBenhAn = new views.list.DSBenhAn();
+        pnlKetQuaCLS = new views.main.KetQuaCLS();
         jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -363,6 +364,7 @@ public class KhamBenh extends javax.swing.JPanel {
         jLayeredPane1.add(pnlChiDinh, "card4");
         jLayeredPane1.add(pnlChonThuoc, "card5");
         jLayeredPane1.add(pnlBenhAn, "card3");
+        jLayeredPane1.add(pnlKetQuaCLS, "card6");
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khám bệnh"));
@@ -502,6 +504,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(true);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnKhamLamSan.setBackground(new Color(0, 102, 255));
@@ -524,6 +527,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(true);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnChiDinh.setBackground(new Color(0, 102, 255));
@@ -546,6 +550,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(true);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnChonThuoc.setBackground(new Color(0, 102, 255));
@@ -568,6 +573,7 @@ public class KhamBenh extends javax.swing.JPanel {
         KhamLamSang.Instance.maBenhNhan = lblMaBenhNhan.getText();
         ChiDinh.Instance.maBenhNhan = lblMaBenhNhan.getText();
         ChonThuoc.Instance.maBenhNhan = lblMaBenhNhan.getText();
+        KetQuaCLS.Instance.maBenhNhan = lblMaBenhNhan.getText();
     }//GEN-LAST:event_lblMaBenhNhanPropertyChange
 
     private void lblNgayKhamPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNgayKhamPropertyChange
@@ -587,12 +593,16 @@ public class KhamBenh extends javax.swing.JPanel {
 
         ChonThuoc.Instance.maBenhAn = lblMaBenhAn.getText();
         ChonThuoc.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
+
+        KetQuaCLS.Instance.maBenhAn = lblMaBenhAn.getText();
+        KetQuaCLS.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
     }//GEN-LAST:event_lblMaBenhAnPropertyChange
 
     private void btnDSBenhAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSBenhAnMouseClicked
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(true);
 
         btnDSBenhAn.setBackground(new Color(0, 102, 255));
@@ -619,6 +629,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(true);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnKhamLamSan.setBackground(new Color(0, 102, 255));
@@ -641,6 +652,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(true);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnChiDinh.setBackground(new Color(0, 102, 255));
@@ -663,6 +675,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(true);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(false);
 
         btnChonThuoc.setBackground(new Color(0, 102, 255));
@@ -685,6 +698,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(false);
         pnlBenhAn.setVisible(true);
 
         btnDSBenhAn.setBackground(new Color(0, 102, 255));
@@ -707,6 +721,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(true);
         pnlBenhAn.setVisible(false);
 
         btnKetQuaCLS.setBackground(new Color(0, 102, 255));
@@ -729,6 +744,7 @@ public class KhamBenh extends javax.swing.JPanel {
         pnlKhamLamSan.setVisible(false);
         pnlChiDinh.setVisible(false);
         pnlChonThuoc.setVisible(false);
+        pnlKetQuaCLS.setVisible(true);
         pnlBenhAn.setVisible(false);
 
         btnKetQuaCLS.setBackground(new Color(0, 102, 255));
@@ -782,6 +798,7 @@ public class KhamBenh extends javax.swing.JPanel {
     private views.list.DSBenhAn pnlBenhAn;
     private views.main.ChiDinh pnlChiDinh;
     private views.main.ChonThuoc pnlChonThuoc;
+    private views.main.KetQuaCLS pnlKetQuaCLS;
     private views.main.KhamLamSang pnlKhamLamSan;
     // End of variables declaration//GEN-END:variables
 }

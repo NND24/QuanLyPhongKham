@@ -117,7 +117,7 @@ public class DangNhap extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(153, 255, 102));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/DangNhap/Form đăng nhập (2) (1).png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

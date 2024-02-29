@@ -16,6 +16,7 @@ import controllers.KhamLamSangCtrl;
 import models.BenhAnModel;
 import utils.Validator;
 import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
@@ -755,7 +756,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void btnLuuBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuBenhNhanActionPerformed
         try {
             // TODO add your handling code here:
-            String maBenhNhan = BenhNhanCtrl.generateMaBenhNhan();
+            String maBenhNhan = GenerateCode.generateMa("BN");
             String hoTen = txtHoTen.getText();
             String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
             String namSinh = txtNamSinh.getText();
@@ -830,7 +831,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
     private void btnLuuDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuDangKyActionPerformed
         try {
-            String maDangKy = DangKyCtrl.generateMaDangKy();
+            String maDangKy = GenerateCode.generateMa("DK");
             String maBenhNhan = txtMaBenhNhan.getText();
             String dichVuKham = cmbDichVu.getSelectedItem().toString();
             String phongKham = PhongKhamComboBox.getSelectedItem().toString();
