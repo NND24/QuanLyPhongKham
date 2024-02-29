@@ -17,12 +17,11 @@ import models.DonThuocModel;
 public class DonThuocCtrl {
 
     public static void themDonThuoc(DonThuocModel dt) throws ClassNotFoundException {
-        String sql = "INSERT INTO DONTHUOC (MaDonThuoc, MaBenhAn, MaBenhNhan, MaThuoc, TenThuoc, DuongDung, CachDung, SoNgay, SoLuong, Sang, Trua, Chieu, Toi, DonGia,ThanhTien) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO DONTHUOC (MaDonThuoc, MaBenhAn, MaThuoc, TenThuoc, DuongDung, CachDung, SoNgay, SoLuong, Sang, Trua, Chieu, Toi, DonGia,ThanhTien) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, dt.getMaDonThuoc());
             statement.setString(2, dt.getMaBenhAn());
-            statement.setString(3, dt.getMaBenhNhan());
             statement.setString(4, dt.getMaThuoc());
             statement.setString(5, dt.getTenThuoc());
             statement.setString(6, dt.getDuongDung());
@@ -44,9 +43,10 @@ public class DonThuocCtrl {
 
     public static List<DonThuocModel> timDonThuocTheoMa(String maBenhAn) throws ClassNotFoundException {
         List<DonThuocModel> dsDonThuoc = new ArrayList<>();
-        String sql = "SELECT DISTINCT MaDonThuoc,MaBenhAn, MaBenhNhan, DONTHUOC.MaThuoc,DONTHUOC.TenThuoc, NHOMTHUOC.MaNhomThuoc,NHOMTHUOC.TenNhomThuoc,CachDung,SoNgay,SoLuong,Sang,Trua,Chieu,Toi,DONTHUOC.DonGia,ThanhTien, THUOC.DuongDung "
-                + "FROM DONTHUOC,THUOC,NHOMTHUOC "
-                + "WHERE MaBenhAn=? AND DONTHUOC.MaThuoc=THUOC.MaThuoc AND THUOC.MaNhomThuoc=NHOMTHUOC.MaNhomThuoc";
+        String sql = """
+                     SELECT DISTINCT MaDonThuoc,MaBenhAn, DONTHUOC.MaThuoc,THUOC.TenThuoc, NHOMTHUOC.MaNhomThuoc,NHOMTHUOC.TenNhomThuoc,CachDung,SoNgay,SoLuong,Sang,Trua,Chieu,Toi,DONTHUOC.DonGia,ThanhTien, THUOC.DuongDung
+                     FROM DONTHUOC,THUOC,NHOMTHUOC
+                     WHERE MaBenhAn=? AND DONTHUOC.MaThuoc=THUOC.MaThuoc AND THUOC.MaNhomThuoc=NHOMTHUOC.MaNhomThuoc AND DONTHUOC.TrangThaiXoa=0 AND THUOC.TrangThaiXoa=0 AND NHOMTHUOC.TrangThaiXoa=0""";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, maBenhAn);
@@ -55,7 +55,7 @@ public class DonThuocCtrl {
                 while (resultSet.next()) {
                     DonThuocModel dt = new DonThuocModel(
                             resultSet.getString("MaDonThuoc"), resultSet.getString("MaBenhAn"),
-                            resultSet.getString("MaBenhNhan"), resultSet.getString("MaThuoc"),
+                            resultSet.getString("MaThuoc"),
                             resultSet.getString("TenThuoc"), resultSet.getString("MaNhomThuoc"),
                             resultSet.getString("TenNhomThuoc"), resultSet.getString("DuongDung"),
                             resultSet.getString("CachDung"), resultSet.getInt("SoNgay"),

@@ -72,17 +72,4 @@ public class DangKyCtrl {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public static String generateMaDangKy() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "DK" + timeString + randomNumber;
-        return randomString;
-    }
 }

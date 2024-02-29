@@ -18,6 +18,7 @@ import controllers.DichVuCLSCtrl;
 import controllers.NhomDichVuCLSCtrl;
 import models.DangKyModel;
 import utils.DialogHelper;
+import utils.GenerateCode;
 import utils.Validator;
 
 public class ChiDinh extends javax.swing.JPanel {
@@ -519,7 +520,7 @@ public class ChiDinh extends javax.swing.JPanel {
             } else if (!txtSoLan.getText().isEmpty() && !Validator.isIntegerString(txtSoLan.getText())) {
                 DialogHelper.showError("Số lần không hợp lệ");
             } else {
-                String maChiDinh = ChiDinhCtrl.generateMaChiDinh();
+                String maChiDinh = GenerateCode.generateMa("CD");
                 String maDichVu = cmbDichVuCLS.getSelectedItem().toString();
                 int soLuong = Integer.parseInt(txtSoLan.getText());
                 int donGia = Integer.parseInt(txtDonGia.getText());

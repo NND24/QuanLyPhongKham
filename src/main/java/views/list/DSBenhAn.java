@@ -19,6 +19,7 @@ import views.main.KhamLamSang;
 import views.main.ChiDinh;
 import views.main.ChonThuoc;
 import utils.DialogHelper;
+import views.main.KetQuaCLS;
 
 public class DSBenhAn extends javax.swing.JPanel {
 
@@ -348,6 +349,9 @@ public class DSBenhAn extends javax.swing.JPanel {
                 try {
                     ChiDinh.Instance.dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(ba.getMaBenhAn());
                     ChiDinh.Instance.hienThiDSDichvu();
+
+                    KetQuaCLS.Instance.dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(ba.getMaBenhAn());
+                    KetQuaCLS.Instance.hienThiDSDichvu();
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(DSBenhAn.class.getName()).log(Level.SEVERE, null, ex);
                 }

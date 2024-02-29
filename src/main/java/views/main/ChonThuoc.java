@@ -579,38 +579,27 @@ public class ChonThuoc extends javax.swing.JPanel {
             if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
                 DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
             } else if (txtSoLuong.getText().isEmpty()) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Số lượng không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số lượng không được để trống");
             } else if (txtSoLuong.getText().equals("0")) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số lượng phải lớn hơn 0");
             } else if (txtDonGia.getText().isEmpty()) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Đơn giá không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Đơn giá không được để trống");
             } else if (txtSoNgay.getText().isEmpty()) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Số ngày không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số ngày không được để trống");
             } else if (txtSoNgay.getText().equals("0")) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Số ngày phải lớn hơn không", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số ngày phải lớn hơn không");
             } else if (!txtSoNgay.getText().isEmpty() && !Validator.isIntegerString(txtSoNgay.getText())) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Số ngày không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số ngày không hợp lệ");
             } else if (!txtSoLuong.getText().isEmpty() && !Validator.isIntegerString(txtSoLuong.getText())) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số lượng không hợp lệ");
             } else if (!txtSang.getText().isEmpty() && !Validator.isIntegerString(txtSang.getText())) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Sáng không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Sáng không hợp lệ");
             } else if (!txtTrua.getText().isEmpty() && !Validator.isIntegerString(txtTrua.getText())) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Trưa không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Trưa không hợp lệ");
             } else if (!txtChieu.getText().isEmpty() && !Validator.isIntegerString(txtChieu.getText())) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Chiều không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Chiều không hợp lệ");
             } else if (!txtToi.getText().isEmpty() && !Validator.isIntegerString(txtToi.getText())) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Tối không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Tối không hợp lệ");
             } else {
                 String maDonThuoc = DonThuocCtrl.generateMaDonThuoc();
                 String tenThuoc = txtTenThuoc.getText();
@@ -628,19 +617,15 @@ public class ChonThuoc extends javax.swing.JPanel {
                 int tong = soNgay * (sang + trua + chieu + toi);
 
                 if (thuoc.equals("---Thuốc---")) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Chọn thuốc không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Chọn thuốc không được để trống");
                 } else if (tenThuoc.isEmpty()) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Tên thuốc không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Tên thuốc không được để trống");
                 } else if (duongDung.isEmpty()) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Đường dùng không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Đường dùng không được để trống");
                 } else if (soLuong != tong) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Số lượng = số ngày x (sáng + trưa + chiều + tối)", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Số lượng = số ngày x (sáng + trưa + chiều + tối)");
                 } else {
-                    DonThuocModel dt = new DonThuocModel(maDonThuoc, maBenhAn, maBenhNhan, thuoc.split(" ")[0], tenThuoc, duongDung, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
+                    DonThuocModel dt = new DonThuocModel(maDonThuoc, maBenhAn, thuoc.split(" ")[0], tenThuoc, duongDung, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
                     DonThuocCtrl.themDonThuoc(dt);
                     dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
                     hienThiDSDonThuoc();
@@ -656,20 +641,9 @@ public class ChonThuoc extends javax.swing.JPanel {
         int selectedIndex = tblDSDonThuoc.getSelectedRow();
         if (selectedIndex >= 0) {
             try {
-                boolean flag = DialogHelper.showConfirmation(maBenhAn);
-                String[] options = {"Đồng ý", "Thoát"};
-                int option = JOptionPane.showOptionDialog(
-                        null,
-                        "Bạn có chắc muốn đơn xóa thuốc này",
-                        "Cảnh báo",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE,
-                        null,
-                        options,
-                        options[1]
-                );
+                boolean flag = DialogHelper.showConfirmation("Bạn có chắc muốn đơn xóa thuốc này");
 
-                if (option == 0) {
+                if (flag) {
                     DonThuocModel dt = dsDonThuoc.get(selectedIndex);
                     DonThuocCtrl.xoaThuocKhoiDon(dt.getMaDonThuoc());
                     dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
@@ -681,8 +655,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            DialogHelper.showError(maBenhAn);
-            JOptionPane.showMessageDialog(null, "Chưa có dòng nào được chọn", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Chưa có dòng nào được chọn");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -703,8 +676,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private void cmbNhomThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhomThuocActionPerformed
         if (maBenhAn != null) {
             if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-                DialogHelper.showError(maBenhAn);
-                JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
             } else {
                 if (cmbThuoc.getSelectedItem() != null && cmbNhomThuoc.getSelectedItem() != null) {
                     if (cmbNhomThuoc.getSelectedItem().toString().equals("---Nhóm thuốc---")) {
@@ -742,41 +714,29 @@ public class ChonThuoc extends javax.swing.JPanel {
         if (selectedIndex >= 0) {
             try {
                 if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
                 } else if (txtSoLuong.getText().isEmpty()) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Số lượng không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Số lượng không được để trống");
                 } else if (txtSoLuong.getText().equals("0")) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Số lượng phải lớn hơn 0");
                 } else if (txtDonGia.getText().isEmpty()) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Đơn giá không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Đơn giá không được để trống");
                 } else if (txtSoNgay.getText().isEmpty()) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Số ngày không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Số ngày không được để trống");
                 } else if (txtSoNgay.getText().equals("0")) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Số ngày phải lớn hơn không", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Số ngày phải lớn hơn không");
                 } else if (!txtSoNgay.getText().isEmpty() && !Validator.isIntegerString(txtSoNgay.getText())) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Số ngày không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Số ngày không hợp lệ");
                 } else if (!txtSoLuong.getText().isEmpty() && !Validator.isIntegerString(txtSoLuong.getText())) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Số lượng không hợp lệ");
                 } else if (!txtSang.getText().isEmpty() && !Validator.isIntegerString(txtSang.getText())) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Sáng không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Sáng không hợp lệ");
                 } else if (!txtTrua.getText().isEmpty() && !Validator.isIntegerString(txtTrua.getText())) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Trưa không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Trưa không hợp lệ");
                 } else if (!txtChieu.getText().isEmpty() && !Validator.isIntegerString(txtChieu.getText())) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Chiều không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Chiều không hợp lệ");
                 } else if (!txtToi.getText().isEmpty() && !Validator.isIntegerString(txtToi.getText())) {
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Tối không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Tối không hợp lệ");
                 } else {
                     DonThuocModel dt = dsDonThuoc.get(selectedIndex);
 
@@ -796,19 +756,15 @@ public class ChonThuoc extends javax.swing.JPanel {
                     int tong = soNgay * (sang + trua + chieu + toi);
 
                     if (thuoc.equals("---Thuốc---")) {
-                        DialogHelper.showError(maBenhAn);
-                        JOptionPane.showMessageDialog(null, "Chọn thuốc không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                        DialogHelper.showError("Chọn thuốc không được để trống");
                     } else if (tenThuoc.isEmpty()) {
-                        DialogHelper.showError(maBenhAn);
-                        JOptionPane.showMessageDialog(null, "Tên thuốc không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                        DialogHelper.showError("Tên thuốc không được để trống");
                     } else if (duongDung.isEmpty()) {
-                        DialogHelper.showError(maBenhAn);
-                        JOptionPane.showMessageDialog(null, "Đường dùng không được để trống", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                        DialogHelper.showError("Đường dùng không được để trống");
                     } else if (soLuong != tong) {
-                        DialogHelper.showError(maBenhAn);
-                        JOptionPane.showMessageDialog(null, "Số lượng = số ngày x (sáng + trưa + chiều + tối)", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                        DialogHelper.showError("Số lượng = số ngày x (sáng + trưa + chiều + tối)");
                     } else {
-                        DonThuocModel donThuoc = new DonThuocModel(maDonThuoc, maBenhAn, maBenhNhan, thuoc.split(" ")[0], tenThuoc, duongDung, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
+                        DonThuocModel donThuoc = new DonThuocModel(maDonThuoc, maBenhAn, thuoc.split(" ")[0], tenThuoc, duongDung, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
                         DonThuocCtrl.capNhatDonThuoc(donThuoc);
                         dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
                         hienThiDSDonThuoc();
@@ -819,7 +775,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa có dòng nào được chọn", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Chưa có dòng nào được chọn");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -851,8 +807,7 @@ public class ChonThuoc extends javax.swing.JPanel {
 
     private void btnKetThucKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucKhamActionPerformed
         if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-            DialogHelper.showError(maBenhAn);
-            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
         } else {
             try {
                 BenhAnModel benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
@@ -860,8 +815,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 try {
                     DangKyModel dk = new DangKyModel(benhAn.getMaDangKy(), "Đã khám");
                     DangKyCtrl.capNhatTrangThai(dk);
-                    DialogHelper.showError(maBenhAn);
-                    JOptionPane.showMessageDialog(null, "Kết thúc khám bệnh thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    DialogHelper.showMessage("Kết thúc khám bệnh thành công!");
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -874,8 +828,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private void txtSoNgayFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoNgayFocusLost
         String soNgay = txtSoNgay.getText();
         if (!soNgay.isEmpty() && !Validator.isIntegerString(soNgay)) {
-            DialogHelper.showError(maBenhAn);
-            JOptionPane.showMessageDialog(null, "Số ngày không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Số ngày không hợp lệ");
             txtSoNgay.requestFocus();
         }
     }//GEN-LAST:event_txtSoNgayFocusLost
@@ -883,7 +836,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private void txtSoLuongFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLuongFocusLost
         String soLuong = txtSoLuong.getText();
         if (!soLuong.isEmpty() && !Validator.isIntegerString(soLuong)) {
-            JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Số lượng không hợp lệ");
             txtSoLuong.requestFocus();
         }
     }//GEN-LAST:event_txtSoLuongFocusLost
@@ -891,8 +844,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private void txtSangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSangFocusLost
         String sang = txtSang.getText();
         if (!sang.isEmpty() && !Validator.isIntegerString(sang)) {
-            DialogHelper.showError(maBenhAn);
-            JOptionPane.showMessageDialog(null, "Sáng không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Sáng không hợp lệ");
             txtSang.requestFocus();
         }
     }//GEN-LAST:event_txtSangFocusLost
@@ -900,8 +852,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private void txtTruaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTruaFocusLost
         String trua = txtTrua.getText();
         if (!trua.isEmpty() && !Validator.isIntegerString(trua)) {
-            DialogHelper.showError(maBenhAn);
-            JOptionPane.showMessageDialog(null, "Trưa không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Trưa không hợp lệ");
             txtTrua.requestFocus();
         }
     }//GEN-LAST:event_txtTruaFocusLost
@@ -909,8 +860,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private void txtChieuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChieuFocusLost
         String chieu = txtChieu.getText();
         if (!chieu.isEmpty() && !Validator.isIntegerString(chieu)) {
-            DialogHelper.showError(maBenhAn);
-            JOptionPane.showMessageDialog(null, "Chiều không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Chiều không hợp lệ");
             txtChieu.requestFocus();
         }
     }//GEN-LAST:event_txtChieuFocusLost
@@ -918,8 +868,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private void txtToiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtToiFocusLost
         String toi = txtToi.getText();
         if (!toi.isEmpty() && !Validator.isIntegerString(toi)) {
-            DialogHelper.showError(maBenhAn);
-            JOptionPane.showMessageDialog(null, "Tối không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Tối không hợp lệ");
             txtToi.requestFocus();
         }
     }//GEN-LAST:event_txtToiFocusLost

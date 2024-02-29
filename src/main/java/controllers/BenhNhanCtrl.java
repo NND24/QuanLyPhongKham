@@ -335,16 +335,4 @@ public class BenhNhanCtrl {
         return flag;
     }
 
-    public static String generateMaBenhNhan() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "BN" + timeString + randomNumber;
-        return randomString;
-    }
 }
