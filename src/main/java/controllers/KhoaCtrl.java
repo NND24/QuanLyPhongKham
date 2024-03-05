@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,11 +50,11 @@ public class KhoaCtrl {
         }
         return dsKhoa;
     }
-
+    
     public static List<KhoaModel> hienThiCacKhoaConHoatDong() throws ClassNotFoundException {
         List<KhoaModel> dsKhoa = new ArrayList<>();
         try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
-            String sql = "SELECT * FROM KHOA WHERE TrangThaiXoa=0 AND TrangThai = 'Kích hoạt'";
+            String sql = "SELECT * FROM KHOA WHERE TrangThaiXoa=0";
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
