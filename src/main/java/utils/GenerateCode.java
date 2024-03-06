@@ -26,7 +26,8 @@ public class GenerateCode {
     //tạo mật khẩu
     public static String generatePassword(String ma, String namSinh) {
         String password = ma + "#" + namSinh;
-        return password;
+        String hashPassword = PasswordHashing.hashPassword(password);
+        return hashPassword;
     }
     
     //tạo email
