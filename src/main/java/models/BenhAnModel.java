@@ -41,6 +41,21 @@ public class BenhAnModel extends BenhNhanModel {
         this.lyDoKham = lyDoKham;
     }
 
+    public BenhAnModel(String maBenhAn, String ngayKham, int tongTien, int daThu, String maBenhNhan, String hoTen, String gioiTinh, String namSinh) {
+        super(maBenhNhan, hoTen, gioiTinh, namSinh);
+        this.maBenhAn = maBenhAn;
+        this.ngayKham = ngayKham;
+        this.tongTien = tongTien;
+        this.daThu = daThu;
+    }
+
+    public BenhAnModel(String maBenhAn, int tongTien, int daThu) {
+        super();
+        this.maBenhAn = maBenhAn;
+        this.tongTien = tongTien;
+        this.daThu = daThu;
+    }
+
     public String getMaBenhAn() {
         return maBenhAn;
     }

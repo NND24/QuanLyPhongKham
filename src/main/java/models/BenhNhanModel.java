@@ -4,6 +4,9 @@ public class BenhNhanModel {
 
     private String maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, bhyt, soDienThoai, ngheNghiep, danToc, quocTich;
 
+    public BenhNhanModel() {
+    }
+
     public BenhNhanModel(String maBenhNhan, String hoTen, String gioiTinh, String namSinh, String diaChi, String canCuoc, String bhyt, String soDienThoai, String ngheNghiep, String danToc, String quocTich) {
         this.maBenhNhan = maBenhNhan;
         this.hoTen = hoTen;

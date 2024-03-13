@@ -10,10 +10,10 @@ import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import models.BenhNhanModel;
 import models.DangKyModel;
+import models.BenhAnModel;
 import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
 import controllers.KhamLamSangCtrl;
-import models.BenhAnModel;
 import utils.Validator;
 import utils.DialogHelper;
 import utils.GenerateCode;
@@ -860,7 +860,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 String maKhamLamSang = KhamLamSangCtrl.generateMaKhamLamSang();
                 KhamLamSangCtrl.themMaKhamLamSang(maKhamLamSang);
 
-                String maBenhAn = BenhAnCtrl.generateMaBenhAn();
+                String maBenhAn = GenerateCode.generateMa("BA");
                 BenhAnModel ba = new BenhAnModel(maBenhAn, maDangKy, maKhamLamSang, maBenhNhan);
                 BenhAnCtrl.themBenhAn(ba);
             }
