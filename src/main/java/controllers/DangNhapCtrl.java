@@ -67,8 +67,9 @@ public class DangNhapCtrl {
     
     public static void doiMatKhau(String email, String password) throws ClassNotFoundException {
         String sql = "UPDATE TaiKhoan SET MatKhau=? WHERE Email=?";
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){                  
-            statement.setString(1, password);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){  
+            String newHashPassword = PasswordHashing.hashPassword(password);
+            statement.setString(1, newHashPassword);
             statement.setString(2, email);  
             statement.executeUpdate();
 

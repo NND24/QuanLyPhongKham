@@ -11,4 +11,10 @@ public class PasswordHashing {
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
     
+    public static void main(String[] args) {
+        String mk = "1q2341";
+        String hashPass = hashPassword(mk);
+        System.out.println(checkPassword("1q2341", hashPass));
+    }
+    
 }
