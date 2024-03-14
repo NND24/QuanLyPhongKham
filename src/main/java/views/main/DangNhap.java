@@ -1,8 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views.main;
+
+import controllers.DangNhapCtrl;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
+import utils.DialogHelper;
+import utils.GenerateVerifyCode;
+import utils.SendEmail;
 
 /**
  *
@@ -13,8 +20,25 @@ public class DangNhap extends javax.swing.JFrame {
     /**
      * Creates new form DangNhap
      */
+    public static String currentEmail;
+    public static String verifyCode;
+
     public DangNhap() {
         initComponents();
+        txtEmail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnDangNhapActionPerformed(e);
+
+            }
+        });
+
+        txtPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnDangNhapActionPerformed(e);
+            }
+        });
     }
 
     /**
@@ -30,10 +54,10 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        cboShowPassword = new javax.swing.JCheckBox();
+        txtPassword = new javax.swing.JPasswordField();
         btnDangNhap = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        lblQuenMatKhau = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,25 +73,33 @@ public class DangNhap extends javax.swing.JFrame {
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        jCheckBox1.setText("Hiện thị mật khẩu");
+        cboShowPassword.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        cboShowPassword.setText("Hiện thị mật khẩu");
+        cboShowPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboShowPasswordActionPerformed(evt);
+            }
+        });
 
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         btnDangNhap.setBackground(new java.awt.Color(0, 102, 255));
         btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 51, 255));
-        jButton1.setText("Quên mật khẩu");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDangNhapActionPerformed(evt);
+            }
+        });
+
+        lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lblQuenMatKhau.setForeground(new java.awt.Color(0, 0, 255));
+        lblQuenMatKhau.setText("Quên mật khẩu");
+        lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMatKhauMouseClicked(evt);
             }
         });
 
@@ -76,22 +108,24 @@ public class DangNhap extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(txtEmail))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(71, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(txtEmail)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cboShowPassword)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblQuenMatKhau)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,11 +137,11 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel3)
                 .addGap(10, 10, 10)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jButton1))
+                    .addComponent(cboShowPassword)
+                    .addComponent(lblQuenMatKhau))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(btnDangNhap)
                 .addGap(24, 24, 24))
@@ -122,9 +156,81 @@ public class DangNhap extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cboShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboShowPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (cboShowPassword.isSelected()) {
+            txtPassword.setEchoChar((char) 0);
+        } else {
+            txtPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_cboShowPasswordActionPerformed
+
+    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
+        // TODO add your handling code here:
+        currentEmail = txtEmail.getText();
+        DangNhapCtrl.currentEmail = currentEmail;
+        char[] passwordChars = txtPassword.getPassword();
+        String password = String.valueOf(passwordChars);
+        if (currentEmail.isEmpty() || password.isEmpty()) {
+            DialogHelper.showError("Email hoặc mật khẩu không được để trống!");
+        } else try {
+            if (!DangNhapCtrl.kiemTraEmailCoTonTai(currentEmail)) {
+                DialogHelper.showError("Email không có trong hệ thống!");
+            } else {
+                boolean flag = DangNhapCtrl.kiemTraPasswordCoChinhXac(currentEmail, password);
+                if (flag) {
+                    String chucVu = DangNhapCtrl.traVeChucVu(currentEmail);
+                    switch (chucVu) {
+                        case "BS" -> {
+                            new QuanLy().setVisible(true);
+                            this.dispose();
+                        }
+                        case "QL" -> {
+                            // Đăng nhập cho Nhân viên
+                            new QuanLy().setVisible(true);
+                            this.dispose();
+                        }
+                        case "YT" -> {
+                            // đăng nhập cho Quản Lý
+                            new QuanLy().setVisible(true);
+                            this.dispose();
+                        }
+                        default ->
+                            DialogHelper.showError("Email hoặc mật khẩu không chính xác!");
+                    }
+                } else {
+                    DialogHelper.showError("Mật khẩu không chính xác");
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDangNhapActionPerformed
+
+    private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
+        // TODO add your handling code here:
+        verifyCode = GenerateVerifyCode.generateRandomCode();
+        String email = txtEmail.getText();
+        if (email.isEmpty()) {
+            DialogHelper.showError("Email không được để trống!");
+        } else try {
+            if (!DangNhapCtrl.kiemTraEmailCoTonTai(email)) {
+                DialogHelper.showError("Email không có trong hệ thông!");
+            } else {
+                currentEmail = email;
+                try {
+                    SendEmail.sendEmail(verifyCode, email);
+                } catch (MessagingException | UnsupportedEncodingException ex) {
+                    Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                new NhapMaXacNhan().setVisible(true);
+                this.setVisible(false);
+                System.out.println(verifyCode);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblQuenMatKhauMouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,13 +269,13 @@ public class DangNhap extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox cboShowPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JLabel lblQuenMatKhau;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

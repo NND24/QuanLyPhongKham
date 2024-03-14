@@ -195,7 +195,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
                 try {
                     System.out.println(DangNhapCtrl.currentEmail);
                     DangNhapCtrl.doiMatKhau(email, newPassword);
-                    DialogHelper.showError("Đổi mật khẩu thành công");
+                    DialogHelper.showMessage("Đổi mật khẩu thành công");
                     this.setVisible(false);
                     new DangNhap().setVisible(true);
                     System.out.println(newPassword);
