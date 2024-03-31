@@ -58,7 +58,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         cmbTrangThai = new javax.swing.JComboBox<>();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
-        btnNhapMoi = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         btnXuatDS = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -112,6 +112,11 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         txtMaNhomThuoc.setEditable(false);
 
         cmbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kích hoạt", "Ẩn" }));
+        cmbTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTrangThaiActionPerformed(evt);
+            }
+        });
 
         btnThem.setBackground(new java.awt.Color(0, 102, 255));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -139,16 +144,16 @@ public class DSNhomThuoc extends javax.swing.JFrame {
             }
         });
 
-        btnNhapMoi.setBackground(new java.awt.Color(0, 102, 255));
-        btnNhapMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnNhapMoi.setForeground(new java.awt.Color(255, 255, 255));
-        btnNhapMoi.setText("Nhập mới");
-        btnNhapMoi.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnNhapMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNhapMoi.setPreferredSize(new java.awt.Dimension(80, 30));
-        btnNhapMoi.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setBackground(new java.awt.Color(0, 102, 255));
+        btnLamMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLamMoi.setForeground(new java.awt.Color(255, 255, 255));
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLamMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(80, 30));
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhapMoiActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
 
@@ -234,7 +239,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
                                 .addGap(30, 30, 30)
                                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(btnNhapMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(btnXuatDS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -270,7 +275,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNhapMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXuatDS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
@@ -295,21 +300,75 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNhapMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapMoiActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnNhapMoiActionPerformed
+        try {
+            lamMoi();
+            hienThiTatCaNhomThuoc();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        String maNhomThuoc = NhomThuocCtrl.generateMaNhomThuoc();
+        String tenNhomThuoc = txtTenNhomThuoc.getText();
+        String trangThai = cmbTrangThai.getSelectedItem().toString();
         
+       if (tenNhomThuoc.isEmpty()){
+           JOptionPane.showMessageDialog(null, "tên nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+       }else{
+           try {
+               NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
+               NhomThuocCtrl.ThemNhomThuoc(nt);
+               lamMoi();
+               hienThiTatCaNhomThuoc();
+           } catch (ClassNotFoundException ex) {
+               Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
     }//GEN-LAST:event_btnThemActionPerformed
-
+    
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+       try{
+            String maNhomThuoc = txtMaNhomThuoc.getText();
         
+            if (maNhomThuoc.isEmpty()){
+                JOptionPane.showMessageDialog(null, "chưa có nhóm thuốc cần chọn để xóa", "cảnh báo",JOptionPane.WARNING_MESSAGE);
+            }else{
+                String[] options = {"Đồng ý, Thoát"};
+                int option = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc muốn xóa nhóm thuốc này không",
+                        "Cảnh báo",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[1]
+                );
+                if (option == 0){
+                    NhomThuocCtrl.XoaNhomThuoc(maNhomThuoc);
+
+                    lamMoi();
+                    hienThiTatCaNhomThuoc();
+                }
+            }
+        }catch(ClassNotFoundException ex){
+           Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
+    
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void cmbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTrangThaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTrangThaiActionPerformed
 
     private void tblDSNhomThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSNhomThuocMouseClicked
+        // TODO add your handling code here:
         int selectedIndex = tblDSNhomThuoc.getSelectedRow();
         if (selectedIndex >= 0) {
             NhomThuocModel nt = dsNhomThuoc.get(selectedIndex);
@@ -321,17 +380,13 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     }//GEN-LAST:event_tblDSNhomThuocMouseClicked
 
     private void btnXuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSActionPerformed
+        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnXuatDSActionPerformed
 
     private void txttimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKiemKeyTyped
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_txttimKiemKeyTyped
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        
-    }//GEN-LAST:event_btnSuaActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -342,7 +397,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNhapMoi;
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
