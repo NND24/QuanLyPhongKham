@@ -7,15 +7,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.BenhAnModel;
+import models.BacSiModel;
 
 public class BenhAnCtrl {
+
+    public static BacSiModel layThongTinBacSiTheoEmail(String maBenhAn) throws ClassNotFoundException {
+        BacSiModel bacSi = null;
+        String sql = "SELECT MaBacSi, HoTen FROM BACSI WHERE TrangThaiXoa='0' AND Email=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maBenhAn);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    bacSi = new BacSiModel(
+                            resultSet.getString("MaBacSi"),
+                            resultSet.getString("HoTen")
+                    );
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return bacSi;
+    }
 
     public static void themBenhAn(BenhAnModel ba) throws ClassNotFoundException {
         String sql = "INSERT INTO BENHAN (MaBenhAn, MaBenhNhan, MaDangKy, MaKhamLamSang) VALUES (?, ?, ?, ?)";

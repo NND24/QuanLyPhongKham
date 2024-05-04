@@ -8,11 +8,11 @@ import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import models.DangKyModel;
 import models.DangKyBenhNhanModel;
-import views.main.KhamBenh;
-import views.main.KhamLamSang;
 import controllers.DangKyCtrl;
 import controllers.DangKyBenhNhanCtrl;
 import controllers.BenhAnCtrl;
+import views.main.KhamBenh;
+import views.main.KhamLamSang;
 import utils.DialogHelper;
 
 public class DSDangKy extends javax.swing.JPanel {
@@ -506,7 +506,6 @@ public class DSDangKy extends javax.swing.JPanel {
 
     private void btnBatDauKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatDauKhamActionPerformed
         try {
-            // TODO add your handling code here:
             String maBenhNhan = txtMaBenhNhan.getText();
             String hoTen = txtHoTen.getText();
             String gioiTinh = txtGioiTinh.getText();

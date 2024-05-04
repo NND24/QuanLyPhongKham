@@ -4,19 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.IOException;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.DangKyModel;
+import models.KhamLamSangModel;
 import models.ChiDinhModel;
 import models.BenhNhanModel;
-import models.DichVuCLSModel;
-import models.NhomDichVuCLSModel;
+import models.DichVuCLSModelTest;
+import models.NhomDichVuCLSModelTest;
 import models.BenhAnModel;
 import controllers.BenhAnCtrl;
 import controllers.DangKyCtrl;
 import controllers.BenhNhanCtrl;
 import controllers.ChiDinhCtrl;
-import controllers.DichVuCLSCtrl;
-import controllers.NhomDichVuCLSCtrl;
-import models.DangKyModel;
+import controllers.DichVuCLSCtrlTest;
+import controllers.KhamLamSangCtrl;
+import controllers.NhomDichVuCLSCtrlTest;
+import pdfForm.GenerateChiDinh;
 import utils.DialogHelper;
 import utils.GenerateCode;
 import utils.Validator;
@@ -28,7 +34,8 @@ public class ChiDinh extends javax.swing.JPanel {
 
     DefaultTableModel tableModel;
     public List<ChiDinhModel> dsChiDinh = new ArrayList<>();
-    List<DichVuCLSModel> dsDichVu = new ArrayList<>();
+    List<NhomDichVuCLSModelTest> dsNhomDichVu = new ArrayList<>();
+    List<DichVuCLSModelTest> dsDichVuCLS = new ArrayList<>();
 
     public ChiDinh() {
         initComponents();
@@ -39,14 +46,10 @@ public class ChiDinh extends javax.swing.JPanel {
 
     private void hienThiDSNhomDV() {
         try {
-            List<NhomDichVuCLSModel> dsNhomDichVu = NhomDichVuCLSCtrl.timTatNhomDichVuCLS();
+            dsNhomDichVu = NhomDichVuCLSCtrlTest.timTatNhomDichVuCLS();
             cmbNhomDichVuCLS.removeAllItems();
-            cmbNhomDichVuCLS.addItem("---Nhóm dịch vụ---");
             dsNhomDichVu.forEach(ndv -> {
-                if (ndv.getTrangThai().equals("Kích hoạt")) {
-                    String nhomDichVu = ndv.getMaNhomDichVu() + " " + ndv.getTenNhomDichVu();
-                    cmbNhomDichVuCLS.addItem(nhomDichVu);
-                }
+                cmbNhomDichVuCLS.addItem(ndv.getTenNhomDichVuCLS());
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,6 +183,11 @@ public class ChiDinh extends javax.swing.JPanel {
         btnInChiDinh.setForeground(new java.awt.Color(255, 255, 255));
         btnInChiDinh.setText("In chỉ định");
         btnInChiDinh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnInChiDinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInChiDinhActionPerformed(evt);
+            }
+        });
 
         jPanel2.setPreferredSize(new java.awt.Dimension(88, 35));
 
@@ -442,58 +450,56 @@ public class ChiDinh extends javax.swing.JPanel {
     }//GEN-LAST:event_TongChiDinhPanelMouseMoved
 
     private void cmbNhomDichVuCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhomDichVuCLSActionPerformed
-        try {
-            if (maBenhAn != null) {
-                if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-                    DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
-                } else {
-                    if (cmbNhomDichVuCLS.getSelectedItem() != null) {
-                        if (cmbNhomDichVuCLS.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
-                            txtTenDichVu.setText("");
-                            txtDonGia.setText("0");
-                            txtSoLan.setText("");
-                            txtGhiChu.setText("");
-                        } else {
-                            String maNhomDichVu = cmbNhomDichVuCLS.getSelectedItem().toString().split(" ")[0];
+        if (maBenhAn != null) {
+            if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+                DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
+            } else {
+                if (cmbNhomDichVuCLS.getSelectedItem() != null) {
+                    if (cmbNhomDichVuCLS.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
+                        txtTenDichVu.setText("");
+                        txtDonGia.setText("0");
+                        txtSoLan.setText("");
+                        txtGhiChu.setText("");
+                    } else {
+                        try {
+                            int nhomDichVuIndex = cmbNhomDichVuCLS.getSelectedIndex();
+                            String maNhomDichVu = dsNhomDichVu.get(nhomDichVuIndex).getMaNhomDichVuCLS();
 
-                            dsDichVu.clear();
+                            dsDichVuCLS.clear();
                             cmbDichVuCLS.removeAllItems();
-                            cmbDichVuCLS.addItem("---Dịch vụ---");
-                            dsDichVu = DichVuCLSCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVu);
-                            dsDichVu.forEach(dv -> {
-                                if (dv.getTrangThai().equals("Kích hoạt")) {
-                                    String dichVu = dv.getMaDichVu() + " " + dv.getTenDichVu();
-                                    cmbDichVuCLS.addItem(dichVu);
-                                }
+                            dsDichVuCLS = DichVuCLSCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVu);
+                            dsDichVuCLS.forEach(dv -> {
+                                cmbDichVuCLS.addItem(dv.getTenDichVuCLS());
                             });
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cmbNhomDichVuCLSActionPerformed
 
     private void cmbDichVuCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDichVuCLSActionPerformed
-        // TODO add your handling code here:
         try {
             if (cmbDichVuCLS.getSelectedItem() != null) {
                 if (!cmbDichVuCLS.getSelectedItem().toString().equals("---Dịch vụ---")) {
                     BenhNhanModel benhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
 
                     if (benhNhan.getBhyt() == null || benhNhan.getBhyt().equals("")) {
-                        String maDichVu = cmbDichVuCLS.getSelectedItem().toString().split(" ")[0];
-                        dsDichVu = DichVuCLSCtrl.timTatCaDichVuTheoMa(maDichVu);
-                        dsDichVu.forEach(dv -> {
-                            txtTenDichVu.setText(dv.getTenDichVu());
+                        int dichVuIndex = cmbDichVuCLS.getSelectedIndex();
+                        String maDichVuCLS = dsDichVuCLS.get(dichVuIndex).getMaDichVuCLS();
+                        dsDichVuCLS = DichVuCLSCtrlTest.timTatCaDichVuTheoMa(maDichVuCLS);
+                        dsDichVuCLS.forEach(dv -> {
+                            txtTenDichVu.setText(dv.getTenDichVuCLS());
                             txtDonGia.setText(Integer.toString(dv.getGiaTien()));
                         });
                     } else {
-                        String maDichVu = cmbDichVuCLS.getSelectedItem().toString().split(" ")[0];
-                        dsDichVu = DichVuCLSCtrl.timTatCaDichVuTheoMa(maDichVu);
-                        dsDichVu.forEach(dv -> {
-                            txtTenDichVu.setText(dv.getTenDichVu());
+                        int dichVuIndex = cmbDichVuCLS.getSelectedIndex();
+                        String maDichVuCLS = dsDichVuCLS.get(dichVuIndex).getMaDichVuCLS();
+                        dsDichVuCLS = DichVuCLSCtrlTest.timTatCaDichVuTheoMa(maDichVuCLS);
+                        dsDichVuCLS.forEach(dv -> {
+                            txtTenDichVu.setText(dv.getTenDichVuCLS());
                             txtDonGia.setText(Integer.toString(dv.getGiaBaoHiem()));
                         });
                     }
@@ -521,13 +527,14 @@ public class ChiDinh extends javax.swing.JPanel {
                 DialogHelper.showError("Số lần không hợp lệ");
             } else {
                 String maChiDinh = GenerateCode.generateMa("CD");
-                String maDichVu = cmbDichVuCLS.getSelectedItem().toString();
+                int dichVuCLSIndex = cmbDichVuCLS.getSelectedIndex();
+                String maDichVuCLS = dsDichVuCLS.get(dichVuCLSIndex).getMaDichVuCLS();
                 int soLuong = Integer.parseInt(txtSoLan.getText());
                 int donGia = Integer.parseInt(txtDonGia.getText());
                 int thanhTien = soLuong * donGia;
                 String ghiChu = txtGhiChu.getText();
 
-                ChiDinhModel cd = new ChiDinhModel(maChiDinh, maBacSi, maBenhAn, maDichVu.split(" ")[0], soLuong, donGia, thanhTien, ghiChu);
+                ChiDinhModel cd = new ChiDinhModel(maChiDinh, maBacSi, maBenhAn, maDichVuCLS, soLuong, donGia, thanhTien, ghiChu);
                 ChiDinhCtrl.themChiDinh(cd);
                 dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(maBenhAn);
                 hienThiDSDichvu();
@@ -556,9 +563,7 @@ public class ChiDinh extends javax.swing.JPanel {
         int selectedIndex = tblDSChiDinh.getSelectedRow();
         if (selectedIndex >= 0) {
             try {
-                boolean flag = DialogHelper.showConfirmation("Bạn có chắc muốn xóa chỉ định này");
-
-                if (flag) {
+                if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa chỉ định này")) {
                     ChiDinhModel cd = dsChiDinh.get(selectedIndex);
                     ChiDinhCtrl.xoaChiDinh(cd.getMaChiDinh());
                     dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(maBenhAn);
@@ -576,13 +581,12 @@ public class ChiDinh extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaChiDinhActionPerformed
 
     private void tblDSChiDinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSChiDinhMouseClicked
-        // TODO add your handling code here:
         int selectedIndex = tblDSChiDinh.getSelectedRow();
         if (selectedIndex >= 0) {
             ChiDinhModel cd = dsChiDinh.get(selectedIndex);
 
-            cmbNhomDichVuCLS.setSelectedItem(cd.getMaNhomDichVuCLS() + " " + cd.getTenNhomDichVuCLS());
-            cmbDichVuCLS.setSelectedItem(cd.getMaDichVuCLS() + " " + cd.getTenDichVuCLS());
+            cmbNhomDichVuCLS.setSelectedItem(cd.getTenNhomDichVuCLS());
+            cmbDichVuCLS.setSelectedItem(cd.getTenDichVuCLS());
             txtTenDichVu.setText(cd.getTenDichVuCLS());
             txtDonGia.setText(Integer.toString(cd.getDonGia()));
             txtSoLan.setText(Integer.toString(cd.getSoLuong()));
@@ -591,7 +595,6 @@ public class ChiDinh extends javax.swing.JPanel {
     }//GEN-LAST:event_tblDSChiDinhMouseClicked
 
     private void btnKetThucKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucKhamActionPerformed
-        // TODO add your handling code here:
         if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
             DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
         } else {
@@ -622,12 +625,13 @@ public class ChiDinh extends javax.swing.JPanel {
                 } else {
                     ChiDinhModel cd = dsChiDinh.get(selectedIndex);
 
-                    String dichVuCLS = cmbDichVuCLS.getSelectedItem().toString();
+                    int dichVuCLSIndex = cmbDichVuCLS.getSelectedIndex();
+                    String maDichVuCLS = dsDichVuCLS.get(dichVuCLSIndex).getMaDichVuCLS();
                     int donGia = Integer.parseInt(txtDonGia.getText());
                     int soLuong = Integer.parseInt(txtSoLan.getText());
                     int thanhTien = donGia * soLuong;
                     String ghiChu = txtGhiChu.getText();
-                    ChiDinhModel chiDinh = new ChiDinhModel(cd.getMaChiDinh(), dichVuCLS.split(" ")[0], ghiChu, soLuong, thanhTien);
+                    ChiDinhModel chiDinh = new ChiDinhModel(cd.getMaChiDinh(), maDichVuCLS, ghiChu, soLuong, thanhTien);
                     ChiDinhCtrl.capNhatChiDinh(chiDinh);
                     dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(maBenhAn);
                     hienThiDSDichvu();
@@ -653,6 +657,76 @@ public class ChiDinh extends javax.swing.JPanel {
             txtSoLan.requestFocus();
         }
     }//GEN-LAST:event_txtSoLanFocusLost
+
+    private void btnInChiDinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInChiDinhActionPerformed
+        if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                BenhNhanModel benhNhan;
+                benhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
+
+                try {
+                    dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(maBenhAn);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                BenhAnModel benhAn;
+
+                benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
+
+                List<KhamLamSangModel> dsKhamLS = new ArrayList<>();
+
+                dsKhamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaDichVuKham());
+
+                int namHienTai = LocalDate.now().getYear();
+                int thangHienTai = LocalDate.now().getMonthValue();
+                int ngayHienTai = LocalDate.now().getDayOfMonth();
+
+                String ten = benhNhan.getHoTen();
+                String tuoi = Integer.toString(namHienTai - Integer.parseInt(benhNhan.getNamSinh()));
+                String gioiTinh = benhNhan.getGioiTinh();
+                String diaChi = benhNhan.getDiaChi();
+                String chuanDoan = dsKhamLS.get(0).getChuanDoan();
+                GenerateChiDinh inDon = new GenerateChiDinh(ten, tuoi, gioiTinh, diaChi, chuanDoan, Integer.toString(ngayHienTai), Integer.toString(thangHienTai), Integer.toString(namHienTai));
+
+                List<String> tenDichVu = new ArrayList<>();
+                List<String> soLan = new ArrayList<>();
+
+                dsChiDinh.forEach(chiDinh -> {
+                    tenDichVu.add(chiDinh.getTenDichVuCLS());
+                    soLan.add(Integer.toString(chiDinh.getSoLuong()));
+                });
+
+                if (tenDichVu.isEmpty() || soLan.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có dịch vụ nào được thêm vào", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                } else if (ten.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có tên của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (gioiTinh.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có giới tính của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (diaChi.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có địa chỉ của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (chuanDoan == null || chuanDoan.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Bệnh nhân chưa được chuẩn đoán", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    inDon.setTenDichVu(tenDichVu);
+                    inDon.setSoLan(soLan);
+
+                    try {
+                        inDon.taoChiDinh();
+                        JOptionPane.showMessageDialog(null, "In chỉ định thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_btnInChiDinhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel TongChiDinhPanel;
