@@ -5,6 +5,7 @@ package models;
  * @author Phu Bao
  */
 public class BacSiModel {
+
     private String maBacSi, email, maKhoa, tenKhoa, hoTen, gioiTinh, namSinh, diaChi, soDienThoai, canCuoc, trinhDo, anh;
     private boolean trangThaiXoa;
 
@@ -41,7 +42,7 @@ public class BacSiModel {
         this.trinhDo = trinhDo;
         this.anh = anh;
     }
-    
+
     public BacSiModel(String email, String maKhoa, String hoTen, String gioiTinh, String namSinh, String diaChi, String soDienThoai, String canCuoc, String trinhDo, String anh) {
         this.email = email;
         this.maKhoa = maKhoa;
@@ -54,7 +55,7 @@ public class BacSiModel {
         this.trinhDo = trinhDo;
         this.anh = anh;
     }
-    
+
     public BacSiModel(String maKhoa, String hoTen, String gioiTinh, String namSinh, String diaChi, String soDienThoai, String canCuoc, String trinhDo, String anh) {
         this.maKhoa = maKhoa;
         this.hoTen = hoTen;
@@ -66,7 +67,7 @@ public class BacSiModel {
         this.trinhDo = trinhDo;
         this.anh = anh;
     }
-    
+
     public BacSiModel(String maBacSi, String email, String maKhoa, String hoTen, String gioiTinh, String namSinh, String diaChi, String soDienThoai, String canCuoc, String trinhDo, String anh) {
         this.maBacSi = maBacSi;
         this.email = email;
@@ -80,9 +81,11 @@ public class BacSiModel {
         this.trinhDo = trinhDo;
         this.anh = anh;
     }
-    
-    
-    
+
+    public BacSiModel(String maBacSi, String hoTen) {
+        this.maBacSi = maBacSi;
+        this.hoTen = hoTen;
+    }
 
     public String getMaBacSi() {
         return maBacSi;
@@ -187,7 +190,5 @@ public class BacSiModel {
     public void setTrangThaiXoa(boolean trangThaiXoa) {
         this.trangThaiXoa = trangThaiXoa;
     }
-    
-    
-    
+
 }

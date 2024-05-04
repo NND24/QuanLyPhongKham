@@ -1,27 +1,27 @@
 package views.main;
 
-import controllers.BenhAnCtrl;
-import controllers.BenhNhanCtrl;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
-import models.KhamLamSangModel;
-import models.ChiDinhModel;
-import models.DonThuocModel;
-import controllers.KhamLamSangCtrl;
-import controllers.ChiDinhCtrl;
-import controllers.DonThuocCtrl;
-import controllers.XepGiuongCtrl;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+import models.KhamLamSangModel;
+import models.ChiDinhModel;
+import models.DonThuocModel;
 import models.BenhAnModel;
 import models.BenhNhanModel;
 import models.XepGiuongModel;
+import controllers.KhamLamSangCtrl;
+import controllers.ChiDinhCtrl;
+import controllers.DonThuocCtrl;
+import controllers.BenhAnCtrl;
+import controllers.BenhNhanCtrl;
+import pdfForm.GenerateHoaDon;
 
 public class ThuTien extends javax.swing.JPanel {
 
@@ -271,6 +271,11 @@ public class ThuTien extends javax.swing.JPanel {
         btnXuatHoaDon.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnXuatHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXuatHoaDon.setPreferredSize(new java.awt.Dimension(120, 30));
+        btnXuatHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatHoaDonActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setText("Đã thu:");
@@ -434,7 +439,6 @@ public class ThuTien extends javax.swing.JPanel {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ThuTien.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_txtMaBenhAnPropertyChange
 
     private void btnLuuHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuHoaDonActionPerformed
@@ -502,6 +506,112 @@ public class ThuTien extends javax.swing.JPanel {
     private void txtThuTienKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtThuTienKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtThuTienKeyTyped
+
+    private void btnXuatHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatHoaDonActionPerformed
+        String maBenhAn = MaBALabel.getText();
+        String maBenhNhan = MaBNLabel.getText();
+        String daThu = txtDaThu.getText();
+        String thu = txtThuTien.getText();
+
+        if (daThu.isEmpty() || daThu == null) {
+            daThu = "0";
+        }
+
+        if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else if (thu.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Thu chưa được nhập. Vui lòng nhập số tiền đã thu", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                BenhNhanModel benhNhan;
+                benhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
+
+                List<DonThuocModel> dsThuoc = new ArrayList<>();
+
+                dsThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
+
+                BenhAnModel benhAn;
+                benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
+
+                List<KhamLamSangModel> dsKhamLS = new ArrayList<>();
+
+                dsKhamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaDichVuKham());
+
+                int namHienTai = LocalDate.now().getYear();
+                int thangHienTai = LocalDate.now().getMonthValue();
+                int ngayHienTai = LocalDate.now().getDayOfMonth();
+
+                String ten = benhNhan.getHoTen();
+                String tuoi = Integer.toString(namHienTai - Integer.parseInt(benhNhan.getNamSinh()));
+                String gioiTinh = benhNhan.getGioiTinh();
+                String diaChi = benhNhan.getDiaChi();
+                String chuanDoan = dsKhamLS.get(0).getChuanDoan();
+                String tongTien = txtTongTien.getText();
+
+                if (ten.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có tên của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (gioiTinh.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có giới tính của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (diaChi.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có địa chỉ của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (chuanDoan == null || chuanDoan.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Bệnh nhân chưa được chuẩn đoán", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (tongTien.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa có tổng tiền", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    GenerateHoaDon inDon = new GenerateHoaDon(ten, tuoi, gioiTinh, diaChi, chuanDoan, tongTien, daThu, thu, Integer.toString(ngayHienTai), Integer.toString(thangHienTai), Integer.toString(namHienTai));
+
+                    List<String> noiDung = new ArrayList<>();
+                    List<String> soLuong = new ArrayList<>();
+                    List<String> donGia = new ArrayList<>();
+                    List<String> thanhTien = new ArrayList<>();
+
+                    for (KhamLamSangModel ls : dsKhamLamSan) {
+                        noiDung.add(ls.getTenDichVu());
+                        soLuong.add("");
+                        donGia.add(ls.getGiaTien());
+                        thanhTien.add(ls.getGiaTien());
+                    }
+
+                    for (ChiDinhModel ls : dsChiDinh) {
+                        noiDung.add(ls.getTenDichVuCLS());
+                        soLuong.add(Integer.toString(ls.getSoLuong()));
+                        donGia.add(Integer.toString(ls.getDonGia()));
+                        thanhTien.add(Integer.toString(ls.getThanhTien()));
+                    }
+
+                    for (DonThuocModel ls : dsDonThuoc) {
+                        noiDung.add(ls.getTenThuoc());
+                        soLuong.add(Integer.toString(ls.getSoLuong()));
+                        donGia.add(Integer.toString(ls.getDonGia()));
+                        thanhTien.add(Integer.toString(ls.getThanhTien()));
+                    }
+
+                    for (XepGiuongModel xg : dsXepGiuong) {
+                        noiDung.add("Mã giường: " + xg.getMaGiuong() + " Tên phòng: " + xg.getTenPhong());
+                        soLuong.add(Integer.toString(xg.getSoNgay()));
+                        donGia.add(Integer.toString(xg.getThanhTien()));
+                        thanhTien.add(Integer.toString(xg.getThanhTien()));
+
+                    }
+
+                    inDon.setNoiDung(noiDung);
+                    inDon.setSoLuong(soLuong);
+                    inDon.setDonGia(donGia);
+                    inDon.setThanhTien(thanhTien);
+
+                    try {
+                        inDon.taoHoaDon();
+                        JOptionPane.showMessageDialog(null, "In hóa đơn thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ThuTien.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThuTien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnXuatHoaDonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuuHoaDon;

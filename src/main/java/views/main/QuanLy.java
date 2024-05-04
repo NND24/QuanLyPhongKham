@@ -18,16 +18,13 @@ public class QuanLy extends javax.swing.JFrame {
     private void initComponents() {
 
         lypQuanLy = new javax.swing.JLayeredPane();
-        tabTiepNhanBenhNhan = new javax.swing.JTabbedPane();
-        tiepNhanBenhNhan2 = new views.main.TiepNhanBenhNhan();
         tabQuanLyBenhNhan = new javax.swing.JTabbedPane();
         dSBenhNhan1 = new views.list.DSBenhNhan();
-        tabKhamBenh = new javax.swing.JTabbedPane();
-        dSDangKy1 = new views.list.DSDangKy();
-        khamBenh1 = new views.main.KhamBenh();
-        thuTien1 = new views.main.ThuTien();
         tabVienPhi = new javax.swing.JTabbedPane();
         dSThuTien1 = new views.list.DSThuTien();
+        tabQuanLyBacSi = new javax.swing.JTabbedPane();
+        dSBacSi1 = new views.list.DSBacSi();
+        tabQuanLyYTa = new javax.swing.JTabbedPane();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -38,26 +35,26 @@ public class QuanLy extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mniQuanLyBenhNhan = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu10 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        mniDSKhoa = new javax.swing.JMenuItem();
+        mniQuanLyVienPhi = new javax.swing.JMenu();
+        mniQuanLyNhanVien = new javax.swing.JMenu();
+        mniQuanLyBacSi = new javax.swing.JMenuItem();
+        mniQuanLyYTa = new javax.swing.JMenuItem();
+        mniQuanLyAdmin = new javax.swing.JMenuItem();
+        mniQuanLyPhongBenh = new javax.swing.JMenu();
+        mniDanhSachPhongBenh = new javax.swing.JMenuItem();
+        mniDonGiaPB = new javax.swing.JMenuItem();
+        mniQuanLyKhamBenh = new javax.swing.JMenu();
+        mniQuanLyKhoa = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        mniQuanLyNhomThuoc = new javax.swing.JMenuItem();
+        mniQuanLyThuoc = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        mniQuanLyNhomDVKB = new javax.swing.JMenuItem();
+        mniQuanLyDVKB = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mniQuanLyNhomDVCLS = new javax.swing.JMenuItem();
+        mniQuanLyDVCLS = new javax.swing.JMenuItem();
+        mniQuanLyTaiKhoan = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -68,23 +65,18 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.setPreferredSize(new java.awt.Dimension(1674, 800));
         lypQuanLy.setLayout(new java.awt.CardLayout());
 
-        tabTiepNhanBenhNhan.addTab("Tiếp nhận bệnh nhân", tiepNhanBenhNhan2);
-
-        lypQuanLy.add(tabTiepNhanBenhNhan, "card2");
-
         tabQuanLyBenhNhan.addTab("Quản lý bệnh nhân", dSBenhNhan1);
 
         lypQuanLy.add(tabQuanLyBenhNhan, "card2");
 
-        tabKhamBenh.addTab("Danh sách đăng ký", dSDangKy1);
-        tabKhamBenh.addTab("Khám bệnh", khamBenh1);
-        tabKhamBenh.addTab("Thu tiền", thuTien1);
-
-        lypQuanLy.add(tabKhamBenh, "card2");
-
         tabVienPhi.addTab("Danh sách viện phí", dSThuTien1);
 
         lypQuanLy.add(tabVienPhi, "card2");
+
+        tabQuanLyBacSi.addTab("Quản lý bác sĩ", dSBacSi1);
+
+        lypQuanLy.add(tabQuanLyBacSi, "card2");
+        lypQuanLy.add(tabQuanLyYTa, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -172,96 +164,101 @@ public class QuanLy extends javax.swing.JFrame {
         });
         jMenuBar1.add(mniQuanLyBenhNhan);
 
-        jMenu5.setText("Quản lý viện phí");
-        jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu5);
-
-        jMenu10.setText("Quản lý nhân viên");
-        jMenu10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jMenuItem1.setText("Danh sách bác sĩ");
-        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem1.setPreferredSize(new java.awt.Dimension(136, 30));
-        jMenu10.add(jMenuItem1);
-
-        jMenuItem2.setText("Danh sách y tá");
-        jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem2.setPreferredSize(new java.awt.Dimension(125, 30));
-        jMenu10.add(jMenuItem2);
-
-        jMenuItem3.setText("Danh sách admin");
-        jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem3.setPreferredSize(new java.awt.Dimension(140, 30));
-        jMenu10.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu10);
-
-        jMenu7.setText("Quản lý phòng bệnh");
-        jMenu7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jMenuItem4.setText("Danh sách phòng bệnh");
-        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem4.setPreferredSize(new java.awt.Dimension(171, 30));
-        jMenu7.add(jMenuItem4);
-
-        jMenuItem5.setText("Danh sách đơn giá phòng bệnh");
-        jMenuItem5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem5.setPreferredSize(new java.awt.Dimension(214, 30));
-        jMenu7.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu7);
-
-        jMenu8.setText("Quản lý khám bệnh");
-        jMenu8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        mniDSKhoa.setText("Danh sách khoa");
-        mniDSKhoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mniDSKhoa.setPreferredSize(new java.awt.Dimension(132, 30));
-        mniDSKhoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniDSKhoaActionPerformed(evt);
+        mniQuanLyVienPhi.setText("Quản lý viện phí");
+        mniQuanLyVienPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyVienPhi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniQuanLyVienPhiMouseClicked(evt);
             }
         });
-        jMenu8.add(mniDSKhoa);
-        jMenu8.add(jSeparator1);
+        jMenuBar1.add(mniQuanLyVienPhi);
 
-        jMenuItem6.setText("Danh sách nhóm thuốc");
-        jMenuItem6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem6.setPreferredSize(new java.awt.Dimension(172, 30));
-        jMenu8.add(jMenuItem6);
+        mniQuanLyNhanVien.setText("Quản lý nhân viên");
+        mniQuanLyNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuItem7.setText("Danh sách thuốc");
-        jMenuItem7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem7.setPreferredSize(new java.awt.Dimension(137, 30));
-        jMenu8.add(jMenuItem7);
-        jMenu8.add(jSeparator2);
+        mniQuanLyBacSi.setText("Danh sách bác sĩ");
+        mniQuanLyBacSi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyBacSi.setPreferredSize(new java.awt.Dimension(136, 30));
+        mniQuanLyNhanVien.add(mniQuanLyBacSi);
 
-        jMenuItem8.setText("Danh sách nhóm DV khám bệnh");
-        jMenuItem8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem8.setPreferredSize(new java.awt.Dimension(219, 30));
-        jMenu8.add(jMenuItem8);
+        mniQuanLyYTa.setText("Danh sách y tá");
+        mniQuanLyYTa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyYTa.setPreferredSize(new java.awt.Dimension(125, 30));
+        mniQuanLyNhanVien.add(mniQuanLyYTa);
 
-        jMenuItem9.setText("Danh sách DV khám bệnh");
-        jMenuItem9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem9.setPreferredSize(new java.awt.Dimension(184, 30));
-        jMenu8.add(jMenuItem9);
-        jMenu8.add(jSeparator3);
+        mniQuanLyAdmin.setText("Danh sách admin");
+        mniQuanLyAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyAdmin.setPreferredSize(new java.awt.Dimension(140, 30));
+        mniQuanLyNhanVien.add(mniQuanLyAdmin);
 
-        jMenuItem10.setText("Danh sách nhóm DV cận lâm sàn");
-        jMenuItem10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem10.setPreferredSize(new java.awt.Dimension(222, 30));
-        jMenu8.add(jMenuItem10);
+        jMenuBar1.add(mniQuanLyNhanVien);
 
-        jMenuItem11.setText("Danh sách DV cận lâm sàn");
-        jMenuItem11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem11.setPreferredSize(new java.awt.Dimension(187, 30));
-        jMenu8.add(jMenuItem11);
+        mniQuanLyPhongBenh.setText("Quản lý phòng bệnh");
+        mniQuanLyPhongBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuBar1.add(jMenu8);
+        mniDanhSachPhongBenh.setText("Danh sách phòng bệnh");
+        mniDanhSachPhongBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniDanhSachPhongBenh.setPreferredSize(new java.awt.Dimension(171, 30));
+        mniQuanLyPhongBenh.add(mniDanhSachPhongBenh);
 
-        jMenu3.setText("Tài khoản cá nhân");
-        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu3);
+        mniDonGiaPB.setText("Danh sách đơn giá phòng bệnh");
+        mniDonGiaPB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniDonGiaPB.setPreferredSize(new java.awt.Dimension(214, 30));
+        mniQuanLyPhongBenh.add(mniDonGiaPB);
+
+        jMenuBar1.add(mniQuanLyPhongBenh);
+
+        mniQuanLyKhamBenh.setText("Quản lý khám bệnh");
+        mniQuanLyKhamBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        mniQuanLyKhoa.setText("Danh sách khoa");
+        mniQuanLyKhoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyKhoa.setPreferredSize(new java.awt.Dimension(132, 30));
+        mniQuanLyKhoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyKhoaActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyKhoa);
+        mniQuanLyKhamBenh.add(jSeparator1);
+
+        mniQuanLyNhomThuoc.setText("Danh sách nhóm thuốc");
+        mniQuanLyNhomThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyNhomThuoc.setPreferredSize(new java.awt.Dimension(172, 30));
+        mniQuanLyKhamBenh.add(mniQuanLyNhomThuoc);
+
+        mniQuanLyThuoc.setText("Danh sách thuốc");
+        mniQuanLyThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyThuoc.setPreferredSize(new java.awt.Dimension(137, 30));
+        mniQuanLyKhamBenh.add(mniQuanLyThuoc);
+        mniQuanLyKhamBenh.add(jSeparator2);
+
+        mniQuanLyNhomDVKB.setText("Danh sách nhóm DV khám bệnh");
+        mniQuanLyNhomDVKB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyNhomDVKB.setPreferredSize(new java.awt.Dimension(219, 30));
+        mniQuanLyKhamBenh.add(mniQuanLyNhomDVKB);
+
+        mniQuanLyDVKB.setText("Danh sách DV khám bệnh");
+        mniQuanLyDVKB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyDVKB.setPreferredSize(new java.awt.Dimension(184, 30));
+        mniQuanLyKhamBenh.add(mniQuanLyDVKB);
+        mniQuanLyKhamBenh.add(jSeparator3);
+
+        mniQuanLyNhomDVCLS.setText("Danh sách nhóm DV cận lâm sàn");
+        mniQuanLyNhomDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyNhomDVCLS.setPreferredSize(new java.awt.Dimension(222, 30));
+        mniQuanLyKhamBenh.add(mniQuanLyNhomDVCLS);
+
+        mniQuanLyDVCLS.setText("Danh sách DV cận lâm sàn");
+        mniQuanLyDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyDVCLS.setPreferredSize(new java.awt.Dimension(187, 30));
+        mniQuanLyKhamBenh.add(mniQuanLyDVCLS);
+
+        jMenuBar1.add(mniQuanLyKhamBenh);
+
+        mniQuanLyTaiKhoan.setText("Tài khoản cá nhân");
+        mniQuanLyTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.add(mniQuanLyTaiKhoan);
 
         setJMenuBar(jMenuBar1);
 
@@ -289,10 +286,10 @@ public class QuanLy extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniDSKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDSKhoaActionPerformed
+    private void mniQuanLyKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyKhoaActionPerformed
         new DSKhoa().setVisible(true);
         new DSKhoa().setAlwaysOnTop(true);
-    }//GEN-LAST:event_mniDSKhoaActionPerformed
+    }//GEN-LAST:event_mniQuanLyKhoaActionPerformed
 
     private void mniQuanLyBenhNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyBenhNhanMouseClicked
         lypQuanLy.removeAll();
@@ -300,6 +297,13 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniQuanLyBenhNhanMouseClicked
+
+    private void mniQuanLyVienPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyVienPhiMouseClicked
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabVienPhi);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -326,8 +330,8 @@ public class QuanLy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
+    private views.list.DSBacSi dSBacSi1;
     private views.list.DSBenhNhan dSBenhNhan1;
-    private views.list.DSDangKy dSDangKy1;
     private views.list.DSThuTien dSThuTien1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel3;
@@ -335,36 +339,33 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private views.main.KhamBenh khamBenh1;
     private javax.swing.JLayeredPane lypQuanLy;
-    private javax.swing.JMenuItem mniDSKhoa;
+    private javax.swing.JMenuItem mniDanhSachPhongBenh;
+    private javax.swing.JMenuItem mniDonGiaPB;
+    private javax.swing.JMenuItem mniQuanLyAdmin;
+    private javax.swing.JMenuItem mniQuanLyBacSi;
     private javax.swing.JMenu mniQuanLyBenhNhan;
-    private javax.swing.JTabbedPane tabKhamBenh;
+    private javax.swing.JMenuItem mniQuanLyDVCLS;
+    private javax.swing.JMenuItem mniQuanLyDVKB;
+    private javax.swing.JMenu mniQuanLyKhamBenh;
+    private javax.swing.JMenuItem mniQuanLyKhoa;
+    private javax.swing.JMenu mniQuanLyNhanVien;
+    private javax.swing.JMenuItem mniQuanLyNhomDVCLS;
+    private javax.swing.JMenuItem mniQuanLyNhomDVKB;
+    private javax.swing.JMenuItem mniQuanLyNhomThuoc;
+    private javax.swing.JMenu mniQuanLyPhongBenh;
+    private javax.swing.JMenu mniQuanLyTaiKhoan;
+    private javax.swing.JMenuItem mniQuanLyThuoc;
+    private javax.swing.JMenu mniQuanLyVienPhi;
+    private javax.swing.JMenuItem mniQuanLyYTa;
+    private javax.swing.JTabbedPane tabQuanLyBacSi;
     private javax.swing.JTabbedPane tabQuanLyBenhNhan;
-    private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
+    private javax.swing.JTabbedPane tabQuanLyYTa;
     private javax.swing.JTabbedPane tabVienPhi;
-    private views.main.ThuTien thuTien1;
-    private views.main.TiepNhanBenhNhan tiepNhanBenhNhan2;
     // End of variables declaration//GEN-END:variables
 
 }
