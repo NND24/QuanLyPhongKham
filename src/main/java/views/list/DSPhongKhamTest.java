@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import models.PhongKhamModelTest;
 import controllers.PhongKhamCtrlTest;
-import javax.swing.JOptionPane;
 import utils.DialogHelper;
 
 public class DSPhongKhamTest extends javax.swing.JFrame {
@@ -377,7 +376,7 @@ public class DSPhongKhamTest extends javax.swing.JFrame {
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
         try {
             dsPhongKham = PhongKhamCtrlTest.timTatCaPhongKham();
-            PhongKhamCtrlTest.exportToExcel(dsPhongKham, "D:\\Workspace Java\\DoAn\\DSPhongKham.xlsx");
+            PhongKhamCtrlTest.exportToExcel(dsPhongKham, "src/main/java/files/DSPhongKham.xlsx");
             DialogHelper.showMessage("Xuất danh sách thành công!");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);

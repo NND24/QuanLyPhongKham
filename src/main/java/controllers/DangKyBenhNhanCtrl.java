@@ -73,7 +73,7 @@ public class DangKyBenhNhanCtrl {
                          FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
                          WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
                          AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy
-                         AND (DANGKY.MaDangKy LIKE ? OR BENHNHAN.MaBenhNhan LIKE ? OR PHONGKHAM.MaPhongKham LIKE ? OR HoTen LIKE ? OR CanCuoc LIKE ? OR SoDienThoai LIKE ? OR TenPhongKham LIKE ? OR TenDichVu LIKE ? OR MaDichVuKham LIKE ?)
+                         AND (DANGKY.MaDangKy LIKE ? OR BENHNHAN.MaBenhNhan LIKE ? OR PHONGKHAM.MaPhongKham LIKE ? OR HoTen LIKE ? OR CanCuoc LIKE ? OR SoDienThoai LIKE ? OR TenPhongKham LIKE ? OR TenDichVuKB LIKE ? OR MaDichVuKham LIKE ?)
                          ORDER BY DANGKY.ThuTu ASC
                          """;
 

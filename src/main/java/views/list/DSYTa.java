@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-import javax.swing.JOptionPane;
 import models.YTaModel;
+import utils.DialogHelper;
 import utils.Validator;
 
 public class DSYTa extends javax.swing.JPanel {
@@ -19,7 +19,7 @@ public class DSYTa extends javax.swing.JPanel {
     public DSYTa() {
         try {
             initComponents();
-            tableModel = (DefaultTableModel) dsYTaTable.getModel();
+            tableModel = (DefaultTableModel) tblDSYTa.getModel();
             hienThiCacYTa();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
@@ -32,20 +32,20 @@ public class DSYTa extends javax.swing.JPanel {
 
         dsYTa.forEach(yTa -> {
             tableModel.addRow(new Object[]{yTa.getMaYT(), yTa.getHoTen(), yTa.getGioiTinh(),
-                yTa.getNgaySinh(), yTa.getCCCD(), yTa.getDiaChi(),
+                yTa.getNamSinh(), yTa.getCCCD(), yTa.getDiaChi(),
                 yTa.getSDT(), yTa.getEmail()});
         });
     }
 
     private void lamMoi() {
-        MaYTaTextField.setText("");
-        HoTenTextField.setText("");
-        DiaChiTextField.setText("");
-        GioiTinhComboBox.setSelectedIndex(0);
-        NamSinhTextField.setText(null);
-        CCCDTextField.setText("");
-        EmailTextField.setText("");
-        SDTTextField.setText("");
+        txtMaYTa.setText("");
+        txtHoTen.setText("");
+        txtDiaChi.setText("");
+        cmbGioiTinh.setSelectedIndex(0);
+        txtNamSinh.setText(null);
+        txtCanCuoc.setText("");
+        txtEmail.setText("");
+        txtSoDienThoai.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -57,34 +57,34 @@ public class DSYTa extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        LamMoiButton = new javax.swing.JButton();
-        SuaThongTinBacSiButton = new javax.swing.JButton();
-        XoaBacSiButton = new javax.swing.JButton();
-        ThemBacSiButton = new javax.swing.JButton();
-        InButton = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        btnXuat = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        MaYTaTextField = new javax.swing.JTextField();
+        txtMaYTa = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        HoTenTextField = new javax.swing.JTextField();
+        txtHoTen = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        GioiTinhComboBox = new javax.swing.JComboBox<>();
+        cmbGioiTinh = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
-        CCCDTextField = new javax.swing.JTextField();
+        txtCanCuoc = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        SDTTextField = new javax.swing.JTextField();
+        txtSoDienThoai = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        EmailTextField = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        NamSinhTextField = new javax.swing.JTextField();
+        txtNamSinh = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        DiaChiTextField = new javax.swing.JTextField();
+        txtDiaChi = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        TKGioiTinhComboBox = new javax.swing.JComboBox<>();
-        timKiemTextField = new javax.swing.JTextField();
+        cmbTKGioiTinh = new javax.swing.JComboBox<>();
+        txtTimKiem = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        dsYTaTable = new javax.swing.JTable();
+        tblDSYTa = new javax.swing.JTable();
 
         jFrame1.setBackground(new java.awt.Color(51, 255, 51));
 
@@ -130,67 +130,67 @@ public class DSYTa extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("THÔNG TIN Y TÁ");
 
-        LamMoiButton.setBackground(new java.awt.Color(0, 102, 255));
-        LamMoiButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        LamMoiButton.setForeground(new java.awt.Color(255, 255, 255));
-        LamMoiButton.setText("Làm mới");
-        LamMoiButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        LamMoiButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        LamMoiButton.setPreferredSize(new java.awt.Dimension(80, 25));
-        LamMoiButton.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setBackground(new java.awt.Color(0, 102, 255));
+        btnLamMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLamMoi.setForeground(new java.awt.Color(255, 255, 255));
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLamMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(80, 25));
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LamMoiButtonActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
 
-        SuaThongTinBacSiButton.setBackground(new java.awt.Color(0, 102, 255));
-        SuaThongTinBacSiButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        SuaThongTinBacSiButton.setForeground(new java.awt.Color(255, 255, 255));
-        SuaThongTinBacSiButton.setText("Sửa thông tin");
-        SuaThongTinBacSiButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        SuaThongTinBacSiButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SuaThongTinBacSiButton.setPreferredSize(new java.awt.Dimension(110, 25));
-        SuaThongTinBacSiButton.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBackground(new java.awt.Color(0, 102, 255));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setText("Sửa thông tin");
+        btnSua.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSua.setPreferredSize(new java.awt.Dimension(110, 25));
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SuaThongTinBacSiButtonActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
-        XoaBacSiButton.setBackground(new java.awt.Color(0, 102, 255));
-        XoaBacSiButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        XoaBacSiButton.setForeground(new java.awt.Color(255, 255, 255));
-        XoaBacSiButton.setText("Xóa y tá");
-        XoaBacSiButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        XoaBacSiButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        XoaBacSiButton.setPreferredSize(new java.awt.Dimension(80, 25));
-        XoaBacSiButton.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setBackground(new java.awt.Color(0, 102, 255));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
+        btnXoa.setText("Xóa y tá");
+        btnXoa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXoa.setPreferredSize(new java.awt.Dimension(80, 25));
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                XoaBacSiButtonActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
-        ThemBacSiButton.setBackground(new java.awt.Color(0, 102, 255));
-        ThemBacSiButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ThemBacSiButton.setForeground(new java.awt.Color(255, 255, 255));
-        ThemBacSiButton.setText("Thêm y tá");
-        ThemBacSiButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ThemBacSiButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ThemBacSiButton.setPreferredSize(new java.awt.Dimension(90, 25));
-        ThemBacSiButton.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(0, 102, 255));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm y tá");
+        btnThem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem.setPreferredSize(new java.awt.Dimension(90, 25));
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ThemBacSiButtonActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
-        InButton.setBackground(new java.awt.Color(0, 102, 255));
-        InButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        InButton.setForeground(new java.awt.Color(255, 255, 255));
-        InButton.setText("Xuất danh sách");
-        InButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        InButton.setPreferredSize(new java.awt.Dimension(120, 25));
-        InButton.addActionListener(new java.awt.event.ActionListener() {
+        btnXuat.setBackground(new java.awt.Color(0, 102, 255));
+        btnXuat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnXuat.setForeground(new java.awt.Color(255, 255, 255));
+        btnXuat.setText("Xuất danh sách");
+        btnXuat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnXuat.setPreferredSize(new java.awt.Dimension(120, 25));
+        btnXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InButtonActionPerformed(evt);
+                btnXuatActionPerformed(evt);
             }
         });
 
@@ -202,15 +202,15 @@ public class DSYTa extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 645, Short.MAX_VALUE)
-                .addComponent(ThemBacSiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(XoaBacSiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(SuaThongTinBacSiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(LamMoiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(InButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
         jPanel4Layout.setVerticalGroup(
@@ -219,18 +219,19 @@ public class DSYTa extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(LamMoiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SuaThongTinBacSiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(XoaBacSiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ThemBacSiButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(InButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Mã y tá");
 
-        MaYTaTextField.setEditable(false);
+        txtMaYTa.setEditable(false);
+        txtMaYTa.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Họ tên");
@@ -238,51 +239,43 @@ public class DSYTa extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Giới tính");
 
-        GioiTinhComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Căn cước");
 
-        CCCDTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtCanCuoc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                CCCDTextFieldFocusLost(evt);
-            }
-        });
-        CCCDTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CCCDTextFieldActionPerformed(evt);
+                txtCanCuocFocusLost(evt);
             }
         });
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel20.setText("Số điện thoại");
 
-        SDTTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtSoDienThoai.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                SDTTextFieldFocusLost(evt);
-            }
-        });
-        SDTTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SDTTextFieldActionPerformed(evt);
+                txtSoDienThoaiFocusLost(evt);
             }
         });
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel21.setText("Email");
 
-        EmailTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtEmail.setEditable(false);
+        txtEmail.setBackground(new java.awt.Color(204, 204, 204));
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                EmailTextFieldFocusLost(evt);
+                txtEmailFocusLost(evt);
             }
         });
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel17.setText("Năm sinh");
 
-        NamSinhTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNamSinh.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                NamSinhTextFieldFocusLost(evt);
+                txtNamSinhFocusLost(evt);
             }
         });
 
@@ -294,16 +287,16 @@ public class DSYTa extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("DANH SÁCH Y TÁ");
 
-        TKGioiTinhComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ", "Khác" }));
-        TKGioiTinhComboBox.addActionListener(new java.awt.event.ActionListener() {
+        cmbTKGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ", "Khác" }));
+        cmbTKGioiTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TKGioiTinhComboBoxActionPerformed(evt);
+                cmbTKGioiTinhActionPerformed(evt);
             }
         });
 
-        timKiemTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                timKiemTextFieldKeyTyped(evt);
+                txtTimKiemKeyTyped(evt);
             }
         });
 
@@ -320,9 +313,9 @@ public class DSYTa extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 870, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(timKiemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(TKGioiTinhComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbTKGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
         jPanel8Layout.setVerticalGroup(
@@ -331,13 +324,13 @@ public class DSYTa extends javax.swing.JPanel {
                 .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(TKGioiTinhComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timKiemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTKGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(7, 7, 7))
         );
 
-        dsYTaTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblDSYTa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -356,13 +349,13 @@ public class DSYTa extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        dsYTaTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        dsYTaTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblDSYTa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblDSYTa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dsYTaTableMouseClicked(evt);
+                tblDSYTaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(dsYTaTable);
+        jScrollPane1.setViewportView(tblDSYTa);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -377,15 +370,15 @@ public class DSYTa extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MaYTaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMaYTa, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(41, 41, 41)
-                        .addComponent(GioiTinhComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(CCCDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCanCuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
@@ -395,27 +388,25 @@ public class DSYTa extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(HoTenTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SDTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jLabel21))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(NamSinhTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(70, 70, 70))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(DiaChiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 1360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,24 +415,24 @@ public class DSYTa extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(MaYTaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMaYTa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NamSinhTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(HoTenTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(GioiTinhComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SDTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CCCDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DiaChiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCanCuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -468,224 +459,165 @@ public class DSYTa extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CCCDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCCDTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CCCDTextFieldActionPerformed
-
-    private void SDTTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SDTTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SDTTextFieldActionPerformed
-
-    private void ThemBacSiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThemBacSiButtonActionPerformed
-
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
-            String maYTa = YTaCtrl.generateMaYTa();
-            String tenYTa = HoTenTextField.getText();
-            String gioiTinh = GioiTinhComboBox.getSelectedItem().toString();
-            String diaChi = DiaChiTextField.getText();
-            String namSinh = NamSinhTextField.getText();
-            String cccd = CCCDTextField.getText();
-            String sdt = SDTTextField.getText();
-            String email = EmailTextField.getText();
+            String tenYTa = txtHoTen.getText();
+            String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+            String diaChi = txtDiaChi.getText();
+            String namSinh = txtNamSinh.getText();
+            String cccd = txtCanCuoc.getText();
+            String sdt = txtSoDienThoai.getText();
 
-            if (!MaYTaTextField.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Đã có y tá", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            if (!txtMaYTa.getText().isEmpty()) {
+                DialogHelper.showError("Y tá đã có trong cơ sở dữ liệu");
             } else if (tenYTa.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Họ tên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Họ tên không được để trống");
             } else if (namSinh.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "");
-                JOptionPane.showMessageDialog(null, "Năm sinh không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Năm sinh không được để trống");
             } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
-                JOptionPane.showMessageDialog(null, "Năm sinh không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Năm sinh không hợp lệ");
             } else if (sdt.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Số điện thoại không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Số điện thoại không được để trống");
             } else if (!sdt.isEmpty() && !Validator.isValidPhoneNumber(sdt)) {
-                JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số điện thoại không hợp lệ");
             } else if (diaChi.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Địa chỉ không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            } else if (maYTa.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Mã y tá không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Địa chỉ không được để trống");
             } else if (!cccd.isEmpty() && !Validator.isValidCccd(cccd)) {
-                JOptionPane.showMessageDialog(null, "Căn cước công dân không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Căn cước công dân không hợp lệ");
             } else if (YTaCtrl.kiemTraCccdCoTonTai(cccd)) {
-                JOptionPane.showMessageDialog(null, "CCCD đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            } else if (!email.isEmpty() && !Validator.isValidEmail(email)) {
-                JOptionPane.showMessageDialog(null, "Email không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            } else if (YTaCtrl.kiemTraEmailCoTonTai(email)) {
-                JOptionPane.showMessageDialog(null, "Email đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("CCCD đã tồn tại");
             } else {
-                YTaModel yTa = new YTaModel(maYTa, tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd, email);
+                YTaModel yTa = new YTaModel(tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd);
 
                 YTaCtrl.themYTa(yTa);
                 hienThiCacYTa();
                 lamMoi();
-                JOptionPane.showMessageDialog(null, "Thêm y tá thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                DialogHelper.showMessage("Thêm y tá thành công!");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_ThemBacSiButtonActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void XoaBacSiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XoaBacSiButtonActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
-            String maYTa = MaYTaTextField.getText();
-            if (maYTa.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có y tá được chọn", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            if (txtMaYTa.getText().isEmpty()) {
+                DialogHelper.showError("Chưa có y tá được chọn");
             } else {
-                if (YTaCtrl.kiemTraYTaCoGiamSatPhong(maYTa)) {
-                    JOptionPane.showMessageDialog(null, "Y tá đang giám sát phòng bệnh\nVui lòng chỉnh lại Giám Sát phòng bệnh trước khi xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                if (YTaCtrl.kiemTraYTaCoGiamSatPhong(txtMaYTa.getText())) {
+                    DialogHelper.showError("Y tá đang giám sát phòng bệnh\nVui lòng chỉnh lại Giám Sát phòng bệnh trước khi xóa");
                 } else {
-                    String[] options = {"Đồng ý", "Thoát"};
-                    int option = JOptionPane.showOptionDialog(
-                            null,
-                            "Bạn có chắc muốn xóa y tá này",
-                            "Cảnh báo",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE,
-                            null,
-                            options,
-                            options[1]
-                    );
+                    if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa y tá này")) {
+                        String maYTa = txtMaYTa.getText();
+                        String email = txtEmail.getText();
 
-                    if (option == 0) {
-                        YTaCtrl.xoaYTa(maYTa);
-                        JOptionPane.showMessageDialog(null, "Xóa y tá thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        YTaModel yTa = new YTaModel(maYTa, email);
+                        YTaCtrl.xoaYTa(yTa);
+                        DialogHelper.showError("Xóa y tá thành công!");
                         lamMoi();
                         hienThiCacYTa();
                     }
                 }
-
             }
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Đã có lỗi xảy ra", "Thông báo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_XoaBacSiButtonActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void SuaThongTinBacSiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuaThongTinBacSiButtonActionPerformed
-
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
-            String maYTa = MaYTaTextField.getText();
-            String tenYTa = HoTenTextField.getText();
-            String gioiTinh = GioiTinhComboBox.getSelectedItem().toString();
-            String diaChi = DiaChiTextField.getText();
-            String namSinh = NamSinhTextField.getText();
-            String cccd = CCCDTextField.getText();
-            String sdt = SDTTextField.getText();
-            String email = EmailTextField.getText();
+            String maYTa = txtMaYTa.getText();
+            String tenYTa = txtHoTen.getText();
+            String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+            String diaChi = txtDiaChi.getText();
+            String namSinh = txtNamSinh.getText();
+            String cccd = txtCanCuoc.getText();
+            String sdt = txtSoDienThoai.getText();
 
             if (tenYTa.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Họ tên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Họ tên không được để trống");
             } else if (namSinh.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "");
-                JOptionPane.showMessageDialog(null, "Năm sinh không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Năm sinh không được để trống");
             } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
-                JOptionPane.showMessageDialog(null, "Năm sinh không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Năm sinh không hợp lệ");
             } else if (sdt.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Số điện thoại không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Số điện thoại không được để trống");
             } else if (!sdt.isEmpty() && !Validator.isValidPhoneNumber(sdt)) {
-                JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Số điện thoại không hợp lệ");
             } else if (diaChi.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Địa chỉ không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Địa chỉ không được để trống");
             } else if (maYTa.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Mã y tá không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Mã y tá không được để trống");
             } else if (!cccd.isEmpty() && !Validator.isValidCccd(cccd)) {
-                JOptionPane.showMessageDialog(null, "Căn cước công dân không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            } else if (!email.isEmpty() && !Validator.isValidEmail(email)) {
-                JOptionPane.showMessageDialog(null, "Email không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                DialogHelper.showError("Căn cước công dân không hợp lệ");
             } else {
-                String[] options = {"Đồng ý", "Thoát"};
-                int option = JOptionPane.showOptionDialog(
-                        null,
-                        "Bạn có chắc sửa thông tin y tá này",
-                        "Cảnh báo",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE,
-                        null,
-                        options,
-                        options[1]
-                );
-                if (option == 0) {
-                    YTaModel yTa = new YTaModel(maYTa, tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd, email);
+                if (DialogHelper.showConfirmation("Bạn có chắc sửa thông tin y tá này")) {
+                    YTaModel yTa = new YTaModel(maYTa, tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd);
                     YTaCtrl.capNhatYTa(yTa);
                     hienThiCacYTa();
                     lamMoi();
-                    JOptionPane.showMessageDialog(null, "Sửa thông tin y tá thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    DialogHelper.showMessage("Sửa thông tin y tá thành công");
                 }
             }
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Đã có lỗi xảy ra", "Thông báo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_SuaThongTinBacSiButtonActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void LamMoiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiButtonActionPerformed
-        // TODO add your handling code here:
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         lamMoi();
-    }//GEN-LAST:event_LamMoiButtonActionPerformed
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
-    private void CCCDTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CCCDTextFieldFocusLost
-        String cccd = CCCDTextField.getText();
+    private void txtCanCuocFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCanCuocFocusLost
+        String cccd = txtCanCuoc.getText();
         if (!cccd.isEmpty() && !Validator.isValidCccd(cccd)) {
-            JOptionPane.showMessageDialog(null, "Căn cước công dân không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            CCCDTextField.requestFocus();
+            DialogHelper.showError("Căn cước công dân không hợp lệ");
+            txtCanCuoc.requestFocus();
         } else try {
             if (YTaCtrl.kiemTraCccdCoTonTai(cccd)) {
-                JOptionPane.showMessageDialog(null, "CCCD đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                EmailTextField.requestFocus();
+                DialogHelper.showError("CCCD đã tồn tại");
+                txtEmail.requestFocus();
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_CCCDTextFieldFocusLost
+    }//GEN-LAST:event_txtCanCuocFocusLost
 
-    private void SDTTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SDTTextFieldFocusLost
-        String sdt = SDTTextField.getText();
+    private void txtSoDienThoaiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusLost
+        String sdt = txtSoDienThoai.getText();
         if (!sdt.isEmpty() && !Validator.isValidPhoneNumber(sdt)) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            SDTTextField.requestFocus();
+            DialogHelper.showError("Số điện thoại không hợp lệ");
+            txtSoDienThoai.requestFocus();
         }
-    }//GEN-LAST:event_SDTTextFieldFocusLost
+    }//GEN-LAST:event_txtSoDienThoaiFocusLost
 
-    private void EmailTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EmailTextFieldFocusLost
-        String email = EmailTextField.getText();
-        if (!email.isEmpty() && !Validator.isValidEmail(email)) {
-            JOptionPane.showMessageDialog(null, "Email không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            EmailTextField.requestFocus();
-        } else try {
-            if (YTaCtrl.kiemTraEmailCoTonTai(email)) {
-                JOptionPane.showMessageDialog(null, "Email đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                EmailTextField.requestFocus();
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_EmailTextFieldFocusLost
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
 
-    private void NamSinhTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NamSinhTextFieldFocusLost
-        String namSinh = NamSinhTextField.getText();
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtNamSinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNamSinhFocusLost
+        String namSinh = txtNamSinh.getText();
         if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
-            JOptionPane.showMessageDialog(null, "Năm sinh không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            NamSinhTextField.requestFocus();
+            DialogHelper.showError("Năm sinh không hợp lệ");
+            txtNamSinh.requestFocus();
         }
-    }//GEN-LAST:event_NamSinhTextFieldFocusLost
+    }//GEN-LAST:event_txtNamSinhFocusLost
 
-    private void InButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InButtonActionPerformed
-        // TODO add your handling code here:
+    private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
         try {
             List<YTaModel> dsYTa = YTaCtrl.hienthiYTa();
-            YTaCtrl.exportToExcel(dsYTa, "D:\\Workspace Java\\DoAn\\DSYTa.xlsx");
-            JOptionPane.showMessageDialog(this, "Xuất file thành công");
+            YTaCtrl.exportToExcel(dsYTa, "src/main/java/files/DSYTa.xlsx");
+            DialogHelper.showError("Xuất file thành công");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_InButtonActionPerformed
+    }//GEN-LAST:event_btnXuatActionPerformed
 
-    private void timKiemTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_timKiemTextFieldKeyTyped
+    private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
         try {
-            String timKiem = timKiemTextField.getText();
-            String gioiTinh = TKGioiTinhComboBox.getSelectedItem().toString();
+            String timKiem = txtTimKiem.getText();
+            String gioiTinh = cmbTKGioiTinh.getSelectedItem().toString();
 
             if (timKiem.equals("")) {
                 hienThiCacYTa();
@@ -695,21 +627,20 @@ public class DSYTa extends javax.swing.JPanel {
 
                 dsYTa.forEach(yTa -> {
                     tableModel.addRow(new Object[]{yTa.getMaYT(), yTa.getHoTen(), yTa.getGioiTinh(),
-                        yTa.getNgaySinh(), yTa.getCCCD(), yTa.getDiaChi(),
+                        yTa.getNamSinh(), yTa.getCCCD(), yTa.getDiaChi(),
                         yTa.getSDT(), yTa.getEmail()});
                 });
             }
 
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Đã có lỗi xảy ra", "Thông báo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_timKiemTextFieldKeyTyped
+    }//GEN-LAST:event_txtTimKiemKeyTyped
 
-    private void TKGioiTinhComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKGioiTinhComboBoxActionPerformed
+    private void cmbTKGioiTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTKGioiTinhActionPerformed
         try {
-            String timKiem = timKiemTextField.getText();
-            String gioiTinh = TKGioiTinhComboBox.getSelectedItem().toString();
+            String timKiem = txtTimKiem.getText();
+            String gioiTinh = cmbTKGioiTinh.getSelectedItem().toString();
 
             if (gioiTinh.equals("Tất cả")) {
                 hienThiCacYTa();
@@ -720,49 +651,40 @@ public class DSYTa extends javax.swing.JPanel {
 
                 dsYTa.forEach(yTa -> {
                     tableModel.addRow(new Object[]{yTa.getMaYT(), yTa.getHoTen(), yTa.getGioiTinh(),
-                        yTa.getNgaySinh(), yTa.getCCCD(), yTa.getDiaChi(),
+                        yTa.getNamSinh(), yTa.getCCCD(), yTa.getDiaChi(),
                         yTa.getSDT(), yTa.getEmail()});
                 });
             }
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Đã có lỗi xảy ra", "Thông báo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_TKGioiTinhComboBoxActionPerformed
+    }//GEN-LAST:event_cmbTKGioiTinhActionPerformed
 
-    private void dsYTaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dsYTaTableMouseClicked
+    private void tblDSYTaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSYTaMouseClicked
         lamMoi();
-        int selectedIndex = dsYTaTable.getSelectedRow();
+        int selectedIndex = tblDSYTa.getSelectedRow();
         if (selectedIndex >= 0) {
             YTaModel yTa = dsYTa.get(selectedIndex);
-            MaYTaTextField.setText(yTa.getMaYT());
-            HoTenTextField.setText(yTa.getHoTen());
-            DiaChiTextField.setText(yTa.getDiaChi());
-            NamSinhTextField.setText(yTa.getNgaySinh());
-            CCCDTextField.setText(yTa.getCCCD());
-            SDTTextField.setText(yTa.getSDT());
-            EmailTextField.setText(yTa.getEmail());
-            GioiTinhComboBox.setSelectedItem(yTa.getGioiTinh());
+            txtMaYTa.setText(yTa.getMaYT());
+            txtHoTen.setText(yTa.getHoTen());
+            txtDiaChi.setText(yTa.getDiaChi());
+            txtNamSinh.setText(yTa.getNamSinh());
+            txtCanCuoc.setText(yTa.getCCCD());
+            txtSoDienThoai.setText(yTa.getSDT());
+            txtEmail.setText(yTa.getEmail());
+            cmbGioiTinh.setSelectedItem(yTa.getGioiTinh());
 
         }
-    }//GEN-LAST:event_dsYTaTableMouseClicked
+    }//GEN-LAST:event_tblDSYTaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CCCDTextField;
-    private javax.swing.JTextField DiaChiTextField;
-    private javax.swing.JTextField EmailTextField;
-    private javax.swing.JComboBox<String> GioiTinhComboBox;
-    private javax.swing.JTextField HoTenTextField;
-    private javax.swing.JButton InButton;
-    private javax.swing.JButton LamMoiButton;
-    private javax.swing.JTextField MaYTaTextField;
-    private javax.swing.JTextField NamSinhTextField;
-    private javax.swing.JTextField SDTTextField;
-    private javax.swing.JButton SuaThongTinBacSiButton;
-    private javax.swing.JComboBox<String> TKGioiTinhComboBox;
-    private javax.swing.JButton ThemBacSiButton;
-    private javax.swing.JButton XoaBacSiButton;
-    private javax.swing.JTable dsYTaTable;
+    private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXuat;
+    private javax.swing.JComboBox<String> cmbGioiTinh;
+    private javax.swing.JComboBox<String> cmbTKGioiTinh;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -780,6 +702,14 @@ public class DSYTa extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField timKiemTextField;
+    private javax.swing.JTable tblDSYTa;
+    private javax.swing.JTextField txtCanCuoc;
+    private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtHoTen;
+    private javax.swing.JTextField txtMaYTa;
+    private javax.swing.JTextField txtNamSinh;
+    private javax.swing.JTextField txtSoDienThoai;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

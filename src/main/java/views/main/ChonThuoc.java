@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
 import models.DonThuocModel;
 import models.NhomThuocModelTest;
 import models.BenhAnModel;
@@ -884,7 +883,7 @@ public class ChonThuoc extends javax.swing.JPanel {
 
     private void btnInDonThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInDonThuocActionPerformed
         if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
         } else {
             try {
                 BenhNhanModel benhNhan;
@@ -923,15 +922,15 @@ public class ChonThuoc extends javax.swing.JPanel {
                 });
 
                 if (medicines.isEmpty() || quantities.isEmpty() || usages.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có thuốc nào được thêm vào", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Chưa có thuốc nào được thêm vào");
                 } else if (ten.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có tên của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có tên của bệnh nhân");
                 } else if (gioiTinh.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có giới tính của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có giới tính của bệnh nhân");
                 } else if (diaChi.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có địa chỉ của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có địa chỉ của bệnh nhân");
                 } else if (chuanDoan == null || chuanDoan.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Bệnh nhân chưa được chuẩn đoán", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Bệnh nhân chưa được chuẩn đoán");
                 } else {
                     inDon.setMedicines(medicines);
                     inDon.setQuantities(quantities);
@@ -939,7 +938,7 @@ public class ChonThuoc extends javax.swing.JPanel {
 
                     try {
                         inDon.taoDonThuoc();
-                        JOptionPane.showMessageDialog(null, "In đơn thuốc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        DialogHelper.showMessage("In đơn thuốc thành công!");
                     } catch (IOException ex) {
                         Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
                     }
