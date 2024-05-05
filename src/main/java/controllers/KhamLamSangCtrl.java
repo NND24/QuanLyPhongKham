@@ -92,14 +92,15 @@ public class KhamLamSangCtrl {
 
     public static List<KhamLamSangModel> thanhToanKLS(String maBenhAn) throws ClassNotFoundException {
         List<KhamLamSangModel> dsKhamLamSan = new ArrayList<>();
-
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
-                "SELECT TenDichVu, GiaTien, GiaBaoHiem, BHYT "
-                + "FROM BENHAN, KHAMLAMSAN, DICHVUKB, BENHNHAN "
-                + "WHERE BENHAN.MaKhamBenh=KHAMLAMSAN.MaKhamBenh AND "
-                + "KHAMLAMSAN.MaDichVu=DICHVUKB.MaDichVu AND "
-                + "KHAMLAMSAN.MaBenhNhan=BENHNHAN.MaBenhNhan AND "
-                + "BENHAN.MaBenhAn=?")) {
+        String sql = """
+                    SELECT TenDichVuKB, GiaTien, GiaBaoHiem, BHYT
+                    FROM BENHAN, KHAMLAMSANG, DICHVUKB, BENHNHAN
+                    WHERE BENHAN.MaKhamLamSang=KHAMLAMSANG.MaKhamLamSang AND
+                    KHAMLAMSANG.MaKhamLamSang=DICHVUKB.MaDichVuKB AND
+                    BENHAN.MaBenhNhan=BENHNHAN.MaBenhNhan AND
+                    BENHAN.MaBenhAn=?
+                     """;
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, maBenhAn);
             ResultSet resultSet = statement.executeQuery();

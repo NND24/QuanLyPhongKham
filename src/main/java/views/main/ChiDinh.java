@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.time.LocalDate;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.DangKyModel;
 import models.KhamLamSangModel;
@@ -658,7 +657,7 @@ public class ChiDinh extends javax.swing.JPanel {
 
     private void btnInChiDinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInChiDinhActionPerformed
         if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
         } else {
             try {
                 BenhNhanModel benhNhan;
@@ -698,22 +697,22 @@ public class ChiDinh extends javax.swing.JPanel {
                 });
 
                 if (tenDichVu.isEmpty() || soLan.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có dịch vụ nào được thêm vào", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    DialogHelper.showError("Chưa có dịch vụ nào được thêm vào");
                 } else if (ten.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có tên của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có tên của bệnh nhân");
                 } else if (gioiTinh.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có giới tính của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có giới tính của bệnh nhân");
                 } else if (diaChi.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có địa chỉ của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có địa chỉ của bệnh nhân");
                 } else if (chuanDoan == null || chuanDoan.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Bệnh nhân chưa được chuẩn đoán", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Bệnh nhân chưa được chuẩn đoán");
                 } else {
                     inDon.setTenDichVu(tenDichVu);
                     inDon.setSoLan(soLan);
 
                     try {
                         inDon.taoChiDinh();
-                        JOptionPane.showMessageDialog(null, "In chỉ định thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        DialogHelper.showMessage("In chỉ định thành công!");
                     } catch (IOException ex) {
                         Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
                     }

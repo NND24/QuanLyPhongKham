@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import models.KhamLamSangModel;
@@ -22,6 +21,7 @@ import controllers.DonThuocCtrl;
 import controllers.BenhAnCtrl;
 import controllers.BenhNhanCtrl;
 import pdfForm.GenerateHoaDon;
+import utils.DialogHelper;
 
 public class ThuTien extends javax.swing.JPanel {
 
@@ -425,6 +425,7 @@ public class ThuTien extends javax.swing.JPanel {
 
     private void txtMaBenhAnPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtMaBenhAnPropertyChange
         try {
+            hienThiDSThanhToan();
             String maBenhAn = MaBALabel.getText();
             if (!maBenhAn.isEmpty() && maBenhAn != null) {
                 List<BenhAnModel> dsThuTien = BenhAnCtrl.timTienDaThu(maBenhAn);
@@ -449,21 +450,21 @@ public class ThuTien extends javax.swing.JPanel {
         int thu = Integer.parseInt(txtThuTien.getText());
         int daThu = Integer.parseInt(txtDaThu.getText());
         if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
         } else if (txtTongTien.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tổng tiền chưa được nhập. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Tổng tiền chưa được nhập. Vui lòng chọn bệnh án");
         } else if (txtThuTien.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Thu chưa được nhập. Vui lòng nhập số tiền đã thu", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Thu chưa được nhập. Vui lòng nhập số tiền đã thu");
         } else if (thu > tongTien) {
-            JOptionPane.showMessageDialog(null, "Số tiền thu vượt quá tổng tiền!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Số tiền thu vượt quá tổng tiền!");
         } else if (tongTien == daThu) {
-            JOptionPane.showMessageDialog(null, "Đã thu đủ tiền!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Đã thu đủ tiền!");
         } else {
             if (daThu > 0) {
                 try {
                     BenhAnModel ba = new BenhAnModel(maBenhAn, tongTien, thu + daThu);
                     BenhAnCtrl.capNhatTien(ba);
-                    JOptionPane.showMessageDialog(null, "Thu tiền thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    DialogHelper.showMessage("Thu tiền thành công!");
 //                    ThuTextField.setText("");
 //                    ConTextField.setText("");
 
@@ -484,7 +485,7 @@ public class ThuTien extends javax.swing.JPanel {
                 try {
                     BenhAnModel ba = new BenhAnModel(maBenhAn, tongTien, thu);
                     BenhAnCtrl.capNhatTien(ba);
-                    JOptionPane.showMessageDialog(null, "Thu tiền thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    DialogHelper.showMessage("Thu tiền thành công!");
 //                    ThuTextField.setText("");
 //                    ConTextField.setText("");
 
@@ -520,9 +521,9 @@ public class ThuTien extends javax.swing.JPanel {
         }
 
         if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
-            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
         } else if (thu.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Thu chưa được nhập. Vui lòng nhập số tiền đã thu", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            DialogHelper.showError("Thu chưa được nhập. Vui lòng nhập số tiền đã thu");
         } else {
             try {
                 BenhNhanModel benhNhan;
@@ -551,15 +552,15 @@ public class ThuTien extends javax.swing.JPanel {
                 String tongTien = txtTongTien.getText();
 
                 if (ten.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có tên của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có tên của bệnh nhân");
                 } else if (gioiTinh.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có giới tính của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có giới tính của bệnh nhân");
                 } else if (diaChi.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có địa chỉ của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có địa chỉ của bệnh nhân");
                 } else if (chuanDoan == null || chuanDoan.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Bệnh nhân chưa được chuẩn đoán", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Bệnh nhân chưa được chuẩn đoán");
                 } else if (tongTien.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có tổng tiền", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có tổng tiền");
                 } else {
                     GenerateHoaDon inDon = new GenerateHoaDon(ten, tuoi, gioiTinh, diaChi, chuanDoan, tongTien, daThu, thu, Integer.toString(ngayHienTai), Integer.toString(thangHienTai), Integer.toString(namHienTai));
 
@@ -604,7 +605,7 @@ public class ThuTien extends javax.swing.JPanel {
 
                     try {
                         inDon.taoHoaDon();
-                        JOptionPane.showMessageDialog(null, "In hóa đơn thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        DialogHelper.showMessage("In hóa đơn thành công!");
                     } catch (IOException ex) {
                         Logger.getLogger(ThuTien.class.getName()).log(Level.SEVERE, null, ex);
                     }

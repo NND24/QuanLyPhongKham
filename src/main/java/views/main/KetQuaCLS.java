@@ -240,7 +240,6 @@ public class KetQuaCLS extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDSChiDinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSChiDinhMouseClicked
-        // TODO add your handling code here:
         int selectedIndex = tblDSChiDinh.getSelectedRow();
         if (selectedIndex >= 0) {
             ChiDinhModel cd = dsChiDinh.get(selectedIndex);
