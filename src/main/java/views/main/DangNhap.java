@@ -96,8 +96,8 @@ public class DangNhap extends javax.swing.JFrame {
         });
 
         lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        lblQuenMatKhau.setForeground(new java.awt.Color(0, 0, 255));
-        lblQuenMatKhau.setText("Quên mật khẩu");
+        lblQuenMatKhau.setForeground(new java.awt.Color(255, 0, 51));
+        lblQuenMatKhau.setText("Quên mật khẩu?");
         lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblQuenMatKhauMouseClicked(evt);
@@ -133,17 +133,17 @@ public class DangNhap extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(10, 10, 10)
+                .addGap(5, 5, 5)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel3)
-                .addGap(10, 10, 10)
+                .addGap(5, 5, 5)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboShowPassword)
                     .addComponent(lblQuenMatKhau))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(btnDangNhap)
                 .addGap(24, 24, 24))
         );
@@ -184,7 +184,8 @@ public class DangNhap extends javax.swing.JFrame {
                     String chucVu = DangNhapCtrl.traVeChucVu(currentEmail);
                     switch (chucVu) {
                         case "BS" -> {
-                            new QuanLy().setVisible(true);
+                            // đăng nhập cho bác sĩ
+                            new BacSi().setVisible(true);
                             this.dispose();
                         }
                         case "QL" -> {
@@ -193,8 +194,8 @@ public class DangNhap extends javax.swing.JFrame {
                             this.dispose();
                         }
                         case "YT" -> {
-                            // đăng nhập cho Quản Lý
-                            new QuanLy().setVisible(true);
+                            // đăng nhập cho y tá
+                            new YTa().setVisible(true);
                             this.dispose();
                         }
                         default ->

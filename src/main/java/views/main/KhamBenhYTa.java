@@ -227,7 +227,7 @@ public class KhamBenhYTa extends javax.swing.JPanel {
             }
         });
 
-        lblBacSi.setText("BS253615 Nguyễn Văn Hưng");
+        lblBacSi.setText("____________________________");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -314,53 +314,30 @@ public class KhamBenhYTa extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMaBenhNhanPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblMaBenhNhanPropertyChange
-        KhamLamSang.Instance.maBenhNhan = lblMaBenhNhan.getText();
-        ChiDinh.Instance.maBenhNhan = lblMaBenhNhan.getText();
-        ChonThuoc.Instance.maBenhNhan = lblMaBenhNhan.getText();
-        KetQuaCLS.Instance.maBenhNhan = lblMaBenhNhan.getText();
+
     }//GEN-LAST:event_lblMaBenhNhanPropertyChange
 
     private void lblNgayKhamPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNgayKhamPropertyChange
-        KhamLamSang.Instance.ngayKham = lblNgayKham.getText();
+
     }//GEN-LAST:event_lblNgayKhamPropertyChange
 
     private void lblPhongKhamPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblPhongKhamPropertyChange
-        KhamLamSang.Instance.maPhongKham = lblPhongKham.getText();
+
     }//GEN-LAST:event_lblPhongKhamPropertyChange
 
     private void lblMaBenhAnPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblMaBenhAnPropertyChange
-        KhamLamSang.Instance.maBenhAn = lblMaBenhAn.getText();
-        KhamLamSang.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
 
-        ChiDinh.Instance.maBenhAn = lblMaBenhAn.getText();
-        ChiDinh.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
-
-        ChonThuoc.Instance.maBenhAn = lblMaBenhAn.getText();
-        ChonThuoc.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
-
-        KetQuaCLS.Instance.maBenhAn = lblMaBenhAn.getText();
-        KetQuaCLS.Instance.maBacSi = lblBacSi.getText().split(" ")[0];
     }//GEN-LAST:event_lblMaBenhAnPropertyChange
 
     private void btnDSBenhAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSBenhAnMouseClicked
 
-        pnlBenhAn.setVisible(true);
-
-        btnDSBenhAn.setBackground(new Color(0, 102, 255));
-        lblDSBenhAn.setForeground(Color.white);
-
     }//GEN-LAST:event_btnDSBenhAnMouseClicked
 
     private void lblDichVuKhamPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblDichVuKhamPropertyChange
-        KhamLamSang.Instance.maDichVu = lblDichVuKham.getText();
+
     }//GEN-LAST:event_lblDichVuKhamPropertyChange
 
     private void lblDSBenhAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDSBenhAnMouseClicked
-
-        pnlBenhAn.setVisible(true);
-
-        btnDSBenhAn.setBackground(new Color(0, 102, 255));
-        lblDSBenhAn.setForeground(Color.white);
 
     }//GEN-LAST:event_lblDSBenhAnMouseClicked
 

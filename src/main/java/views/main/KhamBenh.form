@@ -719,7 +719,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblBacSi">
           <Properties>
-            <Property name="text" type="java.lang.String" value="BS253615 Nguy&#x1ec5;n V&#x103;n H&#x1b0;ng"/>
+            <Property name="text" type="java.lang.String" value="____________________________"/>
           </Properties>
         </Component>
       </SubComponents>

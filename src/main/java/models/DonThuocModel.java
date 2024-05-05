@@ -2,14 +2,30 @@ package models;
 
 public class DonThuocModel {
 
-    private String maDonThuoc, maBenhAn, maThuoc, tenThuoc, maNhomThuoc, tenNhomThuoc, duongDung, cachDung;
+    private String maDonThuoc, maBenhAn, maThuoc, tenThuoc, maBacSi, maNhomThuoc, tenNhomThuoc, duongDung, cachDung;
     private int soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien;
 
-    public DonThuocModel(String maDonThuoc, String maBenhAn, String maThuoc, String tenThuoc, String duongDung, String cachDung, int soNgay, int soLuong, int sang, int trua, int chieu, int toi, int donGia, int thanhTien) {
+    public DonThuocModel(String maDonThuoc, String maBenhAn, String maThuoc, String maBacSi, String cachDung, int soNgay, int soLuong, int sang, int trua, int chieu, int toi, int donGia, int thanhTien) {
         this.maDonThuoc = maDonThuoc;
         this.maBenhAn = maBenhAn;
         this.maThuoc = maThuoc;
-        this.tenThuoc = tenThuoc;
+        this.maBacSi = maBacSi;
+        this.cachDung = cachDung;
+        this.soNgay = soNgay;
+        this.soLuong = soLuong;
+        this.sang = sang;
+        this.trua = trua;
+        this.chieu = chieu;
+        this.toi = toi;
+        this.donGia = donGia;
+        this.thanhTien = thanhTien;
+    }
+
+    public DonThuocModel(String maDonThuoc, String maBenhAn, String maThuoc, String maBacSi, String duongDung, String cachDung, int soNgay, int soLuong, int sang, int trua, int chieu, int toi, int donGia, int thanhTien) {
+        this.maDonThuoc = maDonThuoc;
+        this.maBenhAn = maBenhAn;
+        this.maThuoc = maThuoc;
+        this.maBacSi = maBacSi;
         this.duongDung = duongDung;
         this.cachDung = cachDung;
         this.soNgay = soNgay;
@@ -167,6 +183,14 @@ public class DonThuocModel {
 
     public void setTenThuoc(String tenThuoc) {
         this.tenThuoc = tenThuoc;
+    }
+
+    public String getMaBacSi() {
+        return maBacSi;
+    }
+
+    public void setMaBacSi(String maBacSi) {
+        this.maBacSi = maBacSi;
     }
 
 }

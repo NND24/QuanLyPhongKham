@@ -11,17 +11,17 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import models.NhomDichVuKhamBenhModelTest;
 import models.PhongKhamModelTest;
-import models.DichVuCLSModelTest;
 import models.BenhNhanModel;
 import models.DangKyModel;
 import models.BenhAnModel;
 import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
-import controllers.DichVuCLSCtrlTest;
 import controllers.KhamLamSangCtrl;
 import controllers.BenhAnCtrl;
+import controllers.DichVuKhamBenhCtrlTest;
 import controllers.NhomDichVuKhamBenhCtrlTest;
 import controllers.PhongKhamCtrlTest;
+import models.DichVuKhamBenhModelTest;
 import pdfForm.GeneratePhieuKham;
 import utils.Validator;
 import utils.DialogHelper;
@@ -34,7 +34,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     List<BenhNhanModel> dsBenhNhan = new ArrayList<>();
     List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
     List<NhomDichVuKhamBenhModelTest> dsNhomDichVu = new ArrayList<>();
-    List<DichVuCLSModelTest> dsDichVu = new ArrayList<>();
+    List<DichVuKhamBenhModelTest> dsDichVu = new ArrayList<>();
 
     public TiepNhanBenhNhan() {
         try {
@@ -423,6 +423,11 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
         cmbPhongKham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Phòng khám---", "PK123456 Tai mũi họng" }));
         cmbPhongKham.setPreferredSize(new java.awt.Dimension(132, 30));
+        cmbPhongKham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPhongKhamActionPerformed(evt);
+            }
+        });
 
         jLabel17.setForeground(new java.awt.Color(255, 0, 0));
         jLabel17.setText("(*)");
@@ -803,7 +808,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
     private void btnLuuBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuBenhNhanActionPerformed
         try {
-            // TODO add your handling code here:
             String maBenhNhan = GenerateCode.generateMa("BN");
             String hoTen = txtHoTen.getText();
             String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
@@ -895,11 +899,11 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showError("Lý do khám không được để trống!");
             } else if (cmbPhongKham.getSelectedItem().equals("---Phòng khám---")) {
                 DialogHelper.showError("Phòng khám không được để trống!");
-            } else if (cmbDichVu.getSelectedItem().equals("---Dịch vụ---")) {
+            } else if (cmbDichVu.getSelectedItem() != null && cmbDichVu.getSelectedItem().equals("---Dịch vụ---")) {
                 DialogHelper.showError("Dịch vụ khám không được để trống!");
             } else {
                 int dichVuIndex = cmbDichVu.getSelectedIndex();
-                String maDichVu = dsDichVu.get(dichVuIndex).getMaDichVuCLS();
+                String maDichVu = dsDichVu.get(dichVuIndex).getMaDichVuKB();
 
                 int phongKhamIndex = cmbPhongKham.getSelectedIndex();
                 String maPhongKham = dsPhongKham.get(phongKhamIndex).getMaPhongKham();
@@ -948,7 +952,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbLocActionPerformed
 
     private void btnSuaBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaBenhNhanActionPerformed
-        // TODO add your handling code here:
         try {
             String maBenhNhan = txtMaBenhNhan.getText();
             String hoTen = txtHoTen.getText();
@@ -1104,11 +1107,11 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             try {
                 int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
                 String maNhomDichVu = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
-
                 cmbDichVu.removeAllItems();
-                dsDichVu = DichVuCLSCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVu);
+                cmbDichVu.addItem("---Dịch vụ---");
+                dsDichVu = DichVuKhamBenhCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVu);
                 dsDichVu.forEach(dv -> {
-                    cmbDichVu.addItem(dv.getTenDichVuCLS());
+                    cmbDichVu.addItem(dv.getTenDichVuKB());
                 });
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
@@ -1167,6 +1170,20 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnInPhieuKhamActionPerformed
+
+    private void cmbPhongKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhongKhamActionPerformed
+        if (cmbPhongKham.getSelectedItem() != null) {
+            String selectedItem = cmbPhongKham.getSelectedItem().toString();
+            String[] items = selectedItem.split(" ");
+            if (items.length > 2) {
+                int soLuong = Integer.parseInt(items[items.length - 1]);
+                int thuTuKham = soLuong + 1;
+                txtThuTuKham.setText(Integer.toString(thuTuKham));
+            } else {
+                txtThuTuKham.setText("0");
+            }
+        }
+    }//GEN-LAST:event_cmbPhongKhamActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInPhieuKham;

@@ -43,7 +43,7 @@ public class ThuocCtrl {
                         resultSet.getString("HamLuong"), resultSet.getString("SoDangKy"),
                         resultSet.getString("DongGoi"), resultSet.getString("DonViTinh"),
                         resultSet.getString("HangSanXuat"), resultSet.getString("NuocSanXuat"),
-                        resultSet.getInt("GiaTien"), resultSet.getInt("GiaBHYT"),
+                        resultSet.getInt("GiaTien"), resultSet.getInt("GiaBaoHiem"),
                         resultSet.getString("TrangThai"));
                 dsThuoc.add(thuoc);
             }
@@ -76,8 +76,10 @@ public class ThuocCtrl {
 
         try {
             connection = ConnectDB.getConnection();
-            String sql = "SELECT THUOC.*, NHOMTHUOC.TenNhomThuoc FROM THUOC "
-                    + "JOIN NHOMTHUOC ON THUOC.MaNhomThuoc = NHOMTHUOC.MaNhomThuoc AND THUOC.MaNhomThuoc = ?";
+            String sql = """
+                         SELECT THUOC.*, NHOMTHUOC.TenNhomThuoc FROM THUOC
+                         JOIN NHOMTHUOC ON THUOC.MaNhomThuoc = NHOMTHUOC.MaNhomThuoc AND THUOC.MaNhomThuoc = ?
+                         """;
             statement = connection.prepareStatement(sql);
             statement.setString(1, maNhomThuoc);
 
@@ -91,7 +93,7 @@ public class ThuocCtrl {
                         resultSet.getString("HamLuong"), resultSet.getString("SoDangKy"),
                         resultSet.getString("DongGoi"), resultSet.getString("DonViTinh"),
                         resultSet.getString("HangSanXuat"), resultSet.getString("NuocSanXuat"),
-                        resultSet.getInt("GiaTien"), resultSet.getInt("GiaBHYT"),
+                        resultSet.getInt("GiaTien"), resultSet.getInt("GiaBaoHiem"),
                         resultSet.getString("TrangThai"));
                 dsThuoc.add(thuoc);
             }
@@ -117,8 +119,8 @@ public class ThuocCtrl {
         return dsThuoc;
     }
 
-    public static List<ThuocModel> timTatCaThuocTheoMa(String maThuoc) throws ClassNotFoundException {
-        List<ThuocModel> dsThuoc = new ArrayList<>();
+    public static ThuocModel timThuocTheoMa(String maThuoc) throws ClassNotFoundException {
+        ThuocModel thuoc = null;
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -131,11 +133,11 @@ public class ThuocCtrl {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                ThuocModel thuoc = new ThuocModel(
+                ThuocModel t = new ThuocModel(
                         resultSet.getString("MaThuoc"), resultSet.getString("TenThuoc"),
-                        resultSet.getString("DuongDung"), resultSet.getInt("DonGia"),
-                        resultSet.getInt("GiaBHYT"), resultSet.getString("TrangThai"));
-                dsThuoc.add(thuoc);
+                        resultSet.getString("DuongDung"), resultSet.getInt("GiaTien"),
+                        resultSet.getInt("GiaBaoHiem"), resultSet.getString("TrangThai"));
+                thuoc = t;
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +158,7 @@ public class ThuocCtrl {
             }
         }
 
-        return dsThuoc;
+        return thuoc;
     }
 
     public static void ThemThuoc(ThuocModel thuoc) throws ClassNotFoundException {
@@ -164,7 +166,7 @@ public class ThuocCtrl {
         PreparedStatement statement = null;
         try {
             connection = ConnectDB.getConnection();
-            String sql = "INSERT INTO THUOC (MaThuoc, TenThuoc, TenHoatChat, MaNhomThuoc, DuongDung, HamLuong, SoDangKy, DongGoi, DonViTinh, HangSanXuat, NuocSanXuat,GiaTien, GiaBHYT, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+            String sql = "INSERT INTO THUOC (MaThuoc, TenThuoc, TenHoatChat, MaNhomThuoc, DuongDung, HamLuong, SoDangKy, DongGoi, DonViTinh, HangSanXuat, NuocSanXuat,GiaTien, GiaBaoHiem, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
             statement = connection.prepareStatement(sql);
 
             statement.setString(1, thuoc.getMaThuoc());
@@ -209,7 +211,7 @@ public class ThuocCtrl {
         PreparedStatement statement = null;
         try {
             connection = ConnectDB.getConnection();
-            String sql = "UPDATE THUOC SET TenThuoc=?, TenHoatChat=?, MaNhomThuoc=?,DuongDung=?,HamLuong=?,SoDangKy=?,DongGoi=?,DonViTinh=?,HangSanXuat=?,NuocSanXuat=?,GiaTien=?,GiaBHYT=?,TrangThai=? WHERE MaThuoc=?";
+            String sql = "UPDATE THUOC SET TenThuoc=?, TenHoatChat=?, MaNhomThuoc=?,DuongDung=?,HamLuong=?,SoDangKy=?,DongGoi=?,DonViTinh=?,HangSanXuat=?,NuocSanXuat=?,GiaTien=?,GiaBaoHiem=?,TrangThai=? WHERE MaThuoc=?";
             statement = connection.prepareCall(sql);
 
             statement.setString(1, thuoc.getTenThuoc());
@@ -309,7 +311,7 @@ public class ThuocCtrl {
                         resultSet.getString("HamLuong"), resultSet.getString("SoDangKy"),
                         resultSet.getString("DongGoi"), resultSet.getString("DonViTinh"),
                         resultSet.getString("HangSanXuat"), resultSet.getString("NuocSanXuat"),
-                        resultSet.getInt("GiaTien"), resultSet.getInt("GiaBHYT"),
+                        resultSet.getInt("GiaTien"), resultSet.getInt("GiaBaoHiem"),
                         resultSet.getString("TrangThai"));
                 dsThuoc.add(thuoc);
             }
@@ -354,7 +356,7 @@ public class ThuocCtrl {
             headerRow.createCell(10).setCellValue("HangSanXuat");
             headerRow.createCell(11).setCellValue("NuocSanXuat");
             headerRow.createCell(12).setCellValue("GiaTien");
-            headerRow.createCell(13).setCellValue("GiaBHYT");
+            headerRow.createCell(13).setCellValue("GiaBaoHiem");
             headerRow.createCell(13).setCellValue("TrangThai");
 
             // Ghi dữ liệu vào sheet
