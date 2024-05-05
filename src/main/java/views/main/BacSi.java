@@ -4,13 +4,11 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
-import views.list.DSKhoa;
 
 public class BacSi extends javax.swing.JFrame {
 
     public BacSi() {
         initComponents();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -20,8 +18,6 @@ public class BacSi extends javax.swing.JFrame {
         lypQuanLy = new javax.swing.JLayeredPane();
         tabTiepNhanBenhNhan = new javax.swing.JTabbedPane();
         tiepNhanBenhNhan2 = new views.main.TiepNhanBenhNhan();
-        tabQuanLyBenhNhan = new javax.swing.JTabbedPane();
-        dSBenhNhan1 = new views.list.DSBenhNhan();
         tabKhamBenh = new javax.swing.JTabbedPane();
         dSDangKy1 = new views.list.DSDangKy();
         khamBenh1 = new views.main.KhamBenh();
@@ -53,10 +49,6 @@ public class BacSi extends javax.swing.JFrame {
         tabTiepNhanBenhNhan.addTab("Tiếp nhận bệnh nhân", tiepNhanBenhNhan2);
 
         lypQuanLy.add(tabTiepNhanBenhNhan, "card2");
-
-        tabQuanLyBenhNhan.addTab("Quản lý bệnh nhân", dSBenhNhan1);
-
-        lypQuanLy.add(tabQuanLyBenhNhan, "card2");
 
         tabKhamBenh.addTab("Danh sách đăng ký", dSDangKy1);
         tabKhamBenh.addTab("Khám bệnh", khamBenh1);
@@ -233,7 +225,6 @@ public class BacSi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
-    private views.list.DSBenhNhan dSBenhNhan1;
     private views.list.DSDangKy dSDangKy1;
     private views.list.DSThuTien dSThuTien1;
     private javax.swing.JPanel header;
@@ -249,7 +240,6 @@ public class BacSi extends javax.swing.JFrame {
     private javax.swing.JMenu mniTaiKhoan;
     private javax.swing.JMenu mniTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabKhamBenh;
-    private javax.swing.JTabbedPane tabQuanLyBenhNhan;
     private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabVienPhi;
     private views.main.ThuTien thuTien1;

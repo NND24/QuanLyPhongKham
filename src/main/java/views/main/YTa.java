@@ -20,10 +20,7 @@ public class YTa extends javax.swing.JFrame {
         lypQuanLy = new javax.swing.JLayeredPane();
         tabTiepNhanBenhNhan = new javax.swing.JTabbedPane();
         tiepNhanBenhNhan2 = new views.main.TiepNhanBenhNhan();
-        tabQuanLyBenhNhan = new javax.swing.JTabbedPane();
-        dSBenhNhan1 = new views.list.DSBenhNhan();
         tabKhamBenh = new javax.swing.JTabbedPane();
-        dSDangKy1 = new views.list.DSDangKy();
         khamBenhYTa1 = new views.main.KhamBenhYTa();
         xepGiuong1 = new views.main.XepGiuong();
         thuTien1 = new views.main.ThuTien();
@@ -40,11 +37,7 @@ public class YTa extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mniTiepNhanBenhNhan = new javax.swing.JMenu();
         mniKhamBenh = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mniTaiKhoan = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -58,11 +51,6 @@ public class YTa extends javax.swing.JFrame {
 
         lypQuanLy.add(tabTiepNhanBenhNhan, "card2");
 
-        tabQuanLyBenhNhan.addTab("Quản lý bệnh nhân", dSBenhNhan1);
-
-        lypQuanLy.add(tabQuanLyBenhNhan, "card2");
-
-        tabKhamBenh.addTab("Danh sách đăng ký", dSDangKy1);
         tabKhamBenh.addTab("Danh sách bệnh án", khamBenhYTa1);
         tabKhamBenh.addTab("Xếp giường", xepGiuong1);
         tabKhamBenh.addTab("Thu tiền", thuTien1);
@@ -159,7 +147,7 @@ public class YTa extends javax.swing.JFrame {
         });
         jMenuBar1.add(mniTiepNhanBenhNhan);
 
-        mniKhamBenh.setText("Khám bệnh");
+        mniKhamBenh.setText("Xếp giường");
         mniKhamBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniKhamBenh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -168,28 +156,9 @@ public class YTa extends javax.swing.JFrame {
         });
         jMenuBar1.add(mniKhamBenh);
 
-        jMenu5.setText("Quản lý viện phí");
-        jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu5);
-
-        jMenu7.setText("Quản lý phòng bệnh");
-        jMenu7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jMenuItem4.setText("Danh sách phòng bệnh");
-        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem4.setPreferredSize(new java.awt.Dimension(171, 30));
-        jMenu7.add(jMenuItem4);
-
-        jMenuItem5.setText("Danh sách đơn giá phòng bệnh");
-        jMenuItem5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem5.setPreferredSize(new java.awt.Dimension(214, 30));
-        jMenu7.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu7);
-
-        jMenu3.setText("Tài khoản cá nhân");
-        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu3);
+        mniTaiKhoan.setText("Tài khoản cá nhân");
+        mniTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.add(mniTaiKhoan);
 
         setJMenuBar(jMenuBar1);
 
@@ -256,8 +225,6 @@ public class YTa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
-    private views.list.DSBenhNhan dSBenhNhan1;
-    private views.list.DSDangKy dSDangKy1;
     private views.list.DSThuTien dSThuTien1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel3;
@@ -265,18 +232,13 @@ public class YTa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private views.main.KhamBenhYTa khamBenhYTa1;
     private javax.swing.JLayeredPane lypQuanLy;
     private javax.swing.JMenu mniKhamBenh;
+    private javax.swing.JMenu mniTaiKhoan;
     private javax.swing.JMenu mniTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabKhamBenh;
-    private javax.swing.JTabbedPane tabQuanLyBenhNhan;
     private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabVienPhi;
     private views.main.ThuTien thuTien1;

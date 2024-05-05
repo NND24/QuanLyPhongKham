@@ -4,7 +4,13 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
+import views.list.DSDichVuCLSTest;
+import views.list.DSDichVuKhamBenhTest;
+import views.list.DSDonGiaPhongBenh;
 import views.list.DSKhoa;
+import views.list.DSNhomDichVuCLSTest;
+import views.list.DSNhomDichVuKhamBenhTest;
+import views.list.DSNhomThuoc;
 
 public class QuanLy extends javax.swing.JFrame {
 
@@ -25,6 +31,13 @@ public class QuanLy extends javax.swing.JFrame {
         tabQuanLyBacSi = new javax.swing.JTabbedPane();
         dSBacSi1 = new views.list.DSBacSi();
         tabQuanLyYTa = new javax.swing.JTabbedPane();
+        dSYTa1 = new views.list.DSYTa();
+        tabQuanLyAdmin = new javax.swing.JTabbedPane();
+        dSQuanLy1 = new views.list.DSQuanLy();
+        tabQuanLyPhongBenh = new javax.swing.JTabbedPane();
+        dSPhongBenh1 = new views.list.DSPhongBenh();
+        tabQuanLyThuoc = new javax.swing.JTabbedPane();
+        dSThuoc1 = new views.list.DSThuoc();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -76,7 +89,22 @@ public class QuanLy extends javax.swing.JFrame {
         tabQuanLyBacSi.addTab("Quản lý bác sĩ", dSBacSi1);
 
         lypQuanLy.add(tabQuanLyBacSi, "card2");
+
+        tabQuanLyYTa.addTab("Quản lý y tá", dSYTa1);
+
         lypQuanLy.add(tabQuanLyYTa, "card2");
+
+        tabQuanLyAdmin.addTab("Quản lý admin", dSQuanLy1);
+
+        lypQuanLy.add(tabQuanLyAdmin, "card2");
+
+        tabQuanLyPhongBenh.addTab("Quản lý phòng bệnh", dSPhongBenh1);
+
+        lypQuanLy.add(tabQuanLyPhongBenh, "card2");
+
+        tabQuanLyThuoc.addTab("Quản lý thuốc", dSThuoc1);
+
+        lypQuanLy.add(tabQuanLyThuoc, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -166,9 +194,9 @@ public class QuanLy extends javax.swing.JFrame {
 
         mniQuanLyVienPhi.setText("Quản lý viện phí");
         mniQuanLyVienPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mniQuanLyVienPhi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mniQuanLyVienPhiMouseClicked(evt);
+        mniQuanLyVienPhi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyVienPhiActionPerformed(evt);
             }
         });
         jMenuBar1.add(mniQuanLyVienPhi);
@@ -179,16 +207,31 @@ public class QuanLy extends javax.swing.JFrame {
         mniQuanLyBacSi.setText("Danh sách bác sĩ");
         mniQuanLyBacSi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyBacSi.setPreferredSize(new java.awt.Dimension(136, 30));
+        mniQuanLyBacSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyBacSiActionPerformed(evt);
+            }
+        });
         mniQuanLyNhanVien.add(mniQuanLyBacSi);
 
         mniQuanLyYTa.setText("Danh sách y tá");
         mniQuanLyYTa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyYTa.setPreferredSize(new java.awt.Dimension(125, 30));
+        mniQuanLyYTa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyYTaActionPerformed(evt);
+            }
+        });
         mniQuanLyNhanVien.add(mniQuanLyYTa);
 
         mniQuanLyAdmin.setText("Danh sách admin");
         mniQuanLyAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyAdmin.setPreferredSize(new java.awt.Dimension(140, 30));
+        mniQuanLyAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyAdminActionPerformed(evt);
+            }
+        });
         mniQuanLyNhanVien.add(mniQuanLyAdmin);
 
         jMenuBar1.add(mniQuanLyNhanVien);
@@ -199,11 +242,21 @@ public class QuanLy extends javax.swing.JFrame {
         mniDanhSachPhongBenh.setText("Danh sách phòng bệnh");
         mniDanhSachPhongBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniDanhSachPhongBenh.setPreferredSize(new java.awt.Dimension(171, 30));
+        mniDanhSachPhongBenh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDanhSachPhongBenhActionPerformed(evt);
+            }
+        });
         mniQuanLyPhongBenh.add(mniDanhSachPhongBenh);
 
         mniDonGiaPB.setText("Danh sách đơn giá phòng bệnh");
         mniDonGiaPB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniDonGiaPB.setPreferredSize(new java.awt.Dimension(214, 30));
+        mniDonGiaPB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDonGiaPBActionPerformed(evt);
+            }
+        });
         mniQuanLyPhongBenh.add(mniDonGiaPB);
 
         jMenuBar1.add(mniQuanLyPhongBenh);
@@ -225,39 +278,74 @@ public class QuanLy extends javax.swing.JFrame {
         mniQuanLyNhomThuoc.setText("Danh sách nhóm thuốc");
         mniQuanLyNhomThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyNhomThuoc.setPreferredSize(new java.awt.Dimension(172, 30));
+        mniQuanLyNhomThuoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyNhomThuocActionPerformed(evt);
+            }
+        });
         mniQuanLyKhamBenh.add(mniQuanLyNhomThuoc);
 
         mniQuanLyThuoc.setText("Danh sách thuốc");
         mniQuanLyThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyThuoc.setPreferredSize(new java.awt.Dimension(137, 30));
+        mniQuanLyThuoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyThuocActionPerformed(evt);
+            }
+        });
         mniQuanLyKhamBenh.add(mniQuanLyThuoc);
         mniQuanLyKhamBenh.add(jSeparator2);
 
         mniQuanLyNhomDVKB.setText("Danh sách nhóm DV khám bệnh");
         mniQuanLyNhomDVKB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyNhomDVKB.setPreferredSize(new java.awt.Dimension(219, 30));
+        mniQuanLyNhomDVKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyNhomDVKBActionPerformed(evt);
+            }
+        });
         mniQuanLyKhamBenh.add(mniQuanLyNhomDVKB);
 
         mniQuanLyDVKB.setText("Danh sách DV khám bệnh");
         mniQuanLyDVKB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyDVKB.setPreferredSize(new java.awt.Dimension(184, 30));
+        mniQuanLyDVKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyDVKBActionPerformed(evt);
+            }
+        });
         mniQuanLyKhamBenh.add(mniQuanLyDVKB);
         mniQuanLyKhamBenh.add(jSeparator3);
 
         mniQuanLyNhomDVCLS.setText("Danh sách nhóm DV cận lâm sàn");
         mniQuanLyNhomDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyNhomDVCLS.setPreferredSize(new java.awt.Dimension(222, 30));
+        mniQuanLyNhomDVCLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyNhomDVCLSActionPerformed(evt);
+            }
+        });
         mniQuanLyKhamBenh.add(mniQuanLyNhomDVCLS);
 
         mniQuanLyDVCLS.setText("Danh sách DV cận lâm sàn");
         mniQuanLyDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyDVCLS.setPreferredSize(new java.awt.Dimension(187, 30));
+        mniQuanLyDVCLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyDVCLSActionPerformed(evt);
+            }
+        });
         mniQuanLyKhamBenh.add(mniQuanLyDVCLS);
 
         jMenuBar1.add(mniQuanLyKhamBenh);
 
         mniQuanLyTaiKhoan.setText("Tài khoản cá nhân");
         mniQuanLyTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyTaiKhoanActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(mniQuanLyTaiKhoan);
 
         setJMenuBar(jMenuBar1);
@@ -298,12 +386,81 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniQuanLyBenhNhanMouseClicked
 
-    private void mniQuanLyVienPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyVienPhiMouseClicked
+    private void mniQuanLyVienPhiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyVienPhiActionPerformed
         lypQuanLy.removeAll();
         lypQuanLy.add(tabVienPhi);
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
-    }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
+    }//GEN-LAST:event_mniQuanLyVienPhiActionPerformed
+
+    private void mniQuanLyBacSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyBacSiActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyBacSi);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyBacSiActionPerformed
+
+    private void mniQuanLyYTaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyYTaActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyYTa);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyYTaActionPerformed
+
+    private void mniQuanLyAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyAdminActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyAdmin);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyAdminActionPerformed
+
+    private void mniDanhSachPhongBenhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDanhSachPhongBenhActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyPhongBenh);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniDanhSachPhongBenhActionPerformed
+
+    private void mniQuanLyThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyThuocActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyThuoc);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyThuocActionPerformed
+
+    private void mniDonGiaPBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDonGiaPBActionPerformed
+        new DSDonGiaPhongBenh().setVisible(true);
+        new DSDonGiaPhongBenh().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniDonGiaPBActionPerformed
+
+    private void mniQuanLyNhomThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomThuocActionPerformed
+        new DSNhomThuoc().setVisible(true);
+        new DSNhomThuoc().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyNhomThuocActionPerformed
+
+    private void mniQuanLyNhomDVKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomDVKBActionPerformed
+        new DSNhomDichVuKhamBenhTest().setVisible(true);
+        new DSNhomDichVuKhamBenhTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyNhomDVKBActionPerformed
+
+    private void mniQuanLyDVKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyDVKBActionPerformed
+        new DSDichVuKhamBenhTest().setVisible(true);
+        new DSDichVuKhamBenhTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyDVKBActionPerformed
+
+    private void mniQuanLyNhomDVCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomDVCLSActionPerformed
+        new DSNhomDichVuCLSTest().setVisible(true);
+        new DSNhomDichVuCLSTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyNhomDVCLSActionPerformed
+
+    private void mniQuanLyDVCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyDVCLSActionPerformed
+        new DSDichVuCLSTest().setVisible(true);
+        new DSDichVuCLSTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyDVCLSActionPerformed
+
+    private void mniQuanLyTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniQuanLyTaiKhoanActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -332,7 +489,11 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel HoTenUserLabel;
     private views.list.DSBacSi dSBacSi1;
     private views.list.DSBenhNhan dSBenhNhan1;
+    private views.list.DSPhongBenh dSPhongBenh1;
+    private views.list.DSQuanLy dSQuanLy1;
     private views.list.DSThuTien dSThuTien1;
+    private views.list.DSThuoc dSThuoc1;
+    private views.list.DSYTa dSYTa1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -362,8 +523,11 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniQuanLyThuoc;
     private javax.swing.JMenu mniQuanLyVienPhi;
     private javax.swing.JMenuItem mniQuanLyYTa;
+    private javax.swing.JTabbedPane tabQuanLyAdmin;
     private javax.swing.JTabbedPane tabQuanLyBacSi;
     private javax.swing.JTabbedPane tabQuanLyBenhNhan;
+    private javax.swing.JTabbedPane tabQuanLyPhongBenh;
+    private javax.swing.JTabbedPane tabQuanLyThuoc;
     private javax.swing.JTabbedPane tabQuanLyYTa;
     private javax.swing.JTabbedPane tabVienPhi;
     // End of variables declaration//GEN-END:variables

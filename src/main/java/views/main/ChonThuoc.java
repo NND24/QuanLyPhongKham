@@ -519,8 +519,8 @@ public class ChonThuoc extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(lblTongSoThuoc)
@@ -550,21 +550,21 @@ public class ChonThuoc extends javax.swing.JPanel {
                 if (!cmbThuoc.getSelectedItem().toString().equals("---Thuốc---")) {
                     BenhNhanModel benhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
                     if (benhNhan.getBhyt() == null || benhNhan.getBhyt().equals("")) {
-                        String maThuoc = cmbThuoc.getSelectedItem().toString().split(" ")[0];
-                        dsThuoc = ThuocCtrl.timTatCaThuocTheoMa(maThuoc);
-                        dsThuoc.forEach(thuoc -> {
-                            txtTenThuoc.setText(thuoc.getTenThuoc());
-                            txtDonGia.setText(Integer.toString(thuoc.getGiaTien()));
-                            txtDuongDung.setText(thuoc.getDuongDung());
-                        });
+                        int thuocIndex = cmbThuoc.getSelectedIndex();
+                        String maThuoc = dsThuoc.get(thuocIndex).getMaThuoc();
+                        ThuocModel thuoc = ThuocCtrl.timThuocTheoMa(maThuoc);
+
+                        txtTenThuoc.setText(thuoc.getTenThuoc());
+                        txtDonGia.setText(Integer.toString(thuoc.getGiaTien()));
+                        txtDuongDung.setText(thuoc.getDuongDung());
                     } else {
-                        String maThuoc = cmbThuoc.getSelectedItem().toString().split(" ")[0];
-                        dsThuoc = ThuocCtrl.timTatCaThuocTheoMa(maThuoc);
-                        dsThuoc.forEach(thuoc -> {
-                            txtTenThuoc.setText(thuoc.getTenThuoc());
-                            txtDonGia.setText(Integer.toString(thuoc.getGiaBHYT()));
-                            txtDuongDung.setText(thuoc.getDuongDung());
-                        });
+                        int thuocIndex = cmbThuoc.getSelectedIndex();
+                        String maThuoc = dsThuoc.get(thuocIndex).getMaThuoc();
+                        ThuocModel thuoc = ThuocCtrl.timThuocTheoMa(maThuoc);
+
+                        txtTenThuoc.setText(thuoc.getTenThuoc());
+                        txtDonGia.setText(Integer.toString(thuoc.getGiaBHYT()));
+                        txtDuongDung.setText(thuoc.getDuongDung());
                     }
                 } else {
                     txtTenThuoc.setText("");
@@ -636,7 +636,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 } else {
                     int thuocIndex = cmbThuoc.getSelectedIndex();
                     String maThuoc = dsThuoc.get(thuocIndex).getMaThuoc();
-                    DonThuocModel dt = new DonThuocModel(maDonThuoc, maBenhAn, maThuoc, tenThuoc, duongDung, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
+                    DonThuocModel dt = new DonThuocModel(maDonThuoc, maBenhAn, maThuoc, maBacSi, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
                     DonThuocCtrl.themDonThuoc(dt);
                     dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
                     hienThiDSDonThuoc();
@@ -685,7 +685,7 @@ public class ChonThuoc extends javax.swing.JPanel {
             if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
                 DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
             } else {
-                if (cmbThuoc.getSelectedItem() != null && cmbNhomThuoc.getSelectedItem() != null) {
+                if (cmbNhomThuoc.getSelectedItem() != null) {
                     if (cmbNhomThuoc.getSelectedItem().toString().equals("---Nhóm thuốc---")) {
                         txtTenThuoc.setText("");
                         txtDonGia.setText("");
@@ -700,7 +700,8 @@ public class ChonThuoc extends javax.swing.JPanel {
                         txtToi.setText(Integer.toString(0));
                     } else {
                         try {
-                            String maNhomThuoc = cmbNhomThuoc.getSelectedItem().toString().split(" ")[0];
+                            int nhomThuocIndex = cmbNhomThuoc.getSelectedIndex();
+                            String maNhomThuoc = dsNhomThuoc.get(nhomThuocIndex).getMaNhomThuoc();
 
                             cmbThuoc.removeAllItems();
                             dsThuoc = ThuocCtrl.timThuocTheoNhomThuoc(maNhomThuoc);
@@ -773,7 +774,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                         int thuocIndex = cmbThuoc.getSelectedIndex();
                         String maThuoc = dsThuoc.get(thuocIndex).getMaThuoc();
 
-                        DonThuocModel donThuoc = new DonThuocModel(maDonThuoc, maBenhAn, maThuoc, tenThuoc, duongDung, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
+                        DonThuocModel donThuoc = new DonThuocModel(maDonThuoc, maBenhAn, maThuoc, maBacSi, duongDung, cachDung, soNgay, soLuong, sang, trua, chieu, toi, donGia, thanhTien);
                         DonThuocCtrl.capNhatDonThuoc(donThuoc);
                         dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
                         hienThiDSDonThuoc();

@@ -34,7 +34,9 @@ public class KhamBenh extends javax.swing.JPanel {
             lblKhamLamSang.setForeground(Color.white);
 
             BacSiModel thongTinBS = BenhAnCtrl.layThongTinBacSiTheoEmail(DangNhap.currentEmail);
-            lblBacSi.setText(thongTinBS.getMaBacSi() + " " + thongTinBS.getHoTen());
+            if (thongTinBS != null) {
+                lblBacSi.setText(thongTinBS.getMaBacSi() + " " + thongTinBS.getHoTen());
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(KhamBenh.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -425,7 +427,7 @@ public class KhamBenh extends javax.swing.JPanel {
             }
         });
 
-        lblBacSi.setText("BS253615 Nguyễn Văn Hưng");
+        lblBacSi.setText("____________________________");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);

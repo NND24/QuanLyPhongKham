@@ -68,13 +68,13 @@ public class DangKyBenhNhanCtrl {
 
             if (!timKiem.isEmpty() && maPhongKham.equals("---Phòng khám---") && trangThai.equals("Tất cả")) {
                 String sql = """
-                         SELECT .DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
-                         HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa
+                         SELECT DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
+                         BENHAN.MaBenhNhan, HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa, DANGKY.ThuTu
                          FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
                          WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
                          AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy
                          AND (DANGKY.MaDangKy LIKE ? OR BENHNHAN.MaBenhNhan LIKE ? OR PHONGKHAM.MaPhongKham LIKE ? OR HoTen LIKE ? OR CanCuoc LIKE ? OR SoDienThoai LIKE ? OR TenPhongKham LIKE ? OR TenDichVu LIKE ? OR MaDichVuKham LIKE ?)
-                         ORDER BY ThuTu ASC
+                         ORDER BY DANGKY.ThuTu ASC
                          """;
 
                 statement = connection.prepareStatement(sql);
@@ -96,7 +96,7 @@ public class DangKyBenhNhanCtrl {
                                 resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
                                 resultSet.getString("MaBenhNhan"), resultSet.getString("MaDichVuKB"),
                                 resultSet.getString("MaPhongKham"), resultSet.getString("LyDoKham"),
-                                resultSet.getInt("ThuTuKham"), resultSet.getDate("NgayKham"),
+                                resultSet.getInt("ThuTu"), resultSet.getDate("NgayKham"),
                                 resultSet.getString("TrangThai")
                         );
                         dsBenhNhan.add(bn);
@@ -105,12 +105,12 @@ public class DangKyBenhNhanCtrl {
             }
             if (timKiem.isEmpty() && !maPhongKham.equals("---Phòng khám---") && trangThai.equals("Tất cả")) {
                 String sql = """
-                         SELECT .DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
-                         HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa
+                         SELECT DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
+                         BENHAN.MaBenhNhan, HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa, DANGKY.ThuTu
                          FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
                          WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
                          AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy AND PHONGKHAM.MaPhongKham=?
-                         ORDER BY ThuTu ASC
+                         ORDER BY DANGKY.ThuTu ASC
                          """;
 
                 statement = connection.prepareStatement(sql);
@@ -125,7 +125,7 @@ public class DangKyBenhNhanCtrl {
                                 resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
                                 resultSet.getString("MaBenhNhan"), resultSet.getString("MaDichVuKB"),
                                 resultSet.getString("MaPhongKham"), resultSet.getString("LyDoKham"),
-                                resultSet.getInt("ThuTuKham"), resultSet.getDate("NgayKham"),
+                                resultSet.getInt("ThuTu"), resultSet.getDate("NgayKham"),
                                 resultSet.getString("TrangThai")
                         );
                         dsBenhNhan.add(bn);
@@ -134,12 +134,12 @@ public class DangKyBenhNhanCtrl {
             }
             if (timKiem.isEmpty() && maPhongKham.equals("---Phòng khám---") && !trangThai.equals("Tất cả")) {
                 String sql = """
-                         SELECT .DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
-                         HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa
+                         SELECT DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
+                         BENHAN.MaBenhNhan, HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa, DANGKY.ThuTu
                          FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
                          WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
                          AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy AND DANGKY.TrangThai LIKE ?
-                         ORDER BY ThuTu ASC
+                         ORDER BY DANGKY.ThuTu ASC
                          """;
                 statement = connection.prepareStatement(sql);
                 statement.setString(1, "%" + trangThai + "%");
@@ -153,7 +153,7 @@ public class DangKyBenhNhanCtrl {
                                 resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
                                 resultSet.getString("MaBenhNhan"), resultSet.getString("MaDichVuKB"),
                                 resultSet.getString("MaPhongKham"), resultSet.getString("LyDoKham"),
-                                resultSet.getInt("ThuTuKham"), resultSet.getDate("NgayKham"),
+                                resultSet.getInt("ThuTu"), resultSet.getDate("NgayKham"),
                                 resultSet.getString("TrangThai")
                         );
                         dsBenhNhan.add(bn);

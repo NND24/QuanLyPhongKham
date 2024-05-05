@@ -214,8 +214,8 @@ public class DichVuCLSCtrlTest {
         return dsDichVu;
     }
 
-    public static List<DichVuCLSModelTest> timTatCaDichVuTheoMa(String MaDichVuCLS) throws ClassNotFoundException {
-        List<DichVuCLSModelTest> dsDichVu = new ArrayList<>();
+    public static DichVuCLSModelTest timDichVuTheoMa(String MaDichVuCLS) throws ClassNotFoundException {
+        DichVuCLSModelTest dichVu = null;
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -237,7 +237,7 @@ public class DichVuCLSCtrlTest {
                         resultSet.getInt("GiaTien"),
                         resultSet.getInt("GiaBaoHiem"),
                         resultSet.getString("TrangThai"));
-                dsDichVu.add(dv);
+                dichVu = dv;
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,7 +258,7 @@ public class DichVuCLSCtrlTest {
             }
         }
 
-        return dsDichVu;
+        return dichVu;
     }
 
     public static void themDichVuCLS(DichVuCLSModelTest dv) throws ClassNotFoundException {
