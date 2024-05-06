@@ -299,7 +299,6 @@ public class TaiKhoanCaNhan extends javax.swing.JPanel {
                 .addGap(5, 5, 5))
         );
 
-        lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BacSi/default.png"))); // NOI18N
         lblAnh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -541,7 +540,6 @@ public class TaiKhoanCaNhan extends javax.swing.JPanel {
         // TODO add your handling code here:
         lamMoi();
     }//GEN-LAST:event_btnHuyActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuy;
