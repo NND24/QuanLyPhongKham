@@ -214,7 +214,7 @@ public class QuanLy extends javax.swing.JFrame {
         });
         jMenuBar1.add(mniQuanLyBenhNhan);
 
-        mniQuanLyVienPhi.setText("Quản lý viện phí");
+        mniQuanLyVienPhi.setText("Quản lý bệnh nhân");
         mniQuanLyVienPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyVienPhi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -482,7 +482,6 @@ public class QuanLy extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mniQuanLyTaiKhoanActionPerformed
 
-
     private void mniQuanLyTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanMouseClicked
         // TODO add your handling code here:
         lypQuanLy.removeAll();
@@ -492,18 +491,11 @@ public class QuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_mniQuanLyTaiKhoanMouseClicked
 
     private void mniQuanLyVienPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyVienPhiMouseClicked
-        // TODO add your handling code here:
         lypQuanLy.removeAll();
         lypQuanLy.add(tabVienPhi);
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
-
-    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new DangNhap().setVisible(true);
-    }//GEN-LAST:event_btnDangXuatActionPerformed
 
 
     public static void main(String args[]) {

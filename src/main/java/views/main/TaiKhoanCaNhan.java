@@ -552,7 +552,6 @@ public class TaiKhoanCaNhan extends javax.swing.JPanel {
         lamMoi();
     }//GEN-LAST:event_btnHuyActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnXacNhan;

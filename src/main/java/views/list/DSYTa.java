@@ -15,6 +15,7 @@ public class DSYTa extends javax.swing.JPanel {
 
     DefaultTableModel tableModel;
     List<YTaModel> dsYTa = new ArrayList<>();
+    private String currentImage = "src/main/java/Images/BacSi/default.png";
 
     public DSYTa() {
         try {
@@ -487,7 +488,7 @@ public class DSYTa extends javax.swing.JPanel {
             } else if (YTaCtrl.kiemTraCccdCoTonTai(cccd)) {
                 DialogHelper.showError("CCCD đã tồn tại");
             } else {
-                YTaModel yTa = new YTaModel(tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd);
+                YTaModel yTa = new YTaModel(tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd, currentImage);
 
                 YTaCtrl.themYTa(yTa);
                 hienThiCacYTa();
@@ -553,7 +554,7 @@ public class DSYTa extends javax.swing.JPanel {
                 DialogHelper.showError("Căn cước công dân không hợp lệ");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc sửa thông tin y tá này")) {
-                    YTaModel yTa = new YTaModel(maYTa, tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd);
+                    YTaModel yTa = new YTaModel(maYTa, tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd, cccd);
                     YTaCtrl.capNhatYTa(yTa);
                     hienThiCacYTa();
                     lamMoi();

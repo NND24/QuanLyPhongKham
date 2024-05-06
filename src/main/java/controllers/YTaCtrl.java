@@ -45,11 +45,12 @@ public class YTaCtrl {
                     YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                             resultSet.getString("HoTen"),
                             resultSet.getString("GioiTinh"),
-                            resultSet.getString("NamSinh"),
                             resultSet.getString("DiaChi"),
                             resultSet.getString("SoDienThoai"),
                             resultSet.getString("CanCuoc"),
-                            resultSet.getString("Email"));
+                            resultSet.getString("Email"),
+                            resultSet.getString("NamSinh"),
+                            resultSet.getString("Anh"));
                     dsyt.add(yt);
                 }
             } else if (timKiem.isEmpty() && !gioiTinh.equals("Tất cả")) {
@@ -63,11 +64,12 @@ public class YTaCtrl {
                     YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                             resultSet.getString("HoTen"),
                             resultSet.getString("GioiTinh"),
-                            resultSet.getString("NamSinh"),
                             resultSet.getString("DiaChi"),
                             resultSet.getString("SoDienThoai"),
                             resultSet.getString("CanCuoc"),
-                            resultSet.getString("Email"));
+                            resultSet.getString("Email"),
+                            resultSet.getString("NamSinh"),
+                            resultSet.getString("Anh"));
                     dsyt.add(yt);
                 }
             } else if (!timKiem.isEmpty() && !gioiTinh.equals("Tất cả")) {
@@ -85,11 +87,12 @@ public class YTaCtrl {
                     YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                             resultSet.getString("HoTen"),
                             resultSet.getString("GioiTinh"),
-                            resultSet.getString("NamSinh"),
                             resultSet.getString("DiaChi"),
                             resultSet.getString("SoDienThoai"),
                             resultSet.getString("CanCuoc"),
-                            resultSet.getString("Email"));
+                            resultSet.getString("Email"),
+                            resultSet.getString("NamSinh"),
+                            resultSet.getString("Anh"));
                     dsyt.add(yt);
                 }
             }
@@ -131,11 +134,12 @@ public class YTaCtrl {
                 YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                         resultSet.getString("HoTen"),
                         resultSet.getString("GioiTinh"),
-                        resultSet.getString("NamSinh"),
                         resultSet.getString("DiaChi"),
                         resultSet.getString("SoDienThoai"),
                         resultSet.getString("CanCuoc"),
-                        resultSet.getString("Email"));
+                        resultSet.getString("Email"),
+                        resultSet.getString("NamSinh"),
+                        resultSet.getString("Anh"));
                 dsyt.add(yt);
             }
         } catch (SQLException ex) {
@@ -165,7 +169,7 @@ public class YTaCtrl {
 
         try {
             connection = ConnectDB.getConnection();
-            String sql = "  INSERT INTO YTA(MaYTa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "  INSERT INTO YTA(MaYTa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, Email, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareStatement(sql);
             String maBacSi = GenerateCode.generateMa("YT");
             String matKhau = GenerateCode.generatePassword(maBacSi, yt.getNamSinh());
@@ -179,6 +183,7 @@ public class YTaCtrl {
             statement.setString(6, yt.getSDT());
             statement.setString(7, yt.getCCCD());
             statement.setString(8, email);
+            statement.setString(9, yt.getAnh());
 
             statement.executeUpdate();
         } catch (SQLException ex) {

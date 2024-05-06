@@ -2,7 +2,7 @@ package models;
 
 public class YTaModel {
 
-    private String MaYT, HoTen, GioiTinh, DiaChi, SDT, CCCD, email, namSinh;
+    private String MaYT, HoTen, GioiTinh, DiaChi, SDT, CCCD, email, namSinh, anh;
 
     public YTaModel() {
     }
@@ -12,16 +12,17 @@ public class YTaModel {
         this.email = email;
     }
 
-    public YTaModel(String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD) {
+    public YTaModel(String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD, String anh) {
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
         this.namSinh = namSinh;
         this.DiaChi = DiaChi;
         this.SDT = SDT;
         this.CCCD = CCCD;
+        this.anh = anh;
     }
 
-    public YTaModel(String MaYT, String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD) {
+    public YTaModel(String MaYT, String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD, String anh) {
         this.MaYT = MaYT;
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
@@ -29,17 +30,19 @@ public class YTaModel {
         this.DiaChi = DiaChi;
         this.SDT = SDT;
         this.CCCD = CCCD;
+        this.anh = anh;
     }
 
-    public YTaModel(String MaYT, String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD, String email) {
+    public YTaModel(String MaYT, String HoTen, String GioiTinh, String DiaChi, String SDT, String CCCD, String email, String namSinh, String anh) {
         this.MaYT = MaYT;
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
-        this.namSinh = namSinh;
         this.DiaChi = DiaChi;
         this.SDT = SDT;
         this.CCCD = CCCD;
         this.email = email;
+        this.namSinh = namSinh;
+        this.anh = anh;
     }
 
     public String getMaYT() {
@@ -104,6 +107,14 @@ public class YTaModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAnh() {
+        return anh;
+    }
+
+    public void setAnh(String anh) {
+        this.anh = anh;
     }
 
 }
