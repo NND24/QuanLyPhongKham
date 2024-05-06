@@ -37,7 +37,10 @@ public class TaiKhoanCaNhan extends javax.swing.JPanel {
             @Override
             public void componentResized(ComponentEvent e) {
                 // When lblAnh is resized, update the image
-                showImageOnLabel(taiKhoanCaNhan.getAnh());
+                if(taiKhoanCaNhan.getAnh()!=null || !taiKhoanCaNhan.getAnh().isEmpty()){
+                    showImageOnLabel(taiKhoanCaNhan.getAnh());
+                }
+                showImageOnLabel(defaultPath);
             }
         });
     }
