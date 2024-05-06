@@ -37,7 +37,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtRetypePassword = new javax.swing.JPasswordField();
         txtNewPassword = new javax.swing.JPasswordField();
-        cboShowPassword = new javax.swing.JCheckBox();
+        chkShowPassword = new javax.swing.JCheckBox();
         lblBG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,11 +84,11 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
 
         txtNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
-        cboShowPassword.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        cboShowPassword.setText("Hiển thị mật khẩu");
-        cboShowPassword.addActionListener(new java.awt.event.ActionListener() {
+        chkShowPassword.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        chkShowPassword.setText("Hiển thị mật khẩu");
+        chkShowPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboShowPasswordActionPerformed(evt);
+                chkShowPasswordActionPerformed(evt);
             }
         });
 
@@ -124,7 +124,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboShowPassword)
+                    .addComponent(chkShowPassword)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -148,7 +148,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtRetypePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(cboShowPassword)
+                .addComponent(chkShowPassword)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTiepTuc, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,16 +215,16 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
         new DangNhap().setVisible(true);
     }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void cboShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboShowPasswordActionPerformed
+    private void chkShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowPasswordActionPerformed
         // TODO add your handling code here:
-       if (cboShowPassword.isSelected()) {
+       if (chkShowPassword.isSelected()) {
             txtNewPassword.setEchoChar((char) 0);
             txtRetypePassword.setEchoChar((char) 0);
         } else {
             txtNewPassword.setEchoChar('*');
             txtRetypePassword.setEchoChar('*');
         }
-    }//GEN-LAST:event_cboShowPasswordActionPerformed
+    }//GEN-LAST:event_chkShowPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,7 +264,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnTiepTuc;
-    private javax.swing.JCheckBox cboShowPassword;
+    private javax.swing.JCheckBox chkShowPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

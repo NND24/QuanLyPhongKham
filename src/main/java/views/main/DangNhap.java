@@ -1,6 +1,7 @@
 package views.main;
 
 import controllers.DangNhapCtrl;
+import controllers.TaiKhoanCaNhanCtrl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
@@ -54,7 +55,7 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        cboShowPassword = new javax.swing.JCheckBox();
+        chkShowPassword = new javax.swing.JCheckBox();
         txtPassword = new javax.swing.JPasswordField();
         btnDangNhap = new javax.swing.JButton();
         lblQuenMatKhau = new javax.swing.JLabel();
@@ -73,11 +74,11 @@ public class DangNhap extends javax.swing.JFrame {
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        cboShowPassword.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        cboShowPassword.setText("Hiện thị mật khẩu");
-        cboShowPassword.addActionListener(new java.awt.event.ActionListener() {
+        chkShowPassword.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        chkShowPassword.setText("Hiện thị mật khẩu");
+        chkShowPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboShowPasswordActionPerformed(evt);
+                chkShowPasswordActionPerformed(evt);
             }
         });
 
@@ -123,7 +124,7 @@ public class DangNhap extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(txtEmail)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cboShowPassword)
+                        .addComponent(chkShowPassword)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblQuenMatKhau)))
                 .addContainerGap())
@@ -141,7 +142,7 @@ public class DangNhap extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboShowPassword)
+                    .addComponent(chkShowPassword)
                     .addComponent(lblQuenMatKhau))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(btnDangNhap)
@@ -158,19 +159,20 @@ public class DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboShowPasswordActionPerformed
+    private void chkShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowPasswordActionPerformed
         // TODO add your handling code here:
-        if (cboShowPassword.isSelected()) {
+        if (chkShowPassword.isSelected()) {
             txtPassword.setEchoChar((char) 0);
         } else {
             txtPassword.setEchoChar('*');
         }
-    }//GEN-LAST:event_cboShowPasswordActionPerformed
+    }//GEN-LAST:event_chkShowPasswordActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         currentEmail = txtEmail.getText();
         DangNhapCtrl.currentEmail = currentEmail;
+        TaiKhoanCaNhanCtrl.currentEmail = currentEmail;
         char[] passwordChars = txtPassword.getPassword();
         String password = String.valueOf(passwordChars);
         if (currentEmail.isEmpty() || password.isEmpty()) {
@@ -182,6 +184,8 @@ public class DangNhap extends javax.swing.JFrame {
                 boolean flag = DangNhapCtrl.kiemTraPasswordCoChinhXac(currentEmail, password);
                 if (flag) {
                     String chucVu = DangNhapCtrl.traVeChucVu(currentEmail);
+                    TaiKhoanCaNhanCtrl.currentEmail = currentEmail;
+                    TaiKhoanCaNhanCtrl.maChucVu = chucVu;
                     switch (chucVu) {
                         case "BS" -> {
                             // đăng nhập cho bác sĩ
@@ -272,7 +276,7 @@ public class DangNhap extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
-    private javax.swing.JCheckBox cboShowPassword;
+    private javax.swing.JCheckBox chkShowPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
