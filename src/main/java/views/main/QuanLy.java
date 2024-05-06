@@ -38,6 +38,8 @@ public class QuanLy extends javax.swing.JFrame {
         dSPhongBenh1 = new views.list.DSPhongBenh();
         tabQuanLyThuoc = new javax.swing.JTabbedPane();
         dSThuoc1 = new views.list.DSThuoc();
+        tabThongTinCaNhan = new javax.swing.JTabbedPane();
+        taiKhoanCaNhan1 = new views.main.TaiKhoanCaNhan();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -105,6 +107,10 @@ public class QuanLy extends javax.swing.JFrame {
         tabQuanLyThuoc.addTab("Quản lý thuốc", dSThuoc1);
 
         lypQuanLy.add(tabQuanLyThuoc, "card2");
+
+        tabThongTinCaNhan.addTab("Thông tin cá nhân", taiKhoanCaNhan1);
+
+        lypQuanLy.add(tabThongTinCaNhan, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -346,6 +352,11 @@ public class QuanLy extends javax.swing.JFrame {
 
         mniQuanLyTaiKhoan.setText("Tài khoản cá nhân");
         mniQuanLyTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniQuanLyTaiKhoanMouseClicked(evt);
+            }
+        });
         mniQuanLyTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniQuanLyTaiKhoanActionPerformed(evt);
@@ -467,12 +478,15 @@ public class QuanLy extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mniQuanLyTaiKhoanActionPerformed
 
-    private void mniQuanLyVienPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyVienPhiMouseClicked
+
+    private void mniQuanLyTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanMouseClicked
+        // TODO add your handling code here:
         lypQuanLy.removeAll();
-        lypQuanLy.add(tabVienPhi);
+        lypQuanLy.add(tabThongTinCaNhan);
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
-    }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
+    }//GEN-LAST:event_mniQuanLyTaiKhoanMouseClicked
+
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -541,7 +555,9 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabQuanLyPhongBenh;
     private javax.swing.JTabbedPane tabQuanLyThuoc;
     private javax.swing.JTabbedPane tabQuanLyYTa;
+    private javax.swing.JTabbedPane tabThongTinCaNhan;
     private javax.swing.JTabbedPane tabVienPhi;
+    private views.main.TaiKhoanCaNhan taiKhoanCaNhan1;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -26,6 +26,8 @@ public class YTa extends javax.swing.JFrame {
         thuTien1 = new views.main.ThuTien();
         tabVienPhi = new javax.swing.JTabbedPane();
         dSThuTien1 = new views.list.DSThuTien();
+        tabTaiKhoanCaNhan = new javax.swing.JTabbedPane();
+        taiKhoanCaNhan1 = new views.main.TaiKhoanCaNhan();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,6 +62,10 @@ public class YTa extends javax.swing.JFrame {
         tabVienPhi.addTab("Danh sách viện phí", dSThuTien1);
 
         lypQuanLy.add(tabVienPhi, "card2");
+
+        tabTaiKhoanCaNhan.addTab("tab1", taiKhoanCaNhan1);
+
+        lypQuanLy.add(tabTaiKhoanCaNhan, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -239,8 +245,10 @@ public class YTa extends javax.swing.JFrame {
     private javax.swing.JMenu mniTaiKhoan;
     private javax.swing.JMenu mniTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabKhamBenh;
+    private javax.swing.JTabbedPane tabTaiKhoanCaNhan;
     private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabVienPhi;
+    private views.main.TaiKhoanCaNhan taiKhoanCaNhan1;
     private views.main.ThuTien thuTien1;
     private views.main.TiepNhanBenhNhan tiepNhanBenhNhan2;
     private views.main.XepGiuong xepGiuong1;

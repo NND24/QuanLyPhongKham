@@ -25,6 +25,8 @@ public class BacSi extends javax.swing.JFrame {
         thuTien1 = new views.main.ThuTien();
         tabVienPhi = new javax.swing.JTabbedPane();
         dSThuTien1 = new views.list.DSThuTien();
+        tabThongTinCaNhan = new javax.swing.JTabbedPane();
+        taiKhoanCaNhan1 = new views.main.TaiKhoanCaNhan();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,6 +62,10 @@ public class BacSi extends javax.swing.JFrame {
         tabVienPhi.addTab("Danh sách viện phí", dSThuTien1);
 
         lypQuanLy.add(tabVienPhi, "card2");
+
+        tabThongTinCaNhan.addTab("Thông tin cá nhân", taiKhoanCaNhan1);
+
+        lypQuanLy.add(tabThongTinCaNhan, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -158,6 +164,11 @@ public class BacSi extends javax.swing.JFrame {
 
         mniTaiKhoan.setText("Tài khoản cá nhân");
         mniTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniTaiKhoanMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mniTaiKhoan);
 
         setJMenuBar(jMenuBar1);
@@ -200,6 +211,14 @@ public class BacSi extends javax.swing.JFrame {
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniKhamBenhMouseClicked
 
+    private void mniTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniTaiKhoanMouseClicked
+        // TODO add your handling code here:
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabThongTinCaNhan);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniTaiKhoanMouseClicked
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -240,8 +259,10 @@ public class BacSi extends javax.swing.JFrame {
     private javax.swing.JMenu mniTaiKhoan;
     private javax.swing.JMenu mniTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabKhamBenh;
+    private javax.swing.JTabbedPane tabThongTinCaNhan;
     private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabVienPhi;
+    private views.main.TaiKhoanCaNhan taiKhoanCaNhan1;
     private views.main.ThuTien thuTien1;
     private views.main.TiepNhanBenhNhan tiepNhanBenhNhan2;
     private views.main.XepGiuong xepGiuong1;
