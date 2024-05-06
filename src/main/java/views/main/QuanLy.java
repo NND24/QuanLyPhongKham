@@ -497,6 +497,12 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
 
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new DangNhap().setVisible(true);
+    }//GEN-LAST:event_btnDangXuatActionPerformed
+
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
