@@ -382,7 +382,13 @@ public class DSNhomDichVuCLSTest extends javax.swing.JFrame {
     }//GEN-LAST:event_tbldsNhomDichVuKBMouseClicked
 
     private void btnxuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatDSActionPerformed
-
+        try {
+            dsNhomDichVu = NhomDichVuCLSCtrlTest.timTatNhomDichVuCLS();
+            NhomDichVuCLSCtrlTest.exportToExcel(dsNhomDichVu, "src/main/java/files/DSNhomDichVuCLS.xlsx");
+            DialogHelper.showMessage("Xuất danh sách thành công!");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnxuatDSActionPerformed
 
     private void txttimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKiemKeyTyped

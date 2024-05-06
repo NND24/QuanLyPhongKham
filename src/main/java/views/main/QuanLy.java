@@ -27,7 +27,7 @@ public class QuanLy extends javax.swing.JFrame {
         tabQuanLyBenhNhan = new javax.swing.JTabbedPane();
         dSBenhNhan1 = new views.list.DSBenhNhan();
         tabVienPhi = new javax.swing.JTabbedPane();
-        dSThuTien1 = new views.list.DSThuTien();
+        dSThuTien2 = new views.list.DSThuTien();
         tabQuanLyBacSi = new javax.swing.JTabbedPane();
         dSBacSi1 = new views.list.DSBacSi();
         tabQuanLyYTa = new javax.swing.JTabbedPane();
@@ -84,7 +84,7 @@ public class QuanLy extends javax.swing.JFrame {
 
         lypQuanLy.add(tabQuanLyBenhNhan, "card2");
 
-        tabVienPhi.addTab("Danh sách viện phí", dSThuTien1);
+        tabVienPhi.addTab("Danh sách viện phí", dSThuTien2);
 
         lypQuanLy.add(tabVienPhi, "card2");
 
@@ -200,6 +200,11 @@ public class QuanLy extends javax.swing.JFrame {
 
         mniQuanLyVienPhi.setText("Quản lý viện phí");
         mniQuanLyVienPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyVienPhi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniQuanLyVienPhiMouseClicked(evt);
+            }
+        });
         mniQuanLyVienPhi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniQuanLyVienPhiActionPerformed(evt);
@@ -473,6 +478,7 @@ public class QuanLy extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mniQuanLyTaiKhoanActionPerformed
 
+
     private void mniQuanLyTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanMouseClicked
         // TODO add your handling code here:
         lypQuanLy.removeAll();
@@ -480,6 +486,7 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniQuanLyTaiKhoanMouseClicked
+
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -510,7 +517,7 @@ public class QuanLy extends javax.swing.JFrame {
     private views.list.DSBenhNhan dSBenhNhan1;
     private views.list.DSPhongBenh dSPhongBenh1;
     private views.list.DSQuanLy dSQuanLy1;
-    private views.list.DSThuTien dSThuTien1;
+    private views.list.DSThuTien dSThuTien2;
     private views.list.DSThuoc dSThuoc1;
     private views.list.DSYTa dSYTa1;
     private javax.swing.JPanel header;

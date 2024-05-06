@@ -5,9 +5,9 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-import javax.swing.JOptionPane;
 import models.BenhAnModel;
 import controllers.BenhAnCtrl;
+import utils.DialogHelper;
 
 public class DSThuTien extends javax.swing.JPanel {
 
@@ -305,7 +305,7 @@ public class DSThuTien extends javax.swing.JPanel {
             java.sql.Date tuNgay = new java.sql.Date(tuNgayUtil.getTime());
             java.sql.Date denNgay = new java.sql.Date(denNgayUtil.getTime());
             if (tuNgay.equals("")) {
-                JOptionPane.showMessageDialog(null, "Chưa chọn từ ngày", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa chọn từ ngày");
             } else {
                 try {
                     dsThuTien = BenhAnCtrl.timThuTienTheoThoiGian(tuNgay, denNgay);
@@ -328,7 +328,6 @@ public class DSThuTien extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            // TODO add your handling code here:
             hienThiTatCaThuTien();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSThuTien.class.getName()).log(Level.SEVERE, null, ex);

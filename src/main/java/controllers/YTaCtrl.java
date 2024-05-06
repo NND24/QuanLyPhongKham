@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import utils.GenerateCode;
 
 public class YTaCtrl {
 
@@ -32,7 +33,7 @@ public class YTaCtrl {
             connection = ConnectDB.getConnection();
 
             if (!timKiem.isEmpty() && gioiTinh.equals("Tất cả")) {
-                String sql = "SELECT * FROM YTA WHERE MaYT LIKE ? OR HoTen LIKE ? OR SDT LIKE ?";
+                String sql = "SELECT * FROM YTA WHERE MaYTa LIKE ? OR HoTen LIKE ? OR SoDienThoai LIKE ?";
                 statement = connection.prepareStatement(sql);
                 statement.setString(1, "%" + timKiem + "%");
                 statement.setString(2, "%" + timKiem + "%");
@@ -41,13 +42,13 @@ public class YTaCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    YTaModel yt = new YTaModel(resultSet.getString("MaYT"),
+                    YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                             resultSet.getString("HoTen"),
                             resultSet.getString("GioiTinh"),
                             resultSet.getString("NamSinh"),
                             resultSet.getString("DiaChi"),
-                            resultSet.getString("SDT"),
-                            resultSet.getString("CCCD"),
+                            resultSet.getString("SoDienThoai"),
+                            resultSet.getString("CanCuoc"),
                             resultSet.getString("Email"));
                     dsyt.add(yt);
                 }
@@ -59,18 +60,18 @@ public class YTaCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    YTaModel yt = new YTaModel(resultSet.getString("MaYT"),
+                    YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                             resultSet.getString("HoTen"),
                             resultSet.getString("GioiTinh"),
                             resultSet.getString("NamSinh"),
                             resultSet.getString("DiaChi"),
-                            resultSet.getString("SDT"),
-                            resultSet.getString("CCCD"),
+                            resultSet.getString("SoDienThoai"),
+                            resultSet.getString("CanCuoc"),
                             resultSet.getString("Email"));
                     dsyt.add(yt);
                 }
             } else if (!timKiem.isEmpty() && !gioiTinh.equals("Tất cả")) {
-                String sql = "SELECT * FROM YTA WHERE ( MaYT LIKE ? OR HoTen LIKE ? OR SDT LIKE ?) AND GioiTinh LIKE ?";
+                String sql = "SELECT * FROM YTA WHERE ( MaYTa LIKE ? OR HoTen LIKE ? OR SoDienThoai LIKE ?) AND GioiTinh LIKE ?";
                 statement = connection.prepareStatement(sql);
                 statement = connection.prepareStatement(sql);
                 statement.setString(1, "%" + timKiem + "%");
@@ -81,13 +82,13 @@ public class YTaCtrl {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    YTaModel yt = new YTaModel(resultSet.getString("MaYT"),
+                    YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                             resultSet.getString("HoTen"),
                             resultSet.getString("GioiTinh"),
                             resultSet.getString("NamSinh"),
                             resultSet.getString("DiaChi"),
-                            resultSet.getString("SDT"),
-                            resultSet.getString("CCCD"),
+                            resultSet.getString("SoDienThoai"),
+                            resultSet.getString("CanCuoc"),
                             resultSet.getString("Email"));
                     dsyt.add(yt);
                 }
@@ -127,13 +128,13 @@ public class YTaCtrl {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                YTaModel yt = new YTaModel(resultSet.getString("MaYT"),
+                YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
                         resultSet.getString("HoTen"),
                         resultSet.getString("GioiTinh"),
                         resultSet.getString("NamSinh"),
                         resultSet.getString("DiaChi"),
-                        resultSet.getString("SDT"),
-                        resultSet.getString("CCCD"),
+                        resultSet.getString("SoDienThoai"),
+                        resultSet.getString("CanCuoc"),
                         resultSet.getString("Email"));
                 dsyt.add(yt);
             }
@@ -164,17 +165,20 @@ public class YTaCtrl {
 
         try {
             connection = ConnectDB.getConnection();
-            String sql = "  INSERT INTO YTA(MaYT, HoTen, GioiTinh, NamSinh, DiaChi, SDT, CCCD, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "  INSERT INTO YTA(MaYTa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, Email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareStatement(sql);
-
-            statement.setString(1, yt.getMaYT());
+            String maBacSi = GenerateCode.generateMa("YT");
+            String matKhau = GenerateCode.generatePassword(maBacSi, yt.getNamSinh());
+            String email = GenerateCode.generateEmail(maBacSi, "nurse");
+            TaiKhoanCtrl.themTaiKhoan(email, "YT", matKhau);
+            statement.setString(1, maBacSi);
             statement.setString(2, yt.getHoTen());
             statement.setString(3, yt.getGioiTinh());
-            statement.setString(4, yt.getNgaySinh());
+            statement.setString(4, yt.getNamSinh());
             statement.setString(5, yt.getDiaChi());
             statement.setString(6, yt.getSDT());
             statement.setString(7, yt.getCCCD());
-            statement.setString(8, yt.getEmail());
+            statement.setString(8, email);
 
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -197,15 +201,16 @@ public class YTaCtrl {
         }
     }
 
-    public static void xoaYTa(String MaYT) throws ClassNotFoundException {
+    public static void xoaYTa(YTaModel yTa) throws ClassNotFoundException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = ConnectDB.getConnection();
-            String sql = "DELETE FROM YTA WHERE MaYT = ?";
+            String sql = "DELETE FROM YTA WHERE MaYTa = ?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, MaYT);
+            statement.setString(1, yTa.getMaYT());
             statement.executeUpdate();
+            TaiKhoanCtrl.xoaTaiKhoan(yTa.getEmail());
         } catch (SQLException ex) {
             Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -231,19 +236,17 @@ public class YTaCtrl {
         PreparedStatement statement = null;
         try {
             connection = ConnectDB.getConnection();
-            String sql = "UPDATE YTA SET MaYT=?, HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SDT=?, CCCD=?, Email=?  WHERE MaYT=?";
+            String sql = "UPDATE YTA SET HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?  WHERE MaYTa=?";
 
             statement = connection.prepareCall(sql);
 
-            statement.setString(1, yt.getMaYT());
-            statement.setString(2, yt.getHoTen());
-            statement.setString(3, yt.getGioiTinh());
-            statement.setString(4, yt.getNgaySinh());
-            statement.setString(5, yt.getDiaChi());
-            statement.setString(6, yt.getSDT());
-            statement.setString(7, yt.getCCCD());
-            statement.setString(8, yt.getEmail());
-            statement.setString(9, yt.getMaYT());
+            statement.setString(1, yt.getHoTen());
+            statement.setString(2, yt.getGioiTinh());
+            statement.setString(3, yt.getNamSinh());
+            statement.setString(4, yt.getDiaChi());
+            statement.setString(5, yt.getSDT());
+            statement.setString(6, yt.getCCCD());
+            statement.setString(7, yt.getMaYT());
 
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -272,7 +275,7 @@ public class YTaCtrl {
         PreparedStatement statement = null;
         try {
             connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM YTA WHERE CCCD=?";
+            String sql = "SELECT * FROM YTA WHERE CanCuoc=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, cccd);
             ResultSet resultSet = statement.executeQuery();
@@ -360,7 +363,7 @@ public class YTaCtrl {
                 row.createCell(0).setCellValue(yTa.getMaYT());
                 row.createCell(1).setCellValue(yTa.getHoTen());
                 row.createCell(2).setCellValue(yTa.getGioiTinh());
-                row.createCell(3).setCellValue(yTa.getNgaySinh());
+                row.createCell(3).setCellValue(yTa.getNamSinh());
                 row.createCell(4).setCellValue(yTa.getDiaChi());
                 row.createCell(5).setCellValue(yTa.getSDT());
                 row.createCell(6).setCellValue(yTa.getCCCD());
@@ -382,7 +385,7 @@ public class YTaCtrl {
         PreparedStatement statement = null;
         try {
             connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM PHONGBENH WHERE GiamSat=?";
+            String sql = "SELECT * FROM PHONGBENH WHERE MaYTa=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, maYT);
             ResultSet resultSet = statement.executeQuery();

@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
-import javax.swing.JOptionPane;
 import models.NhomDichVuKhamBenhModelTest;
 import models.PhongKhamModelTest;
 import models.BenhNhanModel;
@@ -1122,17 +1121,17 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void btnInPhieuKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInPhieuKhamActionPerformed
         try {
             if (txtHoTen.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có tên của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có tên của bệnh nhân");
             } else if (cmbGioiTinh.getSelectedItem().toString().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có giới tính của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có giới tính của bệnh nhân");
             } else if (txtDiaChi.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có địa chỉ của bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có địa chỉ của bệnh nhân");
             } else if (txtMaDangKy.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có mã đăng ký", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có mã đăng ký");
             } else if (txtMaBenhNhan.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có mã bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có mã bệnh nhân");
             } else if (cmbDichVu.getSelectedItem().toString().split(" ")[0].isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có dịch vụ khám", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có dịch vụ khám");
             } else {
                 int namHienTai = LocalDate.now().getYear();
 
@@ -1159,14 +1158,13 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
                 GeneratePhieuKham inDon = new GeneratePhieuKham(ten, tuoi, gioiTinh, diaChi, maDangKy, ngayKham, lyDoKham, tenDichVu, tenPhongKham, thuTuKham);
                 if (maBenhNhan.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Chưa có mã đăng ký", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    DialogHelper.showError("Chưa có mã đăng ký");
                 } else {
                     inDon.taoPhieuKham();
-                    JOptionPane.showMessageDialog(null, "In phiếu khám thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    DialogHelper.showMessage("In phiếu khám thành công!");
                 }
             }
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Đã có lỗi xảy ra", "Thông báo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnInPhieuKhamActionPerformed

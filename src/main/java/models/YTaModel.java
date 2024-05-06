@@ -2,21 +2,44 @@ package models;
 
 public class YTaModel {
 
-    private String MaYT, HoTen, GioiTinh, DiaChi, SDT, CCCD, Email;
-    private String NgaySinh;
+    private String MaYT, HoTen, GioiTinh, DiaChi, SDT, CCCD, email, namSinh;
 
     public YTaModel() {
     }
 
-    public YTaModel(String MaYT, String HoTen, String GioiTinh, String NgaySinh, String DiaChi, String SDT, String CCCD, String Email) {
+    public YTaModel(String MaYT, String email) {
         this.MaYT = MaYT;
+        this.email = email;
+    }
+
+    public YTaModel(String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD) {
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
-        this.NgaySinh = NgaySinh;
+        this.namSinh = namSinh;
         this.DiaChi = DiaChi;
         this.SDT = SDT;
         this.CCCD = CCCD;
-        this.Email = Email;
+    }
+
+    public YTaModel(String MaYT, String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD) {
+        this.MaYT = MaYT;
+        this.HoTen = HoTen;
+        this.GioiTinh = GioiTinh;
+        this.namSinh = namSinh;
+        this.DiaChi = DiaChi;
+        this.SDT = SDT;
+        this.CCCD = CCCD;
+    }
+
+    public YTaModel(String MaYT, String HoTen, String GioiTinh, String namSinh, String DiaChi, String SDT, String CCCD, String email) {
+        this.MaYT = MaYT;
+        this.HoTen = HoTen;
+        this.GioiTinh = GioiTinh;
+        this.namSinh = namSinh;
+        this.DiaChi = DiaChi;
+        this.SDT = SDT;
+        this.CCCD = CCCD;
+        this.email = email;
     }
 
     public String getMaYT() {
@@ -43,12 +66,12 @@ public class YTaModel {
         this.GioiTinh = GioiTinh;
     }
 
-    public String getNgaySinh() {
-        return NgaySinh;
+    public String getNamSinh() {
+        return namSinh;
     }
 
-    public void setNgaySinh(String NgaySinh) {
-        this.NgaySinh = NgaySinh;
+    public void setNamSinh(String namSinh) {
+        this.namSinh = namSinh;
     }
 
     public String getDiaChi() {
@@ -76,11 +99,11 @@ public class YTaModel {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
