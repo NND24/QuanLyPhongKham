@@ -1,5 +1,6 @@
 package views.main;
 
+import controllers.TaiKhoanCaNhanCtrl;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -16,7 +17,8 @@ public class QuanLy extends javax.swing.JFrame {
 
     public QuanLy() {
         initComponents();
-
+        HoTenUserLabel.setText(TaiKhoanCaNhanCtrl.hoTenUser);
+        ChucVuUserLabel.setText(TaiKhoanCaNhanCtrl.tenChucVuUser);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,6 +50,7 @@ public class QuanLy extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        btnDangXuat = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mniQuanLyBenhNhan = new javax.swing.JMenu();
         mniQuanLyVienPhi = new javax.swing.JMenu();
@@ -144,18 +147,23 @@ public class QuanLy extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 168, 121));
         jLabel8.setText("CARE");
 
+        btnDangXuat.setBackground(new java.awt.Color(50, 112, 83));
+        btnDangXuat.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        btnDangXuat.setForeground(new java.awt.Color(255, 255, 255));
+        btnDangXuat.setText("Đăng xuất");
+        btnDangXuat.setBorder(null);
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(407, 407, 407)
-                .addComponent(jLabel6)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel7)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -165,26 +173,34 @@ public class QuanLy extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(HoTenUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15))
+                .addGap(170, 170, 170)
+                .addComponent(jLabel6)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel7)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HoTenUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ChucVuUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(10, 10, 10))
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(0, 6, Short.MAX_VALUE)
-                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(HoTenUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ChucVuUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(10, 10, 10))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 30));
@@ -481,6 +497,7 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
 
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -506,6 +523,7 @@ public class QuanLy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
+    private javax.swing.JButton btnDangXuat;
     private views.list.DSBacSi dSBacSi1;
     private views.list.DSBenhNhan dSBenhNhan1;
     private views.list.DSPhongBenh dSPhongBenh1;
