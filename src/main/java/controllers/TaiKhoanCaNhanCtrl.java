@@ -35,10 +35,12 @@ public class TaiKhoanCaNhanCtrl {
             if (maChucVu.equalsIgnoreCase("BS")) {
                 taiKhoan = hienThiThongTinCaNhanBacSi();
                 return taiKhoan;
-            } else if (maChucVu.equalsIgnoreCase("YT")) {
+            } 
+            if (maChucVu.equalsIgnoreCase("YT")) {
                 taiKhoan = hienThiThongTinCaNhanYTa();
                 return taiKhoan;
-            } else if (maChucVu.equalsIgnoreCase("QL")) {
+            } 
+            if (maChucVu.equalsIgnoreCase("QL")) {
                 taiKhoan = hienThiThongTinCaNhanQuanLy();
                 return taiKhoan;
             }

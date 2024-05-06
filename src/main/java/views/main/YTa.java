@@ -164,6 +164,11 @@ public class YTa extends javax.swing.JFrame {
 
         mniTaiKhoan.setText("Tài khoản cá nhân");
         mniTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniTaiKhoanMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mniTaiKhoan);
 
         setJMenuBar(jMenuBar1);
@@ -205,6 +210,14 @@ public class YTa extends javax.swing.JFrame {
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniKhamBenhMouseClicked
+
+    private void mniTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniTaiKhoanMouseClicked
+        // TODO add your handling code here:
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabTaiKhoanCaNhan);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniTaiKhoanMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
