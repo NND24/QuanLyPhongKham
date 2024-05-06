@@ -13,7 +13,10 @@ public class TaiKhoanCaNhanCtrl {
 
     public static String currentEmail = null;
     public static String maChucVu = null;
-
+    public static String tenChucVuUser = "___________";
+    public static String hoTenUser = "___________";
+    
+    
     public static String layTenChucVu(String maChucVu) throws ClassNotFoundException {
         String tenChucVu = null;
         String sql = "SELECT * FROM ChucVu WHERE MaChucVu = ?";
@@ -78,6 +81,8 @@ public class TaiKhoanCaNhanCtrl {
                             resultSet.getString("Anh")
                     );
                     tk.setTenChucVu(tenChucVu);
+                    tenChucVuUser = tenChucVu;
+                    hoTenUser = tk.getHoTen();
                     taiKhoan = tk;
                 }
                 return taiKhoan;
@@ -118,6 +123,8 @@ public class TaiKhoanCaNhanCtrl {
                     );
                     String trinhDo = "Y tá tổng hợp";
                     tk.setTrinhDo(trinhDo);
+                    tenChucVuUser = tenChucVu;
+                    hoTenUser = tk.getHoTen();
                     tk.setTenChucVu(tenChucVu);
                     taiKhoan = tk;
                 }
@@ -158,6 +165,8 @@ public class TaiKhoanCaNhanCtrl {
                     );
                     String trinhDo = "Quản lý phòng khám";
                     tk.setTrinhDo(trinhDo);
+                    tenChucVuUser = tenChucVu;
+                    hoTenUser = tk.getHoTen();
                     tk.setTenChucVu(tenChucVu);
                     taiKhoan = tk;
                 }
