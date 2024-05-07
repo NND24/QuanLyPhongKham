@@ -175,6 +175,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTiepTucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiepTucActionPerformed
@@ -217,7 +218,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
 
     private void chkShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowPasswordActionPerformed
         // TODO add your handling code here:
-       if (chkShowPassword.isSelected()) {
+        if (chkShowPassword.isSelected()) {
             txtNewPassword.setEchoChar((char) 0);
             txtRetypePassword.setEchoChar((char) 0);
         } else {
@@ -233,7 +234,7 @@ public class TaoMatKhauMoi extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

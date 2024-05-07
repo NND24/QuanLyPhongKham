@@ -169,13 +169,13 @@ public class YTaCtrl {
 
         try {
             connection = ConnectDB.getConnection();
-            String sql = "  INSERT INTO YTA(MaYTa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, Email, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO YTA(MaYTa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, Email, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareStatement(sql);
-            String maBacSi = GenerateCode.generateMa("YT");
-            String matKhau = GenerateCode.generatePassword(maBacSi, yt.getNamSinh());
-            String email = GenerateCode.generateEmail(maBacSi, "nurse");
+            String maYTa = GenerateCode.generateMa("YT");
+            String matKhau = GenerateCode.generatePassword(maYTa, yt.getNamSinh());
+            String email = GenerateCode.generateEmail(maYTa, "nurse");
             TaiKhoanCtrl.themTaiKhoan(email, "YT", matKhau);
-            statement.setString(1, maBacSi);
+            statement.setString(1, maYTa);
             statement.setString(2, yt.getHoTen());
             statement.setString(3, yt.getGioiTinh());
             statement.setString(4, yt.getNamSinh());
