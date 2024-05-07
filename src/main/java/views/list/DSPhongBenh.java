@@ -410,17 +410,18 @@ public class DSPhongBenh extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel11)
-                    .addComponent(txtMaPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtMaGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13)
-                        .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel11)
+                        .addComponent(txtMaPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -582,10 +583,11 @@ public class DSPhongBenh extends javax.swing.JPanel {
         txtTimKiem.setText("");
         txtSoGiuong.setText("0");
         cboLoaiPhong.setSelectedIndex(0);
+        cboLoaiPhong.setEnabled(true);
         cboYTa.setSelectedIndex(0);
     }
-    
-    private void lamMoiGiuongBenh(){
+
+    private void lamMoiGiuongBenh() {
         txtPhongBenh.setText("");
         txtMaPhongBenh.setText("");
         txtMaGiuong.setText("");
@@ -656,21 +658,24 @@ public class DSPhongBenh extends javax.swing.JPanel {
             String soGiuongStr = txtSoGiuong.getText();
             int soGiuong = Integer.parseInt(soGiuongStr);
 
-            int index1 = cboYTa.getSelectedIndex();
-            String maYTa = dsYTa.get(index1 - 1).getMaYT();
-
-            int index2 = cboLoaiPhong.getSelectedIndex();
-            String maDonGia = dsLoaiPhong.get(index2 - 1).getMaDonGia();
-
-            if (maYTa.isEmpty() || maDonGia.isEmpty()) {
+            if (cboYTa.getSelectedIndex() == 0 || cboLoaiPhong.getSelectedIndex() == 0) {
                 DialogHelper.showError("Vui lòng chọn đầy đủ thông tin");
             } else if (!Validator.isIntegerString(soGiuongStr) || "0".equals(soGiuongStr)) {
                 DialogHelper.showError("Số giường không hợp lệ");
             } else {
+                
+                int index1 = cboYTa.getSelectedIndex();
+                String maYTa = dsYTa.get(index1 - 1).getMaYT();
+
+                int index2 = cboLoaiPhong.getSelectedIndex();
+                String maDonGia = dsLoaiPhong.get(index2 - 1).getMaDonGia();
                 PhongBenhModel pb = new PhongBenhModel(maYTa, maDonGia, soGiuong);
                 try {
-                    PhongBenhCtrl.capNhatPhongBenh(pb, pbDaChon);
-                    DialogHelper.showMessage("Cập nhật thành công");
+                    if(PhongBenhCtrl.capNhatPhongBenh(pb, pbDaChon)){
+                        DialogHelper.showMessage("Cập nhật thành công");
+                    } else {
+                        DialogHelper.showError("Số giường không hợp lệ");
+                    } 
                     hienThiCacPhongBenh();
                     hienThiGiuongBenhTheoMaPhong(pbDaChon.getMaPhong());
                     lamMoi();
@@ -692,24 +697,26 @@ public class DSPhongBenh extends javax.swing.JPanel {
             try {
                 String soGiuongStr = txtSoGiuong.getText();
 
-                String maYTa = "";
-                if (!dsYTa.isEmpty()) {
-                    int index = cboYTa.getSelectedIndex();
-                    maYTa = dsYTa.get(index - 1).getMaYT();
-                }
-
-                String maDonGia = "";
-                if (!dsLoaiPhong.isEmpty()) {
-                    int index = cboLoaiPhong.getSelectedIndex();
-                    maDonGia = dsLoaiPhong.get(index - 1).getMaDonGia();
-                }
-
                 if (!Validator.isIntegerString(soGiuongStr) || "0".equals(soGiuongStr)) {
                     DialogHelper.showError("Số giường không hợp lệ");
                     txtSoGiuong.requestFocus();
+                } else if (cboLoaiPhong.getSelectedIndex() == 0) {
+                    DialogHelper.showError("Vui lòng chọn loại phòng");
+                } else if (cboYTa.getSelectedIndex() == 0) {
+                    DialogHelper.showError("Vui lòng chọn Y tá");
                 } else {
                     int soGiuong = Integer.parseInt(soGiuongStr);
+                    String maYTa = "";
+                    if (!dsYTa.isEmpty()) {
+                        int index = cboYTa.getSelectedIndex();
+                        maYTa = dsYTa.get(index - 1).getMaYT();
+                    }
 
+                    String maDonGia = "";
+                    if (!dsLoaiPhong.isEmpty()) {
+                        int index = cboLoaiPhong.getSelectedIndex();
+                        maDonGia = dsLoaiPhong.get(index - 1).getMaDonGia();
+                    }
                     PhongBenhModel pb = new PhongBenhModel(maYTa, maDonGia, soGiuong);
 
                     try {
@@ -774,7 +781,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
         }
         return -1;
     }
-    
+
     private int getIndexDonGiaByMaDonGia(String maDonGia) {
         for (int i = 0; i < dsLoaiPhong.size(); i++) {
             if (dsLoaiPhong.get(i).getMaDonGia().equals(maDonGia)) {
@@ -783,7 +790,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
         }
         return -1;
     }
-    
+
     private void tblDanhSachPhongBenhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachPhongBenhMouseClicked
         // TODO add your handling code here:
         lamMoi();
@@ -801,18 +808,18 @@ public class DSPhongBenh extends javax.swing.JPanel {
             txtMaPhong.setText(pb.getMaPhong());
             txtTenPhong.setText(pb.getTenPhong());
             int index_dsLoaiPhong = getIndexDonGiaByMaDonGia(pb.getMaDonGia());
-            if (index_dsLoaiPhong == -1){
+            if (index_dsLoaiPhong == -1) {
                 cboLoaiPhong.setSelectedIndex(0);
             } else {
                 cboLoaiPhong.setSelectedIndex(index_dsLoaiPhong + 1);
             }
             txtSoGiuong.setText(String.valueOf(pb.getSoGiuong()));;
             int index_dsYTa = getIndexYTaByMaYTa(pb.getMaYTa());
-            if (index_dsYTa == -1){
+            if (index_dsYTa == -1) {
                 cboYTa.setSelectedIndex(0);
             } else {
                 cboYTa.setSelectedIndex(index_dsYTa + 1);
-            }  
+            }
             txtMaPhongBenh.setText(pb.getMaPhong());
             txtPhongBenh.setText(pb.getTenPhong());
             tabelModel2.setRowCount(0);

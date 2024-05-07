@@ -135,7 +135,7 @@ public class GiuongBenhCtrl {
 
     public static void giamGiuongBenh(String maPhong, int soGiuongCanGiam) throws ClassNotFoundException {
         if (soGiuongCanGiam > 0) {
-            String sql = "UPDATE TOP (?) GIUONGBENH SET TrangThaiXoa=? WHERE MaPhong=? AND TrangThaiXoa=?";
+            String sql = "UPDATE TOP (?) GIUONGBENH SET TrangThaiXoa=? WHERE MaPhong=? AND TrangThaiXoa=? AND (CoNguoi IS NULL OR CoNguoi = '-')";
             try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
                 // Sử dụng TOP để giới hạn số lần cập nhật
                 statement.setInt(1, soGiuongCanGiam);

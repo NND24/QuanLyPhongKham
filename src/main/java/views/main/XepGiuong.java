@@ -38,7 +38,9 @@ public class XepGiuong extends javax.swing.JPanel {
 
     DefaultTableModel tableModel2;
     List<XepGiuongModel> dsGiuongBenhCoNguoi = new ArrayList<>();
-
+    
+    private List<DonGiaPhongBenhModel> dsLoaiPhong;
+    
     public XepGiuong() {
         initComponents();
         tableModel1 = (DefaultTableModel) tblDanhSachGiuongBenhTrong.getModel();
@@ -60,14 +62,14 @@ public class XepGiuong extends javax.swing.JPanel {
             Logger.getLogger(XepGiuong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+   
     private void hienThiDanhSachLoaiPhongComboBox() {
         try {
-            List<DonGiaPhongBenhModel> dsLoaiPhong = DonGiaPhongBenhCtrl.hienThiTatCa();
+            dsLoaiPhong = DonGiaPhongBenhCtrl.hienThiTatCa();
             cboLocPhong.removeAllItems();
             cboLocPhong.addItem("Mặc định");
             dsLoaiPhong.forEach(loaiPhong -> {
-                String tenLoaiPhong = loaiPhong.getMaDonGia() + " " + loaiPhong.getTenLoaiPhong();
+                String tenLoaiPhong = loaiPhong.getTenLoaiPhong();
                 cboLocPhong.addItem(tenLoaiPhong);
             });
         } catch (ClassNotFoundException ex) {
@@ -86,6 +88,15 @@ public class XepGiuong extends javax.swing.JPanel {
 
     private void timKiemNhapVien(String tuKhoa) throws ClassNotFoundException {
         dsGiuongBenhTrong = XepGiuongCtrl.timKiemNhapVien(tuKhoa);
+        tableModel1.setRowCount(0);
+        dsGiuongBenhTrong.forEach(xg -> {
+            tableModel1.addRow(new Object[]{xg.getMaGiuong(), xg.getMaPhong(),
+                xg.getTenPhong(), xg.getTenLoaiPhong(), xg.getCoNguoi(), xg.getDonGia()});
+        });
+    }
+    
+    private void locLoaiPhong(String tuKhoa) throws ClassNotFoundException {
+        dsGiuongBenhTrong = XepGiuongCtrl.locPhongTheoLoai(tuKhoa);
         tableModel1.setRowCount(0);
         dsGiuongBenhTrong.forEach(xg -> {
             tableModel1.addRow(new Object[]{xg.getMaGiuong(), xg.getMaPhong(),
@@ -696,9 +707,13 @@ public class XepGiuong extends javax.swing.JPanel {
 
     private void txtTimKiemNhapVienKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemNhapVienKeyTyped
         // TODO add your handling code here:
-        String tuKhoa = txtTimKiemNhapVien.getText();
         try {
-            timKiemNhapVien(tuKhoa);
+            String tuKhoa = txtTimKiemNhapVien.getText();
+            if(tuKhoa.equals("")){
+                hienThiCacGiuongTrong();
+            } else {
+                timKiemNhapVien(tuKhoa);
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XepGiuong.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -717,7 +732,7 @@ public class XepGiuong extends javax.swing.JPanel {
             if (selectedItem != null) {
                 String loaiPhong = selectedItem.toString();
                 try {
-                    timKiemNhapVien(loaiPhong.split(" ")[1]);
+                    locLoaiPhong(loaiPhong);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(XepGiuong.class.getName()).log(Level.SEVERE, null, ex);
                 }
