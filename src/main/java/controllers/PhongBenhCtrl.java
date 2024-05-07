@@ -105,7 +105,7 @@ public class PhongBenhCtrl {
 
             if (resultSet.next()) {
                 String coNguoi = resultSet.getString("CoNguoi");
-                if (!"-".equals(coNguoi)) {
+                if (!"-".equals(coNguoi) || !coNguoi.isEmpty()) {
                     flag = true;
                 }
 
@@ -160,7 +160,7 @@ public class PhongBenhCtrl {
         }
     }
 
-    public static void themGiuongBenh(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
+    public static boolean themGiuongBenh(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
         String sql = "SELECT GB.TrangThaiXoa FROM PHONGBENH PH "
                 + "JOIN GIUONGBENH GB ON PH.MaPhong = GB.MaPhong "
                 + "WHERE PH.MaPhong = ?";
@@ -196,13 +196,15 @@ public class PhongBenhCtrl {
         } catch (SQLException ex) {
             Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return true;
     }
 
     //- Giảm số giường
-    public static void giamGiuongBenh(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
+    public static boolean giamGiuongBenh(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
+        boolean flag = false;
         String sql = "SELECT GB.TrangThaiXoa, GB.CoNguoi FROM PHONGBENH PH "
                 + "JOIN GIUONGBENH GB ON PH.MaPhong = GB.MaPhong "
-                + "WHERE GB.TrangThaiXoa=0 AND GB.CoNguoi='-' "
+                + "WHERE GB.TrangThaiXoa=0 AND (GB.CoNguoi='-' OR GB.CoNguoi IS NULL) "
                 + "AND PH.MaPhong = ?";
         int count = 0;
         int soGiuongCanGiam = pb.getSoGiuong() - soGiuongMoi;
@@ -212,40 +214,51 @@ public class PhongBenhCtrl {
             while (resultSet.next()) {
                 boolean trangThaiXoa = resultSet.getBoolean("TrangThaiXoa");
                 String coNguoi = resultSet.getString("CoNguoi");
-                if (!trangThaiXoa && coNguoi.equalsIgnoreCase("-")) {
+                if (!trangThaiXoa && (coNguoi == null || coNguoi.equalsIgnoreCase("-"))) {
                     count += 1;
                 }
             }
             //*Chỉ có thể giảm nếu số giường còn trống nhiều hơn hoặc bằng số giường cần giảm
             if (count >= soGiuongCanGiam) {
                 GiuongBenhCtrl.giamGiuongBenh(pb.getMaPhong(), soGiuongCanGiam);
+                flag = true;
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return flag;
     }
 
-    private static void chinhSoGiuong(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
+    private static boolean chinhSoGiuong(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
+        boolean flag = false;
         if (soGiuongMoi >= pb.getSoGiuong()) {
-            themGiuongBenh(pb, soGiuongMoi);
+            if (themGiuongBenh(pb, soGiuongMoi)){
+                return true;
+            }        
         } else if (soGiuongMoi < pb.getSoGiuong()) {
-            giamGiuongBenh(pb, soGiuongMoi);
+            if (giamGiuongBenh(pb, soGiuongMoi)) {
+                flag = true;
+            }
         }
+        return flag;
     }
 
-    public static void capNhatPhongBenh(PhongBenhModel pb, PhongBenhModel pbDaChon) throws ClassNotFoundException {
-        String sql = "UPDATE PHONGBENH SET MaYTa=?, MaDonGia=?, SoGiuong=? WHERE MaPhong=?";
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, pb.getMaYTa());
-            statement.setString(2, pb.getMaDonGia());
-            statement.setInt(3, pb.getSoGiuong());
-            statement.setString(4, pbDaChon.getMaPhong());
-            statement.executeUpdate();
-            chinhSoGiuong(pbDaChon, pb.getSoGiuong());
-        } catch (SQLException ex) {
-            Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
+    public static boolean capNhatPhongBenh(PhongBenhModel pb, PhongBenhModel pbDaChon) throws ClassNotFoundException {
+        if (chinhSoGiuong(pbDaChon, pb.getSoGiuong())) {
+            String sql = "UPDATE PHONGBENH SET MaYTa=?, MaDonGia=?, SoGiuong=? WHERE MaPhong=?";
+            try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                statement.setString(1, pb.getMaYTa());
+                statement.setString(2, pb.getMaDonGia());
+                statement.setInt(3, pb.getSoGiuong());
+                statement.setString(4, pbDaChon.getMaPhong());
+                statement.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return true;
         }
+        return false;
     }
 
     public static List<PhongBenhModel> timKiemPhongBenh(String tuKhoa) throws ClassNotFoundException {
@@ -282,7 +295,7 @@ public class PhongBenhCtrl {
             }
         } catch (SQLException ex) {
             Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return ketQuaTimKiem;
     }
 

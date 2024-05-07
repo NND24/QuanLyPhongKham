@@ -41,7 +41,7 @@ public class XepGiuongCtrl {
                     + "FROM GIUONGBENH AS GB "
                     + "JOIN PHONGBENH AS PB ON GB.MaPhong = PB.MaPhong "
                     + "JOIN DONGIAPHONGBENH AS DG ON DG.MaDonGia = PB.MaDonGia "
-                    + "WHERE GB.CoNguoi = '-' AND GB.TrangThaiXoa = 0"
+                    + "WHERE (GB.CoNguoi IS NULL OR GB.CoNguoi = '-') AND GB.TrangThaiXoa = 0 "
                     + "ORDER BY PB.TenPhong";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
@@ -70,7 +70,7 @@ public class XepGiuongCtrl {
                     + "JOIN PHONGBENH AS PB ON PB.MaPhong = GB.MaPhong "
                     + "JOIN BENHAN AS BA ON BA.MaBenhAn = XG.MaBenhAn "
                     + "JOIN BENHNHAN AS BN ON BA.MaBenhNhan = BN.MaBenhNhan "
-                    + "WHERE XG.XuatVien = '-' AND XG.TrangThaiXoa = 0 "
+                    + "WHERE (XG.XuatVien IS NULL OR XG.XuatVien = '-') AND XG.TrangThaiXoa = 0 "
                     + "ORDER BY XG.NgayNhapVien ";
 
             ResultSet resultSet = statement.executeQuery(sql);
@@ -102,7 +102,7 @@ public class XepGiuongCtrl {
                     + "JOIN PHONGBENH AS PB ON PB.MaPhong = GB.MaPhong "
                     + "JOIN BENHAN AS BA ON BA.MaBenhAn = XG.MaBenhAn "
                     + "JOIN BENHNHAN AS BN ON BA.MaBenhNhan = BN.MaBenhNhan "
-                    + "WHERE XG.XuatVien = '-' AND XG.TrangThaiXoa = 0 "
+                    + "WHERE (XG.XuatVien IS NULL OR XG.XuatVien = '-') AND XG.TrangThaiXoa = 0 "
                     + "ORDER BY PB.TenPhong ";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
@@ -130,7 +130,7 @@ public class XepGiuongCtrl {
                 + "FROM XEPGIUONGBENH AS XG "
                 + "JOIN BENHAN AS BA ON XG.MaBenhAn = BA.MaBenhAn "
                 + "JOIN BENHNHAN AS BN ON BA.MaBenhNhan = BN.MaBenhNhan "
-                + "WHERE XG.XuatVien = '-' AND BN.MaBenhNhan = ? AND BA.MaBenhAn = ?";
+                + "WHERE (XG.XuatVien IS NULL OR XG.XuatVien = '-') AND BN.MaBenhNhan = ? AND BA.MaBenhAn = ?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, maBenhNhan);
             statement.setString(2, maBenhAn);
@@ -242,7 +242,7 @@ public class XepGiuongCtrl {
                     + "FROM GIUONGBENH AS GB "
                     + "JOIN PHONGBENH AS PB ON GB.MaPhong = PB.MaPhong "
                     + "JOIN DONGIAPHONGBENH AS DG ON DG.MaDonGia = PB.MaDonGia "
-                    + "AND CoNguoi = '-' "
+                    + "AND (CoNguoi IS NULL OR CoNguoi = '-') "
                     + "AND (GB.MaGiuong LIKE ? OR PB.MaPhong LIKE ? OR PB.TenPhong LIKE ? OR DG.TenLoaiPhong LIKE ?)";
         ResultSet resultSet = null;
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
@@ -251,6 +251,37 @@ public class XepGiuongCtrl {
             statement.setString(2, keyword);
             statement.setString(3, keyword);
             statement.setString(4, keyword);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String maGiuong = resultSet.getString("MaGiuong");
+                String maPhong = resultSet.getString("MaPhong");
+                String tenPhong = resultSet.getString("TenPhong");
+                String tenLoaiPhong = resultSet.getString("TenLoaiPhong");
+                int donGia = resultSet.getInt("DonGia");
+                String coNguoi = resultSet.getString("CoNguoi");
+                GiuongBenhModel gb = new GiuongBenhModel(maGiuong, maPhong, tenPhong, tenLoaiPhong, coNguoi, donGia);
+                ketQua.add(gb);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(KhoaCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketQua;
+    }
+    
+    public static List<GiuongBenhModel> locPhongTheoLoai(String tuKhoa) throws ClassNotFoundException {
+        List<GiuongBenhModel> ketQua = new ArrayList<>();
+        String sql = "SELECT GB.MaGiuong, PB.MaPhong, PB.TenPhong, DG.TenLoaiPhong,GB.CoNguoi, DG.DonGia "
+                    + "FROM GIUONGBENH AS GB "
+                    + "JOIN PHONGBENH AS PB ON GB.MaPhong = PB.MaPhong "
+                    + "JOIN DONGIAPHONGBENH AS DG ON DG.MaDonGia = PB.MaDonGia "
+                    + "WHERE (CoNguoi IS NULL OR CoNguoi = '-') "
+                    + "AND DG.TenLoaiPhong LIKE ?";
+        ResultSet resultSet = null;
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
+            String keyword = "%" + tuKhoa + "%";
+            statement.setString(1, keyword);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -279,6 +310,7 @@ public class XepGiuongCtrl {
                     + "JOIN PHONGBENH AS PB ON PB.MaPhong = GB.MaPhong "
                     + "JOIN BENHAN AS BA ON BA.MaBenhAn = XG.MaBenhAn "
                     + "JOIN BENHNHAN AS BN ON BN.MaBenhNhan = BA.MaBenhNhan "
+                    + "WHERE (XG.XuatVien IS NULL OR XG.XuatVien = '-') "
                     + "AND (PB.MaPhong LIKE ? OR PB.TenPhong LIKE ? OR XG.MaXepGiuong LIKE ? "
                     + "OR GB.MaGiuong LIKE ? OR BA.MaBenhAn LIKE ? OR BN.MaBenhNhan LIKE ? OR BN.HoTen LIKE ?) "
                     + "ORDER BY XG.NgayNhapVien";
@@ -355,7 +387,7 @@ public class XepGiuongCtrl {
                     + "FROM GIUONGBENH AS GB "
                     + "JOIN PHONGBENH AS PB ON GB.MaPhong = PB.MaPhong "
                     + "JOIN DONGIAPHONGBENH AS DG ON DG.MaDonGia = PB.MaDonGia "
-                    + "WHERE GB.CoNguoi = '-' AND GB.TrangThaiXoa = 0 AND DG.TenLoaiPhong = ? "
+                    + "WHERE (GB.CoNguoi IS NULL OR GB.CoNguoi = '-') AND GB.TrangThaiXoa = 0 AND DG.TenLoaiPhong = ? "
                     + "ORDER BY PB.TenPhong";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){           
             statement.setString(1,loaiPhong);
@@ -382,7 +414,7 @@ public class XepGiuongCtrl {
                     + "FROM GIUONGBENH AS GB "
                     + "JOIN PHONGBENH AS PB ON GB.MaPhong = PB.MaPhong "
                     + "JOIN DONGIAPHONGBENH AS DG ON DG.MaDonGia = PB.MaDonGia "
-                    + "AND CoNguoi = '-' AND DG.TenLoaiPhong = ?"
+                    + "AND (GB.CoNguoi IS NULL OR GB.CoNguoi = '-') AND DG.TenLoaiPhong = ?"
                     + "AND (GB.MaGiuong LIKE ? OR PB.MaPhong LIKE ? OR PB.TenPhong LIKE ? OR DG.TenLoaiPhong LIKE ?)";
         ResultSet resultSet = null;
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
