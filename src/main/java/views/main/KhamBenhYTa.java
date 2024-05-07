@@ -42,7 +42,7 @@ public class KhamBenhYTa extends javax.swing.JPanel {
         btnDSBenhAn = new javax.swing.JPanel();
         lblDSBenhAn = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        pnlBenhAn = new views.list.DSBenhAn();
+        pnlBenhAn = new views.list.DSBenhAnYTa();
         jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -177,7 +177,7 @@ public class KhamBenhYTa extends javax.swing.JPanel {
         jLayeredPane1.setMinimumSize(new java.awt.Dimension(1000, 549));
         jLayeredPane1.setPreferredSize(new java.awt.Dimension(1000, 588));
         jLayeredPane1.setLayout(new java.awt.CardLayout());
-        jLayeredPane1.add(pnlBenhAn, "card3");
+        jLayeredPane1.add(pnlBenhAn, "card2");
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khám bệnh"));
@@ -364,6 +364,6 @@ public class KhamBenhYTa extends javax.swing.JPanel {
     private javax.swing.JLabel lblNgayKham;
     private javax.swing.JLabel lblPhongKham;
     private javax.swing.JLabel pkLabel;
-    private views.list.DSBenhAn pnlBenhAn;
+    private views.list.DSBenhAnYTa pnlBenhAn;
     // End of variables declaration//GEN-END:variables
 }
