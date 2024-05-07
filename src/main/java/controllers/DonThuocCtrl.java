@@ -17,23 +17,22 @@ import models.DonThuocModel;
 public class DonThuocCtrl {
 
     public static void themDonThuoc(DonThuocModel dt) throws ClassNotFoundException {
-        String sql = "INSERT INTO DONTHUOC (MaDonThuoc, MaBenhAn, MaThuoc, TenThuoc, DuongDung, CachDung, SoNgay, SoLuong, Sang, Trua, Chieu, Toi, DonGia,ThanhTien) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO DONTHUOC (MaDonThuoc, MaBenhAn, MaThuoc, MaBacSi, CachDung, SoNgay, SoLuong, Sang, Trua, Chieu, Toi, DonGia,ThanhTien) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, dt.getMaDonThuoc());
             statement.setString(2, dt.getMaBenhAn());
-            statement.setString(4, dt.getMaThuoc());
-            statement.setString(5, dt.getTenThuoc());
-            statement.setString(6, dt.getDuongDung());
-            statement.setString(7, dt.getCachDung());
-            statement.setInt(8, dt.getSoNgay());
-            statement.setInt(9, dt.getSoLuong());
-            statement.setInt(10, dt.getSang());
-            statement.setInt(11, dt.getTrua());
-            statement.setInt(12, dt.getChieu());
-            statement.setInt(13, dt.getToi());
-            statement.setInt(14, dt.getDonGia());
-            statement.setInt(15, dt.getThanhTien());
+            statement.setString(3, dt.getMaThuoc());
+            statement.setString(4, dt.getMaBacSi());
+            statement.setString(5, dt.getCachDung());
+            statement.setInt(6, dt.getSoNgay());
+            statement.setInt(7, dt.getSoLuong());
+            statement.setInt(8, dt.getSang());
+            statement.setInt(9, dt.getTrua());
+            statement.setInt(10, dt.getChieu());
+            statement.setInt(11, dt.getToi());
+            statement.setInt(12, dt.getDonGia());
+            statement.setInt(13, dt.getThanhTien());
 
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -46,7 +45,8 @@ public class DonThuocCtrl {
         String sql = """
                      SELECT DISTINCT MaDonThuoc,MaBenhAn, DONTHUOC.MaThuoc,THUOC.TenThuoc, NHOMTHUOC.MaNhomThuoc,NHOMTHUOC.TenNhomThuoc,CachDung,SoNgay,SoLuong,Sang,Trua,Chieu,Toi,DONTHUOC.DonGia,ThanhTien, THUOC.DuongDung
                      FROM DONTHUOC,THUOC,NHOMTHUOC
-                     WHERE MaBenhAn=? AND DONTHUOC.MaThuoc=THUOC.MaThuoc AND THUOC.MaNhomThuoc=NHOMTHUOC.MaNhomThuoc AND DONTHUOC.TrangThaiXoa=0 AND THUOC.TrangThaiXoa=0 AND NHOMTHUOC.TrangThaiXoa=0""";
+                     WHERE MaBenhAn=? AND DONTHUOC.MaThuoc=THUOC.MaThuoc AND THUOC.MaNhomThuoc=NHOMTHUOC.MaNhomThuoc AND DONTHUOC.TrangThaiXoa=0 AND THUOC.TrangThaiXoa=0 AND NHOMTHUOC.TrangThaiXoa=0
+                     """;
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, maBenhAn);
@@ -98,7 +98,7 @@ public class DonThuocCtrl {
     }
 
     public static void capNhatDonThuoc(DonThuocModel dt) throws ClassNotFoundException {
-        String sql = "UPDATE DONTHUOC SET CachDung=?, SoNgay=?, SoLuong=?, ThanhTien=?, Sang=?, Trua=?, Chieu=?, Toi=?, MaThuoc=?, TenThuoc=? WHERE MaDonThuoc=?";
+        String sql = "UPDATE DONTHUOC SET CachDung=?, SoNgay=?, SoLuong=?, ThanhTien=?, Sang=?, Trua=?, Chieu=?, Toi=?, MaThuoc=?, MaBacSi=? WHERE MaDonThuoc=?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, dt.getCachDung());
@@ -110,7 +110,7 @@ public class DonThuocCtrl {
             statement.setInt(7, dt.getChieu());
             statement.setInt(8, dt.getToi());
             statement.setString(9, dt.getMaThuoc());
-            statement.setString(10, dt.getTenThuoc());
+            statement.setString(10, dt.getMaBacSi());
             statement.setString(11, dt.getMaDonThuoc());
 
             statement.executeUpdate();

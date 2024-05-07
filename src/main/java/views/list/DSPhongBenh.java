@@ -3,6 +3,7 @@ package views.list;
 import controllers.DonGiaPhongBenhCtrl;
 import controllers.GiuongBenhCtrl;
 import controllers.PhongBenhCtrl;
+import controllers.YTaCtrl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,8 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import models.DonGiaPhongBenhModel;
 import models.GiuongBenhModel;
 import models.PhongBenhModel;
+import models.YTaModel;
 import utils.DialogHelper;
 import utils.Validator;
+
 /**
  *
  * @author Phu Bao
@@ -27,7 +30,10 @@ public class DSPhongBenh extends javax.swing.JPanel {
 
     DefaultTableModel tabelModel2;
     List<GiuongBenhModel> dsGiuongBenh = new ArrayList<>();
-    
+
+    private List<YTaModel> dsYTa;
+    private List<DonGiaPhongBenhModel> dsLoaiPhong;
+
     public DSPhongBenh() {
         initComponents();
 
@@ -37,11 +43,26 @@ public class DSPhongBenh extends javax.swing.JPanel {
             hienThiCacPhongBenh();
             hienThiTatCaGiuongBenh();
             hienThiLoaiPhong();
+            hienThiDSYTa();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DSPhongBenh.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    private void hienThiDSYTa() {
+        try {
+            dsYTa = YTaCtrl.hienthiYTa();
+            cboYTa.removeAllItems();
+            cboYTa.addItem("--Y tá phụ trách--");
+            dsYTa.forEach(yTa -> {
+                String tenYTa = yTa.getHoTen();
+                cboYTa.addItem(tenYTa);
+            });
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSPhongBenh.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void hienThiCacPhongBenh() throws ClassNotFoundException {
         dsPhongBenh = PhongBenhCtrl.hienThiTatCa();
         tabelModel.setRowCount(0);
@@ -50,7 +71,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
                 pb.getSoGiuong(), pb.getDonGia(), pb.getTenYTa()});
         });
     }
-    
+
     private void hienThiCacPhongBenhTimKiem(String tuKhoa) throws ClassNotFoundException {
         dsPhongBenh = PhongBenhCtrl.timKiemPhongBenh(tuKhoa);
         tabelModel.setRowCount(0);
@@ -80,13 +101,12 @@ public class DSPhongBenh extends javax.swing.JPanel {
 
     private void hienThiLoaiPhong() {
         try {
-            List<DonGiaPhongBenhModel> dsDonGia = new ArrayList<>();
-            dsDonGia = DonGiaPhongBenhCtrl.hienThiTatCa();
+            dsLoaiPhong = DonGiaPhongBenhCtrl.hienThiTatCa();
             cboLoaiPhong.removeAllItems();
-            dsDonGia.forEach(dg -> {
-                String loaiPhong = dg.getMaDonGia() + " " + dg.getTenLoaiPhong();
-                cboLoaiPhong.addItem(loaiPhong);
-
+            cboLoaiPhong.addItem("--Loại phòng--");
+            dsLoaiPhong.forEach(loaiPhong -> {
+                String tenLoaiPhong = loaiPhong.getTenLoaiPhong();
+                cboLoaiPhong.addItem(tenLoaiPhong);
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSPhongBenh.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,6 +148,10 @@ public class DSPhongBenh extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtMaPhongBenh = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtMaGiuong = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtTrangThai = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDanhSachGiuongBenh = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -239,12 +263,11 @@ public class DSPhongBenh extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Số Giường");
 
+        txtSoGiuong.setEditable(false);
         txtSoGiuong.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         GSTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         GSTextField.setText("Y tá");
-
-        cboYTa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YT001 Y Văn Tá" }));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Mã Phòng");
@@ -344,6 +367,20 @@ public class DSPhongBenh extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("DANH SÁCH GIƯỜNG BỆNH");
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setText("Mã Giường");
+
+        txtMaGiuong.setEditable(false);
+        txtMaGiuong.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaGiuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setText("Trạng thái");
+
+        txtTrangThai.setEditable(false);
+        txtTrangThai.setBackground(new java.awt.Color(204, 204, 204));
+        txtTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -351,7 +388,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 702, Short.MAX_VALUE)
+                .addGap(145, 145, 145)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,7 +396,15 @@ public class DSPhongBenh extends javax.swing.JPanel {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtMaPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMaGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,7 +415,12 @@ public class DSPhongBenh extends javax.swing.JPanel {
                     .addComponent(txtPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel11)
-                    .addComponent(txtMaPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaPhongBenh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtMaGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13)
+                        .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -381,7 +431,20 @@ public class DSPhongBenh extends javax.swing.JPanel {
             new String [] {
                 "Mã Giường", "Mã Phòng", "Tên Phòng", "Loại Phòng", "Đơn Giá", "Có Người"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDanhSachGiuongBenh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDanhSachGiuongBenhMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblDanhSachGiuongBenh);
 
         tblDanhSachPhongBenh.setModel(new javax.swing.table.DefaultTableModel(
@@ -510,7 +573,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void lamMoi() {
         txtMaPhong.setText("");
         txtMaPhongBenh.setText("");
@@ -519,17 +582,27 @@ public class DSPhongBenh extends javax.swing.JPanel {
         txtTimKiem.setText("");
         txtSoGiuong.setText("0");
         cboLoaiPhong.setSelectedIndex(0);
+        cboYTa.setSelectedIndex(0);
     }
     
+    private void lamMoiGiuongBenh(){
+        txtPhongBenh.setText("");
+        txtMaPhongBenh.setText("");
+        txtMaGiuong.setText("");
+        txtTrangThai.setText("");
+    }
+
     private void LamMoiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiButtonActionPerformed
         // TODO add your handling code here:
         lamMoi();
+        lamMoiGiuongBenh();
         tabelModel2.setRowCount(0);
         try {
             hienThiCacPhongBenh();
             hienThiTatCaGiuongBenh();
             PhongBenhCtrl.capNhatTenPhong();
-            //            hienThiDSYTa();
+            hienThiDSYTa();
+            hienThiLoaiPhong();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSPhongBenh.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -553,6 +626,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
                                 hienThiCacPhongBenh();
                                 DialogHelper.showMessage("Xóa thành công");
                                 lamMoi();
+                                lamMoiGiuongBenh();
                                 tabelModel2.setRowCount(0);
                             } else {
                                 DialogHelper.showMessage("Phòng bệnh đang có người, không thể xóa");
@@ -579,19 +653,31 @@ public class DSPhongBenh extends javax.swing.JPanel {
         int selectedIndex = tblDanhSachPhongBenh.getSelectedRow();
         if (selectedIndex >= 0) {
             PhongBenhModel pbDaChon = dsPhongBenh.get(selectedIndex);
-            String yTa = cboYTa.getSelectedItem().toString();
-            String loaiPhong = cboLoaiPhong.getSelectedItem().toString();
             String soGiuongStr = txtSoGiuong.getText();
             int soGiuong = Integer.parseInt(soGiuongStr);
-            PhongBenhModel pb = new PhongBenhModel(yTa.split(" ")[0], loaiPhong.split(" ")[0], soGiuong);
-            try {
-                PhongBenhCtrl.capNhatPhongBenh(pb, pbDaChon);
-                DialogHelper.showMessage("Cập nhật thành công");
-                hienThiCacPhongBenh();
-                hienThiGiuongBenhTheoMaPhong(pbDaChon.getMaPhong());
-                lamMoi();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
+
+            int index1 = cboYTa.getSelectedIndex();
+            String maYTa = dsYTa.get(index1 - 1).getMaYT();
+
+            int index2 = cboLoaiPhong.getSelectedIndex();
+            String maDonGia = dsLoaiPhong.get(index2 - 1).getMaDonGia();
+
+            if (maYTa.isEmpty() || maDonGia.isEmpty()) {
+                DialogHelper.showError("Vui lòng chọn đầy đủ thông tin");
+            } else if (!Validator.isIntegerString(soGiuongStr) || "0".equals(soGiuongStr)) {
+                DialogHelper.showError("Số giường không hợp lệ");
+            } else {
+                PhongBenhModel pb = new PhongBenhModel(maYTa, maDonGia, soGiuong);
+                try {
+                    PhongBenhCtrl.capNhatPhongBenh(pb, pbDaChon);
+                    DialogHelper.showMessage("Cập nhật thành công");
+                    hienThiCacPhongBenh();
+                    hienThiGiuongBenhTheoMaPhong(pbDaChon.getMaPhong());
+                    lamMoi();
+                    lamMoiGiuongBenh();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else {
             DialogHelper.showError("Chưa có phòng nào được chọn");
@@ -604,15 +690,27 @@ public class DSPhongBenh extends javax.swing.JPanel {
             DialogHelper.showError("Phòng bệnh đã tồn tại");
         } else {
             try {
-                String loaiPhong = cboLoaiPhong.getSelectedItem().toString();
                 String soGiuongStr = txtSoGiuong.getText();
+
+                String maYTa = "";
+                if (!dsYTa.isEmpty()) {
+                    int index = cboYTa.getSelectedIndex();
+                    maYTa = dsYTa.get(index - 1).getMaYT();
+                }
+
+                String maDonGia = "";
+                if (!dsLoaiPhong.isEmpty()) {
+                    int index = cboLoaiPhong.getSelectedIndex();
+                    maDonGia = dsLoaiPhong.get(index - 1).getMaDonGia();
+                }
+
                 if (!Validator.isIntegerString(soGiuongStr) || "0".equals(soGiuongStr)) {
                     DialogHelper.showError("Số giường không hợp lệ");
                     txtSoGiuong.requestFocus();
                 } else {
                     int soGiuong = Integer.parseInt(soGiuongStr);
-                    String maYTa = cboYTa.getSelectedItem().toString();
-                    PhongBenhModel pb = new PhongBenhModel(maYTa.split(" ")[0], loaiPhong.split(" ")[0], soGiuong);
+
+                    PhongBenhModel pb = new PhongBenhModel(maYTa, maDonGia, soGiuong);
 
                     try {
                         PhongBenhCtrl.themPhongBenh(pb);
@@ -635,8 +733,9 @@ public class DSPhongBenh extends javax.swing.JPanel {
     private void btnCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCongActionPerformed
         // TODO add your handling code here:
         String soGiuongStr = txtSoGiuong.getText();
-        // Kiểm tra nếu giá trị là rỗng hoặc null
-        if (soGiuongStr != null && !soGiuongStr.isEmpty()) {
+        if (soGiuongStr.isEmpty()) {
+            txtSoGiuong.setText("1");
+        } else if (soGiuongStr != null && !soGiuongStr.isEmpty()) {
             int soGiuong = Integer.parseInt(soGiuongStr);
             soGiuong += 1;
             String soGiuongStrMoi = String.valueOf(soGiuong);
@@ -645,6 +744,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
         } else {
             DialogHelper.showError("Số giường không hợp lệ");
         }
+
     }//GEN-LAST:event_btnCongActionPerformed
 
     private void btnTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTruActionPerformed
@@ -666,14 +766,33 @@ public class DSPhongBenh extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnTruActionPerformed
 
+    private int getIndexYTaByMaYTa(String maYTa) {
+        for (int i = 0; i < dsYTa.size(); i++) {
+            if (dsYTa.get(i).getMaYT().equals(maYTa)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    private int getIndexDonGiaByMaDonGia(String maDonGia) {
+        for (int i = 0; i < dsLoaiPhong.size(); i++) {
+            if (dsLoaiPhong.get(i).getMaDonGia().equals(maDonGia)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
     private void tblDanhSachPhongBenhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachPhongBenhMouseClicked
         // TODO add your handling code here:
         lamMoi();
+        lamMoiGiuongBenh();
         int selectedRow = tblDanhSachPhongBenh.getSelectedRow();
         if (selectedRow >= 0) {
             PhongBenhModel pb = dsPhongBenh.get(selectedRow);
             try {
-                if(PhongBenhCtrl.kiemTraPhongBenhCoNguoi(pb.getMaPhong())){
+                if (PhongBenhCtrl.kiemTraPhongBenhCoNguoi(pb.getMaPhong())) {
                     cboLoaiPhong.setEnabled(false);
                 }
             } catch (ClassNotFoundException ex) {
@@ -681,10 +800,19 @@ public class DSPhongBenh extends javax.swing.JPanel {
             }
             txtMaPhong.setText(pb.getMaPhong());
             txtTenPhong.setText(pb.getTenPhong());
-            cboLoaiPhong.setSelectedItem(pb.getMaDonGia() + " " + pb.getLoaiPhong());
-            txtSoGiuong.setText(String.valueOf(pb.getSoGiuong()));
-            cboYTa.setSelectedItem(pb.getMaYTa() + " " + pb.getTenYTa());
-
+            int index_dsLoaiPhong = getIndexDonGiaByMaDonGia(pb.getMaDonGia());
+            if (index_dsLoaiPhong == -1){
+                cboLoaiPhong.setSelectedIndex(0);
+            } else {
+                cboLoaiPhong.setSelectedIndex(index_dsLoaiPhong + 1);
+            }
+            txtSoGiuong.setText(String.valueOf(pb.getSoGiuong()));;
+            int index_dsYTa = getIndexYTaByMaYTa(pb.getMaYTa());
+            if (index_dsYTa == -1){
+                cboYTa.setSelectedIndex(0);
+            } else {
+                cboYTa.setSelectedIndex(index_dsYTa + 1);
+            }  
             txtMaPhongBenh.setText(pb.getMaPhong());
             txtPhongBenh.setText(pb.getTenPhong());
             tabelModel2.setRowCount(0);
@@ -712,6 +840,20 @@ public class DSPhongBenh extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtTimKiemKeyTyped
 
+    private void tblDanhSachGiuongBenhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachGiuongBenhMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = tblDanhSachGiuongBenh.getSelectedRow();
+        if (selectedRow >= 0) {
+            GiuongBenhModel gb = dsGiuongBenh.get(selectedRow);
+            txtPhongBenh.setText(gb.getTenPhong());
+            txtMaPhongBenh.setText(gb.getMaPhong());
+            txtMaGiuong.setText(gb.getMaGiuong());
+            txtTrangThai.setText(gb.getCoNguoi());
+        } else {
+            DialogHelper.showError("Chưa có dòng nào trong table được chọn");
+        }
+    }//GEN-LAST:event_tblDanhSachGiuongBenhMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel GSTextField;
@@ -727,6 +869,8 @@ public class DSPhongBenh extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -743,11 +887,13 @@ public class DSPhongBenh extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblDanhSachGiuongBenh;
     private javax.swing.JTable tblDanhSachPhongBenh;
+    private javax.swing.JTextField txtMaGiuong;
     private javax.swing.JTextField txtMaPhong;
     private javax.swing.JTextField txtMaPhongBenh;
     private javax.swing.JTextField txtPhongBenh;
     private javax.swing.JTextField txtSoGiuong;
     private javax.swing.JTextField txtTenPhong;
     private javax.swing.JTextField txtTimKiem;
+    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,16 +1,24 @@
 package views.main;
 
+import controllers.TaiKhoanCaNhanCtrl;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
+import views.list.DSDichVuCLSTest;
+import views.list.DSDichVuKhamBenhTest;
+import views.list.DSDonGiaPhongBenh;
 import views.list.DSKhoa;
+import views.list.DSNhomDichVuCLSTest;
+import views.list.DSNhomDichVuKhamBenhTest;
+import views.list.DSNhomThuoc;
 
 public class QuanLy extends javax.swing.JFrame {
 
     public QuanLy() {
         initComponents();
-
+        HoTenUserLabel.setText(TaiKhoanCaNhanCtrl.hoTenUser);
+        ChucVuUserLabel.setText(TaiKhoanCaNhanCtrl.tenChucVuUser);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,13 +26,22 @@ public class QuanLy extends javax.swing.JFrame {
     private void initComponents() {
 
         lypQuanLy = new javax.swing.JLayeredPane();
-        tabTiepNhanBenhNhan = new javax.swing.JTabbedPane();
-        tiepNhanBenhNhan2 = new views.main.TiepNhanBenhNhan();
         tabQuanLyBenhNhan = new javax.swing.JTabbedPane();
         dSBenhNhan1 = new views.list.DSBenhNhan();
-        tabKhamBenh = new javax.swing.JTabbedPane();
-        dSDangKy1 = new views.list.DSDangKy();
-        khamBenh1 = new views.main.KhamBenh();
+        tabVienPhi = new javax.swing.JTabbedPane();
+        dSThuTien2 = new views.list.DSThuTien();
+        tabQuanLyBacSi = new javax.swing.JTabbedPane();
+        dSBacSi1 = new views.list.DSBacSi();
+        tabQuanLyYTa = new javax.swing.JTabbedPane();
+        dSYTa1 = new views.list.DSYTa();
+        tabQuanLyAdmin = new javax.swing.JTabbedPane();
+        dSQuanLy1 = new views.list.DSQuanLy();
+        tabQuanLyPhongBenh = new javax.swing.JTabbedPane();
+        dSPhongBenh1 = new views.list.DSPhongBenh();
+        tabQuanLyThuoc = new javax.swing.JTabbedPane();
+        dSThuoc1 = new views.list.DSThuoc();
+        tabThongTinCaNhan = new javax.swing.JTabbedPane();
+        taiKhoanCaNhan1 = new views.main.TaiKhoanCaNhan();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -33,30 +50,29 @@ public class QuanLy extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        btnDangXuat = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        mniTiepNhanBenhNhan = new javax.swing.JMenu();
-        mniKhamBenh = new javax.swing.JMenu();
         mniQuanLyBenhNhan = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu10 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        mniDSKhoa = new javax.swing.JMenuItem();
+        mniQuanLyVienPhi = new javax.swing.JMenu();
+        mniQuanLyNhanVien = new javax.swing.JMenu();
+        mniQuanLyBacSi = new javax.swing.JMenuItem();
+        mniQuanLyYTa = new javax.swing.JMenuItem();
+        mniQuanLyAdmin = new javax.swing.JMenuItem();
+        mniQuanLyPhongBenh = new javax.swing.JMenu();
+        mniDanhSachPhongBenh = new javax.swing.JMenuItem();
+        mniDonGiaPB = new javax.swing.JMenuItem();
+        mniQuanLyKhamBenh = new javax.swing.JMenu();
+        mniQuanLyKhoa = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        mniQuanLyNhomThuoc = new javax.swing.JMenuItem();
+        mniQuanLyThuoc = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        mniQuanLyNhomDVKB = new javax.swing.JMenuItem();
+        mniQuanLyDVKB = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mniQuanLyNhomDVCLS = new javax.swing.JMenuItem();
+        mniQuanLyDVCLS = new javax.swing.JMenuItem();
+        mniQuanLyTaiKhoan = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -67,18 +83,37 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.setPreferredSize(new java.awt.Dimension(1674, 800));
         lypQuanLy.setLayout(new java.awt.CardLayout());
 
-        tabTiepNhanBenhNhan.addTab("Tiếp nhận bệnh nhân", tiepNhanBenhNhan2);
-
-        lypQuanLy.add(tabTiepNhanBenhNhan, "card2");
-
         tabQuanLyBenhNhan.addTab("Quản lý bệnh nhân", dSBenhNhan1);
 
         lypQuanLy.add(tabQuanLyBenhNhan, "card2");
 
-        tabKhamBenh.addTab("Danh sách đăng ký", dSDangKy1);
-        tabKhamBenh.addTab("Khám bệnh", khamBenh1);
+        tabVienPhi.addTab("Danh sách viện phí", dSThuTien2);
 
-        lypQuanLy.add(tabKhamBenh, "card2");
+        lypQuanLy.add(tabVienPhi, "card2");
+
+        tabQuanLyBacSi.addTab("Quản lý bác sĩ", dSBacSi1);
+
+        lypQuanLy.add(tabQuanLyBacSi, "card2");
+
+        tabQuanLyYTa.addTab("Quản lý y tá", dSYTa1);
+
+        lypQuanLy.add(tabQuanLyYTa, "card2");
+
+        tabQuanLyAdmin.addTab("Quản lý admin", dSQuanLy1);
+
+        lypQuanLy.add(tabQuanLyAdmin, "card2");
+
+        tabQuanLyPhongBenh.addTab("Quản lý phòng bệnh", dSPhongBenh1);
+
+        lypQuanLy.add(tabQuanLyPhongBenh, "card2");
+
+        tabQuanLyThuoc.addTab("Quản lý thuốc", dSThuoc1);
+
+        lypQuanLy.add(tabQuanLyThuoc, "card2");
+
+        tabThongTinCaNhan.addTab("Thông tin cá nhân", taiKhoanCaNhan1);
+
+        lypQuanLy.add(tabThongTinCaNhan, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -112,18 +147,23 @@ public class QuanLy extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 168, 121));
         jLabel8.setText("CARE");
 
+        btnDangXuat.setBackground(new java.awt.Color(50, 112, 83));
+        btnDangXuat.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        btnDangXuat.setForeground(new java.awt.Color(255, 255, 255));
+        btnDangXuat.setText("Đăng xuất");
+        btnDangXuat.setBorder(null);
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(407, 407, 407)
-                .addComponent(jLabel6)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel7)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -133,47 +173,37 @@ public class QuanLy extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(HoTenUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15))
+                .addGap(170, 170, 170)
+                .addComponent(jLabel6)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel7)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HoTenUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ChucVuUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(10, 10, 10))
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(0, 6, Short.MAX_VALUE)
-                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(HoTenUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ChucVuUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(10, 10, 10))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 30));
-
-        mniTiepNhanBenhNhan.setText("Tiếp nhận bệnh nhân");
-        mniTiepNhanBenhNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mniTiepNhanBenhNhan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mniTiepNhanBenhNhanMouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(mniTiepNhanBenhNhan);
-
-        mniKhamBenh.setText("Khám bệnh");
-        mniKhamBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mniKhamBenh.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mniKhamBenhMouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(mniKhamBenh);
 
         mniQuanLyBenhNhan.setText("Quản lý bệnh nhân");
         mniQuanLyBenhNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -184,96 +214,166 @@ public class QuanLy extends javax.swing.JFrame {
         });
         jMenuBar1.add(mniQuanLyBenhNhan);
 
-        jMenu5.setText("Quản lý viện phí");
-        jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu5);
-
-        jMenu10.setText("Quản lý nhân viên");
-        jMenu10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jMenuItem1.setText("Danh sách bác sĩ");
-        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem1.setPreferredSize(new java.awt.Dimension(136, 30));
-        jMenu10.add(jMenuItem1);
-
-        jMenuItem2.setText("Danh sách y tá");
-        jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem2.setPreferredSize(new java.awt.Dimension(125, 30));
-        jMenu10.add(jMenuItem2);
-
-        jMenuItem3.setText("Danh sách admin");
-        jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem3.setPreferredSize(new java.awt.Dimension(140, 30));
-        jMenu10.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu10);
-
-        jMenu7.setText("Quản lý phòng bệnh");
-        jMenu7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jMenuItem4.setText("Danh sách phòng bệnh");
-        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem4.setPreferredSize(new java.awt.Dimension(171, 30));
-        jMenu7.add(jMenuItem4);
-
-        jMenuItem5.setText("Danh sách đơn giá phòng bệnh");
-        jMenuItem5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem5.setPreferredSize(new java.awt.Dimension(214, 30));
-        jMenu7.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu7);
-
-        jMenu8.setText("Quản lý khám bệnh");
-        jMenu8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        mniDSKhoa.setText("Danh sách khoa");
-        mniDSKhoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mniDSKhoa.setPreferredSize(new java.awt.Dimension(132, 30));
-        mniDSKhoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniDSKhoaActionPerformed(evt);
+        mniQuanLyVienPhi.setText("Quản lý bệnh nhân");
+        mniQuanLyVienPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyVienPhi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniQuanLyVienPhiMouseClicked(evt);
             }
         });
-        jMenu8.add(mniDSKhoa);
-        jMenu8.add(jSeparator1);
+        jMenuBar1.add(mniQuanLyVienPhi);
 
-        jMenuItem6.setText("Danh sách nhóm thuốc");
-        jMenuItem6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem6.setPreferredSize(new java.awt.Dimension(172, 30));
-        jMenu8.add(jMenuItem6);
+        mniQuanLyNhanVien.setText("Quản lý nhân viên");
+        mniQuanLyNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuItem7.setText("Danh sách thuốc");
-        jMenuItem7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem7.setPreferredSize(new java.awt.Dimension(137, 30));
-        jMenu8.add(jMenuItem7);
-        jMenu8.add(jSeparator2);
+        mniQuanLyBacSi.setText("Danh sách bác sĩ");
+        mniQuanLyBacSi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyBacSi.setPreferredSize(new java.awt.Dimension(136, 30));
+        mniQuanLyBacSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyBacSiActionPerformed(evt);
+            }
+        });
+        mniQuanLyNhanVien.add(mniQuanLyBacSi);
 
-        jMenuItem8.setText("Danh sách nhóm DV khám bệnh");
-        jMenuItem8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem8.setPreferredSize(new java.awt.Dimension(219, 30));
-        jMenu8.add(jMenuItem8);
+        mniQuanLyYTa.setText("Danh sách y tá");
+        mniQuanLyYTa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyYTa.setPreferredSize(new java.awt.Dimension(125, 30));
+        mniQuanLyYTa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyYTaActionPerformed(evt);
+            }
+        });
+        mniQuanLyNhanVien.add(mniQuanLyYTa);
 
-        jMenuItem9.setText("Danh sách DV khám bệnh");
-        jMenuItem9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem9.setPreferredSize(new java.awt.Dimension(184, 30));
-        jMenu8.add(jMenuItem9);
-        jMenu8.add(jSeparator3);
+        mniQuanLyAdmin.setText("Danh sách admin");
+        mniQuanLyAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyAdmin.setPreferredSize(new java.awt.Dimension(140, 30));
+        mniQuanLyAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyAdminActionPerformed(evt);
+            }
+        });
+        mniQuanLyNhanVien.add(mniQuanLyAdmin);
 
-        jMenuItem10.setText("Danh sách nhóm DV cận lâm sàn");
-        jMenuItem10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem10.setPreferredSize(new java.awt.Dimension(222, 30));
-        jMenu8.add(jMenuItem10);
+        jMenuBar1.add(mniQuanLyNhanVien);
 
-        jMenuItem11.setText("Danh sách DV cận lâm sàn");
-        jMenuItem11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem11.setPreferredSize(new java.awt.Dimension(187, 30));
-        jMenu8.add(jMenuItem11);
+        mniQuanLyPhongBenh.setText("Quản lý phòng bệnh");
+        mniQuanLyPhongBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuBar1.add(jMenu8);
+        mniDanhSachPhongBenh.setText("Danh sách phòng bệnh");
+        mniDanhSachPhongBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniDanhSachPhongBenh.setPreferredSize(new java.awt.Dimension(171, 30));
+        mniDanhSachPhongBenh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDanhSachPhongBenhActionPerformed(evt);
+            }
+        });
+        mniQuanLyPhongBenh.add(mniDanhSachPhongBenh);
 
-        jMenu3.setText("Tài khoản cá nhân");
-        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu3);
+        mniDonGiaPB.setText("Danh sách đơn giá phòng bệnh");
+        mniDonGiaPB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniDonGiaPB.setPreferredSize(new java.awt.Dimension(214, 30));
+        mniDonGiaPB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDonGiaPBActionPerformed(evt);
+            }
+        });
+        mniQuanLyPhongBenh.add(mniDonGiaPB);
+
+        jMenuBar1.add(mniQuanLyPhongBenh);
+
+        mniQuanLyKhamBenh.setText("Quản lý khám bệnh");
+        mniQuanLyKhamBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        mniQuanLyKhoa.setText("Danh sách khoa");
+        mniQuanLyKhoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyKhoa.setPreferredSize(new java.awt.Dimension(132, 30));
+        mniQuanLyKhoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyKhoaActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyKhoa);
+        mniQuanLyKhamBenh.add(jSeparator1);
+
+        mniQuanLyNhomThuoc.setText("Danh sách nhóm thuốc");
+        mniQuanLyNhomThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyNhomThuoc.setPreferredSize(new java.awt.Dimension(172, 30));
+        mniQuanLyNhomThuoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyNhomThuocActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyNhomThuoc);
+
+        mniQuanLyThuoc.setText("Danh sách thuốc");
+        mniQuanLyThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyThuoc.setPreferredSize(new java.awt.Dimension(137, 30));
+        mniQuanLyThuoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyThuocActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyThuoc);
+        mniQuanLyKhamBenh.add(jSeparator2);
+
+        mniQuanLyNhomDVKB.setText("Danh sách nhóm DV khám bệnh");
+        mniQuanLyNhomDVKB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyNhomDVKB.setPreferredSize(new java.awt.Dimension(219, 30));
+        mniQuanLyNhomDVKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyNhomDVKBActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyNhomDVKB);
+
+        mniQuanLyDVKB.setText("Danh sách DV khám bệnh");
+        mniQuanLyDVKB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyDVKB.setPreferredSize(new java.awt.Dimension(184, 30));
+        mniQuanLyDVKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyDVKBActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyDVKB);
+        mniQuanLyKhamBenh.add(jSeparator3);
+
+        mniQuanLyNhomDVCLS.setText("Danh sách nhóm DV cận lâm sàn");
+        mniQuanLyNhomDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyNhomDVCLS.setPreferredSize(new java.awt.Dimension(222, 30));
+        mniQuanLyNhomDVCLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyNhomDVCLSActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyNhomDVCLS);
+
+        mniQuanLyDVCLS.setText("Danh sách DV cận lâm sàn");
+        mniQuanLyDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyDVCLS.setPreferredSize(new java.awt.Dimension(187, 30));
+        mniQuanLyDVCLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyDVCLSActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyDVCLS);
+
+        jMenuBar1.add(mniQuanLyKhamBenh);
+
+        mniQuanLyTaiKhoan.setText("Tài khoản cá nhân");
+        mniQuanLyTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniQuanLyTaiKhoanMouseClicked(evt);
+            }
+        });
+        mniQuanLyTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyTaiKhoanActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(mniQuanLyTaiKhoan);
 
         setJMenuBar(jMenuBar1);
 
@@ -301,10 +401,10 @@ public class QuanLy extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniDSKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDSKhoaActionPerformed
+    private void mniQuanLyKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyKhoaActionPerformed
         new DSKhoa().setVisible(true);
         new DSKhoa().setAlwaysOnTop(true);
-    }//GEN-LAST:event_mniDSKhoaActionPerformed
+    }//GEN-LAST:event_mniQuanLyKhoaActionPerformed
 
     private void mniQuanLyBenhNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyBenhNhanMouseClicked
         lypQuanLy.removeAll();
@@ -313,19 +413,96 @@ public class QuanLy extends javax.swing.JFrame {
         lypQuanLy.revalidate();
     }//GEN-LAST:event_mniQuanLyBenhNhanMouseClicked
 
-    private void mniTiepNhanBenhNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniTiepNhanBenhNhanMouseClicked
+    private void mniQuanLyBacSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyBacSiActionPerformed
         lypQuanLy.removeAll();
-        lypQuanLy.add(tabTiepNhanBenhNhan);
+        lypQuanLy.add(tabQuanLyBacSi);
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
-    }//GEN-LAST:event_mniTiepNhanBenhNhanMouseClicked
+    }//GEN-LAST:event_mniQuanLyBacSiActionPerformed
 
-    private void mniKhamBenhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniKhamBenhMouseClicked
+    private void mniQuanLyYTaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyYTaActionPerformed
         lypQuanLy.removeAll();
-        lypQuanLy.add(tabKhamBenh);
+        lypQuanLy.add(tabQuanLyYTa);
         lypQuanLy.repaint();
         lypQuanLy.revalidate();
-    }//GEN-LAST:event_mniKhamBenhMouseClicked
+    }//GEN-LAST:event_mniQuanLyYTaActionPerformed
+
+    private void mniQuanLyAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyAdminActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyAdmin);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyAdminActionPerformed
+
+    private void mniDanhSachPhongBenhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDanhSachPhongBenhActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyPhongBenh);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniDanhSachPhongBenhActionPerformed
+
+    private void mniQuanLyThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyThuocActionPerformed
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabQuanLyThuoc);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyThuocActionPerformed
+
+    private void mniDonGiaPBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDonGiaPBActionPerformed
+        new DSDonGiaPhongBenh().setVisible(true);
+        new DSDonGiaPhongBenh().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniDonGiaPBActionPerformed
+
+    private void mniQuanLyNhomThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomThuocActionPerformed
+        new DSNhomThuoc().setVisible(true);
+        new DSNhomThuoc().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyNhomThuocActionPerformed
+
+    private void mniQuanLyNhomDVKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomDVKBActionPerformed
+        new DSNhomDichVuKhamBenhTest().setVisible(true);
+        new DSNhomDichVuKhamBenhTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyNhomDVKBActionPerformed
+
+    private void mniQuanLyDVKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyDVKBActionPerformed
+        new DSDichVuKhamBenhTest().setVisible(true);
+        new DSDichVuKhamBenhTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyDVKBActionPerformed
+
+    private void mniQuanLyNhomDVCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomDVCLSActionPerformed
+        new DSNhomDichVuCLSTest().setVisible(true);
+        new DSNhomDichVuCLSTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyNhomDVCLSActionPerformed
+
+    private void mniQuanLyDVCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyDVCLSActionPerformed
+        new DSDichVuCLSTest().setVisible(true);
+        new DSDichVuCLSTest().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyDVCLSActionPerformed
+
+    private void mniQuanLyTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniQuanLyTaiKhoanActionPerformed
+
+    private void mniQuanLyTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanMouseClicked
+        // TODO add your handling code here:
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabThongTinCaNhan);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyTaiKhoanMouseClicked
+
+    private void mniQuanLyVienPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyVienPhiMouseClicked
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabVienPhi);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
+
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new DangNhap().setVisible(true);
+    }//GEN-LAST:event_btnDangXuatActionPerformed
+
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -352,44 +529,52 @@ public class QuanLy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
+    private javax.swing.JButton btnDangXuat;
+    private views.list.DSBacSi dSBacSi1;
     private views.list.DSBenhNhan dSBenhNhan1;
-    private views.list.DSDangKy dSDangKy1;
+    private views.list.DSPhongBenh dSPhongBenh1;
+    private views.list.DSQuanLy dSQuanLy1;
+    private views.list.DSThuTien dSThuTien2;
+    private views.list.DSThuoc dSThuoc1;
+    private views.list.DSYTa dSYTa1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private views.main.KhamBenh khamBenh1;
     private javax.swing.JLayeredPane lypQuanLy;
-    private javax.swing.JMenuItem mniDSKhoa;
-    private javax.swing.JMenu mniKhamBenh;
+    private javax.swing.JMenuItem mniDanhSachPhongBenh;
+    private javax.swing.JMenuItem mniDonGiaPB;
+    private javax.swing.JMenuItem mniQuanLyAdmin;
+    private javax.swing.JMenuItem mniQuanLyBacSi;
     private javax.swing.JMenu mniQuanLyBenhNhan;
-    private javax.swing.JMenu mniTiepNhanBenhNhan;
-    private javax.swing.JTabbedPane tabKhamBenh;
+    private javax.swing.JMenuItem mniQuanLyDVCLS;
+    private javax.swing.JMenuItem mniQuanLyDVKB;
+    private javax.swing.JMenu mniQuanLyKhamBenh;
+    private javax.swing.JMenuItem mniQuanLyKhoa;
+    private javax.swing.JMenu mniQuanLyNhanVien;
+    private javax.swing.JMenuItem mniQuanLyNhomDVCLS;
+    private javax.swing.JMenuItem mniQuanLyNhomDVKB;
+    private javax.swing.JMenuItem mniQuanLyNhomThuoc;
+    private javax.swing.JMenu mniQuanLyPhongBenh;
+    private javax.swing.JMenu mniQuanLyTaiKhoan;
+    private javax.swing.JMenuItem mniQuanLyThuoc;
+    private javax.swing.JMenu mniQuanLyVienPhi;
+    private javax.swing.JMenuItem mniQuanLyYTa;
+    private javax.swing.JTabbedPane tabQuanLyAdmin;
+    private javax.swing.JTabbedPane tabQuanLyBacSi;
     private javax.swing.JTabbedPane tabQuanLyBenhNhan;
-    private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
-    private views.main.TiepNhanBenhNhan tiepNhanBenhNhan2;
+    private javax.swing.JTabbedPane tabQuanLyPhongBenh;
+    private javax.swing.JTabbedPane tabQuanLyThuoc;
+    private javax.swing.JTabbedPane tabQuanLyYTa;
+    private javax.swing.JTabbedPane tabThongTinCaNhan;
+    private javax.swing.JTabbedPane tabVienPhi;
+    private views.main.TaiKhoanCaNhan taiKhoanCaNhan1;
     // End of variables declaration//GEN-END:variables
 
 }

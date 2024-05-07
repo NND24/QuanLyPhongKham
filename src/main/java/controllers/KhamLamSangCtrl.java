@@ -90,6 +90,37 @@ public class KhamLamSangCtrl {
         }
     }
 
+    public static List<KhamLamSangModel> thanhToanKLS(String maBenhAn) throws ClassNotFoundException {
+        List<KhamLamSangModel> dsKhamLamSan = new ArrayList<>();
+        String sql = """
+                    SELECT TenDichVuKB, GiaTien, GiaBaoHiem, BHYT
+                    FROM BENHAN, KHAMLAMSANG, DICHVUKB, BENHNHAN
+                    WHERE BENHAN.MaKhamLamSang=KHAMLAMSANG.MaKhamLamSang AND
+                    KHAMLAMSANG.MaKhamLamSang=DICHVUKB.MaDichVuKB AND
+                    BENHAN.MaBenhNhan=BENHNHAN.MaBenhNhan AND
+                    BENHAN.MaBenhAn=?
+                     """;
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maBenhAn);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String giaTien = resultSet.getString("BHYT").isEmpty()
+                        ? resultSet.getString("GiaTien")
+                        : resultSet.getString("GiaBaoHiem");
+
+                KhamLamSangModel bn = new KhamLamSangModel(
+                        resultSet.getString("TenDichVu"), giaTien);
+                dsKhamLamSan.add(bn);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return dsKhamLamSan;
+    }
+
     public static String generateMaKhamLamSang() {
         Date now = new Date();
 

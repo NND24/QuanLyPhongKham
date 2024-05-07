@@ -315,28 +315,28 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         String maNhomThuoc = NhomThuocCtrl.generateMaNhomThuoc();
         String tenNhomThuoc = txtTenNhomThuoc.getText();
         String trangThai = cmbTrangThai.getSelectedItem().toString();
-        
-       if (tenNhomThuoc.isEmpty()){
-           JOptionPane.showMessageDialog(null, "tên nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
-       }else{
-           try {
-               NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
-               NhomThuocCtrl.ThemNhomThuoc(nt);
-               lamMoi();
-               hienThiTatCaNhomThuoc();
-           } catch (ClassNotFoundException ex) {
-               Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
-           }
-       }
+
+        if (tenNhomThuoc.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "tên nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
+                NhomThuocCtrl.ThemNhomThuoc(nt);
+                lamMoi();
+                hienThiTatCaNhomThuoc();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnThemActionPerformed
-    
+
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-       try{
+        try {
             String maNhomThuoc = txtMaNhomThuoc.getText();
-        
-            if (maNhomThuoc.isEmpty()){
-                JOptionPane.showMessageDialog(null, "chưa có nhóm thuốc cần chọn để xóa", "cảnh báo",JOptionPane.WARNING_MESSAGE);
-            }else{
+
+            if (maNhomThuoc.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "chưa có nhóm thuốc cần chọn để xóa", "cảnh báo", JOptionPane.WARNING_MESSAGE);
+            } else {
                 String[] options = {"Đồng ý, Thoát"};
                 int option = JOptionPane.showOptionDialog(null,
                         "Bạn có chắc muốn xóa nhóm thuốc này không",
@@ -347,18 +347,18 @@ public class DSNhomThuoc extends javax.swing.JFrame {
                         options,
                         options[1]
                 );
-                if (option == 0){
+                if (option == 0) {
                     NhomThuocCtrl.XoaNhomThuoc(maNhomThuoc);
 
                     lamMoi();
                     hienThiTatCaNhomThuoc();
                 }
             }
-        }catch(ClassNotFoundException ex){
-           Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXoaActionPerformed
-    
+
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try{
             String maNhomThuoc = txtMaNhomThuoc.getText();
@@ -412,7 +412,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
 
     private void btnXuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnXuatDSActionPerformed
 
     private void txttimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKiemKeyTyped

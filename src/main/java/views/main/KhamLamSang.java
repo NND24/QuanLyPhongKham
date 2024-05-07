@@ -3,6 +3,10 @@ package views.main;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,9 +14,14 @@ import javax.swing.*;
 import models.BenhAnModel;
 import models.KhamLamSangModel;
 import models.DangKyModel;
+import models.BenhNhanModel;
+import models.DonThuocModel;
 import controllers.BenhAnCtrl;
+import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
+import controllers.DonThuocCtrl;
 import controllers.KhamLamSangCtrl;
+import pdfForm.GenerateKhamLS;
 import utils.DialogHelper;
 import utils.Validator;
 
@@ -512,14 +521,14 @@ public class KhamLamSang extends javax.swing.JPanel {
                         .addComponent(jLabel18)
                         .addComponent(txtCanNang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtNhipTho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtLyDoKham, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtChuanDoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
@@ -528,7 +537,7 @@ public class KhamLamSang extends javax.swing.JPanel {
                                 .addComponent(jLabel46))
                             .addComponent(jLabel50)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -553,13 +562,13 @@ public class KhamLamSang extends javax.swing.JPanel {
                                     .addComponent(jLabel47)
                                     .addComponent(txtBenhChinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jLabel44))
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtBenhPhu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtLoiDan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -667,7 +676,61 @@ public class KhamLamSang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnKetThucKhamActionPerformed
 
     private void btnInPhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInPhieuActionPerformed
+        if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+            JOptionPane.showMessageDialog(null, "Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                BenhNhanModel benhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
 
+                List<DonThuocModel> dsThuoc = new ArrayList<>();
+                try {
+                    dsThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                BenhAnModel benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
+
+                List<KhamLamSangModel> dsKhamLS = new ArrayList<>();
+                dsKhamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaKhamLamSang());
+
+                int namHienTai = LocalDate.now().getYear();
+                int thangHienTai = LocalDate.now().getMonthValue();
+                int ngayHienTai = LocalDate.now().getDayOfMonth();
+
+                KhamLamSangModel kham = dsKhamLS.get(0);
+
+                String ten = benhNhan.getHoTen();
+                String tuoi = Integer.toString(namHienTai - Integer.parseInt(benhNhan.getNamSinh()));
+                String gioiTinh = benhNhan.getGioiTinh();
+                String diaChi = benhNhan.getDiaChi();
+                String chieuCao = kham.getChieuCao();
+                String canNang = kham.getCanNang();
+                String nhietDo = kham.getNhietDo();
+                String nhipTho = kham.getNhipTho();
+                String huyetAp = kham.getHuyetAp();
+                String mach = kham.getMach();
+                String bmi = kham.getBMI();
+                String lyDoKham = kham.getLyDoKhamBenh();
+                String chuanDoan = kham.getChuanDoan();
+                String huongXuLy = kham.getHuongXuLy();
+                String benhChinh = kham.getBenhChinh();
+                String benhPhu = kham.getBenhPhu();
+                String loiDan = kham.getLoiDan();
+                String benhSu = kham.getBenhSu();
+                String tienSu = kham.getTienSu();
+                String khamToanThan = kham.getKhamToanThan();
+                String khamBoPhan = kham.getKhamBoPhan();
+                String tomTatKQ = kham.getTomTatKetQuaCLS();
+
+                GenerateKhamLS inDon = new GenerateKhamLS(ten, tuoi, gioiTinh, diaChi, chieuCao, canNang, nhietDo, nhipTho, huyetAp, mach, bmi, lyDoKham, chuanDoan, huongXuLy, benhChinh, benhPhu, loiDan, benhSu, tienSu, khamToanThan, khamBoPhan, tomTatKQ, Integer.toString(ngayHienTai), Integer.toString(thangHienTai), Integer.toString(namHienTai));
+
+                inDon.taoPhieuKham();
+                JOptionPane.showMessageDialog(null, "In phiếu khám thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(KhamLamSang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnInPhieuActionPerformed
 
     private void txtCanNangInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtCanNangInputMethodTextChanged
@@ -688,7 +751,6 @@ public class KhamLamSang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCanNangPropertyChange
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-        // TODO add your handling code here:
         if (!txtChieuCao.getText().isEmpty() && !txtCanNang.getText().isEmpty()) {
             double weight = Double.parseDouble(txtCanNang.getText());
             double height = Double.parseDouble(txtChieuCao.getText());
@@ -705,13 +767,10 @@ public class KhamLamSang extends javax.swing.JPanel {
                 txtBMI.setText(String.valueOf(formattedBMI) + " Béo phì");
             }
         }
-
     }//GEN-LAST:event_formMouseMoved
 
     private void btnNhapMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapMoiActionPerformed
-        boolean flag = DialogHelper.showConfirmation("Bạn có chắc muốn nhập lại tất cả thông tin");
-
-        if (flag) {
+        if (DialogHelper.showConfirmation("Bạn có chắc muốn nhập lại tất cả thông tin")) {
             nhapMoi();
         }
     }//GEN-LAST:event_btnNhapMoiActionPerformed

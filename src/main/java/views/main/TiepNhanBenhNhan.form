@@ -187,7 +187,7 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="PhongKhamComboBox" min="-2" pref="220" max="-2" attributes="0"/>
+                                  <Component id="cmbPhongKham" min="-2" pref="220" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -263,7 +263,7 @@
                               <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtNgayKham" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="PhongKhamComboBox" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="cmbPhongKham" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -565,6 +565,9 @@
                   <Dimension value="[115, 25]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInPhieuKhamActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnLamMoiThuTu">
               <Properties>
@@ -783,7 +786,7 @@
             <Property name="text" type="java.lang.String" value="Ph&#xf2;ng kh&#xe1;m"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="PhongKhamComboBox">
+        <Component class="javax.swing.JComboBox" name="cmbPhongKham">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
@@ -795,6 +798,9 @@
               <Dimension value="[132, 30]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbPhongKhamActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -1071,6 +1077,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbNhomDichVuActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

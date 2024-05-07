@@ -97,7 +97,7 @@ public class DSDonGiaPhongBenh extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         cboSapXep = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ĐƠN GIÁ PHÒNG BỆNH", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -315,6 +315,7 @@ public class DSDonGiaPhongBenh extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
@@ -329,7 +330,7 @@ public class DSDonGiaPhongBenh extends javax.swing.JFrame {
                     DialogHelper.showError("Vui lòng điền đầy đủ các thông tin");
                 } else if (!Validator.isIntegerString(donGiaStr)) {
                     DialogHelper.showError("Đơn giá không hợp lệ");
-                }else {
+                } else {
                     int donGia = Integer.parseInt(donGiaStr);
                     DonGiaPhongBenhModel dg = new DonGiaPhongBenhModel(maDonGia, tenLoaiPhong, donGia);
                     try {
@@ -403,7 +404,7 @@ public class DSDonGiaPhongBenh extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDonGiaPhongBenh.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void tblDanhSachDonGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachDonGiaMouseClicked
@@ -498,7 +499,7 @@ public class DSDonGiaPhongBenh extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

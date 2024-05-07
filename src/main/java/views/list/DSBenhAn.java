@@ -20,6 +20,8 @@ import views.main.ChiDinh;
 import views.main.ChonThuoc;
 import utils.DialogHelper;
 import views.main.KetQuaCLS;
+import views.main.ThuTien;
+import views.main.XepGiuong;
 
 public class DSBenhAn extends javax.swing.JPanel {
 
@@ -323,6 +325,16 @@ public class DSBenhAn extends javax.swing.JPanel {
                 Date date = inputFormat.parse(ba.getNgayKham());
                 String formattedDate = outputFormat.format(date);
                 KhamBenh.Instance.DateLabel.setText(formattedDate);
+
+                ThuTien.Instance.MaBNLabel.setText(ba.getMaBenhNhan());
+                ThuTien.Instance.NameLabel.setText(ba.getHoTen());
+                ThuTien.Instance.SexLabel.setText(ba.getGioiTinh());
+                ThuTien.Instance.MaBALabel.setText(ba.getMaBenhAn());
+
+                //Xep giuong
+                XepGiuong.Instance.MaBALabel.setText(ba.getMaBenhAn());
+                XepGiuong.Instance.MaBNLabel.setText(ba.getMaBenhNhan());
+                XepGiuong.Instance.NameLabel.setText(ba.getHoTen());
 
                 List<KhamLamSangModel> dsKhamBenh = KhamLamSangCtrl.timKhamBenhTheoMa(ba.getMaKhamLamSang());
                 dsKhamBenh.forEach(kb -> {

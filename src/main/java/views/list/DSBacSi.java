@@ -24,15 +24,17 @@ import utils.Validator;
  *
  * @author Phu Bao
  */
-public class DSBacSi extends javax.swing.JFrame {
+public class DSBacSi extends javax.swing.JPanel {
 
     /**
-     * Creates new form DSBacSi
+     * Creates new form DSBacSi1
      */
     DefaultTableModel tableModel;
     List<BacSiModel> dsBacSi = new ArrayList<>();
     private String currentImage = null;
     private String defaultPath = "src/main/java/Images/BacSi/default.png";
+    private List<KhoaModel> dsKhoa;
+    private List<KhoaModel> dsKhoaLoc;
 
     public DSBacSi() {
         initComponents();
@@ -58,14 +60,12 @@ public class DSBacSi extends javax.swing.JFrame {
 
     private void hienThiDSKhoa() {
         try {
-            List<KhoaModel> dsKhoa = KhoaCtrl.hienThiTatCa();
+            dsKhoa = KhoaCtrl.hienThiCacKhoaConHoatDong();
             cboKhoa.removeAllItems();
-            cboKhoa.addItem("---Khoa---");
+            cboKhoa.addItem("--Khoa--");
             dsKhoa.forEach(khoa -> {
-                String nhomKhoa = khoa.getMaKhoa() + " " + khoa.getTenKhoa();
-                if (khoa.getTrangThai().equalsIgnoreCase("Kích hoạt") && khoa.isTrangThaiXoa() == false) {
-                    cboKhoa.addItem(nhomKhoa);
-                }
+                String tenKhoa = khoa.getTenKhoa();
+                cboKhoa.addItem(tenKhoa);
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,18 +74,18 @@ public class DSBacSi extends javax.swing.JFrame {
 
     private void hienThiDSLocKhoa() {
         try {
-            List<KhoaModel> dsKhoa = KhoaCtrl.hienThiTatCa();
+            dsKhoaLoc = KhoaCtrl.hienThiTatCa();
             cboLoc.removeAllItems();
-            cboLoc.addItem("---Mặc định---");
-            dsKhoa.forEach(khoa -> {
-                String nhomKhoa = khoa.getMaKhoa() + " " + khoa.getTenKhoa();
-                cboLoc.addItem(nhomKhoa);
+            cboLoc.addItem("Tất cả");
+            dsKhoaLoc.forEach(khoa -> {
+                String tenKhoa = khoa.getTenKhoa();
+                cboLoc.addItem(tenKhoa);
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void hienThiCacBacSiTheoKhoa(String maKhoa) throws ClassNotFoundException {
         dsBacSi = BacSiCtrl.hienThiDanhSachTheoKhoa(maKhoa);
         tableModel.setRowCount(0);
@@ -139,6 +139,46 @@ public class DSBacSi extends javax.swing.JFrame {
                 bs.getCanCuoc(), bs.getDiaChi(), bs.getSoDienThoai(), bs.getEmail(), bs.getTrinhDo(), bs.getTenKhoa()});
         });
     }
+    
+    private void lamMoi() {
+        txtMaBacSi.setText("");
+        txtHoTen.setText("");
+        cboGioiTinh.setSelectedIndex(0);
+        txtDiaChi.setText("");
+        txtNamSinh.setText("");
+        txtCanCuoc.setText("");
+        txtSoDienThoai.setText("");
+        txtEmail.setText("");
+        txtTrinhDo.setText("");
+        cboKhoa.setSelectedIndex(0);
+        currentImage = null;
+        lblImage.setIcon(null);
+        currentImage = defaultPath;
+        showImageOnLabel(currentImage);
+    }
+    
+    private void showImageOnLabel(String duongDan) {
+        try {
+            // Đọc ảnh từ đường dẫn tương đối
+            ImageIcon originalIcon = new ImageIcon(ImageIO.read(new File(duongDan)));
+
+            // Lấy kích thước của JLabel
+            int labelWidth = lblImage.getWidth();
+            int labelHeight = lblImage.getHeight();
+
+            // Chỉnh kích thước của ảnh để phù hợp với JLabel
+            Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+            // Tạo ImageIcon mới từ ảnh đã được chỉnh kích thước
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+            // Đặt ảnh cho JLabel
+            lblImage.setIcon(scaledIcon);
+        } catch (IOException e) {
+            DialogHelper.showError("Lỗi hình ảnh: " + e.getMessage());
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,8 +231,6 @@ public class DSBacSi extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         btnChonAnh = new javax.swing.JButton();
         lblImage = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(1360, 660));
@@ -330,6 +368,12 @@ public class DSBacSi extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel22.setText("Trình độ");
+
+        cboKhoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboKhoaActionPerformed(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel18.setText("Địa chỉ");
@@ -586,8 +630,8 @@ public class DSBacSi extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1360, Short.MAX_VALUE)
@@ -606,31 +650,20 @@ public class DSBacSi extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXuatDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDanhSachActionPerformed
         // TODO add your handling code here:
-
+        String tenTep = "DSBacSi.xlsx";
+        String duongDan = "src/main/java/ExcelStorage/" + tenTep;
+        try {
+            dsBacSi = BacSiCtrl.hienThiTatCa();
+            BacSiCtrl.exportToExcel(this.dsBacSi, duongDan);
+            DialogHelper.showMessage("Xuất file thành công");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXuatDanhSachActionPerformed
-
-    private void lamMoi() {
-        txtMaBacSi.setText("");
-        txtHoTen.setText("");
-        cboGioiTinh.setSelectedIndex(0);
-        txtDiaChi.setText("");
-        txtNamSinh.setText("");
-        txtCanCuoc.setText("");
-        txtSoDienThoai.setText("");
-        txtEmail.setText("");
-        txtTrinhDo.setText("");
-        cboKhoa.setSelectedIndex(0);
-        currentImage = null;
-        lblImage.setIcon(null);
-        currentImage = defaultPath;
-        showImageOnLabel(currentImage);
-    }
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
@@ -656,8 +689,9 @@ public class DSBacSi extends javax.swing.JFrame {
                 String canCuoc = txtCanCuoc.getText();
                 String soDienThoai = txtSoDienThoai.getText();
                 String trinhDo = txtTrinhDo.getText();
-                String maKhoa = cboKhoa.getSelectedItem().toString();
 
+                int index = cboKhoa.getSelectedIndex();
+                String maKhoa = dsKhoa.get(index - 1).getMaKhoa();
                 if (hoTen.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty() || maKhoa.isEmpty()) {
                     DialogHelper.showError("Vui lòng điền đầy đủ các thông tin");
                 } else if (!canCuoc.isEmpty() && !Validator.isValidCccd(canCuoc)) {
@@ -668,8 +702,6 @@ public class DSBacSi extends javax.swing.JFrame {
                     DialogHelper.showError("Căn cước đã tồn tại");
                 } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
                     DialogHelper.showError("Năm sinh không hợp lệ");
-                } else if (maKhoa.equals("---Khoa---")) {
-                    DialogHelper.showError("Khoa không được để trống");
                 } else {
                     BacSiModel bs = new BacSiModel(maBacSi, maKhoa.split(" ")[0], hoTen, gioiTinh, namSinh, diaChi, soDienThoai, canCuoc, trinhDo, currentImage);
                     BacSiCtrl.capNhatBacSi(bs);
@@ -690,7 +722,6 @@ public class DSBacSi extends javax.swing.JFrame {
         int selectedIndex = tblDanhSachBacSi.getSelectedRow();
         if (selectedIndex >= 0) {
             BacSiModel bs = dsBacSi.get(selectedIndex);
-
             boolean option = DialogHelper.showConfirmation("Bạn có chắc muốn xóa Bác sĩ này không?");
 
             if (option) {
@@ -720,9 +751,12 @@ public class DSBacSi extends javax.swing.JFrame {
                 String canCuoc = txtCanCuoc.getText();
                 String sdt = txtSoDienThoai.getText();
                 String trinhDo = txtTrinhDo.getText();
-                String khoa = cboKhoa.getSelectedItem().toString();
-
-                if (tenBS.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty() || khoa.isEmpty()) {
+                String maKhoa = "";
+                if (!dsKhoa.isEmpty()) {
+                    int index = cboKhoa.getSelectedIndex();
+                    maKhoa = dsKhoa.get(index - 1).getMaKhoa();
+                }
+                if (tenBS.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty() || maKhoa.isEmpty()) {
                     DialogHelper.showError("Vui lòng điền đầy đủ các thông tin");
                 } else if (!canCuoc.isEmpty() && !Validator.isValidCccd(canCuoc)) {
                     DialogHelper.showError("Căn cước không hợp lệ");
@@ -732,10 +766,8 @@ public class DSBacSi extends javax.swing.JFrame {
                     DialogHelper.showError("Số điện thoại không hợp lệ");
                 } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
                     DialogHelper.showError("Năm sinh không hợp lệ");
-                } else if (khoa.equals("---Khoa---")) {
-                    DialogHelper.showError("Khoa không được để trống");
                 } else {
-                    BacSiModel bs = new BacSiModel(khoa.split(" ")[0], tenBS, gioiTinh, namSinh, diaChi, sdt, canCuoc, trinhDo, currentImage);
+                    BacSiModel bs = new BacSiModel(maKhoa, tenBS, gioiTinh, namSinh, diaChi, sdt, canCuoc, trinhDo, currentImage);
                     try {
                         BacSiCtrl.themBacSi(bs);
                         DialogHelper.showMessage("Thêm thành công");
@@ -751,6 +783,10 @@ public class DSBacSi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void cboKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboKhoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboKhoaActionPerformed
+
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
         // TODO add your handling code here:
         String tuKhoa = txtTimKiem.getText();
@@ -760,88 +796,6 @@ public class DSBacSi extends javax.swing.JFrame {
             Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_txtTimKiemKeyTyped
-
-    private void tblDanhSachBacSiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachBacSiMouseClicked
-        // TODO add your handling code here:
-        lamMoi();
-        int selectedIndex = tblDanhSachBacSi.getSelectedRow();
-        if (selectedIndex >= 0) {
-            BacSiModel bs = dsBacSi.get(selectedIndex);
-            txtMaBacSi.setText(bs.getMaBacSi());
-            txtHoTen.setText(bs.getHoTen());
-            txtDiaChi.setText(bs.getDiaChi());
-            txtNamSinh.setText(bs.getNamSinh());
-            txtCanCuoc.setText(bs.getCanCuoc());
-            txtSoDienThoai.setText(bs.getSoDienThoai());
-            txtEmail.setText(bs.getEmail());
-            txtTrinhDo.setText(bs.getTrinhDo());
-            cboGioiTinh.setSelectedItem(bs.getGioiTinh());
-            cboKhoa.setSelectedItem(bs.getMaKhoa() + " " + bs.getTenKhoa());
-            showImageOnLabel(bs.getAnh());
-        } else {
-            System.out.println("Chưa có dòng nào được chọn");
-        }
-    }//GEN-LAST:event_tblDanhSachBacSiMouseClicked
-    private void showImageOnLabel(String duongDan) {
-        try {
-            // Đọc ảnh từ đường dẫn tương đối
-            ImageIcon originalIcon = new ImageIcon(ImageIO.read(new File(duongDan)));
-
-            // Lấy kích thước của JLabel
-            int labelWidth = lblImage.getWidth();
-            int labelHeight = lblImage.getHeight();
-
-            // Chỉnh kích thước của ảnh để phù hợp với JLabel
-            Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-
-            // Tạo ImageIcon mới từ ảnh đã được chỉnh kích thước
-            ImageIcon scaledIcon = new ImageIcon(scaledImage);
-
-            // Đặt ảnh cho JLabel
-            lblImage.setIcon(scaledIcon);
-        } catch (IOException e) {
-            DialogHelper.showError("Lỗi hình ảnh: " + e.getMessage());
-        }
-
-    }
-    private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
-        // TODO add your handling code here:
-        String sourceDirectory = Paths.get("src", "main", "java", "Images", "BacSi").toAbsolutePath().toString();
-
-        JFileChooser fileChooser = new JFileChooser(sourceDirectory);
-
-        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Hình ảnh", "jpg", "png");
-        fileChooser.setFileFilter(imageFilter);
-        fileChooser.setMultiSelectionEnabled(false);
-
-        int x = fileChooser.showDialog(this, "Chọn File");
-        if (x == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            try {
-                // Đọc ảnh từ đường dẫn tương đối
-                ImageIcon originalIcon = new ImageIcon(ImageIO.read(selectedFile));
-
-                // Lấy kích thước của JLabel
-                int labelWidth = lblImage.getWidth();
-                int labelHeight = lblImage.getHeight();
-
-                // Chỉnh kích thước của ảnh để phù hợp với JLabel
-                Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-
-                // Tạo ImageIcon mới từ ảnh đã được chỉnh kích thước
-                ImageIcon scaledIcon = new ImageIcon(scaledImage);
-
-                // Đặt ảnh cho JLabel
-                lblImage.setIcon(scaledIcon);
-
-                // Lưu đường dẫn tương đối của ảnh
-                String relativeImagePath = "src/main/java/Images/BacSi/" + selectedFile.getName();
-                currentImage = relativeImagePath;
-            } catch (IOException e) {
-                DialogHelper.showError("Lỗi hình ảnh");
-            }
-        }
-    }//GEN-LAST:event_btnChonAnhActionPerformed
 
     private void cboSapXepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSapXepActionPerformed
         // TODO add your handling code here:
@@ -895,11 +849,12 @@ public class DSBacSi extends javax.swing.JFrame {
                 Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            Object selectedItem = cboLoc.getSelectedItem();
-            if (selectedItem != null) {
-                String maKhoa = selectedItem.toString();
+            int index = cboLoc.getSelectedIndex();
+            String maKhoa = dsKhoaLoc.get(index - 1).getMaKhoa();
+            System.out.println(maKhoa);
+            if (maKhoa != null) {
                 try {
-                    hienThiCacBacSiTheoKhoa(maKhoa.split(" ")[0]);
+                    hienThiCacBacSiTheoKhoa(maKhoa);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -909,41 +864,67 @@ public class DSBacSi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboLocActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DSBacSi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DSBacSi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DSBacSi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DSBacSi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void tblDanhSachBacSiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachBacSiMouseClicked
+        // TODO add your handling code here:
+        lamMoi();
+        int selectedIndex = tblDanhSachBacSi.getSelectedRow();
+        if (selectedIndex >= 0) {
+            BacSiModel bs = dsBacSi.get(selectedIndex);
+            txtMaBacSi.setText(bs.getMaBacSi());
+            txtHoTen.setText(bs.getHoTen());
+            txtDiaChi.setText(bs.getDiaChi());
+            txtNamSinh.setText(bs.getNamSinh());
+            txtCanCuoc.setText(bs.getCanCuoc());
+            txtSoDienThoai.setText(bs.getSoDienThoai());
+            txtEmail.setText(bs.getEmail());
+            txtTrinhDo.setText(bs.getTrinhDo());
+            cboGioiTinh.setSelectedItem(bs.getGioiTinh());
+            cboKhoa.setSelectedItem(bs.getMaKhoa() + " " + bs.getTenKhoa());
+            showImageOnLabel(bs.getAnh());
+        } else {
+            System.out.println("Chưa có dòng nào được chọn");
         }
-        //</editor-fold>
-        //</editor-fold>
+    }//GEN-LAST:event_tblDanhSachBacSiMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DSBacSi().setVisible(true);
+    private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
+        // TODO add your handling code here:
+        String sourceDirectory = Paths.get("src", "main", "java", "Images", "BacSi").toAbsolutePath().toString();
+
+        JFileChooser fileChooser = new JFileChooser(sourceDirectory);
+
+        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Hình ảnh", "jpg", "png");
+        fileChooser.setFileFilter(imageFilter);
+        fileChooser.setMultiSelectionEnabled(false);
+
+        int x = fileChooser.showDialog(this, "Chọn File");
+        if (x == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+                // Đọc ảnh từ đường dẫn tương đối
+                ImageIcon originalIcon = new ImageIcon(ImageIO.read(selectedFile));
+
+                // Lấy kích thước của JLabel
+                int labelWidth = lblImage.getWidth();
+                int labelHeight = lblImage.getHeight();
+
+                // Chỉnh kích thước của ảnh để phù hợp với JLabel
+                Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+                // Tạo ImageIcon mới từ ảnh đã được chỉnh kích thước
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                // Đặt ảnh cho JLabel
+                lblImage.setIcon(scaledIcon);
+
+                // Lưu đường dẫn tương đối của ảnh
+                String relativeImagePath = "src/main/java/Images/BacSi/" + selectedFile.getName();
+                currentImage = relativeImagePath;
+            } catch (IOException e) {
+                DialogHelper.showError("Lỗi hình ảnh");
             }
-        });
-    }
+        }
+    }//GEN-LAST:event_btnChonAnhActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChonAnh;

@@ -1,7 +1,11 @@
 package views.main;
 
+import controllers.BenhAnCtrl;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import models.BacSiModel;
 
 public class KhamBenh extends javax.swing.JPanel {
 
@@ -16,17 +20,26 @@ public class KhamBenh extends javax.swing.JPanel {
     public JLabel ServiceLabel;
 
     public KhamBenh() {
-        initComponents();
-        Instance = this;
-        MaBNLabel = lblMaBenhNhan;
-        NameLabel = lblHoTen;
-        SexLabel = lblGioiTinh;
-        MaBALabel = lblMaBenhAn;
-        DateLabel = lblNgayKham;
-        RoomLabel = lblPhongKham;
-        ServiceLabel = lblDichVuKham;
-        btnKhamLamSan.setBackground(new Color(0, 102, 255));
-        lblKhamLamSang.setForeground(Color.white);
+        try {
+            initComponents();
+            Instance = this;
+            MaBNLabel = lblMaBenhNhan;
+            NameLabel = lblHoTen;
+            SexLabel = lblGioiTinh;
+            MaBALabel = lblMaBenhAn;
+            DateLabel = lblNgayKham;
+            RoomLabel = lblPhongKham;
+            ServiceLabel = lblDichVuKham;
+            btnKhamLamSan.setBackground(new Color(0, 102, 255));
+            lblKhamLamSang.setForeground(Color.white);
+
+            BacSiModel thongTinBS = BenhAnCtrl.layThongTinBacSiTheoEmail(DangNhap.currentEmail);
+            if (thongTinBS != null) {
+                lblBacSi.setText(thongTinBS.getMaBacSi() + " " + thongTinBS.getHoTen());
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KhamBenh.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -414,7 +427,7 @@ public class KhamBenh extends javax.swing.JPanel {
             }
         });
 
-        lblBacSi.setText("BS253615 Nguyễn Văn Hưng");
+        lblBacSi.setText("____________________________");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import models.DonGiaPhongBenhModel;
 import models.GiuongBenhModel;
@@ -27,11 +28,17 @@ public class XepGiuong extends javax.swing.JPanel {
     /**
      * Creates new form XepGiuong
      */
+    public static XepGiuong Instance;
+    public JLabel MaBNLabel;
+    public JLabel NameLabel;
+    public JLabel MaBALabel;
+
     DefaultTableModel tableModel1;
     List<GiuongBenhModel> dsGiuongBenhTrong = new ArrayList<>();
 
     DefaultTableModel tableModel2;
     List<XepGiuongModel> dsGiuongBenhCoNguoi = new ArrayList<>();
+
     public XepGiuong() {
         initComponents();
         tableModel1 = (DefaultTableModel) tblDanhSachGiuongBenhTrong.getModel();
@@ -40,6 +47,12 @@ public class XepGiuong extends javax.swing.JPanel {
         LocalDate currentDate = LocalDate.now();
         txtNgayNhapVien.setText(currentDate.format(formatter));
         hienThiDanhSachLoaiPhongComboBox();
+
+        Instance = this;
+        MaBALabel = lblMaBenhAn;
+        MaBNLabel = lblMaBenhNhan;
+        NameLabel = lblTenBenhNhan;
+
         try {
             hienThiCacGiuongTrong();
             hienThiCacGiuongCoNguoi();
@@ -47,20 +60,21 @@ public class XepGiuong extends javax.swing.JPanel {
             Logger.getLogger(XepGiuong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     private void hienThiDanhSachLoaiPhongComboBox() {
         try {
             List<DonGiaPhongBenhModel> dsLoaiPhong = DonGiaPhongBenhCtrl.hienThiTatCa();
             cboLocPhong.removeAllItems();
             cboLocPhong.addItem("Mặc định");
             dsLoaiPhong.forEach(loaiPhong -> {
-                String tenLoaiPhong = loaiPhong.getMaDonGia()+ " " + loaiPhong.getTenLoaiPhong();
-                cboLocPhong.addItem(tenLoaiPhong);           
+                String tenLoaiPhong = loaiPhong.getMaDonGia() + " " + loaiPhong.getTenLoaiPhong();
+                cboLocPhong.addItem(tenLoaiPhong);
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XepGiuong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void hienThiCacGiuongTrong() throws ClassNotFoundException {
         dsGiuongBenhTrong = XepGiuongCtrl.hienThiGiuongTrong();
         tableModel1.setRowCount(0);
@@ -69,6 +83,7 @@ public class XepGiuong extends javax.swing.JPanel {
                 xg.getTenPhong(), xg.getTenLoaiPhong(), xg.getCoNguoi(), xg.getDonGia()});
         });
     }
+
     private void timKiemNhapVien(String tuKhoa) throws ClassNotFoundException {
         dsGiuongBenhTrong = XepGiuongCtrl.timKiemNhapVien(tuKhoa);
         tableModel1.setRowCount(0);
@@ -77,27 +92,30 @@ public class XepGiuong extends javax.swing.JPanel {
                 xg.getTenPhong(), xg.getTenLoaiPhong(), xg.getCoNguoi(), xg.getDonGia()});
         });
     }
+
     private void hienThiCacGiuongCoNguoi() throws ClassNotFoundException {
         dsGiuongBenhCoNguoi = XepGiuongCtrl.hienThiGiuongDangCoNguoi();
         tableModel2.setRowCount(0);
         dsGiuongBenhCoNguoi.forEach(xg -> {
-            tableModel2.addRow(new Object[]{xg.getMaPhong(), xg.getTenPhong(),xg.getMaXepGiuong(),
+            tableModel2.addRow(new Object[]{xg.getMaPhong(), xg.getTenPhong(), xg.getMaXepGiuong(),
                 xg.getMaGiuong(), xg.getMaBenhAn(), xg.getMaBenhNhan(), xg.getTenBenhNhan(), xg.getNgayNhapVien()});
         });
     }
+
     private void timKiemXuatVien(String tuKhoa) throws ClassNotFoundException {
         dsGiuongBenhCoNguoi = XepGiuongCtrl.timKiemGiuongDangCoNguoi(tuKhoa);
         tableModel2.setRowCount(0);
         dsGiuongBenhCoNguoi.forEach(xg -> {
-            tableModel2.addRow(new Object[]{xg.getMaPhong(), xg.getTenPhong(),xg.getMaXepGiuong(),
+            tableModel2.addRow(new Object[]{xg.getMaPhong(), xg.getTenPhong(), xg.getMaXepGiuong(),
                 xg.getMaGiuong(), xg.getMaBenhAn(), xg.getMaBenhNhan(), xg.getTenBenhNhan(), xg.getNgayNhapVien()});
         });
     }
+
     private void sapXepGiuongBenhDangCoNguoiTheoTenPhong() throws ClassNotFoundException {
         dsGiuongBenhCoNguoi = XepGiuongCtrl.sapXepGiuongDangCoNguoiTheoTenPhong();
         tableModel2.setRowCount(0);
         dsGiuongBenhCoNguoi.forEach(xg -> {
-            tableModel2.addRow(new Object[]{xg.getMaPhong(), xg.getTenPhong(),xg.getMaXepGiuong(),
+            tableModel2.addRow(new Object[]{xg.getMaPhong(), xg.getTenPhong(), xg.getMaXepGiuong(),
                 xg.getMaGiuong(), xg.getMaBenhAn(), xg.getMaBenhNhan(), xg.getTenBenhNhan(), xg.getNgayNhapVien()});
         });
     }
@@ -243,14 +261,14 @@ public class XepGiuong extends javax.swing.JPanel {
         jLabel15.setText("Mã Bệnh Án");
 
         lblMaBenhAn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMaBenhAn.setText("BA01755");
+        lblMaBenhAn.setText("_____________________________________");
         lblMaBenhAn.setToolTipText("");
 
         lblMaBenhNhan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMaBenhNhan.setText("BN082882");
+        lblMaBenhNhan.setText("_____________________________________");
 
         lblTenBenhNhan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblTenBenhNhan.setText("Nguyễn Ngọc Đạt");
+        lblTenBenhNhan.setText("_________________________________");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setText("Lọc Phòng");
@@ -320,7 +338,7 @@ public class XepGiuong extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtTimKiemNhapVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -556,38 +574,38 @@ public class XepGiuong extends javax.swing.JPanel {
                         .addComponent(btnDoiGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(MaBenhAnXVLabel)
                         .addComponent(txtMaXepGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtMaBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(txtMaGiuongBenhNhanDangDung, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtNgayVaoVien, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txtNgayXuatVien, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtSoNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(txtThanhTien, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnXuatVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -601,7 +619,7 @@ public class XepGiuong extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -706,8 +724,8 @@ public class XepGiuong extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_cboLocPhongActionPerformed
-    
-    private void lamMoi(){
+
+    private void lamMoi() {
         txtMaXepGiuong.setText("");
         txtMaBenhNhan.setText("");
         txtMaGiuong.setText("");
@@ -722,9 +740,9 @@ public class XepGiuong extends javax.swing.JPanel {
             hienThiCacGiuongCoNguoi();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XepGiuong.class.getName()).log(Level.SEVERE, null, ex);
-        }     
+        }
     }
-    
+
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
         lamMoi();
@@ -741,7 +759,7 @@ public class XepGiuong extends javax.swing.JPanel {
         int selectedRow = tblDanhSachGiuongBenhCoNguoi.getSelectedRow();
         if (selectedRow >= 0) {
             XepGiuongModel xg = dsGiuongBenhCoNguoi.get(selectedRow);
-           
+
             txtMaXepGiuong.setText(xg.getMaXepGiuong());
             txtMaBenhNhan.setText(xg.getMaBenhNhan());
             txtMaGiuongBenhNhanDangDung.setText(xg.getMaGiuong());
@@ -873,7 +891,6 @@ public class XepGiuong extends javax.swing.JPanel {
             DialogHelper.showError("Chưa có dòng nào trong bảng được chọn");
         }
     }//GEN-LAST:event_btnDoiGiuongActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel MaBenhAnXVLabel;

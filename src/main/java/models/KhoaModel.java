@@ -10,7 +10,8 @@ public class KhoaModel {
 
     public KhoaModel() {
     }
-
+    
+    
     public KhoaModel(String tenKhoa, String trangThai) {
         this.tenKhoa = tenKhoa;
         this.trangThai = trangThai;
@@ -28,7 +29,7 @@ public class KhoaModel {
         this.trangThai = trangThai;
         this.trangThaiXoa = trangThaiXoa;
     }
-
+    
     public String getMaKhoa() {
         return maKhoa;
     }

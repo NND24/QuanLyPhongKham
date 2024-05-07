@@ -1,6 +1,5 @@
 package views.main;
 
-import controllers.BenhAnCtrl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +7,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
+import java.io.IOException;
+import models.NhomDichVuKhamBenhModelTest;
+import models.PhongKhamModelTest;
 import models.BenhNhanModel;
 import models.DangKyModel;
+import models.BenhAnModel;
 import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
 import controllers.KhamLamSangCtrl;
-import models.BenhAnModel;
+import controllers.BenhAnCtrl;
+import controllers.DichVuKhamBenhCtrlTest;
+import controllers.NhomDichVuKhamBenhCtrlTest;
+import controllers.PhongKhamCtrlTest;
+import models.DichVuKhamBenhModelTest;
+import pdfForm.GeneratePhieuKham;
 import utils.Validator;
 import utils.DialogHelper;
 import utils.GenerateCode;
@@ -23,6 +31,9 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     DefaultTableModel tableModel;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     List<BenhNhanModel> dsBenhNhan = new ArrayList<>();
+    List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
+    List<NhomDichVuKhamBenhModelTest> dsNhomDichVu = new ArrayList<>();
+    List<DichVuKhamBenhModelTest> dsDichVu = new ArrayList<>();
 
     public TiepNhanBenhNhan() {
         try {
@@ -35,6 +46,8 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             LocalDate currentDate = LocalDate.now();
             txtNgayKham.setText(currentDate.format(formatter));
 
+            hienThiDSPhongKham();
+            hienThiDSNhomDichVu();
         } catch (ClassNotFoundException ex) {
             DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,6 +64,30 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 bn.getCanCuoc(), bn.getBhyt(), bn.getSoDienThoai(),
                 bn.getNgheNghiep(), bn.getDanToc(), bn.getQuocTich()});
         });
+    }
+
+    private void hienThiDSPhongKham() {
+        try {
+            cmbPhongKham.removeAllItems();
+            dsPhongKham = PhongKhamCtrlTest.timTatCaPhongKham();
+            dsPhongKham.forEach(pk -> {
+                cmbPhongKham.addItem(pk.getTenPhongKham() + " " + pk.getSoLuongBenhNhan());
+            });
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void hienThiDSNhomDichVu() {
+        try {
+            cmbNhomDichVu.removeAllItems();
+            dsNhomDichVu = NhomDichVuKhamBenhCtrlTest.timTatNhomDichVuKhamBenh();
+            dsNhomDichVu.forEach(ndv -> {
+                cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
+            });
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void lamMoiTTBenhNhan() {
@@ -76,7 +113,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void lamMoiTTKhamBenh() {
         txtMaDangKy.setText("");
         cmbDichVu.setSelectedIndex(0);
-        PhongKhamComboBox.setSelectedIndex(0);
+        cmbPhongKham.setSelectedIndex(0);
         txtLyDoKham.setText(null);
         txtThuTuKham.setText("0");
     }
@@ -117,7 +154,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         cmbDichVu = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
-        PhongKhamComboBox = new javax.swing.JComboBox<>();
+        cmbPhongKham = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -266,6 +303,11 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         btnInPhieuKham.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnInPhieuKham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInPhieuKham.setPreferredSize(new java.awt.Dimension(115, 25));
+        btnInPhieuKham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInPhieuKhamActionPerformed(evt);
+            }
+        });
 
         btnLamMoiThuTu.setBackground(new java.awt.Color(0, 102, 255));
         btnLamMoiThuTu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -378,8 +420,13 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Phòng khám");
 
-        PhongKhamComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Phòng khám---", "PK123456 Tai mũi họng" }));
-        PhongKhamComboBox.setPreferredSize(new java.awt.Dimension(132, 30));
+        cmbPhongKham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Phòng khám---", "PK123456 Tai mũi họng" }));
+        cmbPhongKham.setPreferredSize(new java.awt.Dimension(132, 30));
+        cmbPhongKham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPhongKhamActionPerformed(evt);
+            }
+        });
 
         jLabel17.setForeground(new java.awt.Color(255, 0, 0));
         jLabel17.setText("(*)");
@@ -507,6 +554,11 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         jLabel18.setText("Nhóm dịch vụ");
 
         cmbNhomDichVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Nhóm dịch vụ---" }));
+        cmbNhomDichVu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNhomDichVuActionPerformed(evt);
+            }
+        });
 
         txtLyDoKham.setMinimumSize(new java.awt.Dimension(64, 30));
         txtLyDoKham.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -645,7 +697,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel28)
                                 .addGap(10, 10, 10)
-                                .addComponent(PhongKhamComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbPhongKham, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(25, 25, 25)
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -707,7 +759,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                             .addComponent(jLabel20)
                             .addComponent(jLabel35)
                             .addComponent(txtNgayKham, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PhongKhamComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbPhongKham, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
                             .addComponent(jLabel28))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -755,7 +807,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
     private void btnLuuBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuBenhNhanActionPerformed
         try {
-            // TODO add your handling code here:
             String maBenhNhan = GenerateCode.generateMa("BN");
             String hoTen = txtHoTen.getText();
             String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
@@ -833,8 +884,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         try {
             String maDangKy = GenerateCode.generateMa("DK");
             String maBenhNhan = txtMaBenhNhan.getText();
-            String dichVuKham = cmbDichVu.getSelectedItem().toString();
-            String phongKham = PhongKhamComboBox.getSelectedItem().toString();
             String lyDoKham = txtLyDoKham.getText();
             int thuTuKham = Integer.parseInt(txtThuTuKham.getText());
 
@@ -847,12 +896,18 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showError("Mã bệnh nhân không được để trống!");
             } else if (lyDoKham.isEmpty()) {
                 DialogHelper.showError("Lý do khám không được để trống!");
-            } else if (phongKham.equals("---Phòng khám---")) {
+            } else if (cmbPhongKham.getSelectedItem().equals("---Phòng khám---")) {
                 DialogHelper.showError("Phòng khám không được để trống!");
-            } else if (dichVuKham.equals("---Dịch vụ---")) {
+            } else if (cmbDichVu.getSelectedItem() != null && cmbDichVu.getSelectedItem().equals("---Dịch vụ---")) {
                 DialogHelper.showError("Dịch vụ khám không được để trống!");
             } else {
-                DangKyModel dk = new DangKyModel(maDangKy, maBenhNhan, dichVuKham.split(" ")[0], phongKham.split(" ")[0], lyDoKham, thuTuKham, ngayKham, "Đợi khám");
+                int dichVuIndex = cmbDichVu.getSelectedIndex();
+                String maDichVu = dsDichVu.get(dichVuIndex).getMaDichVuKB();
+
+                int phongKhamIndex = cmbPhongKham.getSelectedIndex();
+                String maPhongKham = dsPhongKham.get(phongKhamIndex).getMaPhongKham();
+
+                DangKyModel dk = new DangKyModel(maDangKy, maBenhNhan, maDichVu, maPhongKham, lyDoKham, thuTuKham, ngayKham, "Đợi khám");
                 DangKyCtrl.themBenhNhanCho(dk);
                 DialogHelper.showMessage("Lưu thông tin đăng ký thành công!");
 
@@ -860,7 +915,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 String maKhamLamSang = KhamLamSangCtrl.generateMaKhamLamSang();
                 KhamLamSangCtrl.themMaKhamLamSang(maKhamLamSang);
 
-                String maBenhAn = BenhAnCtrl.generateMaBenhAn();
+                String maBenhAn = GenerateCode.generateMa("BA");
                 BenhAnModel ba = new BenhAnModel(maBenhAn, maDangKy, maKhamLamSang, maBenhNhan);
                 BenhAnCtrl.themBenhAn(ba);
             }
@@ -896,7 +951,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbLocActionPerformed
 
     private void btnSuaBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaBenhNhanActionPerformed
-        // TODO add your handling code here:
         try {
             String maBenhNhan = txtMaBenhNhan.getText();
             String hoTen = txtHoTen.getText();
@@ -931,9 +985,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT, maBenhNhan)) {
                 DialogHelper.showError("Bảo hiểm y tế đã tồn tại");
             } else {
-                boolean flag = DialogHelper.showConfirmation("Bạn có chắc sửa thông tin bệnh nhân này");
-
-                if (flag) {
+                if (DialogHelper.showConfirmation("Bạn có chắc sửa thông tin bệnh nhân này")) {
                     BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
                     BenhNhanCtrl.capNhatBenhNhan(bn);
                     hienThiTatCaBenhNhan();
@@ -1049,8 +1101,89 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblDSBenhNhanMouseClicked
 
+    private void cmbNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhomDichVuActionPerformed
+        if (cmbNhomDichVu.getSelectedItem() != null) {
+            try {
+                int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
+                String maNhomDichVu = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
+                cmbDichVu.removeAllItems();
+                cmbDichVu.addItem("---Dịch vụ---");
+                dsDichVu = DichVuKhamBenhCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVu);
+                dsDichVu.forEach(dv -> {
+                    cmbDichVu.addItem(dv.getTenDichVuKB());
+                });
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cmbNhomDichVuActionPerformed
+
+    private void btnInPhieuKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInPhieuKhamActionPerformed
+        try {
+            if (txtHoTen.getText().isEmpty()) {
+                DialogHelper.showError("Chưa có tên của bệnh nhân");
+            } else if (cmbGioiTinh.getSelectedItem().toString().isEmpty()) {
+                DialogHelper.showError("Chưa có giới tính của bệnh nhân");
+            } else if (txtDiaChi.getText().isEmpty()) {
+                DialogHelper.showError("Chưa có địa chỉ của bệnh nhân");
+            } else if (txtMaDangKy.getText().isEmpty()) {
+                DialogHelper.showError("Chưa có mã đăng ký");
+            } else if (txtMaBenhNhan.getText().isEmpty()) {
+                DialogHelper.showError("Chưa có mã bệnh nhân");
+            } else if (cmbDichVu.getSelectedItem().toString().split(" ")[0].isEmpty()) {
+                DialogHelper.showError("Chưa có dịch vụ khám");
+            } else {
+                int namHienTai = LocalDate.now().getYear();
+
+                String ten = txtHoTen.getText();
+                String tuoi = Integer.toString(namHienTai - Integer.parseInt(txtNamSinh.getText()));
+                String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+                String diaChi = txtDiaChi.getText();
+                String maDangKy = txtMaDangKy.getText();
+                String maBenhNhan = txtMaBenhNhan.getText();
+                String[] dichVuKham = cmbDichVu.getSelectedItem().toString().split(" ");
+                String tenDichVu = "";
+
+                for (int i = 1; i < dichVuKham.length; i++) {
+                    tenDichVu += dichVuKham[i] + " ";
+                }
+                String[] phongKham = cmbPhongKham.getSelectedItem().toString().split(" ");
+                String tenPhongKham = "";
+                for (int i = 1; i < phongKham.length - 1; i++) {
+                    tenPhongKham += phongKham[i] + " ";
+                }
+                String lyDoKham = txtLyDoKham.getText();
+                String thuTuKham = txtThuTuKham.getText();
+                String ngayKham = txtNgayKham.getText();
+
+                GeneratePhieuKham inDon = new GeneratePhieuKham(ten, tuoi, gioiTinh, diaChi, maDangKy, ngayKham, lyDoKham, tenDichVu, tenPhongKham, thuTuKham);
+                if (maBenhNhan.isEmpty()) {
+                    DialogHelper.showError("Chưa có mã đăng ký");
+                } else {
+                    inDon.taoPhieuKham();
+                    DialogHelper.showMessage("In phiếu khám thành công!");
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnInPhieuKhamActionPerformed
+
+    private void cmbPhongKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhongKhamActionPerformed
+        if (cmbPhongKham.getSelectedItem() != null) {
+            String selectedItem = cmbPhongKham.getSelectedItem().toString();
+            String[] items = selectedItem.split(" ");
+            if (items.length > 2) {
+                int soLuong = Integer.parseInt(items[items.length - 1]);
+                int thuTuKham = soLuong + 1;
+                txtThuTuKham.setText(Integer.toString(thuTuKham));
+            } else {
+                txtThuTuKham.setText("0");
+            }
+        }
+    }//GEN-LAST:event_cmbPhongKhamActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> PhongKhamComboBox;
     private javax.swing.JButton btnInPhieuKham;
     private javax.swing.JButton btnLamMoiThuTu;
     private javax.swing.JButton btnLuuBenhNhan;
@@ -1062,6 +1195,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbGioiTinh;
     private javax.swing.JComboBox<String> cmbLoc;
     private javax.swing.JComboBox<String> cmbNhomDichVu;
+    private javax.swing.JComboBox<String> cmbPhongKham;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
