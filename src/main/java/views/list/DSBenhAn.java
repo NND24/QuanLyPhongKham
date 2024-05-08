@@ -336,27 +336,25 @@ public class DSBenhAn extends javax.swing.JPanel {
                 XepGiuong.Instance.MaBNLabel.setText(ba.getMaBenhNhan());
                 XepGiuong.Instance.NameLabel.setText(ba.getHoTen());
 
-                List<KhamLamSangModel> dsKhamBenh = KhamLamSangCtrl.timKhamBenhTheoMa(ba.getMaKhamLamSang());
-                dsKhamBenh.forEach(kb -> {
-                    KhamLamSang.Instance.heightTextField.setText(kb.getChieuCao());
-                    KhamLamSang.Instance.weightTextField.setText(kb.getCanNang());
-                    KhamLamSang.Instance.temperatureTextField.setText(kb.getNhietDo());
-                    KhamLamSang.Instance.breathTextField.setText(kb.getNhipTho());
-                    KhamLamSang.Instance.pressureTextField1.setText(kb.getHuyetAp().split("/")[0]);
-                    KhamLamSang.Instance.pressureTextField2.setText(kb.getHuyetAp().split("/")[1]);
-                    KhamLamSang.Instance.circuitTextField.setText(kb.getMach());
-                    KhamLamSang.Instance.bmiTextField.setText(kb.getBMI());
-                    KhamLamSang.Instance.diagnosticTextField.setText(kb.getChuanDoan());
-                    KhamLamSang.Instance.handleTextField.setText(kb.getHuongXuLy());
-                    KhamLamSang.Instance.mainTextField.setText(kb.getBenhChinh());
-                    KhamLamSang.Instance.secondaryTextField.setText(kb.getBenhPhu());
-                    KhamLamSang.Instance.adviceTextField.setText(kb.getLoiDan());
-                    KhamLamSang.Instance.medicalHistoryTextArea.setText(kb.getBenhSu());
-                    KhamLamSang.Instance.antecedentTextArea.setText(kb.getTienSu());
-                    KhamLamSang.Instance.bodyTextArea.setText(kb.getKhamToanThan());
-                    KhamLamSang.Instance.partTextArea.setText(kb.getKhamBoPhan());
-                    KhamLamSang.Instance.summaryTextArea.setText(kb.getTomTatKetQuaCLS());
-                });
+                KhamLamSangModel khamBenh = KhamLamSangCtrl.timKhamBenhTheoMa(ba.getMaKhamLamSang());
+                KhamLamSang.Instance.heightTextField.setText(khamBenh.getChieuCao());
+                KhamLamSang.Instance.weightTextField.setText(khamBenh.getCanNang());
+                KhamLamSang.Instance.temperatureTextField.setText(khamBenh.getNhietDo());
+                KhamLamSang.Instance.breathTextField.setText(khamBenh.getNhipTho());
+                KhamLamSang.Instance.pressureTextField1.setText(khamBenh.getHuyetAp().split("/")[0]);
+                KhamLamSang.Instance.pressureTextField2.setText(khamBenh.getHuyetAp().split("/")[1]);
+                KhamLamSang.Instance.circuitTextField.setText(khamBenh.getMach());
+                KhamLamSang.Instance.bmiTextField.setText(khamBenh.getBMI());
+                KhamLamSang.Instance.diagnosticTextField.setText(khamBenh.getChuanDoan());
+                KhamLamSang.Instance.handleTextField.setText(khamBenh.getHuongXuLy());
+                KhamLamSang.Instance.mainTextField.setText(khamBenh.getBenhChinh());
+                KhamLamSang.Instance.secondaryTextField.setText(khamBenh.getBenhPhu());
+                KhamLamSang.Instance.adviceTextField.setText(khamBenh.getLoiDan());
+                KhamLamSang.Instance.medicalHistoryTextArea.setText(khamBenh.getBenhSu());
+                KhamLamSang.Instance.antecedentTextArea.setText(khamBenh.getTienSu());
+                KhamLamSang.Instance.bodyTextArea.setText(khamBenh.getKhamToanThan());
+                KhamLamSang.Instance.partTextArea.setText(khamBenh.getKhamBoPhan());
+                KhamLamSang.Instance.summaryTextArea.setText(khamBenh.getTomTatKetQuaCLS());
 
                 try {
                     ChiDinh.Instance.dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(ba.getMaBenhAn());

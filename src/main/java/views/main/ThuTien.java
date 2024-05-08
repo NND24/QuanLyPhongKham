@@ -445,23 +445,25 @@ public class ThuTien extends javax.swing.JPanel {
     }//GEN-LAST:event_txtMaBenhAnPropertyChange
 
     private void btnLuuHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuHoaDonActionPerformed
-        String maBenhAn = txtMaBenhAn.getText();
-        int tongTien = Integer.parseInt(txtTongTien.getText());
-        int thu = Integer.parseInt(txtThuTien.getText());
-        int daThu = Integer.parseInt(txtDaThu.getText());
-        if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+
+        if (txtMaBenhAn.getText().isEmpty() || txtMaBenhAn.getText().startsWith("__")) {
             DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
         } else if (txtTongTien.getText().isEmpty()) {
             DialogHelper.showError("Tổng tiền chưa được nhập. Vui lòng chọn bệnh án");
         } else if (txtThuTien.getText().isEmpty()) {
             DialogHelper.showError("Thu chưa được nhập. Vui lòng nhập số tiền đã thu");
-        } else if (thu > tongTien) {
+        } else if (Integer.parseInt(txtThuTien.getText()) > Integer.parseInt(txtTongTien.getText())) {
             DialogHelper.showError("Số tiền thu vượt quá tổng tiền!");
-        } else if (tongTien == daThu) {
+        } else if (Integer.parseInt(txtTongTien.getText()) == Integer.parseInt(txtDaThu.getText())) {
             DialogHelper.showError("Đã thu đủ tiền!");
         } else {
-            if (daThu > 0) {
+            if (Integer.parseInt(txtDaThu.getText()) > 0) {
                 try {
+                    String maBenhAn = txtMaBenhAn.getText();
+                    int tongTien = Integer.parseInt(txtTongTien.getText());
+                    int thu = Integer.parseInt(txtThuTien.getText());
+                    int daThu = Integer.parseInt(txtDaThu.getText());
+
                     BenhAnModel ba = new BenhAnModel(maBenhAn, tongTien, thu + daThu);
                     BenhAnCtrl.capNhatTien(ba);
                     DialogHelper.showMessage("Thu tiền thành công!");
@@ -483,6 +485,11 @@ public class ThuTien extends javax.swing.JPanel {
                 }
             } else {
                 try {
+                    String maBenhAn = txtMaBenhAn.getText();
+                    int tongTien = Integer.parseInt(txtTongTien.getText());
+                    int thu = Integer.parseInt(txtThuTien.getText());
+                    int daThu = Integer.parseInt(txtDaThu.getText());
+
                     BenhAnModel ba = new BenhAnModel(maBenhAn, tongTien, thu);
                     BenhAnCtrl.capNhatTien(ba);
                     DialogHelper.showMessage("Thu tiền thành công!");
@@ -533,12 +540,9 @@ public class ThuTien extends javax.swing.JPanel {
 
                 dsThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
 
-                BenhAnModel benhAn;
-                benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
+                BenhAnModel benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
 
-                List<KhamLamSangModel> dsKhamLS = new ArrayList<>();
-
-                dsKhamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaDichVuKham());
+                KhamLamSangModel khamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaKhamLamSang());
 
                 int namHienTai = LocalDate.now().getYear();
                 int thangHienTai = LocalDate.now().getMonthValue();
@@ -548,7 +552,7 @@ public class ThuTien extends javax.swing.JPanel {
                 String tuoi = Integer.toString(namHienTai - Integer.parseInt(benhNhan.getNamSinh()));
                 String gioiTinh = benhNhan.getGioiTinh();
                 String diaChi = benhNhan.getDiaChi();
-                String chuanDoan = dsKhamLS.get(0).getChuanDoan();
+                String chuanDoan = khamLS.getChuanDoan();
                 String tongTien = txtTongTien.getText();
 
                 if (ten.isEmpty()) {

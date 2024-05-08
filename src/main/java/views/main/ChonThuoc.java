@@ -896,9 +896,7 @@ public class ChonThuoc extends javax.swing.JPanel {
 
                 benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
 
-                List<KhamLamSangModel> dsKhamLS = new ArrayList<>();
-
-                dsKhamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaKhamLamSang());
+                KhamLamSangModel khamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaKhamLamSang());
 
                 int namHienTai = LocalDate.now().getYear();
                 int thangHienTai = LocalDate.now().getMonthValue();
@@ -908,7 +906,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 String tuoi = Integer.toString(namHienTai - Integer.parseInt(benhNhan.getNamSinh()));
                 String gioiTinh = benhNhan.getGioiTinh();
                 String diaChi = benhNhan.getDiaChi();
-                String chuanDoan = dsKhamLS.get(0).getChuanDoan();
+                String chuanDoan = khamLS.getChuanDoan();
                 GenerateDonThuoc inDon = new GenerateDonThuoc(ten, tuoi, gioiTinh, diaChi, chuanDoan, Integer.toString(ngayHienTai), Integer.toString(thangHienTai), Integer.toString(namHienTai));
 
                 List<String> medicines = new ArrayList<>();
@@ -918,7 +916,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 dsDonThuoc.forEach(thuoc -> {
                     medicines.add(thuoc.getTenThuoc());
                     quantities.add(Integer.toString(thuoc.getSoLuong()));
-                    usages.add(thuoc.getDuongDung() + ". Sáng: " + thuoc.getSang() + ", Trua: " + thuoc.getTrua() + ", Chieu: " + thuoc.getChieu() + ", Toi: " + thuoc.getToi());
+                    usages.add(thuoc.getDuongDung() + ". Sáng: " + thuoc.getSang() + ", Trưa: " + thuoc.getTrua() + ", Chiều: " + thuoc.getChieu() + ", Tối: " + thuoc.getToi());
                 });
 
                 if (medicines.isEmpty() || quantities.isEmpty() || usages.isEmpty()) {

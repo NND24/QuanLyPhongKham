@@ -275,7 +275,7 @@ public class GenerateKhamLS {
 //        Table nestedTable = new Table(new float[]{twocol / 2, twocol / 2});
 //        nestedTable.addCell(new Cell().add(new Paragraph("Ma don thuoc")).setBorder(Border.NO_BORDER));
 //        table.addCell(new Cell().add(nestedTable).setBorder(Border.NO_BORDER));
-        Paragraph centerParagraph = new Paragraph("PHIẾU KHÁM LÂM SÀN").setBold().setTextAlignment(TextAlignment.CENTER);
+        Paragraph centerParagraph = new Paragraph("PHIẾU KHÁM LÂM SÀNG").setBold().setTextAlignment(TextAlignment.CENTER);
         Cell centerCell = new Cell().add(centerParagraph).setBorder(Border.NO_BORDER).setWidth(UnitValue.createPercentValue(100));
 
         Table infoTable = new Table(new float[]{1, 1, 1});

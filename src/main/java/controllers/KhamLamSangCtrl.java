@@ -16,12 +16,12 @@ import models.KhamLamSangModel;
 
 public class KhamLamSangCtrl {
 
-    public static List<KhamLamSangModel> timKhamBenhTheoMa(String maKhamBenh) throws ClassNotFoundException {
-        List<KhamLamSangModel> dsKhamLamSan = new ArrayList<>();
+    public static KhamLamSangModel timKhamBenhTheoMa(String maKhamLamSang) throws ClassNotFoundException {
+        KhamLamSangModel khamLamSang = null;
         String sql = "SELECT * FROM KHAMLAMSANG WHERE MaKhamLamSang=? ";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, maKhamBenh);
+            statement.setString(1, maKhamLamSang);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     KhamLamSangModel bn = new KhamLamSangModel(
@@ -36,14 +36,14 @@ public class KhamLamSangCtrl {
                             resultSet.getString("LoiDan"), resultSet.getString("BenhSu"),
                             resultSet.getString("TienSu"), resultSet.getString("KhamToanThan"),
                             resultSet.getString("KhamBoPhan"), resultSet.getString("TomTatKetQuaCLS"));
-                    dsKhamLamSan.add(bn);
+                    khamLamSang = bn;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return dsKhamLamSan;
+        return khamLamSang;
     }
 
     public static void themMaKhamLamSang(String maKhamLamSang) throws ClassNotFoundException {

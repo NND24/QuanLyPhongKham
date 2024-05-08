@@ -188,7 +188,7 @@ public class GenerateChiDinh {
 
         Table kyTable = new Table(twocolumnWidth);
 
-        Paragraph kyTenParagraph = new Paragraph("Ký và ghi rõ ho tên").setTextAlignment(TextAlignment.CENTER);
+        Paragraph kyTenParagraph = new Paragraph("Ký và ghi rõ họ tên").setTextAlignment(TextAlignment.CENTER);
         kyTable.addCell(new Cell().add(trangParagraph).setBorder(Border.NO_BORDER));
         kyTable.addCell(new Cell().add(kyTenParagraph).setBorder(Border.NO_BORDER));
 
