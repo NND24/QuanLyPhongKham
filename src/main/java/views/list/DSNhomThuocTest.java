@@ -379,7 +379,7 @@ public class DSNhomThuocTest extends javax.swing.JFrame {
     private void btnXuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSActionPerformed
         try {
             dsNhomThuoc = NhomThuocCtrl.timTatCaNhomThuoc();
-            NhomThuocCtrl.exportToExcel(dsNhomThuoc, "src/main/java/files/DSNhomThuoc.xlsx");
+            NhomThuocCtrl.exportToExcel(dsNhomThuoc, "src/main/java/ExcelStorage/DSNhomThuoc.xlsx");
             DialogHelper.showMessage("Xuất danh sách thành công!");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);

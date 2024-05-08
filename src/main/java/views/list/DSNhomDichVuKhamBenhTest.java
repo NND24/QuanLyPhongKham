@@ -380,7 +380,7 @@ public class DSNhomDichVuKhamBenhTest extends javax.swing.JFrame {
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
         try {
             dsNhomDichVu = NhomDichVuKhamBenhCtrlTest.timTatNhomDichVuKhamBenh();
-            NhomDichVuKhamBenhCtrlTest.exportToExcel(dsNhomDichVu, "src/main/java/files/DSNhomDichVuKhamBenh.xlsx");
+            NhomDichVuKhamBenhCtrlTest.exportToExcel(dsNhomDichVu, "src/main/java/ExcelStorage/DSNhomDichVuKhamBenh.xlsx");
             DialogHelper.showMessage("Xuất danh sách thành công!");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);

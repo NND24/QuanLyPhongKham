@@ -116,7 +116,7 @@ public class GeneratePhieuKham {
     }
 
     public void taoPhieuKham() throws FileNotFoundException, IOException {
-        String path = "PhieuKhamBenh.pdf";
+        String path = "src/main/java/files/PhieuKhamBenh.pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.setDefaultPageSize(PageSize.A4);

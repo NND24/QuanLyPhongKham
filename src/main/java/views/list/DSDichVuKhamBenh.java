@@ -40,7 +40,7 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
             dsNhomDichVu = NhomDichVuKhamBenhCtrl.timTatNhomDichVuKhamBenh();
             dsNhomDichVu.forEach(ndv -> {
                 if (ndv.getTrangThai().equals("Kích hoạt")) {
-                    String nhomDichVu = ndv.getMaNhomDichVuKB()+ " " + ndv.getTenNhomDichVuKB();
+                    String nhomDichVu = ndv.getMaNhomDichVuKB() + " " + ndv.getTenNhomDichVuKB();
                     txtNhomDichVu.addItem(nhomDichVu);
                     cmbtkNhomDichVu.addItem(nhomDichVu);
                 }
@@ -504,7 +504,7 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
 
             txtMaDichVu.setText(dv.getMaDichVuKB());
             txtTenDichVu.setText(dv.getTenDichVuKB());
-            txtNhomDichVu.setSelectedItem(dv.getMaNhomDichVuKB()+ " " + dv.getTenNhomDichVuKB());
+            txtNhomDichVu.setSelectedItem(dv.getMaNhomDichVuKB() + " " + dv.getTenNhomDichVuKB());
             txtGiaTien.setText(Integer.toString(dv.getGiaTien()));
             txtGiaBH.setText(Integer.toString(dv.getGiaBaoHiem()));
             cmbTrangThai.setSelectedItem(dv.getTrangThai());
@@ -544,7 +544,7 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
     private void btnXuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSActionPerformed
         try {
             dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVu();
-            DichVuKhamBenhCtrl.exportToExcel(dsDichVu, "D:\\Workspace Java\\DoAn\\DSDichVuKhamBenh.xlsx");
+            DichVuKhamBenhCtrl.exportToExcel(dsDichVu, "src/main/java/ExcelStorage/DSDichVuKhamBenh.xlsx");
             JOptionPane.showMessageDialog(null, "Xuất danh sách thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
