@@ -119,7 +119,7 @@ public class GenerateChiDinh {
     }
 
     public void taoChiDinh() throws FileNotFoundException, IOException {
-        String path = "ChiDinh.pdf";
+        String path = "src/main/java/files/ChiDinh.pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.setDefaultPageSize(PageSize.A4);

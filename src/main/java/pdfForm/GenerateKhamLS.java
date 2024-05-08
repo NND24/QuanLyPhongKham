@@ -253,7 +253,7 @@ public class GenerateKhamLS {
     }
 
     public void taoPhieuKham() throws FileNotFoundException, IOException {
-        String path = "PhieuKhamLS.pdf";
+        String path = "src/main/java/files/PhieuKhamLS.pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.setDefaultPageSize(PageSize.A4);

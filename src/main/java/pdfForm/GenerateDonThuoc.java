@@ -128,7 +128,7 @@ public class GenerateDonThuoc {
     }
 
     public void taoDonThuoc() throws FileNotFoundException, IOException {
-        String path = "DonThuoc.pdf";
+        String path = "src/main/java/files/DonThuoc.pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.setDefaultPageSize(PageSize.A4);

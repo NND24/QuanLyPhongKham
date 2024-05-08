@@ -516,7 +516,7 @@ public class DSDichVuKhamBenhTest extends javax.swing.JFrame {
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
         try {
             dsDichVu = DichVuKhamBenhCtrlTest.timTatCaDichVu();
-            DichVuKhamBenhCtrlTest.exportToExcel(dsDichVu, "src/main/java/files/DSDichVuKhamBenh.xlsx");
+            DichVuKhamBenhCtrlTest.exportToExcel(dsDichVu, "src/main/java/ExcelStorage/DSDichVuKhamBenh.xlsx");
             DialogHelper.showMessage("Xuất danh sách thành công!");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);

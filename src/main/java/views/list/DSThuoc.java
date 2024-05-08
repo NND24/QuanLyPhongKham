@@ -702,7 +702,7 @@ public class DSThuoc extends javax.swing.JPanel {
     private void btnXuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSActionPerformed
         try {
             dsThuoc = ThuocCtrl.timTatCaThuoc();
-            ThuocCtrl.exportToExcel(dsThuoc, "src/main/java/files/DSThuoc.xlsx");
+            ThuocCtrl.exportToExcel(dsThuoc, "src/main/java/ExcelStorage/DSThuoc.xlsx");
             DialogHelper.showMessage("Xuất danh sách thành công!");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
