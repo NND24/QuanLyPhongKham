@@ -164,7 +164,7 @@ public class GenerateHoaDon {
     }
 
     public void taoHoaDon() throws FileNotFoundException, IOException {
-        String path = "HoaDon.pdf";
+        String path = "src/main/java/files/HoaDon.pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.setDefaultPageSize(PageSize.A4);

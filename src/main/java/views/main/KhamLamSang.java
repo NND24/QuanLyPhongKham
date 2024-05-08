@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,11 +13,9 @@ import models.BenhAnModel;
 import models.KhamLamSangModel;
 import models.DangKyModel;
 import models.BenhNhanModel;
-import models.DonThuocModel;
 import controllers.BenhAnCtrl;
 import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
-import controllers.DonThuocCtrl;
 import controllers.KhamLamSangCtrl;
 import pdfForm.GenerateKhamLS;
 import utils.DialogHelper;
@@ -682,46 +678,36 @@ public class KhamLamSang extends javax.swing.JPanel {
             try {
                 BenhNhanModel benhNhan = BenhNhanCtrl.timBenhNhanTheoMa(maBenhNhan);
 
-                List<DonThuocModel> dsThuoc = new ArrayList<>();
-                try {
-                    dsThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
                 BenhAnModel benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
 
-                List<KhamLamSangModel> dsKhamLS = new ArrayList<>();
-                dsKhamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaKhamLamSang());
+                KhamLamSangModel khamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaKhamLamSang());
 
                 int namHienTai = LocalDate.now().getYear();
                 int thangHienTai = LocalDate.now().getMonthValue();
                 int ngayHienTai = LocalDate.now().getDayOfMonth();
 
-                KhamLamSangModel kham = dsKhamLS.get(0);
-
                 String ten = benhNhan.getHoTen();
                 String tuoi = Integer.toString(namHienTai - Integer.parseInt(benhNhan.getNamSinh()));
                 String gioiTinh = benhNhan.getGioiTinh();
                 String diaChi = benhNhan.getDiaChi();
-                String chieuCao = kham.getChieuCao();
-                String canNang = kham.getCanNang();
-                String nhietDo = kham.getNhietDo();
-                String nhipTho = kham.getNhipTho();
-                String huyetAp = kham.getHuyetAp();
-                String mach = kham.getMach();
-                String bmi = kham.getBMI();
-                String lyDoKham = kham.getLyDoKhamBenh();
-                String chuanDoan = kham.getChuanDoan();
-                String huongXuLy = kham.getHuongXuLy();
-                String benhChinh = kham.getBenhChinh();
-                String benhPhu = kham.getBenhPhu();
-                String loiDan = kham.getLoiDan();
-                String benhSu = kham.getBenhSu();
-                String tienSu = kham.getTienSu();
-                String khamToanThan = kham.getKhamToanThan();
-                String khamBoPhan = kham.getKhamBoPhan();
-                String tomTatKQ = kham.getTomTatKetQuaCLS();
+                String chieuCao = khamLS.getChieuCao();
+                String canNang = khamLS.getCanNang();
+                String nhietDo = khamLS.getNhietDo();
+                String nhipTho = khamLS.getNhipTho();
+                String huyetAp = khamLS.getHuyetAp();
+                String mach = khamLS.getMach();
+                String bmi = khamLS.getBMI();
+                String lyDoKham = khamLS.getLyDoKhamBenh();
+                String chuanDoan = khamLS.getChuanDoan();
+                String huongXuLy = khamLS.getHuongXuLy();
+                String benhChinh = khamLS.getBenhChinh();
+                String benhPhu = khamLS.getBenhPhu();
+                String loiDan = khamLS.getLoiDan();
+                String benhSu = khamLS.getBenhSu();
+                String tienSu = khamLS.getTienSu();
+                String khamToanThan = khamLS.getKhamToanThan();
+                String khamBoPhan = khamLS.getKhamBoPhan();
+                String tomTatKQ = khamLS.getTomTatKetQuaCLS();
 
                 GenerateKhamLS inDon = new GenerateKhamLS(ten, tuoi, gioiTinh, diaChi, chieuCao, canNang, nhietDo, nhipTho, huyetAp, mach, bmi, lyDoKham, chuanDoan, huongXuLy, benhChinh, benhPhu, loiDan, benhSu, tienSu, khamToanThan, khamBoPhan, tomTatKQ, Integer.toString(ngayHienTai), Integer.toString(thangHienTai), Integer.toString(namHienTai));
 

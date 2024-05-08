@@ -669,13 +669,9 @@ public class ChiDinh extends javax.swing.JPanel {
                     Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                BenhAnModel benhAn;
+                BenhAnModel benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
 
-                benhAn = BenhAnCtrl.timBenhAn(maBenhAn);
-
-                List<KhamLamSangModel> dsKhamLS = new ArrayList<>();
-
-                dsKhamLS = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaDichVuKham());
+                KhamLamSangModel khamLamSang = KhamLamSangCtrl.timKhamBenhTheoMa(benhAn.getMaKhamLamSang());
 
                 int namHienTai = LocalDate.now().getYear();
                 int thangHienTai = LocalDate.now().getMonthValue();
@@ -685,7 +681,7 @@ public class ChiDinh extends javax.swing.JPanel {
                 String tuoi = Integer.toString(namHienTai - Integer.parseInt(benhNhan.getNamSinh()));
                 String gioiTinh = benhNhan.getGioiTinh();
                 String diaChi = benhNhan.getDiaChi();
-                String chuanDoan = dsKhamLS.get(0).getChuanDoan();
+                String chuanDoan = khamLamSang.getChuanDoan();
                 GenerateChiDinh inDon = new GenerateChiDinh(ten, tuoi, gioiTinh, diaChi, chuanDoan, Integer.toString(ngayHienTai), Integer.toString(thangHienTai), Integer.toString(namHienTai));
 
                 List<String> tenDichVu = new ArrayList<>();
@@ -709,7 +705,6 @@ public class ChiDinh extends javax.swing.JPanel {
                 } else {
                     inDon.setTenDichVu(tenDichVu);
                     inDon.setSoLan(soLan);
-
                     try {
                         inDon.taoChiDinh();
                         DialogHelper.showMessage("In chỉ định thành công!");
@@ -717,7 +712,6 @@ public class ChiDinh extends javax.swing.JPanel {
                         Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
             }
