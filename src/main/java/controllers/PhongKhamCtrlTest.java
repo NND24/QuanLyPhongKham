@@ -25,14 +25,8 @@ public class PhongKhamCtrlTest {
 
     public static List<PhongKhamModelTest> timTatCaPhongKham() throws ClassNotFoundException {
         List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
 
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM PHONGKHAM";
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+        try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery("SELECT * FROM PHONGKHAM")) {
 
             while (resultSet.next()) {
                 PhongKhamModelTest pk = new PhongKhamModelTest(
@@ -44,33 +38,14 @@ public class PhongKhamCtrlTest {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
 
         return dsPhongKham;
     }
 
-    public static void ThemPhongKham(PhongKhamModelTest pk) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "INSERT INTO PHONGKHAM (MaPhongKham, TenPhongKham, TrangThai, SoLuongBenhNhan) VALUES (?, ?, ?, ?);";
-            statement = connection.prepareStatement(sql);
+    public static void themPhongKham(PhongKhamModelTest pk) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO PHONGKHAM (MaPhongKham, TenPhongKham, TrangThai, SoLuongBenhNhan) VALUES (?, ?, ?, ?)")) {
 
             statement.setString(1, pk.getMaPhongKham());
             statement.setString(2, pk.getTenPhongKham());
@@ -81,31 +56,12 @@ public class PhongKhamCtrlTest {
 
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
-    public static void CapNhatPhongKham(PhongKhamModelTest pk) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "UPDATE PHONGKHAM SET TenPhongKham=?, TrangThai=? WHERE MaPhongKham=?";
-            statement = connection.prepareCall(sql);
+    public static void capNhatPhongKham(PhongKhamModelTest pk) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
+                "UPDATE PHONGKHAM SET TenPhongKham=?, TrangThai=? WHERE MaPhongKham=?")) {
 
             statement.setString(1, pk.getTenPhongKham());
             statement.setString(2, pk.getTrangThai());
@@ -114,33 +70,15 @@ public class PhongKhamCtrlTest {
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static List<PhongKhamModelTest> laySoLuong() throws ClassNotFoundException {
         List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
 
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT MaPhongKham, COUNT(MaPhongKham) SoLuongBenhNhan FROM DANGKY WHERE TrangThai=N'Đợi khám' GROUP BY MaPhongKham ";
-            statement = connection.createStatement();
+        try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
+
+            String sql = "SELECT MaPhongKham, COUNT(MaPhongKham) AS SoLuongBenhNhan FROM DANGKY WHERE TrangThai=N'Đợi khám' GROUP BY MaPhongKham";
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
@@ -151,33 +89,14 @@ public class PhongKhamCtrlTest {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
 
         return dsPhongKham;
     }
 
     public static void capNhatSoLuong() throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        List<PhongKhamModelTest> dsSoLuong = laySoLuong();
-
-        try {
-            connection = ConnectDB.getConnection();
+        try (Connection connection = ConnectDB.getConnection()) {
+            List<PhongKhamModelTest> dsSoLuong = laySoLuong();
 
             for (PhongKhamModelTest sl : dsSoLuong) {
                 try {
@@ -191,202 +110,77 @@ public class PhongKhamCtrlTest {
                     Logger.getLogger(PhongKhamCtrlTest.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static void capNhatLaiSoLuong() throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        List<PhongKhamModelTest> dsPhongKham = timTatCaPhongKham();
-
-        try {
-            connection = ConnectDB.getConnection();
+        try (Connection connection = ConnectDB.getConnection()) {
+            List<PhongKhamModelTest> dsPhongKham = timTatCaPhongKham();
 
             for (PhongKhamModelTest pk : dsPhongKham) {
-                try {
-                    String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan=0 WHERE MaPhongKham=?";
-                    statement = connection.prepareStatement(sql);
+                String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan=0 WHERE MaPhongKham=?";
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, pk.getMaPhongKham());
                     statement.executeUpdate();
-
                 } catch (SQLException ex) {
                     Logger.getLogger(PhongKhamCtrlTest.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
-    public static void ThemSoLuong(String maPhongKham) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-
-            String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan = (CASE WHEN SoLuongBenhNhan + 1 = 51 THEN 0 ELSE SoLuongBenhNhan + 1 END) WHERE MaPhongKham=?";
-            statement = connection.prepareStatement(sql);
+    public static void themSoLuong(String maPhongKham) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
+                "UPDATE PHONGKHAM SET SoLuongBenhNhan = (CASE WHEN SoLuongBenhNhan + 1 = 51 THEN 0 ELSE SoLuongBenhNhan + 1 END) WHERE MaPhongKham=?")) {
             statement.setString(1, maPhongKham);
-
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
-    public static void BotSoLuong(String maPhongKham) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan=SoLuongBenhNhan - 1 WHERE MaPhongKham=?";
-            statement = connection.prepareStatement(sql);
+    public static void botSoLuong(String maPhongKham) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
+                "UPDATE PHONGKHAM SET SoLuongBenhNhan = CASE WHEN SoLuongBenhNhan <= 0 THEN 0 ELSE SoLuongBenhNhan - 1 END WHERE MaPhongKham=?")) {
             statement.setString(1, maPhongKham);
-
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
-    public static void XoaPhongKham(String maPhongKham) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "DELETE FROM PHONGKHAM WHERE MaPhongKham=?";
-            statement = connection.prepareStatement(sql);
-
+    public static void xoaPhongKham(String maPhongKham) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("DELETE FROM PHONGKHAM WHERE MaPhongKham=?")) {
             statement.setString(1, maPhongKham);
-
             statement.executeUpdate();
-
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static List<PhongKhamModelTest> timTatCaDichVuTheoDK(String timKiem) throws ClassNotFoundException {
         List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM PHONGKHAM WHERE MaPhongKham LIKE ? OR TenPhongKham LIKE ?";
-
-            statement = connection.prepareStatement(sql);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM PHONGKHAM WHERE MaPhongKham LIKE ? OR TenPhongKham LIKE ?")) {
             statement.setString(1, "%" + timKiem + "%");
             statement.setString(2, "%" + timKiem + "%");
 
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                PhongKhamModelTest pk = new PhongKhamModelTest(
-                        resultSet.getString("MaPhongKham"),
-                        resultSet.getString("TenPhongKham"),
-                        resultSet.getString("TrangThai"),
-                        resultSet.getInt("SoLuongBenhNhan"));
-                dsPhongKham.add(pk);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    PhongKhamModelTest pk = new PhongKhamModelTest(
+                            resultSet.getString("MaPhongKham"),
+                            resultSet.getString("TenPhongKham"),
+                            resultSet.getString("TrangThai"),
+                            resultSet.getInt("SoLuongBenhNhan"));
+                    dsPhongKham.add(pk);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
-
         return dsPhongKham;
     }
 

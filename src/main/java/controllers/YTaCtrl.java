@@ -32,69 +32,45 @@ public class YTaCtrl {
         try {
             connection = ConnectDB.getConnection();
 
-            if (!timKiem.isEmpty() && gioiTinh.equals("Tất cả")) {
-                String sql = "SELECT * FROM YTA WHERE MaYTa LIKE ? OR HoTen LIKE ? OR SoDienThoai LIKE ?";
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + timKiem + "%");
-                statement.setString(2, "%" + timKiem + "%");
-                statement.setString(3, "%" + timKiem + "%");
+            StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM YTA WHERE");
+            List<Object> parameters = new ArrayList<>();
 
-                ResultSet resultSet = statement.executeQuery();
+            if (!timKiem.isEmpty()) {
+                sqlBuilder.append(" (MaYTa LIKE ? OR HoTen LIKE ? OR SoDienThoai LIKE ?)");
+                parameters.add("%" + timKiem + "%");
+                parameters.add("%" + timKiem + "%");
+                parameters.add("%" + timKiem + "%");
+            }
 
-                while (resultSet.next()) {
-                    YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
-                            resultSet.getString("HoTen"),
-                            resultSet.getString("GioiTinh"),
-                            resultSet.getString("DiaChi"),
-                            resultSet.getString("SoDienThoai"),
-                            resultSet.getString("CanCuoc"),
-                            resultSet.getString("Email"),
-                            resultSet.getString("NamSinh"),
-                            resultSet.getString("Anh"));
-                    dsyt.add(yt);
-                }
-            } else if (timKiem.isEmpty() && !gioiTinh.equals("Tất cả")) {
-                String sql = "SELECT * FROM YTA WHERE GioiTinh LIKE ?";
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + gioiTinh + "%");
+            if (!timKiem.isEmpty() && !gioiTinh.equals("Tất cả")) {
+                sqlBuilder.append(" AND");
+            }
 
-                ResultSet resultSet = statement.executeQuery();
+            if (!gioiTinh.equals("Tất cả")) {
+                sqlBuilder.append(" GioiTinh LIKE ?");
+                parameters.add("%" + gioiTinh + "%");
+            }
 
-                while (resultSet.next()) {
-                    YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
-                            resultSet.getString("HoTen"),
-                            resultSet.getString("GioiTinh"),
-                            resultSet.getString("DiaChi"),
-                            resultSet.getString("SoDienThoai"),
-                            resultSet.getString("CanCuoc"),
-                            resultSet.getString("Email"),
-                            resultSet.getString("NamSinh"),
-                            resultSet.getString("Anh"));
-                    dsyt.add(yt);
-                }
-            } else if (!timKiem.isEmpty() && !gioiTinh.equals("Tất cả")) {
-                String sql = "SELECT * FROM YTA WHERE ( MaYTa LIKE ? OR HoTen LIKE ? OR SoDienThoai LIKE ?) AND GioiTinh LIKE ?";
-                statement = connection.prepareStatement(sql);
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + timKiem + "%");
-                statement.setString(2, "%" + timKiem + "%");
-                statement.setString(3, "%" + timKiem + "%");
-                statement.setString(4, "%" + gioiTinh + "%");
+            statement = connection.prepareStatement(sqlBuilder.toString());
 
-                ResultSet resultSet = statement.executeQuery();
+            for (int i = 0; i < parameters.size(); i++) {
+                statement.setObject(i + 1, parameters.get(i));
+            }
 
-                while (resultSet.next()) {
-                    YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
-                            resultSet.getString("HoTen"),
-                            resultSet.getString("GioiTinh"),
-                            resultSet.getString("DiaChi"),
-                            resultSet.getString("SoDienThoai"),
-                            resultSet.getString("CanCuoc"),
-                            resultSet.getString("Email"),
-                            resultSet.getString("NamSinh"),
-                            resultSet.getString("Anh"));
-                    dsyt.add(yt);
-                }
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                YTaModel yt = new YTaModel(
+                        resultSet.getString("MaYTa"),
+                        resultSet.getString("HoTen"),
+                        resultSet.getString("GioiTinh"),
+                        resultSet.getString("DiaChi"),
+                        resultSet.getString("SoDienThoai"),
+                        resultSet.getString("CanCuoc"),
+                        resultSet.getString("Email"),
+                        resultSet.getString("NamSinh"),
+                        resultSet.getString("Anh"));
+                dsyt.add(yt);
             }
 
         } catch (SQLException ex) {
@@ -121,17 +97,14 @@ public class YTaCtrl {
 
     public static List<YTaModel> hienthiYTa() throws ClassNotFoundException {
         List<YTaModel> dsyt = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
 
-        try {
-            connection = ConnectDB.getConnection();
+        try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
             String sql = "SELECT * FROM YTA";
-            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                YTaModel yt = new YTaModel(resultSet.getString("MaYTa"),
+                YTaModel yt = new YTaModel(
+                        resultSet.getString("MaYTa"),
                         resultSet.getString("HoTen"),
                         resultSet.getString("GioiTinh"),
                         resultSet.getString("DiaChi"),
@@ -139,42 +112,24 @@ public class YTaCtrl {
                         resultSet.getString("CanCuoc"),
                         resultSet.getString("Email"),
                         resultSet.getString("NamSinh"),
-                        resultSet.getString("Anh"));
+                        resultSet.getString("Anh")
+                );
                 dsyt.add(yt);
             }
         } catch (SQLException ex) {
             Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
+
         return dsyt;
     }
 
-    public static void themYTa(YTaModel yt) throws ClassNotFoundException, SQLException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "INSERT INTO YTA(MaYTa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, Email, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            statement = connection.prepareStatement(sql);
+    public static void themYTa(YTaModel yt) throws ClassNotFoundException {
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO YTA(MaYTa, HoTen, GioiTinh, NamSinh, DiaChi, SoDienThoai, CanCuoc, Email, Anh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             String maYTa = GenerateCode.generateMa("YT");
             String matKhau = GenerateCode.generatePassword(maYTa, yt.getNamSinh());
             String email = GenerateCode.generateEmail(maYTa, "nurse");
             TaiKhoanCtrl.themTaiKhoan(email, "YT", matKhau);
+
             statement.setString(1, maYTa);
             statement.setString(2, yt.getHoTen());
             statement.setString(3, yt.getGioiTinh());
@@ -188,62 +143,21 @@ public class YTaCtrl {
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static void xoaYTa(YTaModel yTa) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "DELETE FROM YTA WHERE MaYTa = ?";
-            statement = connection.prepareStatement(sql);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("DELETE FROM YTA WHERE MaYTa = ?")) {
             statement.setString(1, yTa.getMaYT());
             statement.executeUpdate();
             TaiKhoanCtrl.xoaTaiKhoan(yTa.getEmail());
         } catch (SQLException ex) {
             Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static void capNhatYTa(YTaModel yt) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "UPDATE YTA SET HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?  WHERE MaYTa=?";
-
-            statement = connection.prepareCall(sql);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("UPDATE YTA SET HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?  WHERE MaYTa=?")) {
 
             statement.setString(1, yt.getHoTen());
             statement.setString(2, yt.getGioiTinh());
@@ -256,92 +170,35 @@ public class YTaCtrl {
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static boolean kiemTraCccdCoTonTai(String cccd) throws ClassNotFoundException {
         boolean flag = false;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM YTA WHERE CanCuoc=?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, cccd);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM YTA WHERE CanCuoc=?")) {
 
-            if (resultSet.next()) {
-                flag = true;
+            statement.setString(1, cccd);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                flag = resultSet.next();
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
         return flag;
     }
 
     public static boolean kiemTraEmailCoTonTai(String email) throws ClassNotFoundException {
         boolean flag = false;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM YTA WHERE Email=?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM YTA WHERE Email=?")) {
 
-            if (resultSet.next()) {
-                flag = true;
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                flag = resultSet.next();
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
         return flag;
     }
@@ -386,50 +243,16 @@ public class YTaCtrl {
 
     public static boolean kiemTraYTaCoGiamSatPhong(String maYT) throws ClassNotFoundException {
         boolean flag = false;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT * FROM PHONGBENH WHERE MaYTa=?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, maYT);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM PHONGBENH WHERE MaYTa=?")) {
 
-            if (resultSet.next()) {
-                flag = true;
+            statement.setString(1, maYT);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                flag = resultSet.next();
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(YTaCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
         return flag;
-    }
-
-    public static String generateMaYTa() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "YT" + timeString + randomNumber;
-        return randomString;
     }
 }

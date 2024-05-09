@@ -310,7 +310,7 @@ public class DSPhongKhamTest extends javax.swing.JFrame {
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
 
                 PhongKhamModelTest pk = new PhongKhamModelTest(maPhongKham, tenPhongKham, trangThai, 0);
-                PhongKhamCtrlTest.ThemPhongKham(pk);
+                PhongKhamCtrlTest.themPhongKham(pk);
                 lamMoi();
                 hienThiTatCaPhongKham();
             } catch (ClassNotFoundException ex) {
@@ -326,7 +326,7 @@ public class DSPhongKhamTest extends javax.swing.JFrame {
                 DialogHelper.showError("Chưa có phòng khám được chọn");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa phòng khám này")) {
-                    PhongKhamCtrlTest.XoaPhongKham(maPhongKham);
+                    PhongKhamCtrlTest.xoaPhongKham(maPhongKham);
                     DialogHelper.showMessage("Xóa phòng khám thành công!");
                     lamMoi();
                     hienThiTatCaPhongKham();
@@ -351,7 +351,7 @@ public class DSPhongKhamTest extends javax.swing.JFrame {
                     String trangThai = cmbTrangThai.getSelectedItem().toString();
 
                     PhongKhamModelTest pk = new PhongKhamModelTest(maPhongKham, tenPhongKham, trangThai);
-                    PhongKhamCtrlTest.CapNhatPhongKham(pk);
+                    PhongKhamCtrlTest.capNhatPhongKham(pk);
                     DialogHelper.showMessage("Sửa phòng khám thành công!");
                     lamMoi();
                     hienThiTatCaPhongKham();
