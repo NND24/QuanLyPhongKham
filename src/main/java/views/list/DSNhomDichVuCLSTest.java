@@ -360,7 +360,7 @@ public class DSNhomDichVuCLSTest extends javax.swing.JFrame {
                     String trangThai = cmbtrangthai.getSelectedItem().toString();
 
                     NhomDichVuCLSModelTest ndv = new NhomDichVuCLSModelTest(maNhomDichVuCLS, tenNhomDichVuCLS, trangThai);
-                    NhomDichVuCLSCtrlTest.CapNhatNhomDichVuCLS(ndv);
+                    NhomDichVuCLSCtrlTest.capNhatNhomDichVuCLS(ndv);
                     DialogHelper.showMessage("Sửa nhóm dịch vụ cận lâm sàn thành công!");
                     hienThiTatCaNhomDichVu();
                 }

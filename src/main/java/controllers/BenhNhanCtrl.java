@@ -243,9 +243,9 @@ public class BenhNhanCtrl {
         }
     }
 
-    public static void XoaBenhNhan(String maBN) throws ClassNotFoundException {
+    public static void xoaBenhNhan(String maBN) throws ClassNotFoundException {
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
-                "UPDATE BENHNHAN SET TrangThaiXoa='1' WHERE MaBenhNhan=?")) {
+                "DELETE FROM BENHNHAN WHERE MaBenhNhan=?")) {
 
             statement.setString(1, maBN);
             statement.executeUpdate();
@@ -297,6 +297,22 @@ public class BenhNhanCtrl {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean kiemTraBenhNhanDaKhamBenh(String maBenhNhan) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT DISTINCT MaBenhNhan FROM BENHAN WHERE MaBenhNhan=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maBenhNhan);
+            ResultSet resultSet = statement.executeQuery();
+
+            flag = resultSet.next();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
     }
 
     public static boolean kiemTraCccdCoTonTai(String cccd) throws ClassNotFoundException {

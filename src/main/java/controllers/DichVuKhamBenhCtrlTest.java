@@ -25,14 +25,10 @@ public class DichVuKhamBenhCtrlTest {
 
     public static List<DichVuKhamBenhModelTest> timTatCaDichVu() throws ClassNotFoundException {
         List<DichVuKhamBenhModelTest> dsDichVu = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
+        try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
 
-        try {
-            connection = ConnectDB.getConnection();
             String sql = "SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai "
                     + "FROM DICHVUKB, NHOMDICHVUKB WHERE DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB";
-            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
@@ -48,38 +44,15 @@ public class DichVuKhamBenhCtrlTest {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
-
         return dsDichVu;
     }
 
     public static List<DichVuKhamBenhModelTest> timTatCaDichVuTheoMaNhom(String maNhomDichVu) throws ClassNotFoundException {
         List<DichVuKhamBenhModelTest> dsDichVu = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai FROM DICHVUKB, NHOMDICHVUKB WHERE DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB AND DICHVUKB.MaNhomDichVuKB=?")) {
 
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai "
-                    + "FROM DICHVUKB, NHOMDICHVUKB WHERE DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB AND DICHVUKB.MaNhomDichVuKB=?";
-            statement = connection.prepareStatement(sql);
             statement.setString(1, maNhomDichVu);
-
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -95,33 +68,12 @@ public class DichVuKhamBenhCtrlTest {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
-
         return dsDichVu;
     }
 
     public static void themDichVuKhamBenh(DichVuKhamBenhModelTest dv) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "INSERT INTO DICHVUKB (MaDichVuKB, TenDichVuKB, MaNhomDichVuKB, GiaTien, GiaBaoHiem, TrangThai) VALUES (?, ?, ?, ?, ?, ?);";
-            statement = connection.prepareStatement(sql);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO DICHVUKB (MaDichVuKB, TenDichVuKB, MaNhomDichVuKB, GiaTien, GiaBaoHiem, TrangThai) VALUES (?, ?, ?, ?, ?, ?)")) {
 
             statement.setString(1, dv.getMaDichVuKB());
             statement.setString(2, dv.getTenDichVuKB());
@@ -131,34 +83,13 @@ public class DichVuKhamBenhCtrlTest {
             statement.setString(6, dv.getTrangThai());
 
             statement.executeUpdate();
-
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static void capNhatDichVuKhamBenh(DichVuKhamBenhModelTest dv) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "UPDATE DICHVUKB SET TenDichVuKB=?, MaNhomDichVuKB=?, GiaTien=?, GiaBaoHiem=?, TrangThai=? WHERE MaDichVuKB=?";
-            statement = connection.prepareCall(sql);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("UPDATE DICHVUKB SET TenDichVuKB=?, MaNhomDichVuKB=?, GiaTien=?, GiaBaoHiem=?, TrangThai=? WHERE MaDichVuKB=?")) {
 
             statement.setString(1, dv.getTenDichVuKB());
             statement.setString(2, dv.getMaNhomDichVuKB());
@@ -170,153 +101,67 @@ public class DichVuKhamBenhCtrlTest {
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static void xoaDichVuKhamBenh(String maDichVu) throws ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = "DELETE FROM DICHVUKB WHERE MaDichVuKB=?";
-            statement = connection.prepareStatement(sql);
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("DELETE FROM DICHVUKB WHERE MaDichVuKB=?")) {
 
             statement.setString(1, maDichVu);
-
             statement.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
     public static List<DichVuKhamBenhModelTest> timTatCaDichVuTheoDK(String timKiem, String maNhomDichVu) throws ClassNotFoundException {
         List<DichVuKhamBenhModelTest> dsDichVu = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
+        try (Connection connection = ConnectDB.getConnection()) {
+            String sql = "SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai "
+                    + "FROM DICHVUKB, NHOMDICHVUKB WHERE DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB ";
 
-        try {
-            connection = ConnectDB.getConnection();
-            if (!timKiem.isEmpty() && maNhomDichVu.equals("---Nhóm dịch vụ---")) {
-                String sql = "SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai "
-                        + "FROM DICHVUKB, NHOMDICHVUKB WHERE DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB \n"
-                        + "AND (MaDichVuKB LIKE ? OR TenDichVuKB LIKE ? OR DICHVUKB.MaNhomDichVuKB LIKE ? OR TenNhomDichVuKB LIKE ?)";
-
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + timKiem + "%");
-                statement.setString(2, "%" + timKiem + "%");
-                statement.setString(3, "%" + timKiem + "%");
-                statement.setString(4, "%" + timKiem + "%");
-
-                ResultSet resultSet = statement.executeQuery();
-
-                while (resultSet.next()) {
-                    DichVuKhamBenhModelTest dv = new DichVuKhamBenhModelTest(
-                            resultSet.getString("MaDichVuKB"),
-                            resultSet.getString("TenDichVuKB"),
-                            resultSet.getInt("GiaTien"),
-                            resultSet.getInt("GiaBaoHiem"),
-                            resultSet.getString("TrangThai"),
-                            resultSet.getString("MaNhomDichVuKB"),
-                            resultSet.getString("TenNhomDichVuKB"));
-                    dsDichVu.add(dv);
-                }
+            if (!timKiem.isEmpty() && !maNhomDichVu.equals("---Nhóm dịch vụ---")) {
+                sql += " AND (MaDichVuKB LIKE ? OR TenDichVuKB LIKE ? OR DICHVUKB.MaNhomDichVuKB LIKE ? OR TenNhomDichVuKB LIKE ?) AND DICHVUKB.MaNhomDichVuKB = ?";
+            } else if (!timKiem.isEmpty() && maNhomDichVu.equals("---Nhóm dịch vụ---")) {
+                sql += " AND (MaDichVuKB LIKE ? OR TenDichVuKB LIKE ? OR DICHVUKB.MaNhomDichVuKB LIKE ? OR TenNhomDichVuKB LIKE ?)";
             } else if (timKiem.isEmpty() && !maNhomDichVu.equals("---Nhóm dịch vụ---")) {
-                String sql = "SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai "
-                        + "FROM DICHVUKB, NHOMDICHVUKB WHERE DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB \n"
-                        + " AND DICHVUKB.MaNhomDichVuKB = ?";
+                sql += " AND DICHVUKB.MaNhomDichVuKB = ?";
+            }
 
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, maNhomDichVu);
-
-                ResultSet resultSet = statement.executeQuery();
-
-                while (resultSet.next()) {
-                    DichVuKhamBenhModelTest dv = new DichVuKhamBenhModelTest(
-                            resultSet.getString("MaDichVuKB"),
-                            resultSet.getString("TenDichVuKB"),
-                            resultSet.getInt("GiaTien"),
-                            resultSet.getInt("GiaBaoHiem"),
-                            resultSet.getString("TrangThai"),
-                            resultSet.getString("MaNhomDichVuKB"),
-                            resultSet.getString("TenNhomDichVuKB"));
-                    dsDichVu.add(dv);
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                if (!timKiem.isEmpty() && !maNhomDichVu.equals("---Nhóm dịch vụ---")) {
+                    statement.setString(1, "%" + timKiem + "%");
+                    statement.setString(2, "%" + timKiem + "%");
+                    statement.setString(3, "%" + timKiem + "%");
+                    statement.setString(4, "%" + timKiem + "%");
+                    statement.setString(5, maNhomDichVu);
+                } else if (!timKiem.isEmpty() && maNhomDichVu.equals("---Nhóm dịch vụ---")) {
+                    statement.setString(1, "%" + timKiem + "%");
+                    statement.setString(2, "%" + timKiem + "%");
+                    statement.setString(3, "%" + timKiem + "%");
+                    statement.setString(4, "%" + timKiem + "%");
+                } else if (timKiem.isEmpty() && !maNhomDichVu.equals("---Nhóm dịch vụ---")) {
+                    statement.setString(1, maNhomDichVu);
                 }
-            } else if (!timKiem.isEmpty() && !maNhomDichVu.equals("---Nhóm dịch vụ---")) {
-                String sql = "SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai "
-                        + "FROM DICHVUKB, NHOMDICHVUKB WHERE DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB \n"
-                        + "AND (MaDichVuKB LIKE ? OR TenDichVuKB LIKE ? OR DICHVUKB.MaNhomDichVuKB LIKE ? OR TenNhomDichVuKB LIKE ?) AND DICHVUKB.MaNhomDichVu = ?";
 
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + timKiem + "%");
-                statement.setString(2, "%" + timKiem + "%");
-                statement.setString(3, "%" + timKiem + "%");
-                statement.setString(4, "%" + timKiem + "%");
-                statement.setString(5, maNhomDichVu);
-
-                ResultSet resultSet = statement.executeQuery();
-
-                while (resultSet.next()) {
-                    DichVuKhamBenhModelTest dv = new DichVuKhamBenhModelTest(
-                            resultSet.getString("MaDichVuKB"),
-                            resultSet.getString("TenDichVuKB"),
-                            resultSet.getInt("GiaTien"),
-                            resultSet.getInt("GiaBaoHiem"),
-                            resultSet.getString("TrangThai"),
-                            resultSet.getString("MaNhomDichVuKB"),
-                            resultSet.getString("TenNhomDichVuKB"));
-                    dsDichVu.add(dv);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        DichVuKhamBenhModelTest dv = new DichVuKhamBenhModelTest(
+                                resultSet.getString("MaDichVuKB"),
+                                resultSet.getString("TenDichVuKB"),
+                                resultSet.getInt("GiaTien"),
+                                resultSet.getInt("GiaBaoHiem"),
+                                resultSet.getString("TrangThai"),
+                                resultSet.getString("MaNhomDichVuKB"),
+                                resultSet.getString("TenNhomDichVuKB"));
+                        dsDichVu.add(dv);
+                    }
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
-
         return dsDichVu;
     }
 

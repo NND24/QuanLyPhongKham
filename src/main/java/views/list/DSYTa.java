@@ -495,7 +495,7 @@ public class DSYTa extends javax.swing.JPanel {
                 lamMoi();
                 DialogHelper.showMessage("Thêm y tá thành công!");
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
