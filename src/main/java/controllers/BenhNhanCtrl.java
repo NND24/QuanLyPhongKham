@@ -307,7 +307,9 @@ public class BenhNhanCtrl {
             statement.setString(1, maBenhNhan);
             ResultSet resultSet = statement.executeQuery();
 
-            flag = resultSet.next();
+            if (resultSet.next()) {
+                flag = true;
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
@@ -323,7 +325,9 @@ public class BenhNhanCtrl {
             statement.setString(1, cccd);
             ResultSet resultSet = statement.executeQuery();
 
-            flag = resultSet.next();
+            if (resultSet.next()) {
+                flag = true;
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);

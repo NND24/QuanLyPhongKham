@@ -115,19 +115,11 @@ public class PhongKhamCtrlTest {
         }
     }
 
-    public static void capNhatLaiSoLuong() throws ClassNotFoundException {
-        try (Connection connection = ConnectDB.getConnection()) {
-            List<PhongKhamModelTest> dsPhongKham = timTatCaPhongKham();
-
-            for (PhongKhamModelTest pk : dsPhongKham) {
-                String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan=0 WHERE MaPhongKham=?";
-                try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, pk.getMaPhongKham());
-                    statement.executeUpdate();
-                } catch (SQLException ex) {
-                    Logger.getLogger(PhongKhamCtrlTest.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+    public static void capNhatLaiSoLuong(String maPhongKham) throws ClassNotFoundException {
+        String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan=0 WHERE MaPhongKham=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, maPhongKham);
+            statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
