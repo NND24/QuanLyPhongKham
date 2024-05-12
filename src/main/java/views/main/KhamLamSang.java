@@ -771,7 +771,7 @@ public class KhamLamSang extends javax.swing.JPanel {
 
     private void txtCanNangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCanNangFocusLost
         String canNang = txtCanNang.getText();
-        if (!canNang.isEmpty() && !Validator.isIntegerString(canNang)) {
+        if (!canNang.isEmpty()) {
             DialogHelper.showError("Cân nặng không hợp lệ");
             txtCanNang.requestFocus();
         }
@@ -779,7 +779,7 @@ public class KhamLamSang extends javax.swing.JPanel {
 
     private void txtNhietDoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNhietDoFocusLost
         String nhietDo = txtNhietDo.getText();
-        if (!nhietDo.isEmpty() && !Validator.isIntegerString(nhietDo)) {
+        if (!nhietDo.isEmpty()) {
             DialogHelper.showError("Nhiêt độ không hợp lệ");
             txtNhietDo.requestFocus();
         }

@@ -161,7 +161,7 @@ public class ThuocCtrl {
         return thuoc;
     }
 
-    public static void ThemThuoc(ThuocModel thuoc) throws ClassNotFoundException {
+    public static void themThuoc(ThuocModel thuoc) throws ClassNotFoundException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -206,7 +206,7 @@ public class ThuocCtrl {
         }
     }
 
-    public static void CapNhatThuoc(ThuocModel thuoc) throws ClassNotFoundException {
+    public static void capNhatThuoc(ThuocModel thuoc) throws ClassNotFoundException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -250,7 +250,7 @@ public class ThuocCtrl {
         }
     }
 
-    public static void XoaThuoc(String maThuoc) throws ClassNotFoundException {
+    public static void xoaThuoc(String maThuoc) throws ClassNotFoundException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {

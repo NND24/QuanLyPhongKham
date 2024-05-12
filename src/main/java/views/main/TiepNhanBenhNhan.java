@@ -116,6 +116,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         cmbPhongKham.setSelectedIndex(0);
         txtLyDoKham.setText(null);
         txtThuTuKham.setText("0");
+        hienThiDSPhongKham();
     }
 
     @SuppressWarnings("unchecked")
@@ -316,6 +317,11 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         btnLamMoiThuTu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLamMoiThuTu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLamMoiThuTu.setPreferredSize(new java.awt.Dimension(115, 25));
+        btnLamMoiThuTu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiThuTuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -918,6 +924,8 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 String maBenhAn = GenerateCode.generateMa("BA");
                 BenhAnModel ba = new BenhAnModel(maBenhAn, maDangKy, maKhamLamSang, maBenhNhan);
                 BenhAnCtrl.themBenhAn(ba);
+                PhongKhamCtrlTest.themSoLuong(maPhongKham);
+                hienThiDSPhongKham();
             }
         } catch (ClassNotFoundException ex) {
             DialogHelper.showError("Đã có lỗi xảy ra");
@@ -1107,7 +1115,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
                 String maNhomDichVu = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
                 cmbDichVu.removeAllItems();
-                cmbDichVu.addItem("---Dịch vụ---");
                 dsDichVu = DichVuKhamBenhCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVu);
                 dsDichVu.forEach(dv -> {
                     cmbDichVu.addItem(dv.getTenDichVuKB());
@@ -1182,6 +1189,24 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_cmbPhongKhamActionPerformed
+
+    private void btnLamMoiThuTuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiThuTuActionPerformed
+        try {
+            if (cmbPhongKham.getSelectedItem().equals("---Phòng khám---")) {
+                DialogHelper.showError("Chưa chọn phòng khám muốn làm mới lại thứ tự!");
+            } else {
+                if (DialogHelper.showConfirmation("Bạn có chắc muốn làm mới lại thứ tự")) {
+                    int phongKhamIndex = cmbPhongKham.getSelectedIndex();
+                    String maPhongKham = dsPhongKham.get(phongKhamIndex).getMaPhongKham();
+
+                    PhongKhamCtrlTest.capNhatLaiSoLuong(maPhongKham);
+                    DialogHelper.showMessage("Làm mới thành công");
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnLamMoiThuTuActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInPhieuKham;

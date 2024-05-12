@@ -605,7 +605,7 @@ public class DSThuoc extends javax.swing.JPanel {
                 int nhomThuocIndex = cmbNhomThuoc.getSelectedIndex();
                 String maNhomThuoc = dsNhomThuoc.get(nhomThuocIndex).getMaNhomThuoc();
                 ThuocModel thuoc = new ThuocModel(maThuoc, tenThuoc, tenHoatChat, maNhomThuoc, duongDung, hamLuong, soDangKy, dongGoi, donViTinh, hangSanXuat, nuocSanXuat, giaTien, giaBaoHiem, trangThai);
-                ThuocCtrl.ThemThuoc(thuoc);
+                ThuocCtrl.themThuoc(thuoc);
                 hienThiTatThuoc();
 
                 txtMaThuoc.setText("");
@@ -633,7 +633,7 @@ public class DSThuoc extends javax.swing.JPanel {
                 DialogHelper.showError("Chưa có thuốc được chọn");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa thuốc này")) {
-                    ThuocCtrl.XoaThuoc(maThuoc);
+                    ThuocCtrl.xoaThuoc(maThuoc);
                     DialogHelper.showError("Xóa thuốc thành công!");
                     lamMoi();
                     hienThiTatThuoc();
@@ -678,7 +678,7 @@ public class DSThuoc extends javax.swing.JPanel {
                     String maNhomThuoc = dsNhomThuoc.get(nhomThuocIndex).getMaNhomThuoc();
 
                     ThuocModel dv = new ThuocModel(maThuoc, tenThuoc, tenHoatChat, maNhomThuoc, duongDung, hamLuong, soDangKy, dongGoi, donViTinh, hangSanXuat, nuocSanXuat, giaTien, giaBaoHiem, trangThai);
-                    ThuocCtrl.CapNhatThuoc(dv);
+                    ThuocCtrl.capNhatThuoc(dv);
                     DialogHelper.showMessage("Sửa thông tin thuốc thành công!");
                     hienThiTatThuoc();
                     lamMoi();
