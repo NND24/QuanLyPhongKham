@@ -99,6 +99,7 @@ public class DangNhap extends javax.swing.JFrame {
         lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         lblQuenMatKhau.setForeground(new java.awt.Color(255, 0, 51));
         lblQuenMatKhau.setText("Quên mật khẩu?");
+        lblQuenMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblQuenMatKhauMouseClicked(evt);

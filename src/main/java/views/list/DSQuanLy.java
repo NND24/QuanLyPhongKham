@@ -1,12 +1,15 @@
 package views.list;
 
 import controllers.QuanLyCtrl;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -17,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import models.QuanLyModel;
 import utils.DialogHelper;
 import utils.Validator;
+
 /**
  *
  * @author Phu Bao
@@ -30,7 +34,7 @@ public class DSQuanLy extends javax.swing.JPanel {
     List<QuanLyModel> dsQuanLy = new ArrayList<>();
     private String currentImage;
     private String defaultPath = "src/main/java/Images/QuanLy/default.png";
-    
+
     public DSQuanLy() {
         this.currentImage = defaultPath;
         initComponents();
@@ -41,7 +45,7 @@ public class DSQuanLy extends javax.swing.JPanel {
             Logger.getLogger(DSQuanLy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void hienThiTatCaQuanLy() throws ClassNotFoundException {
         dsQuanLy = QuanLyCtrl.hienThiTatCa();
         tableModel.setRowCount(0);
@@ -491,9 +495,8 @@ public class DSQuanLy extends javax.swing.JPanel {
                             .addComponent(txtCanCuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41)))
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -507,7 +510,7 @@ public class DSQuanLy extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -527,7 +530,7 @@ public class DSQuanLy extends javax.swing.JPanel {
         currentImage = defaultPath;
         showImageOnLabel(currentImage);
     }
-    
+
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         lamMoi();
         try {
@@ -645,9 +648,9 @@ public class DSQuanLy extends javax.swing.JPanel {
         // TODO add your handling code here:
         switch (cboSapXep.getSelectedIndex()) {
             case 0 -> {
-                try{
+                try {
                     hienThiTatCaQuanLy();
-                } catch(ClassNotFoundException ex){
+                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(DSQuanLy.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -683,7 +686,7 @@ public class DSQuanLy extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_cboSapXepActionPerformed
-    
+
     private void showImageOnLabel(String duongDan) {
         try {
             // Đọc ảnh từ đường dẫn tương đối
@@ -706,7 +709,7 @@ public class DSQuanLy extends javax.swing.JPanel {
         }
 
     }
-    
+
     private void tblDanhSachQuanLyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachQuanLyMouseClicked
         lamMoi();
         int selectedIndex = tblDanhSachQuanLy.getSelectedRow();
@@ -729,7 +732,6 @@ public class DSQuanLy extends javax.swing.JPanel {
     }//GEN-LAST:event_tblDanhSachQuanLyMouseClicked
 
     private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
-        // TODO add your handling code here:
         String sourceDirectory = Paths.get("src", "main", "java", "Images", "QuanLy").toAbsolutePath().toString();
 
         JFileChooser fileChooser = new JFileChooser(sourceDirectory);
@@ -742,31 +744,42 @@ public class DSQuanLy extends javax.swing.JPanel {
         if (x == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             try {
-                // Đọc ảnh từ đường dẫn tương đối
-                ImageIcon originalIcon = new ImageIcon(ImageIO.read(selectedFile));
+                // Đọc ảnh từ đường dẫn
+                BufferedImage originalImage = ImageIO.read(selectedFile);
 
                 // Lấy kích thước của JLabel
                 int labelWidth = lblImage.getWidth();
                 int labelHeight = lblImage.getHeight();
 
                 // Chỉnh kích thước của ảnh để phù hợp với JLabel
-                Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+                Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
-                // Tạo ImageIcon mới từ ảnh đã được chỉnh kích thước
-                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                // Tạo BufferedImage từ ảnh đã được chỉnh kích thước
+                BufferedImage bufferedScaledImage = new BufferedImage(labelWidth, labelHeight, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = bufferedScaledImage.createGraphics();
+                g2d.drawImage(scaledImage, 0, 0, null);
+                g2d.dispose();
 
                 // Đặt ảnh cho JLabel
-                lblImage.setIcon(scaledIcon);
+                lblImage.setIcon(new ImageIcon(bufferedScaledImage));
+
+                // Tạo chuỗi id duy nhất
+                String uniqueID = UUID.randomUUID().toString();
+
+                // Lưu ảnh vào thư mục đích với tên duy nhất
+                String newFileName = uniqueID + "_" + selectedFile.getName();
+                String relativeImagePath = "src/main/java/Images/QuanLy/" + newFileName;
+                File outputfile = new File(relativeImagePath);
+                ImageIO.write(bufferedScaledImage, "png", outputfile);
 
                 // Lưu đường dẫn tương đối của ảnh
-                String relativeImagePath = "src/main/java/Images/QuanLy/" + selectedFile.getName();
                 currentImage = relativeImagePath;
             } catch (IOException e) {
+                e.printStackTrace();
                 DialogHelper.showError("Lỗi hình ảnh");
             }
         }
     }//GEN-LAST:event_btnChonAnhActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;

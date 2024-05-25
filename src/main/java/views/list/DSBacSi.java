@@ -2,12 +2,15 @@ package views.list;
 
 import controllers.BacSiCtrl;
 import controllers.KhoaCtrl;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -139,7 +142,7 @@ public class DSBacSi extends javax.swing.JPanel {
                 bs.getCanCuoc(), bs.getDiaChi(), bs.getSoDienThoai(), bs.getEmail(), bs.getTrinhDo(), bs.getTenKhoa()});
         });
     }
-    
+
     private void lamMoi() {
         txtMaBacSi.setText("");
         txtHoTen.setText("");
@@ -156,7 +159,7 @@ public class DSBacSi extends javax.swing.JPanel {
         currentImage = defaultPath;
         showImageOnLabel(currentImage);
     }
-    
+
     private void showImageOnLabel(String duongDan) {
         try {
             // Đọc ảnh từ đường dẫn tương đối
@@ -535,27 +538,28 @@ public class DSBacSi extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel20)
                         .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
                         .addComponent(jLabel7)
                         .addGap(58, 58, 58)
-                        .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboKhoa, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTrinhDo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(162, 162, 162)
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 1360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -608,9 +612,9 @@ public class DSBacSi extends javax.swing.JPanel {
                         .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -879,7 +883,7 @@ public class DSBacSi extends javax.swing.JPanel {
             txtEmail.setText(bs.getEmail());
             txtTrinhDo.setText(bs.getTrinhDo());
             cboGioiTinh.setSelectedItem(bs.getGioiTinh());
-            cboKhoa.setSelectedItem(bs.getMaKhoa() + " " + bs.getTenKhoa());
+            cboKhoa.setSelectedItem(bs.getTenKhoa());
             showImageOnLabel(bs.getAnh());
         } else {
             System.out.println("Chưa có dòng nào được chọn");
@@ -887,7 +891,6 @@ public class DSBacSi extends javax.swing.JPanel {
     }//GEN-LAST:event_tblDanhSachBacSiMouseClicked
 
     private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
-        // TODO add your handling code here:
         String sourceDirectory = Paths.get("src", "main", "java", "Images", "BacSi").toAbsolutePath().toString();
 
         JFileChooser fileChooser = new JFileChooser(sourceDirectory);
@@ -900,31 +903,42 @@ public class DSBacSi extends javax.swing.JPanel {
         if (x == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             try {
-                // Đọc ảnh từ đường dẫn tương đối
-                ImageIcon originalIcon = new ImageIcon(ImageIO.read(selectedFile));
+                // Đọc ảnh từ đường dẫn
+                BufferedImage originalImage = ImageIO.read(selectedFile);
 
                 // Lấy kích thước của JLabel
                 int labelWidth = lblImage.getWidth();
                 int labelHeight = lblImage.getHeight();
 
                 // Chỉnh kích thước của ảnh để phù hợp với JLabel
-                Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+                Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
-                // Tạo ImageIcon mới từ ảnh đã được chỉnh kích thước
-                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                // Tạo BufferedImage từ ảnh đã được chỉnh kích thước
+                BufferedImage bufferedScaledImage = new BufferedImage(labelWidth, labelHeight, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = bufferedScaledImage.createGraphics();
+                g2d.drawImage(scaledImage, 0, 0, null);
+                g2d.dispose();
 
                 // Đặt ảnh cho JLabel
-                lblImage.setIcon(scaledIcon);
+                lblImage.setIcon(new ImageIcon(bufferedScaledImage));
+
+                // Tạo chuỗi id duy nhất
+                String uniqueID = UUID.randomUUID().toString();
+
+                // Lưu ảnh vào thư mục đích với tên duy nhất
+                String newFileName = uniqueID + "_" + selectedFile.getName();
+                String relativeImagePath = "src/main/java/Images/BacSi/" + newFileName;
+                File outputfile = new File(relativeImagePath);
+                ImageIO.write(bufferedScaledImage, "png", outputfile);
 
                 // Lưu đường dẫn tương đối của ảnh
-                String relativeImagePath = "src/main/java/Images/BacSi/" + selectedFile.getName();
                 currentImage = relativeImagePath;
             } catch (IOException e) {
+                e.printStackTrace();
                 DialogHelper.showError("Lỗi hình ảnh");
             }
         }
     }//GEN-LAST:event_btnChonAnhActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChonAnh;
