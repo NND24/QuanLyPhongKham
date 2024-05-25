@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Properties;
 
 public class SendEmail {
+
     public static void sendEmail(String code, String email) throws MessagingException, UnsupportedEncodingException {
         final String fromEmail = "n21dccn007@student.ptithcm.edu.vn";
         // Mat khai email cua ban
@@ -22,9 +23,8 @@ public class SendEmail {
               <head>
               </head>
               <body>
-                <h2 style="red: blue;">Phần mềm quản lý nước Quận 9</h2>
-                <h3 style="color: blue;">Mã xác nhận: </h3>
-                <p>%s</p>
+                <h2>MÃ XÁC NHẬN TÀI KHOẢN PTIT CARE</h2>
+                <h3 style="color: blue;">Mã xác nhận: <span style="color: black;">%s</span></h3>
               </body>
               </html>
               """.formatted(code);
@@ -57,5 +57,5 @@ public class SendEmail {
         Transport.send(msg);
         System.out.println("Gui mail thanh cong");
     }
-    
+
 }

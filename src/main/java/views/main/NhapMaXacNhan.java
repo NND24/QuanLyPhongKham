@@ -54,6 +54,7 @@ public class NhapMaXacNhan extends javax.swing.JFrame {
         btnTiepTuc.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnTiepTuc.setForeground(new java.awt.Color(255, 255, 255));
         btnTiepTuc.setText("Tiếp tục");
+        btnTiepTuc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTiepTuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTiepTucActionPerformed(evt);
@@ -68,6 +69,7 @@ public class NhapMaXacNhan extends javax.swing.JFrame {
         btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setText("Hủy");
+        btnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
