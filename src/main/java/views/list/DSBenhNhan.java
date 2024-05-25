@@ -1,13 +1,14 @@
 package views.list;
 
-import controllers.BenhNhanCtrl;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import models.BenhNhanModel;
+import controllers.BenhNhanCtrl;
 import utils.DialogHelper;
+import utils.GenerateCode;
 import utils.Validator;
 
 public class DSBenhNhan extends javax.swing.JPanel {
@@ -45,12 +46,12 @@ public class DSBenhNhan extends javax.swing.JPanel {
             txtHoTen.setText("");
             txtDiaChi.setText("");
             cmbGioiTinh.setSelectedIndex(0);
-            txtNamSinh.setText(null);
+            txtNamSinh.setText("");
             txtCanCuoc.setText("");
             txtNgheNghiep.setText("");
             txtSoDienThoai.setText("");
             txtDanToc.setText("");
-
+            txtBHYT.setText("");
             hienThiTatCaBenhNhan();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
@@ -544,12 +545,10 @@ public class DSBenhNhan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNhapMoiBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapMoiBenhNhanActionPerformed
-        // TODO add your handling code here:
         lamMoiTTBenhNhan();
     }//GEN-LAST:event_btnNhapMoiBenhNhanActionPerformed
 
     private void cmbLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocActionPerformed
-        // TODO add your handling code here:
         try {
             String timKiem = txtTimKiem.getText();
             String gioiTinh = cmbLoc.getSelectedItem().toString();
@@ -579,11 +578,11 @@ public class DSBenhNhan extends javax.swing.JPanel {
             String maBenhNhan = txtMaBenhNhan.getText();
             if (maBenhNhan.isEmpty()) {
                 DialogHelper.showError("Chưa có bệnh nhân được chọn");
+            } else if (BenhNhanCtrl.kiemTraBenhNhanDaKhamBenh(maBenhNhan)) {
+                DialogHelper.showError("Bệnh nhân đã khám bệnh, không thể xóa");
             } else {
-                boolean flag = DialogHelper.showConfirmation("Bạn có chắc muốn xóa bệnh nhân này");
-
-                if (flag) {
-                    BenhNhanCtrl.XoaBenhNhan(maBenhNhan);
+                if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa bệnh nhân này")) {
+                    BenhNhanCtrl.xoaBenhNhan(maBenhNhan);
                     DialogHelper.showMessage("Xóa bệnh nhân thành công!");
                     lamMoiTTBenhNhan();
                     hienThiTatCaBenhNhan();
@@ -624,7 +623,7 @@ public class DSBenhNhan extends javax.swing.JPanel {
     private void btnXuatDSBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSBenhNhanActionPerformed
         try {
             dsBenhNhan = BenhNhanCtrl.timTatCaBenhNhan();
-            BenhNhanCtrl.xuatFileExcel(dsBenhNhan, "D:\\Workspace Java\\QuanLyPhongKham\\src\\main\\java\\files\\DSBenhNhan.xlsx");
+            BenhNhanCtrl.xuatFileExcel(dsBenhNhan, "src/main/java/ExcelStorage/DSBenhNhan.xlsx");
             DialogHelper.showMessage("Xuất danh sách thành công!");
         } catch (ClassNotFoundException ex) {
             DialogHelper.showError("Đã có lỗi xảy ra");
@@ -634,8 +633,7 @@ public class DSBenhNhan extends javax.swing.JPanel {
 
     private void btnLuuBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuBenhNhanActionPerformed
         try {
-            // TODO add your handling code here:
-            String maBenhNhan = BenhNhanCtrl.generateMaBenhNhan();
+            String maBenhNhan = GenerateCode.generateMa("BN");
             String hoTen = txtHoTen.getText();
             String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
             String namSinh = txtNamSinh.getText();
@@ -669,7 +667,7 @@ public class DSBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showError("CCCD đã tồn tại");
             } else if (!BHYT.isEmpty() && !Validator.isValidBhyt(BHYT)) {
                 DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
-            } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT)) {
+            } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT, maBenhNhan)) {
                 DialogHelper.showError("BHYT đã tồn tại");
             } else {
                 BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
@@ -685,7 +683,6 @@ public class DSBenhNhan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLuuBenhNhanActionPerformed
 
     private void btnSuaBenhnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaBenhnhanActionPerformed
-        // TODO add your handling code here:
         try {
             String maBenhNhan = txtMaBenhNhan.getText();
             String hoTen = txtHoTen.getText();
@@ -718,9 +715,7 @@ public class DSBenhNhan extends javax.swing.JPanel {
             } else if (!BHYT.isEmpty() && !Validator.isValidBhyt(BHYT)) {
                 DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
             } else {
-                boolean flag = DialogHelper.showConfirmation("Bạn có chắc sửa thông tin bệnh nhân này");
-
-                if (flag) {
+                if (DialogHelper.showConfirmation("Bạn có chắc sửa thông tin bệnh nhân này")) {
                     BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
                     BenhNhanCtrl.capNhatBenhNhan(bn);
                     hienThiTatCaBenhNhan();
@@ -768,11 +763,12 @@ public class DSBenhNhan extends javax.swing.JPanel {
 
     private void txtBHYTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBHYTFocusLost
         String bhyt = txtBHYT.getText();
+        String maBenhNhan = txtMaBenhNhan.getText();
         if (!bhyt.isEmpty() && !Validator.isValidBhyt(bhyt)) {
             DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
             txtBHYT.requestFocus();
         } else try {
-            if (!bhyt.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(bhyt)) {
+            if (!bhyt.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(bhyt, maBenhNhan)) {
                 DialogHelper.showError("Bảo hiểm y tế đã tồn tại");
                 txtBHYT.requestFocus();
             }
