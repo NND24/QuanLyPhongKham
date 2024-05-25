@@ -6,31 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.KhoaModel;
+import utils.GenerateCode;
 
 public class KhoaCtrl {
-
-    public static String generateMaKhoa() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "KH" + timeString + randomNumber;
-        return randomString;
-    }
 
     public static List<KhoaModel> hienThiTatCa() throws ClassNotFoundException {
         List<KhoaModel> dsKhoa = new ArrayList<>();
@@ -50,7 +33,7 @@ public class KhoaCtrl {
         }
         return dsKhoa;
     }
-    
+
     public static List<KhoaModel> hienThiCacKhoaConHoatDong() throws ClassNotFoundException {
         List<KhoaModel> dsKhoa = new ArrayList<>();
         try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
@@ -75,7 +58,7 @@ public class KhoaCtrl {
     public static void themKhoa(KhoaModel khoa) throws ClassNotFoundException {
         String sql = "INSERT INTO KHOA(MaKhoa, TenKhoa, TrangThai) VALUES (?, ?, ?)";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-            String maKhoa = generateMaKhoa();
+            String maKhoa = GenerateCode.generateMa("KH");
             statement.setString(1, maKhoa);
             statement.setString(2, khoa.getTenKhoa());
             statement.setString(3, khoa.getTrangThai());

@@ -7,20 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.Collator;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.QuanLyModel;
 import utils.GenerateCode;
 
 public class QuanLyCtrl {
-  
+
     public static List<QuanLyModel> hienThiTatCa() throws ClassNotFoundException {
         List<QuanLyModel> dsQuanLy = new ArrayList<>();
         try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
@@ -54,7 +51,7 @@ public class QuanLyCtrl {
                 String maQuanLy = GenerateCode.generateMa("QL");
                 String email = GenerateCode.generateEmail(maQuanLy, "manager");
                 String password = GenerateCode.generatePassword(maQuanLy, quanLy.getNamSinh());
-                
+
                 TaiKhoanCtrl.themTaiKhoan(email, "QL", password);
                 statement.setString(1, maQuanLy);
                 statement.setString(2, email);
@@ -87,7 +84,7 @@ public class QuanLyCtrl {
         }
         return flag;
     }
-    
+
     public static boolean kiemTraCanCuocCoTonTai(String canCuoc) throws ClassNotFoundException {
         boolean flag = false;
         String sql = "SELECT * FROM QUANLY WHERE CanCuoc=? AND TrangThaiXoa=0";
@@ -102,7 +99,7 @@ public class QuanLyCtrl {
         }
         return flag;
     }
-    
+
     public static boolean kiemTraCanCuocCoTonTai_CapNhat(String canCuoc, String maQuanLy) throws ClassNotFoundException {
         boolean flag = false;
         String sql = "SELECT * FROM QUANLY WHERE CanCuoc=? AND MaQuanLy!=? AND TrangThaiXoa=0";
@@ -149,12 +146,12 @@ public class QuanLyCtrl {
             Logger.getLogger(QuanLyCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static List<QuanLyModel> timKiemQuanLy(String tuKhoa) throws ClassNotFoundException {
         List<QuanLyModel> ketQua = new ArrayList<>();
         String sql = "SELECT * FROM QUANLY WHERE TrangThaiXoa=0 "
-                    + "AND(MaQuanLy LIKE ? OR Email LIKE ? OR HoTen LIKE ? OR GioiTinh LIKE ? OR NamSinh LIKE ? OR DiaChi LIKE ? OR SoDienThoai LIKE ? OR CanCuoc LIKE ?)";
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
+                + "AND(MaQuanLy LIKE ? OR Email LIKE ? OR HoTen LIKE ? OR GioiTinh LIKE ? OR NamSinh LIKE ? OR DiaChi LIKE ? OR SoDienThoai LIKE ? OR CanCuoc LIKE ?)";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             String keyword = "%" + tuKhoa + "%";
             statement.setString(1, keyword);
             statement.setString(2, keyword);
@@ -181,10 +178,10 @@ public class QuanLyCtrl {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return ketQua;
     }
-    
+
     public static List<QuanLyModel> sapXepTheoTen_AZ() throws ClassNotFoundException {
         List<QuanLyModel> dsQuanLy = hienThiTatCa();
         Collator collator = Collator.getInstance();
@@ -198,7 +195,7 @@ public class QuanLyCtrl {
         Collections.reverse(dsQuanLy);
         return dsQuanLy;
     }
-    
+
     public static List<QuanLyModel> sapXepTheoNamSinh_TangDan() throws ClassNotFoundException {
         List<QuanLyModel> dsQuanLy = hienThiTatCa();
         dsQuanLy.sort(Comparator.comparing(QuanLyModel::getNamSinh));

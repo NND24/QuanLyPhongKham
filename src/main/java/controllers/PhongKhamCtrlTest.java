@@ -8,11 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.PhongKhamModelTest;
@@ -73,48 +70,6 @@ public class PhongKhamCtrlTest {
         }
     }
 
-    public static List<PhongKhamModelTest> laySoLuong() throws ClassNotFoundException {
-        List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
-
-        try (Connection connection = ConnectDB.getConnection(); Statement statement = connection.createStatement()) {
-
-            String sql = "SELECT MaPhongKham, COUNT(MaPhongKham) AS SoLuongBenhNhan FROM DANGKY WHERE TrangThai=N'Đợi khám' GROUP BY MaPhongKham";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()) {
-                PhongKhamModelTest pk = new PhongKhamModelTest(
-                        resultSet.getString("MaPhongKham"),
-                        resultSet.getInt("SoLuongBenhNhan"));
-                dsPhongKham.add(pk);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return dsPhongKham;
-    }
-
-    public static void capNhatSoLuong() throws ClassNotFoundException {
-        try (Connection connection = ConnectDB.getConnection()) {
-            List<PhongKhamModelTest> dsSoLuong = laySoLuong();
-
-            for (PhongKhamModelTest sl : dsSoLuong) {
-                try {
-                    String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan=? WHERE MaPhongKham=?";
-                    try (PreparedStatement updateStatement = connection.prepareStatement(sql)) {
-                        updateStatement.setInt(1, sl.getSoLuongBenhNhan());
-                        updateStatement.setString(2, sl.getMaPhongKham());
-                        updateStatement.executeUpdate();
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PhongKhamCtrlTest.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     public static void capNhatLaiSoLuong(String maPhongKham) throws ClassNotFoundException {
         String sql = "UPDATE PHONGKHAM SET SoLuongBenhNhan=0 WHERE MaPhongKham=?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -128,16 +83,6 @@ public class PhongKhamCtrlTest {
     public static void themSoLuong(String maPhongKham) throws ClassNotFoundException {
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
                 "UPDATE PHONGKHAM SET SoLuongBenhNhan = (CASE WHEN SoLuongBenhNhan + 1 = 51 THEN 0 ELSE SoLuongBenhNhan + 1 END) WHERE MaPhongKham=?")) {
-            statement.setString(1, maPhongKham);
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void botSoLuong(String maPhongKham) throws ClassNotFoundException {
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(
-                "UPDATE PHONGKHAM SET SoLuongBenhNhan = CASE WHEN SoLuongBenhNhan <= 0 THEN 0 ELSE SoLuongBenhNhan - 1 END WHERE MaPhongKham=?")) {
             statement.setString(1, maPhongKham);
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -202,18 +147,5 @@ public class PhongKhamCtrlTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static String generateMaPhongKham() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "PK" + timeString + randomNumber;
-        return randomString;
     }
 }

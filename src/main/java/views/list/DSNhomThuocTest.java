@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import models.NhomThuocModel;
 import controllers.NhomThuocCtrl;
 import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class DSNhomThuocTest extends javax.swing.JFrame {
 
@@ -309,7 +310,7 @@ public class DSNhomThuocTest extends javax.swing.JFrame {
             DialogHelper.showError("tên nhóm thuốc không được bỏ trống");
         } else {
             try {
-                String maNhomThuoc = NhomThuocCtrl.generateMaNhomThuoc();
+                String maNhomThuoc = GenerateCode.generateMa("NT");
                 String tenNhomThuoc = txtTenNhomThuoc.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
                 NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);

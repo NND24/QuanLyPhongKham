@@ -14,7 +14,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.GiuongBenhModel;
-import models.PhongBenhModel;
 
 /**
  *
@@ -162,7 +161,7 @@ public class GiuongBenhCtrl {
             Logger.getLogger(GiuongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void khoiPhucTrangThaiGiuong(String maGiuong) throws ClassNotFoundException {
         String sql = "UPDATE GIUONGBENH SET CoNguoi = ? WHERE MaGiuong = ?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {

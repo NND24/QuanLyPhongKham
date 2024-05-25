@@ -124,17 +124,4 @@ public class NhomDichVuKhamBenhCtrlTest {
             e.printStackTrace();
         }
     }
-
-    public static String generateMaNhomDichVuKhamBenh() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "NDVK" + timeString + randomNumber;
-        return randomString;
-    }
 }

@@ -918,7 +918,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 DialogHelper.showMessage("Lưu thông tin đăng ký thành công!");
 
                 txtMaDangKy.setText(maDangKy);
-                String maKhamLamSang = KhamLamSangCtrl.generateMaKhamLamSang();
+                String maKhamLamSang = GenerateCode.generateMa("KLS");
                 KhamLamSangCtrl.themMaKhamLamSang(maKhamLamSang);
 
                 String maBenhAn = GenerateCode.generateMa("BA");

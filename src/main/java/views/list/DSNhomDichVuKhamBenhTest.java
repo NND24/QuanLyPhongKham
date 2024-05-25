@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import models.NhomDichVuKhamBenhModelTest;
 import controllers.NhomDichVuKhamBenhCtrlTest;
 import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class DSNhomDichVuKhamBenhTest extends javax.swing.JFrame {
 
@@ -310,7 +311,7 @@ public class DSNhomDichVuKhamBenhTest extends javax.swing.JFrame {
             DialogHelper.showError("Nhóm dịch vụ đã tồn tại");
         } else {
             try {
-                String maNhomDichVu = NhomDichVuKhamBenhCtrlTest.generateMaNhomDichVuKhamBenh();
+                String maNhomDichVu = GenerateCode.generateMa("NDVK");
                 String tenNhomDichVu = txtTenNhomDichVu.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
 
