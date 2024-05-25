@@ -8,11 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.DichVuKhamBenhModelTest;
@@ -199,18 +196,5 @@ public class DichVuKhamBenhCtrlTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static String generateMaDichVuKhamBenh() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "DVKB" + timeString + randomNumber;
-        return randomString;
     }
 }

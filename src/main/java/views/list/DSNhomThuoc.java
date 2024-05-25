@@ -360,38 +360,38 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        try{
+        try {
             String maNhomThuoc = txtMaNhomThuoc.getText();
             String tenNhomThuoc = txtTenNhomThuoc.getText();
             String trangThai = cmbTrangThai.getSelectedItem().toString();
 
-            if(tenNhomThuoc.isEmpty()){
+            if (tenNhomThuoc.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "tên nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            }else if (maNhomThuoc.isEmpty()){
+            } else if (maNhomThuoc.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "mã nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            }else{
-                String options[] = {"Đồng ý","Thoát"};
+            } else {
+                String options[] = {"Đồng ý", "Thoát"};
                 int option = JOptionPane.showOptionDialog(
-                            null,
-                            "Bạn có chắc muốn sửa nhóm thuốc này",
-                            "Cảnh báo",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null,
-                            options,
-                            options[1]
-                    );
+                        null,
+                        "Bạn có chắc muốn sửa nhóm thuốc này",
+                        "Cảnh báo",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[1]
+                );
                 if (option == 0) {
-                        NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
-                        NhomThuocCtrl.CapNhatNhomThuoc(nt);
-                        JOptionPane.showMessageDialog(null, "Sửa nhóm thuốc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                        lamMoi();
-                        hienThiTatCaNhomThuoc();
-                    }
+                    NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
+                    NhomThuocCtrl.CapNhatNhomThuoc(nt);
+                    JOptionPane.showMessageDialog(null, "Sửa nhóm thuốc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    lamMoi();
+                    hienThiTatCaNhomThuoc();
+                }
             }
-        }catch(ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
-        }          
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void cmbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTrangThaiActionPerformed

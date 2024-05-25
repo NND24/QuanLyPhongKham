@@ -10,6 +10,7 @@ import controllers.ThuocCtrl;
 import models.NhomThuocModel;
 import controllers.NhomThuocCtrl;
 import utils.DialogHelper;
+import utils.GenerateCode;
 import utils.Validator;
 
 public class DSThuoc extends javax.swing.JPanel {
@@ -574,7 +575,7 @@ public class DSThuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_tblDSThuocMouseClicked
 
     private void btnThemThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemThuocActionPerformed
-        String maThuoc = ThuocCtrl.generateMaThuoc();
+        String maThuoc = GenerateCode.generateMa("T");
         String tenThuoc = txtTenThuoc.getText();
         String tenHoatChat = txtTenHoaChat.getText();
         String duongDung = txtDuongDung.getText();

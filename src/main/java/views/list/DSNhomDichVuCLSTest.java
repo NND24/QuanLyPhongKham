@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import models.NhomDichVuCLSModelTest;
 import controllers.NhomDichVuCLSCtrlTest;
 import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class DSNhomDichVuCLSTest extends javax.swing.JFrame {
 
@@ -315,7 +316,7 @@ public class DSNhomDichVuCLSTest extends javax.swing.JFrame {
             DialogHelper.showError("Nhóm dịch vụ đã tồn tại");
         } else {
             try {
-                String maNhomDichVuCLS = NhomDichVuCLSCtrlTest.generateMaNhomDichVuCLS();
+                String maNhomDichVuCLS = GenerateCode.generateMa("NDVC");
                 String tenNhomDichVuCLS = txtTenNhomDichVuCLS.getText();
                 String trangThai = cmbtrangthai.getSelectedItem().toString();
 

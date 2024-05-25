@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import models.PhongKhamModelTest;
 import controllers.PhongKhamCtrlTest;
 import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class DSPhongKhamTest extends javax.swing.JFrame {
 
@@ -305,7 +306,7 @@ public class DSPhongKhamTest extends javax.swing.JFrame {
             DialogHelper.showError("Phòng khám đã tồn tại");
         } else {
             try {
-                String maPhongKham = PhongKhamCtrlTest.generateMaPhongKham();
+                String maPhongKham = GenerateCode.generateMa("PK");
                 String tenPhongKham = txtTenPhongKham.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
 

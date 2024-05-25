@@ -5,11 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.DonThuocModel;
@@ -117,18 +114,5 @@ public class DonThuocCtrl {
         } catch (SQLException ex) {
             Logger.getLogger(DonThuocCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public static String generateMaDonThuoc() {
-        Date now = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
-        String timeString = dateFormat.format(now);
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(10000);
-
-        String randomString = "DT" + timeString + randomNumber;
-        return randomString;
     }
 }

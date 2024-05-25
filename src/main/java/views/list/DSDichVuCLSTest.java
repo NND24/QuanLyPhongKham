@@ -10,6 +10,7 @@ import models.NhomDichVuCLSModelTest;
 import controllers.DichVuCLSCtrlTest;
 import controllers.NhomDichVuCLSCtrlTest;
 import utils.DialogHelper;
+import utils.GenerateCode;
 import utils.Validator;
 
 public class DSDichVuCLSTest extends javax.swing.JFrame {
@@ -405,7 +406,7 @@ public class DSDichVuCLSTest extends javax.swing.JFrame {
             DialogHelper.showError("Giá bảo hiểm không được để trống");
         } else {
             try {
-                String maDichVu = DichVuCLSCtrlTest.generateMaDichVuCLS();
+                String maDichVu = GenerateCode.generateMa("DVC");
                 String tenDichVu = txtTenDichVu.getText();
                 String maNhomDichVu = cmbNhomDichVu.getSelectedItem().toString();
                 int giaTien = Integer.parseInt(txtGiaTien.getText());

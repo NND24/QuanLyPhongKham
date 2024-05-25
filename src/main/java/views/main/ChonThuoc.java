@@ -24,6 +24,7 @@ import models.ThuocModel;
 import pdfForm.GenerateDonThuoc;
 import utils.Validator;
 import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class ChonThuoc extends javax.swing.JPanel {
 
@@ -610,7 +611,7 @@ public class ChonThuoc extends javax.swing.JPanel {
             } else if (!txtToi.getText().isEmpty() && !Validator.isIntegerString(txtToi.getText())) {
                 DialogHelper.showError("Tối không hợp lệ");
             } else {
-                String maDonThuoc = DonThuocCtrl.generateMaDonThuoc();
+                String maDonThuoc = GenerateCode.generateMa("DT");
                 String tenThuoc = txtTenThuoc.getText();
                 String duongDung = txtDuongDung.getText();
                 String cachDung = txtCachDung.getText();
