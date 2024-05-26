@@ -91,11 +91,11 @@ public class KhamLamSangCtrl {
         List<KhamLamSangModel> dsKhamLamSan = new ArrayList<>();
         String sql = """
                     SELECT TenDichVuKB, GiaTien, GiaBaoHiem, BHYT
-                    FROM BENHAN, KHAMLAMSANG, DICHVUKB, BENHNHAN
-                    WHERE BENHAN.MaKhamLamSang=KHAMLAMSANG.MaKhamLamSang AND
-                    KHAMLAMSANG.MaKhamLamSang=DICHVUKB.MaDichVuKB AND
-                    BENHAN.MaBenhNhan=BENHNHAN.MaBenhNhan AND
-                    BENHAN.MaBenhAn=?
+                    FROM BENHAN
+                    JOIN BENHNHAN ON BENHNHAN.MaBenhNhan = BENHAN.MaBenhNhan
+                    JOIN DANGKY ON BENHAN.MaDangKy = DANGKY.MaDangKy
+                    JOIN DICHVUKB ON DICHVUKB.MaDichVuKB = DANGKY.MaDichVuKB
+                    WHERE BENHAN.MaBenhAn=?
                      """;
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -108,7 +108,7 @@ public class KhamLamSangCtrl {
                         : resultSet.getString("GiaBaoHiem");
 
                 KhamLamSangModel bn = new KhamLamSangModel(
-                        resultSet.getString("TenDichVu"), giaTien);
+                        resultSet.getString("TenDichVuKB"), giaTien);
                 dsKhamLamSan.add(bn);
             }
         } catch (SQLException ex) {

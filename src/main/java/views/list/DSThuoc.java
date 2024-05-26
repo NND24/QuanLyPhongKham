@@ -28,6 +28,8 @@ public class DSThuoc extends javax.swing.JPanel {
             hienThiTatThuoc();
             hienThiDSNhomThuoc();
 
+            cmbNhomThuoc.setSelectedItem("---Nhóm thuốc---");
+            cmbTKNhomThuoc.setSelectedItem("---Nhóm thuốc---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,18 +38,17 @@ public class DSThuoc extends javax.swing.JPanel {
     private void hienThiDSNhomThuoc() {
         try {
             cmbNhomThuoc.removeAllItems();
-            cmbNhomThuoc.addItem("---Nhóm thuốc---");
             cmbTKNhomThuoc.removeAllItems();
-            cmbTKNhomThuoc.addItem("---Nhóm thuốc---");
 
             dsNhomThuoc = NhomThuocCtrl.timTatCaNhomThuoc();
             dsNhomThuoc.forEach(nt -> {
                 if (nt.getTrangThai().equals("Kích hoạt")) {
-                    String nhomThuoc = nt.getMaNhomThuoc() + " " + nt.getTenNhomThuoc();
-                    cmbNhomThuoc.addItem(nhomThuoc);
-                    cmbTKNhomThuoc.addItem(nhomThuoc);
+                    cmbNhomThuoc.addItem(nt.getTenNhomThuoc());
+                    cmbTKNhomThuoc.addItem(nt.getTenNhomThuoc());
                 }
             });
+            cmbNhomThuoc.addItem("---Nhóm thuốc---");
+            cmbTKNhomThuoc.addItem("---Nhóm thuốc---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,7 +69,8 @@ public class DSThuoc extends javax.swing.JPanel {
     private void lamMoi() {
         txtMaThuoc.setText("");
         txtTenThuoc.setText("");
-        cmbNhomThuoc.setSelectedIndex(0);
+        cmbNhomThuoc.setSelectedItem("---Nhóm thuốc---");
+        cmbTKNhomThuoc.setSelectedItem("---Nhóm thuốc---");
         txtTenHoaChat.setText("");
         txtDuongDung.setText("");
         txthamLuong.setText("");
@@ -561,7 +563,7 @@ public class DSThuoc extends javax.swing.JPanel {
             txtMaThuoc.setText(thuoc.getMaThuoc());
             txtTenThuoc.setText(thuoc.getTenThuoc());
             txtTenHoaChat.setText(thuoc.getTenHoatChat());
-            cmbNhomThuoc.setSelectedItem(thuoc.getMaNhomThuoc() + " " + thuoc.getTenNhomThuoc());
+            cmbNhomThuoc.setSelectedItem(thuoc.getTenNhomThuoc());
             txtDuongDung.setText(thuoc.getDuongDung());
             txthamLuong.setText(thuoc.getHamLuong());
             txtSoDangKy.setText(thuoc.getSoDangKy());
@@ -692,9 +694,9 @@ public class DSThuoc extends javax.swing.JPanel {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         try {
-            lamMoi();
             hienThiDSNhomThuoc();
             hienThiTatThuoc();
+            lamMoi();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -754,7 +756,9 @@ public class DSThuoc extends javax.swing.JPanel {
                 if (nhomThuoc.equals("---Nhóm thuốc---")) {
                     hienThiTatThuoc();
                 } else {
-                    dsThuoc = ThuocCtrl.timThuocTheoNhomThuoc(nhomThuoc.split(" ")[0]);
+                    int nhomThuocIndex = cmbTKNhomThuoc.getSelectedIndex();
+                    String maNhomThuoc = dsNhomThuoc.get(nhomThuocIndex).getMaNhomThuoc();
+                    dsThuoc = ThuocCtrl.timThuocTheoNhomThuoc(maNhomThuoc);
                     tableModel.setRowCount(0);
 
                     dsThuoc.forEach(thuoc -> {

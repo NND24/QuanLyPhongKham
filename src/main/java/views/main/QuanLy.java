@@ -215,7 +215,7 @@ public class QuanLy extends javax.swing.JFrame {
         });
         jMenuBar1.add(mniQuanLyBenhNhan);
 
-        mniQuanLyVienPhi.setText("Quản lý bệnh nhân");
+        mniQuanLyVienPhi.setText("Quản lý viện phí");
         mniQuanLyVienPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyVienPhi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

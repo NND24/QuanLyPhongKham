@@ -61,10 +61,8 @@ public class TaiKhoanCaNhan extends javax.swing.JPanel {
             String duongDan = taiKhoanCaNhan.getAnh();
             if (duongDan.isEmpty() || duongDan == null) {
                 showImageOnLabel(defaultPath);
-                System.out.println("1");
             } else {
                 showImageOnLabel(taiKhoanCaNhan.getAnh());
-                System.out.println(taiKhoanCaNhan.getAnh());
             }
         }
 
