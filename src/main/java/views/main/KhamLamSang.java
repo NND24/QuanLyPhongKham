@@ -152,7 +152,7 @@ public class KhamLamSang extends javax.swing.JPanel {
         btnNhapMoi = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1100, 500));
+        setPreferredSize(new java.awt.Dimension(1107, 437));
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 formMouseMoved(evt);
@@ -490,7 +490,7 @@ public class KhamLamSang extends javax.swing.JPanel {
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                             .addComponent(jScrollPane4)
                             .addComponent(jScrollPane9))))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -581,7 +581,7 @@ public class KhamLamSang extends javax.swing.JPanel {
                         .addComponent(jLabel56)
                         .addGap(0, 0, 0)
                         .addComponent(jLabel59)))
-                .addGap(99, 99, 99))
+                .addGap(93, 93, 93))
         );
     }// </editor-fold>//GEN-END:initComponents
 

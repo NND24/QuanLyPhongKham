@@ -61,11 +61,11 @@ public class KetQuaCLS extends javax.swing.JPanel {
         txtMaDichVu = new javax.swing.JTextField();
         btnLamMoi = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(1100, 500));
+        setPreferredSize(new java.awt.Dimension(1107, 437));
 
         TongChiDinhPanel.setBackground(new java.awt.Color(255, 255, 255));
         TongChiDinhPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        TongChiDinhPanel.setPreferredSize(new java.awt.Dimension(1100, 500));
+        TongChiDinhPanel.setPreferredSize(new java.awt.Dimension(1107, 437));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel20.setText("Mã dịch vụ");
@@ -82,7 +82,7 @@ public class KetQuaCLS extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(965, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,10 +171,7 @@ public class KetQuaCLS extends javax.swing.JPanel {
         TongChiDinhPanel.setLayout(TongChiDinhPanelLayout);
         TongChiDinhPanelLayout.setHorizontalGroup(
             TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TongChiDinhPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1097, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
             .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -195,7 +192,9 @@ public class KetQuaCLS extends javax.swing.JPanel {
                     .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
                         .addComponent(btnLuuKetQua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
-                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
         );
         TongChiDinhPanelLayout.setVerticalGroup(
             TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +220,7 @@ public class KetQuaCLS extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -216,9 +216,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTrangThaiActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -351,7 +348,7 @@
                       <EmptySpace pref="209" max="32767" attributes="0"/>
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txttimKiem" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="txtTimKiem" min="-2" pref="130" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -362,7 +359,7 @@
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txttimKiem" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="txtTimKiem" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -379,9 +376,9 @@
                 <Property name="text" type="java.lang.String" value="DANH S&#xc1;CH NH&#xd3;M THU&#x1ed0;C"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txttimKiem">
+            <Component class="javax.swing.JTextField" name="txtTimKiem">
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txttimKiemKeyTyped"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTimKiemKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">

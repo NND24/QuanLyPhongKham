@@ -5,12 +5,12 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
-import views.list.DSDichVuCLSTest;
-import views.list.DSDichVuKhamBenhTest;
+import views.list.DSDichVuCLS;
+import views.list.DSDichVuKhamBenh;
 import views.list.DSDonGiaPhongBenh;
 import views.list.DSKhoa;
-import views.list.DSNhomDichVuCLSTest;
-import views.list.DSNhomDichVuKhamBenhTest;
+import views.list.DSNhomDichVuCLS;
+import views.list.DSNhomDichVuKhamBenh;
 import views.list.DSNhomThuoc;
 
 public class QuanLy extends javax.swing.JFrame {
@@ -460,23 +460,23 @@ public class QuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_mniQuanLyNhomThuocActionPerformed
 
     private void mniQuanLyNhomDVKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomDVKBActionPerformed
-        new DSNhomDichVuKhamBenhTest().setVisible(true);
-        new DSNhomDichVuKhamBenhTest().setAlwaysOnTop(true);
+        new DSNhomDichVuKhamBenh().setVisible(true);
+        new DSNhomDichVuKhamBenh().setAlwaysOnTop(true);
     }//GEN-LAST:event_mniQuanLyNhomDVKBActionPerformed
 
     private void mniQuanLyDVKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyDVKBActionPerformed
-        new DSDichVuKhamBenhTest().setVisible(true);
-        new DSDichVuKhamBenhTest().setAlwaysOnTop(true);
+        new DSDichVuKhamBenh().setVisible(true);
+        new DSDichVuKhamBenh().setAlwaysOnTop(true);
     }//GEN-LAST:event_mniQuanLyDVKBActionPerformed
 
     private void mniQuanLyNhomDVCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhomDVCLSActionPerformed
-        new DSNhomDichVuCLSTest().setVisible(true);
-        new DSNhomDichVuCLSTest().setAlwaysOnTop(true);
+        new DSNhomDichVuCLS().setVisible(true);
+        new DSNhomDichVuCLS().setAlwaysOnTop(true);
     }//GEN-LAST:event_mniQuanLyNhomDVCLSActionPerformed
 
     private void mniQuanLyDVCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyDVCLSActionPerformed
-        new DSDichVuCLSTest().setVisible(true);
-        new DSDichVuCLSTest().setAlwaysOnTop(true);
+        new DSDichVuCLS().setVisible(true);
+        new DSDichVuCLS().setAlwaysOnTop(true);
     }//GEN-LAST:event_mniQuanLyDVCLSActionPerformed
 
     private void mniQuanLyTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanActionPerformed

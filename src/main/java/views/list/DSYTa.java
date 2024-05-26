@@ -120,7 +120,7 @@ public class DSYTa extends javax.swing.JPanel {
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1360, 660));
+        setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -438,7 +438,7 @@ public class DSYTa extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -448,14 +448,14 @@ public class DSYTa extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1389, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -522,7 +522,7 @@ public class DSYTa extends javax.swing.JPanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -611,7 +611,7 @@ public class DSYTa extends javax.swing.JPanel {
             YTaCtrl.exportToExcel(dsYTa, "src/main/java/ExcelStorage/DSYTa.xlsx");
             DialogHelper.showError("Xuất file thành công");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSBacSi.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXuatActionPerformed
 

@@ -1,25 +1,24 @@
 package models;
 
-public class DichVuKhamBenhModel {
+public class DichVuKhamBenhModel extends NhomDichVuKhamBenhModel {
 
-    private String maDichVuKB, tenDichVuKB, maNhomDichVuKB, tenNhomDichVuKB;
+    private String maDichVuKB, tenDichVuKB;
     private int giaTien, giaBaoHiem;
     private String trangThai;
 
-    public DichVuKhamBenhModel(String maDichVuKB, String tenDichVuKB, String maNhomDichVuKB, String tenNhomDichVuKB, int giaTien, int giaBaoHiem, String trangThai) {
+    public DichVuKhamBenhModel(String maDichVuKB, String tenDichVuKB, int giaTien, int giaBaoHiem, String trangThai, String maNhomDichVuKB) {
+        super(maNhomDichVuKB);
         this.maDichVuKB = maDichVuKB;
         this.tenDichVuKB = tenDichVuKB;
-        this.maNhomDichVuKB = maNhomDichVuKB;
-        this.tenNhomDichVuKB = tenNhomDichVuKB;
         this.giaTien = giaTien;
         this.giaBaoHiem = giaBaoHiem;
         this.trangThai = trangThai;
     }
 
-    public DichVuKhamBenhModel(String maDichVuKB, String tenDichVuKB, String maNhomDichVuKB, int giaTien, int giaBaoHiem, String trangThai) {
+    public DichVuKhamBenhModel(String maDichVuKB, String tenDichVuKB, int giaTien, int giaBaoHiem, String trangThai, String maNhomDichVuKB, String tenNhomDichVuKB) {
+        super(maNhomDichVuKB, tenNhomDichVuKB);
         this.maDichVuKB = maDichVuKB;
         this.tenDichVuKB = tenDichVuKB;
-        this.maNhomDichVuKB = maNhomDichVuKB;
         this.giaTien = giaTien;
         this.giaBaoHiem = giaBaoHiem;
         this.trangThai = trangThai;
@@ -39,22 +38,6 @@ public class DichVuKhamBenhModel {
 
     public void setTenDichVuKB(String tenDichVuKB) {
         this.tenDichVuKB = tenDichVuKB;
-    }
-
-    public String getMaNhomDichVuKB() {
-        return maNhomDichVuKB;
-    }
-
-    public void setMaNhomDichVuKB(String maNhomDichVuKB) {
-        this.maNhomDichVuKB = maNhomDichVuKB;
-    }
-
-    public String getTenNhomDichVuKB() {
-        return tenNhomDichVuKB;
-    }
-
-    public void setTenNhomDichVuKB(String tenNhomDichVuKB) {
-        this.tenNhomDichVuKB = tenNhomDichVuKB;
     }
 
     public int getGiaTien() {

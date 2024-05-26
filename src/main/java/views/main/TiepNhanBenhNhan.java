@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
-import models.NhomDichVuKhamBenhModelTest;
-import models.DichVuKhamBenhModelTest;
-import models.PhongKhamModelTest;
+import models.NhomDichVuKhamBenhModel;
+import models.DichVuKhamBenhModel;
+import models.PhongKhamModel;
 import models.BenhNhanModel;
 import models.DangKyModel;
 import models.BenhAnModel;
@@ -18,9 +18,9 @@ import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
 import controllers.KhamLamSangCtrl;
 import controllers.BenhAnCtrl;
-import controllers.DichVuKhamBenhCtrlTest;
-import controllers.NhomDichVuKhamBenhCtrlTest;
-import controllers.PhongKhamCtrlTest;
+import controllers.DichVuKhamBenhCtrl;
+import controllers.NhomDichVuKhamBenhCtrl;
+import controllers.PhongKhamCtrl;
 import pdfForm.GeneratePhieuKham;
 import utils.Validator;
 import utils.DialogHelper;
@@ -31,9 +31,9 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     DefaultTableModel tableModel;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     List<BenhNhanModel> dsBenhNhan = new ArrayList<>();
-    List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
-    List<NhomDichVuKhamBenhModelTest> dsNhomDichVu = new ArrayList<>();
-    List<DichVuKhamBenhModelTest> dsDichVu = new ArrayList<>();
+    List<PhongKhamModel> dsPhongKham = new ArrayList<>();
+    List<NhomDichVuKhamBenhModel> dsNhomDichVu = new ArrayList<>();
+    List<DichVuKhamBenhModel> dsDichVu = new ArrayList<>();
 
     public TiepNhanBenhNhan() {
         try {
@@ -69,7 +69,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void hienThiDSPhongKham() {
         try {
             cmbPhongKham.removeAllItems();
-            dsPhongKham = PhongKhamCtrlTest.timTatCaPhongKham();
+            dsPhongKham = PhongKhamCtrl.timTatCaPhongKham();
             dsPhongKham.forEach(pk -> {
                 cmbPhongKham.addItem(pk.getTenPhongKham() + " " + pk.getSoLuongBenhNhan());
             });
@@ -81,7 +81,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void hienThiDSNhomDichVu() {
         try {
             cmbNhomDichVu.removeAllItems();
-            dsNhomDichVu = NhomDichVuKhamBenhCtrlTest.timTatNhomDichVuKhamBenh();
+            dsNhomDichVu = NhomDichVuKhamBenhCtrl.timTatNhomDichVuKhamBenh();
             dsNhomDichVu.forEach(ndv -> {
                 cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
             });
@@ -189,11 +189,11 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         tblDSBenhNhan = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1360, 592));
+        setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 592));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel2.setPreferredSize(new java.awt.Dimension(88, 35));
 
@@ -789,7 +789,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                         .addComponent(jLabel25)
                         .addComponent(txtThuTuKham, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -924,7 +924,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 String maBenhAn = GenerateCode.generateMa("BA");
                 BenhAnModel ba = new BenhAnModel(maBenhAn, maDangKy, maKhamLamSang, maBenhNhan);
                 BenhAnCtrl.themBenhAn(ba);
-                PhongKhamCtrlTest.themSoLuong(maPhongKham);
+                PhongKhamCtrl.themSoLuong(maPhongKham);
                 hienThiDSPhongKham();
             }
         } catch (ClassNotFoundException ex) {
@@ -1115,7 +1115,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
                 String maNhomDichVu = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
                 cmbDichVu.removeAllItems();
-                dsDichVu = DichVuKhamBenhCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVu);
+                dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVu);
                 dsDichVu.forEach(dv -> {
                     cmbDichVu.addItem(dv.getTenDichVuKB());
                 });
@@ -1199,7 +1199,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                     int phongKhamIndex = cmbPhongKham.getSelectedIndex();
                     String maPhongKham = dsPhongKham.get(phongKhamIndex).getMaPhongKham();
 
-                    PhongKhamCtrlTest.capNhatLaiSoLuong(maPhongKham);
+                    PhongKhamCtrl.capNhatLaiSoLuong(maPhongKham);
                     DialogHelper.showMessage("Làm mới thành công");
                 }
             }

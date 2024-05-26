@@ -3,13 +3,13 @@ package models;
 public class PhongKhamModel {
 
     private String maPhongKham, tenPhongKham, trangThai;
-    private int soLuong;
+    private int soLuongBenhNhan;
 
-    public PhongKhamModel(String maPhongKham, String tenPhongKham, String trangThai, int soLuong) {
+    public PhongKhamModel(String maPhongKham, String tenPhongKham, String trangThai, int soLuongBenhNhan) {
         this.maPhongKham = maPhongKham;
         this.tenPhongKham = tenPhongKham;
         this.trangThai = trangThai;
-        this.soLuong = soLuong;
+        this.soLuongBenhNhan = soLuongBenhNhan;
     }
 
     public PhongKhamModel(String maPhongKham, String tenPhongKham, String trangThai) {
@@ -18,17 +18,17 @@ public class PhongKhamModel {
         this.trangThai = trangThai;
     }
 
-    public PhongKhamModel(String maPhongKham, int soLuong) {
+    public PhongKhamModel(String maPhongKham, int soLuongBenhNhan) {
         this.maPhongKham = maPhongKham;
-        this.soLuong = soLuong;
+        this.soLuongBenhNhan = soLuongBenhNhan;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public int getSoLuongBenhNhan() {
+        return soLuongBenhNhan;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    public void setSoLuongBenhNhan(int soLuongBenhNhan) {
+        this.soLuongBenhNhan = soLuongBenhNhan;
     }
 
     public String getMaPhongKham() {

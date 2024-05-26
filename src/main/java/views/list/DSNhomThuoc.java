@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import models.NhomThuocModel;
 import controllers.NhomThuocCtrl;
-import javax.swing.JOptionPane;
+import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class DSNhomThuoc extends javax.swing.JFrame {
 
@@ -62,7 +63,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         btnXuatDS = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        txttimKiem = new javax.swing.JTextField();
+        txtTimKiem = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnSua = new javax.swing.JButton();
 
@@ -112,11 +113,6 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         txtMaNhomThuoc.setEditable(false);
 
         cmbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kích hoạt", "Ẩn" }));
-        cmbTrangThai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTrangThaiActionPerformed(evt);
-            }
-        });
 
         btnThem.setBackground(new java.awt.Color(0, 102, 255));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -175,9 +171,9 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("DANH SÁCH NHÓM THUỐC");
 
-        txttimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txttimKiemKeyTyped(evt);
+                txtTimKiemKeyTyped(evt);
             }
         });
 
@@ -191,10 +187,10 @@ public class DSNhomThuoc extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txttimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );
         jPanel6Layout.setVerticalGroup(
@@ -203,7 +199,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txttimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(10, 10, 10))
         );
@@ -301,7 +297,6 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
         try {
             lamMoi();
             hienThiTatCaNhomThuoc();
@@ -311,17 +306,15 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-        String maNhomThuoc = NhomThuocCtrl.generateMaNhomThuoc();
-        String tenNhomThuoc = txtTenNhomThuoc.getText();
-        String trangThai = cmbTrangThai.getSelectedItem().toString();
-
-        if (tenNhomThuoc.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "tên nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        if (txtTenNhomThuoc.getText().isEmpty()) {
+            DialogHelper.showError("tên nhóm thuốc không được bỏ trống");
         } else {
             try {
+                String maNhomThuoc = GenerateCode.generateMa("NT");
+                String tenNhomThuoc = txtTenNhomThuoc.getText();
+                String trangThai = cmbTrangThai.getSelectedItem().toString();
                 NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
-                NhomThuocCtrl.ThemNhomThuoc(nt);
+                NhomThuocCtrl.themNhomThuoc(nt);
                 lamMoi();
                 hienThiTatCaNhomThuoc();
             } catch (ClassNotFoundException ex) {
@@ -335,21 +328,13 @@ public class DSNhomThuoc extends javax.swing.JFrame {
             String maNhomThuoc = txtMaNhomThuoc.getText();
 
             if (maNhomThuoc.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "chưa có nhóm thuốc cần chọn để xóa", "cảnh báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có nhóm thuốc cần chọn để xóa");
+            } else if (NhomThuocCtrl.kiemTraThuocTrongNhomThuocDaDuocSuDung(maNhomThuoc)) {
+                DialogHelper.showError("Thuốc trong nhóm thuốc này đã được sử dụng, không thể xóa");
             } else {
-                String[] options = {"Đồng ý, Thoát"};
-                int option = JOptionPane.showOptionDialog(null,
-                        "Bạn có chắc muốn xóa nhóm thuốc này không",
-                        "Cảnh báo",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[1]
-                );
-                if (option == 0) {
-                    NhomThuocCtrl.XoaNhomThuoc(maNhomThuoc);
-
+                if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa nhóm thuốc này không")) {
+                    NhomThuocCtrl.xoaNhomThuoc(maNhomThuoc);
+                    DialogHelper.showMessage("Xóa nhóm thuốc thành công!");
                     lamMoi();
                     hienThiTatCaNhomThuoc();
                 }
@@ -361,30 +346,19 @@ public class DSNhomThuoc extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
-            String maNhomThuoc = txtMaNhomThuoc.getText();
-            String tenNhomThuoc = txtTenNhomThuoc.getText();
-            String trangThai = cmbTrangThai.getSelectedItem().toString();
-
-            if (tenNhomThuoc.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "tên nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            } else if (maNhomThuoc.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "mã nhóm thuốc không được bỏ trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            if (txtMaNhomThuoc.getText().isEmpty()) {
+                DialogHelper.showError("Mã nhóm thuốc không được để trống!");
+            } else if (txtTenNhomThuoc.getText().isEmpty()) {
+                DialogHelper.showError("Tên nhóm thuốc không được để trống!");
             } else {
-                String options[] = {"Đồng ý", "Thoát"};
-                int option = JOptionPane.showOptionDialog(
-                        null,
-                        "Bạn có chắc muốn sửa nhóm thuốc này",
-                        "Cảnh báo",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[1]
-                );
-                if (option == 0) {
+                if (DialogHelper.showConfirmation("Bạn có chắc muốn sửa nhóm thuốc này")) {
+                    String maNhomThuoc = txtMaNhomThuoc.getText();
+                    String tenNhomThuoc = txtTenNhomThuoc.getText();
+                    String trangThai = cmbTrangThai.getSelectedItem().toString();
+
                     NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
-                    NhomThuocCtrl.CapNhatNhomThuoc(nt);
-                    JOptionPane.showMessageDialog(null, "Sửa nhóm thuốc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    NhomThuocCtrl.capNhatNhomThuoc(nt);
+                    DialogHelper.showMessage("Sửa nhóm thuốc thành công!");
                     lamMoi();
                     hienThiTatCaNhomThuoc();
                 }
@@ -394,12 +368,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void cmbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTrangThaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTrangThaiActionPerformed
-
     private void tblDSNhomThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSNhomThuocMouseClicked
-        // TODO add your handling code here:
         int selectedIndex = tblDSNhomThuoc.getSelectedRow();
         if (selectedIndex >= 0) {
             NhomThuocModel nt = dsNhomThuoc.get(selectedIndex);
@@ -411,13 +380,33 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     }//GEN-LAST:event_tblDSNhomThuocMouseClicked
 
     private void btnXuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSActionPerformed
-        // TODO add your handling code here:
-
+        try {
+            dsNhomThuoc = NhomThuocCtrl.timTatCaNhomThuoc();
+            NhomThuocCtrl.exportToExcel(dsNhomThuoc, "src/main/java/ExcelStorage/DSNhomThuoc.xlsx");
+            DialogHelper.showMessage("Xuất danh sách thành công!");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXuatDSActionPerformed
 
-    private void txttimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKiemKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttimKiemKeyTyped
+    private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
+        try {
+            String timKiem = txtTimKiem.getText();
+            if (timKiem.equals("")) {
+                hienThiTatCaNhomThuoc();
+            } else {
+                dsNhomThuoc = NhomThuocCtrl.timNhomThuocTheoDK(timKiem);
+                tableModel.setRowCount(0);
+
+                dsNhomThuoc.forEach(ndv -> {
+                    tableModel.addRow(new Object[]{ndv.getMaNhomThuoc(), ndv.getTenNhomThuoc(),
+                        ndv.getTrangThai()});
+                });
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txtTimKiemKeyTyped
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -446,6 +435,6 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     private javax.swing.JTable tblDSNhomThuoc;
     private javax.swing.JTextField txtMaNhomThuoc;
     private javax.swing.JTextField txtTenNhomThuoc;
-    private javax.swing.JTextField txttimKiem;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,12 +31,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" max="-2" attributes="0"/>
+          <Component id="jPanel1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -98,11 +98,11 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtGiaTien" min="-2" pref="200" max="-2" attributes="0"/>
                               <Component id="txtTenDichVu" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtTrangThai" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="cmbTrangThai" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
               <Component id="jScrollPane1" max="32767" attributes="0"/>
               <Component id="jPanel6" alignment="0" pref="650" max="32767" attributes="0"/>
@@ -128,7 +128,7 @@
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTrangThai" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="cmbTrangThai" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtGiaBaoHiem" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
@@ -247,7 +247,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtTenDichVu">
         </Component>
-        <Component class="javax.swing.JComboBox" name="txtTrangThai">
+        <Component class="javax.swing.JComboBox" name="cmbTrangThai">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">

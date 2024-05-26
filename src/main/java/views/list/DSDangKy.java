@@ -11,12 +11,12 @@ import models.DangKyBenhNhanModel;
 import controllers.DangKyCtrl;
 import controllers.DangKyBenhNhanCtrl;
 import controllers.BenhAnCtrl;
-import controllers.DichVuKhamBenhCtrlTest;
-import controllers.NhomDichVuKhamBenhCtrlTest;
-import controllers.PhongKhamCtrlTest;
-import models.DichVuKhamBenhModelTest;
-import models.NhomDichVuKhamBenhModelTest;
-import models.PhongKhamModelTest;
+import controllers.DichVuKhamBenhCtrl;
+import controllers.NhomDichVuKhamBenhCtrl;
+import controllers.PhongKhamCtrl;
+import models.DichVuKhamBenhModel;
+import models.NhomDichVuKhamBenhModel;
+import models.PhongKhamModel;
 import views.main.KhamBenh;
 import views.main.KhamLamSang;
 import utils.DialogHelper;
@@ -25,9 +25,9 @@ public class DSDangKy extends javax.swing.JPanel {
 
     DefaultTableModel tableModel;
     List<DangKyBenhNhanModel> dsDangKy = new ArrayList<>();
-    List<NhomDichVuKhamBenhModelTest> dsNhomDichVu = new ArrayList<>();
-    List<DichVuKhamBenhModelTest> dsDichVu = new ArrayList<>();
-    List<PhongKhamModelTest> dsPhongKham = new ArrayList<>();
+    List<NhomDichVuKhamBenhModel> dsNhomDichVu = new ArrayList<>();
+    List<DichVuKhamBenhModel> dsDichVu = new ArrayList<>();
+    List<PhongKhamModel> dsPhongKham = new ArrayList<>();
 
     public DSDangKy() {
         try {
@@ -65,7 +65,7 @@ public class DSDangKy extends javax.swing.JPanel {
             cmbLocPhong.removeAllItems();
             cmbPhongKham.removeAllItems();
 
-            dsPhongKham = PhongKhamCtrlTest.timTatCaPhongKham();
+            dsPhongKham = PhongKhamCtrl.timTatCaPhongKham();
             dsPhongKham.forEach(pk -> {
                 cmbLocPhong.addItem(pk.getTenPhongKham());
                 cmbPhongKham.addItem(pk.getTenPhongKham());
@@ -80,7 +80,7 @@ public class DSDangKy extends javax.swing.JPanel {
     private void hienThiDSNhomDichVu() {
         try {
             cmbNhomDichVu.removeAllItems();
-            dsNhomDichVu = NhomDichVuKhamBenhCtrlTest.timTatNhomDichVuKhamBenh();
+            dsNhomDichVu = NhomDichVuKhamBenhCtrl.timTatNhomDichVuKhamBenh();
             dsNhomDichVu.forEach(ndv -> {
                 cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
             });
@@ -771,7 +771,7 @@ public class DSDangKy extends javax.swing.JPanel {
                 String maNhomDichVuKB = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
 
                 cmbDichVuKham.removeAllItems();
-                dsDichVu = DichVuKhamBenhCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVuKB);
+                dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVuKB);
                 dsDichVu.forEach(dv -> {
                     if (dv.getTrangThai().equals("Kích hoạt")) {
                         cmbDichVuKham.addItem(dv.getTenDichVuKB());

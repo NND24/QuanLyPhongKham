@@ -162,7 +162,9 @@ public class DSPhongBenh extends javax.swing.JPanel {
         txtTimKiem = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 660));
+        setPreferredSize(new java.awt.Dimension(1360, 585));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -529,7 +531,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1364, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1360, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane2)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                 .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
@@ -549,7 +551,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -566,7 +568,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGap(0, 585, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -663,7 +665,7 @@ public class DSPhongBenh extends javax.swing.JPanel {
             } else if (!Validator.isIntegerString(soGiuongStr) || "0".equals(soGiuongStr)) {
                 DialogHelper.showError("Số giường không hợp lệ");
             } else {
-                
+
                 int index1 = cboYTa.getSelectedIndex();
                 String maYTa = dsYTa.get(index1 - 1).getMaYT();
 
@@ -671,11 +673,11 @@ public class DSPhongBenh extends javax.swing.JPanel {
                 String maDonGia = dsLoaiPhong.get(index2 - 1).getMaDonGia();
                 PhongBenhModel pb = new PhongBenhModel(maYTa, maDonGia, soGiuong);
                 try {
-                    if(PhongBenhCtrl.capNhatPhongBenh(pb, pbDaChon)){
+                    if (PhongBenhCtrl.capNhatPhongBenh(pb, pbDaChon)) {
                         DialogHelper.showMessage("Cập nhật thành công");
                     } else {
                         DialogHelper.showError("Số giường không hợp lệ");
-                    } 
+                    }
                     hienThiCacPhongBenh();
                     hienThiGiuongBenhTheoMaPhong(pbDaChon.getMaPhong());
                     lamMoi();
@@ -860,7 +862,6 @@ public class DSPhongBenh extends javax.swing.JPanel {
             DialogHelper.showError("Chưa có dòng nào trong table được chọn");
         }
     }//GEN-LAST:event_tblDanhSachGiuongBenhMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel GSTextField;

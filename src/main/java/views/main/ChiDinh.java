@@ -11,16 +11,16 @@ import models.DangKyModel;
 import models.KhamLamSangModel;
 import models.ChiDinhModel;
 import models.BenhNhanModel;
-import models.DichVuCLSModelTest;
-import models.NhomDichVuCLSModelTest;
+import models.DichVuCLSModel;
+import models.NhomDichVuCLSModel;
 import models.BenhAnModel;
 import controllers.BenhAnCtrl;
 import controllers.DangKyCtrl;
 import controllers.BenhNhanCtrl;
 import controllers.ChiDinhCtrl;
-import controllers.DichVuCLSCtrlTest;
+import controllers.DichVuCLSCtrl;
 import controllers.KhamLamSangCtrl;
-import controllers.NhomDichVuCLSCtrlTest;
+import controllers.NhomDichVuCLSCtrl;
 import pdfForm.GenerateChiDinh;
 import utils.DialogHelper;
 import utils.GenerateCode;
@@ -33,8 +33,8 @@ public class ChiDinh extends javax.swing.JPanel {
 
     DefaultTableModel tableModel;
     public List<ChiDinhModel> dsChiDinh = new ArrayList<>();
-    List<NhomDichVuCLSModelTest> dsNhomDichVu = new ArrayList<>();
-    List<DichVuCLSModelTest> dsDichVuCLS = new ArrayList<>();
+    List<NhomDichVuCLSModel> dsNhomDichVu = new ArrayList<>();
+    List<DichVuCLSModel> dsDichVuCLS = new ArrayList<>();
 
     public ChiDinh() {
         initComponents();
@@ -45,7 +45,7 @@ public class ChiDinh extends javax.swing.JPanel {
 
     private void hienThiDSNhomDV() {
         try {
-            dsNhomDichVu = NhomDichVuCLSCtrlTest.timTatNhomDichVuCLS();
+            dsNhomDichVu = NhomDichVuCLSCtrl.timTatNhomDichVuCLS();
             cmbNhomDichVuCLS.removeAllItems();
             dsNhomDichVu.forEach(ndv -> {
                 cmbNhomDichVuCLS.addItem(ndv.getTenNhomDichVuCLS());
@@ -107,11 +107,11 @@ public class ChiDinh extends javax.swing.JPanel {
         btnSuaChiDinh = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(1100, 500));
+        setPreferredSize(new java.awt.Dimension(1107, 437));
 
         TongChiDinhPanel.setBackground(new java.awt.Color(255, 255, 255));
         TongChiDinhPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        TongChiDinhPanel.setPreferredSize(new java.awt.Dimension(1100, 500));
+        TongChiDinhPanel.setPreferredSize(new java.awt.Dimension(1107, 437));
         TongChiDinhPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 TongChiDinhPanelMouseMoved(evt);
@@ -317,10 +317,10 @@ public class ChiDinh extends javax.swing.JPanel {
         TongChiDinhPanel.setLayout(TongChiDinhPanelLayout);
         TongChiDinhPanelLayout.setHorizontalGroup(
             TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1097, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
             .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1097, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TongChiDinhPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel24)
@@ -406,7 +406,7 @@ public class ChiDinh extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24)
@@ -429,7 +429,7 @@ public class ChiDinh extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TongChiDinhPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TongChiDinhPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -466,7 +466,7 @@ public class ChiDinh extends javax.swing.JPanel {
 
                             dsDichVuCLS.clear();
                             cmbDichVuCLS.removeAllItems();
-                            dsDichVuCLS = DichVuCLSCtrlTest.timTatCaDichVuTheoMaNhom(maNhomDichVu);
+                            dsDichVuCLS = DichVuCLSCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVu);
                             dsDichVuCLS.forEach(dv -> {
                                 cmbDichVuCLS.addItem(dv.getTenDichVuCLS());
                             });
@@ -488,14 +488,14 @@ public class ChiDinh extends javax.swing.JPanel {
                     if (benhNhan.getBhyt() == null || benhNhan.getBhyt().equals("")) {
                         int dichVuIndex = cmbDichVuCLS.getSelectedIndex();
                         String maDichVuCLS = dsDichVuCLS.get(dichVuIndex).getMaDichVuCLS();
-                        DichVuCLSModelTest dichVu = DichVuCLSCtrlTest.timDichVuTheoMa(maDichVuCLS);
+                        DichVuCLSModel dichVu = DichVuCLSCtrl.timDichVuTheoMa(maDichVuCLS);
 
                         txtTenDichVu.setText(dichVu.getTenDichVuCLS());
                         txtDonGia.setText(Integer.toString(dichVu.getGiaTien()));
                     } else {
                         int dichVuIndex = cmbDichVuCLS.getSelectedIndex();
                         String maDichVuCLS = dsDichVuCLS.get(dichVuIndex).getMaDichVuCLS();
-                        DichVuCLSModelTest dichVu = DichVuCLSCtrlTest.timDichVuTheoMa(maDichVuCLS);
+                        DichVuCLSModel dichVu = DichVuCLSCtrl.timDichVuTheoMa(maDichVuCLS);
 
                         txtTenDichVu.setText(dichVu.getTenDichVuCLS());
                         txtDonGia.setText(Integer.toString(dichVu.getGiaBaoHiem()));

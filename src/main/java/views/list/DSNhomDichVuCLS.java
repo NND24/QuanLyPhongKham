@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import models.NhomDichVuCLSModel;
 import controllers.NhomDichVuCLSCtrl;
-import javax.swing.JOptionPane;
+import utils.DialogHelper;
+import utils.GenerateCode;
 
 public class DSNhomDichVuCLS extends javax.swing.JFrame {
 
@@ -32,14 +33,14 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
         tableModel.setRowCount(0);
 
         dsNhomDichVu.forEach(ndv -> {
-            tableModel.addRow(new Object[]{ndv.getMaNhomDichVu(), ndv.getTenNhomDichVu(),
+            tableModel.addRow(new Object[]{ndv.getMaNhomDichVuCLS(), ndv.getTenNhomDichVuCLS(),
                 ndv.getTrangThai()});
         });
     }
 
     private void lamMoi() {
-        txtMaNhomDichVu.setText("");
-        txtTenNhomDichVu.setText("");
+        txtMaNhomDichVuCLS.setText("");
+        txtTenNhomDichVuCLS.setText("");
         cmbtrangthai.setSelectedIndex(0);
     }
 
@@ -54,8 +55,8 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
         lbltrangthai = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbldsNhomDichVuKB = new javax.swing.JTable();
-        txtMaNhomDichVu = new javax.swing.JTextField();
-        txtTenNhomDichVu = new javax.swing.JTextField();
+        txtMaNhomDichVuCLS = new javax.swing.JTextField();
+        txtTenNhomDichVuCLS = new javax.swing.JTextField();
         cmbtrangthai = new javax.swing.JComboBox<>();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -110,19 +111,9 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbldsNhomDichVuKB);
 
-        txtMaNhomDichVu.setEditable(false);
-        txtMaNhomDichVu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaNhomDichVuActionPerformed(evt);
-            }
-        });
+        txtMaNhomDichVuCLS.setEditable(false);
 
         cmbtrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kích hoạt", "Ẩn" }));
-        cmbtrangthai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbtrangthaiActionPerformed(evt);
-            }
-        });
 
         btnThem.setBackground(new java.awt.Color(0, 102, 255));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -256,8 +247,8 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
                                         .addComponent(lblMaNhomDichVu)))
                                 .addGap(15, 15, 15)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMaNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTenNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMaNhomDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTenNhomDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbtrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 0, 0))
         );
@@ -267,11 +258,11 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMaNhomDichVu)
-                    .addComponent(txtMaNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaNhomDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTenNhomDichVu)
-                    .addComponent(txtTenNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenNhomDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbltrangthai)
@@ -295,12 +286,12 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -319,20 +310,18 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNhapMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-        String maNhomDichVu = NhomDichVuCLSCtrl.generateMaNhomDichVuCLS();
-        String tenNhomDichVu = txtTenNhomDichVu.getText();
-        String trangThai = cmbtrangthai.getSelectedItem().toString();
-
-        if (tenNhomDichVu.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên nhóm dịch vụ không được để trống!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        } else if (!txtMaNhomDichVu.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nhóm dịch vụ đã tồn tại", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        if (txtTenNhomDichVuCLS.getText().isEmpty()) {
+            DialogHelper.showError("Tên nhóm dịch vụ không được để trống!");
+        } else if (!txtMaNhomDichVuCLS.getText().isEmpty()) {
+            DialogHelper.showError("Nhóm dịch vụ đã tồn tại");
         } else {
             try {
-                NhomDichVuCLSModel ndv = new NhomDichVuCLSModel(maNhomDichVu, tenNhomDichVu, trangThai);
-                NhomDichVuCLSCtrl.ThemNhomDichVuCLS(ndv);
-                // JOptionPane.showMessageDialog(null, "Thêm nhóm dịch vụ khám bệnh thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                String maNhomDichVuCLS = GenerateCode.generateMa("NDVC");
+                String tenNhomDichVuCLS = txtTenNhomDichVuCLS.getText();
+                String trangThai = cmbtrangthai.getSelectedItem().toString();
+
+                NhomDichVuCLSModel ndv = new NhomDichVuCLSModel(maNhomDichVuCLS, tenNhomDichVuCLS, trangThai);
+                NhomDichVuCLSCtrl.themNhomDichVuCLS(ndv);
                 lamMoi();
                 hienThiTatCaNhomDichVu();
             } catch (ClassNotFoundException ex) {
@@ -343,24 +332,15 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
-            String maNhomDichVu = txtMaNhomDichVu.getText();
+            String maNhomDichVu = txtMaNhomDichVuCLS.getText();
             if (maNhomDichVu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa có nhóm dịch vụ được chọn", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                DialogHelper.showError("Chưa có nhóm dịch vụ được chọn");
+            } else if (NhomDichVuCLSCtrl.kiemTraDVTrongNhomDVDaDuocSuDung(maNhomDichVu)) {
+                DialogHelper.showError("Dịch vụ cận lâm sàng trong nhóm dịch vụ cận lâm sàng này đã được sử dụng, không thể xóa");
             } else {
-                String[] options = {"Đồng ý", "Thoát"};
-                int option = JOptionPane.showOptionDialog(
-                        null,
-                        "Bạn có chắc muốn xóa nhóm dịch vụ cận lâm sàn này",
-                        "Cảnh báo",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[1]
-                );
-                if (option == 0) {
-                    NhomDichVuCLSCtrl.XoaNhomDichVuCLS(maNhomDichVu);
-                    JOptionPane.showMessageDialog(null, "Xóa nhóm dịch vụ cận lâm sàn thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa nhóm dịch vụ cận lâm sàn này")) {
+                    NhomDichVuCLSCtrl.xoaNhomDichVuCLS(maNhomDichVu);
+                    DialogHelper.showMessage("Xóa nhóm dịch vụ cận lâm sàng thành công!");
                     lamMoi();
                     hienThiTatCaNhomDichVu();
                 }
@@ -372,32 +352,19 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
-            // TODO add your handling code here:
-            String maNhomDichVu = txtMaNhomDichVu.getText();
-            String tenNhomDichVu = txtTenNhomDichVu.getText();
-            String trangThai = cmbtrangthai.getSelectedItem().toString();
-            if (maNhomDichVu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Mã nhóm dịch vụ không được để trống!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            } else if (tenNhomDichVu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Tên nhóm dịch vụ không được để trống!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            if (txtMaNhomDichVuCLS.getText().isEmpty()) {
+                DialogHelper.showError("Mã nhóm dịch vụ không được để trống!");
+            } else if (txtTenNhomDichVuCLS.getText().isEmpty()) {
+                DialogHelper.showError("Tên nhóm dịch vụ không được để trống!");
             } else {
-                String[] options = {"Đồng ý", "Thoát"};
-                int option = JOptionPane.showOptionDialog(
-                        null,
-                        "Bạn có chắc muốn sửa nhóm dịch vụ cận lâm sàn này",
-                        "Cảnh báo",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[1]
-                );
+                if (DialogHelper.showConfirmation("Bạn có chắc muốn sửa nhóm dịch vụ cận lâm sàn này")) {
+                    String maNhomDichVuCLS = txtMaNhomDichVuCLS.getText();
+                    String tenNhomDichVuCLS = txtTenNhomDichVuCLS.getText();
+                    String trangThai = cmbtrangthai.getSelectedItem().toString();
 
-                if (option == 0) {
-                    NhomDichVuCLSModel ndv = new NhomDichVuCLSModel(maNhomDichVu, tenNhomDichVu, trangThai);
-                    NhomDichVuCLSCtrl.CapNhatNhomDichVuCLS(ndv);
-                    JOptionPane.showMessageDialog(null, "Sửa nhóm dịch vụ cận lâm sàn thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    lamMoi();
+                    NhomDichVuCLSModel ndv = new NhomDichVuCLSModel(maNhomDichVuCLS, tenNhomDichVuCLS, trangThai);
+                    NhomDichVuCLSCtrl.capNhatNhomDichVuCLS(ndv);
+                    DialogHelper.showMessage("Sửa nhóm dịch vụ cận lâm sàn thành công!");
                     hienThiTatCaNhomDichVu();
                 }
             }
@@ -411,18 +378,23 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
         if (selectedIndex >= 0) {
             NhomDichVuCLSModel ndv = dsNhomDichVu.get(selectedIndex);
 
-            txtMaNhomDichVu.setText(ndv.getMaNhomDichVu());
-            txtTenNhomDichVu.setText(ndv.getTenNhomDichVu());
+            txtMaNhomDichVuCLS.setText(ndv.getMaNhomDichVuCLS());
+            txtTenNhomDichVuCLS.setText(ndv.getTenNhomDichVuCLS());
             cmbtrangthai.setSelectedItem(ndv.getTrangThai());
         }
     }//GEN-LAST:event_tbldsNhomDichVuKBMouseClicked
 
     private void btnxuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatDSActionPerformed
-
+        try {
+            dsNhomDichVu = NhomDichVuCLSCtrl.timTatNhomDichVuCLS();
+            NhomDichVuCLSCtrl.exportToExcel(dsNhomDichVu, "src/main/java/ExcelStorage/DSNhomDichVuCLS.xlsx");
+            DialogHelper.showMessage("Xuất danh sách thành công!");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSNhomDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnxuatDSActionPerformed
 
     private void txttimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKiemKeyTyped
-        // TODO add your handling code here:
         try {
             String timKiem = txttimKiem.getText();
             if (timKiem.equals("")) {
@@ -433,22 +405,14 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
                 tableModel.setRowCount(0);
 
                 dsNhomDichVu.forEach(ndv -> {
-                    tableModel.addRow(new Object[]{ndv.getMaNhomDichVu(), ndv.getTenNhomDichVu(),
+                    tableModel.addRow(new Object[]{ndv.getMaNhomDichVuCLS(), ndv.getTenNhomDichVuCLS(),
                         ndv.getTrangThai()});
                 });
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DSNhomDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_txttimKiemKeyTyped
-
-    private void cmbtrangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbtrangthaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbtrangthaiActionPerformed
-
-    private void txtMaNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNhomDichVuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaNhomDichVuActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -475,8 +439,8 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
     private javax.swing.JLabel lbltimkiem;
     private javax.swing.JLabel lbltrangthai;
     private javax.swing.JTable tbldsNhomDichVuKB;
-    private javax.swing.JTextField txtMaNhomDichVu;
-    private javax.swing.JTextField txtTenNhomDichVu;
+    private javax.swing.JTextField txtMaNhomDichVuCLS;
+    private javax.swing.JTextField txtTenNhomDichVuCLS;
     private javax.swing.JTextField txttimKiem;
     // End of variables declaration//GEN-END:variables
 }
