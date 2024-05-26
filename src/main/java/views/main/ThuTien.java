@@ -34,7 +34,7 @@ public class ThuTien extends javax.swing.JPanel {
     public JLabel MaBALabel;
 
     DefaultTableModel tableModel;
-    List<KhamLamSangModel> dsKhamLamSan = new ArrayList<>();
+    List<KhamLamSangModel> dsKhamLamSang = new ArrayList<>();
     List<ChiDinhModel> dsChiDinh = new ArrayList<>();
     List<DonThuocModel> dsDonThuoc = new ArrayList<>();
     List<XepGiuongModel> dsXepGiuong = new ArrayList<>();
@@ -57,14 +57,14 @@ public class ThuTien extends javax.swing.JPanel {
     public void hienThiDSThanhToan() throws ClassNotFoundException {
         int tongTien = 0;
 
-        dsKhamLamSan = KhamLamSangCtrl.thanhToanKLS(txtMaBenhAn.getText());
+        dsKhamLamSang = KhamLamSangCtrl.thanhToanKLS(txtMaBenhAn.getText());
         dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(txtMaBenhAn.getText());
         dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(txtMaBenhAn.getText());
 
         tableModel.setRowCount(0);
 
         tableModel.addRow(new Object[]{"Dịch vụ khám", "", "", ""});
-        for (KhamLamSangModel ls : dsKhamLamSan) {
+        for (KhamLamSangModel ls : dsKhamLamSang) {
             tableModel.addRow(new Object[]{ls.getTenDichVu(), "", ls.getGiaTien(),
                 ls.getGiaTien()});
             tongTien += Integer.parseInt(ls.getGiaTien());
@@ -573,7 +573,7 @@ public class ThuTien extends javax.swing.JPanel {
                     List<String> donGia = new ArrayList<>();
                     List<String> thanhTien = new ArrayList<>();
 
-                    for (KhamLamSangModel ls : dsKhamLamSan) {
+                    for (KhamLamSangModel ls : dsKhamLamSang) {
                         noiDung.add(ls.getTenDichVu());
                         soLuong.add("");
                         donGia.add(ls.getGiaTien());

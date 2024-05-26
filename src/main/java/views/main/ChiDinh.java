@@ -121,7 +121,7 @@ public class ChiDinh extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Chọn dịch vụ");
 
-        cmbDichVuCLS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Dịch vụ---", "DVC000034 Chụp cộng hưởng từ cột sống cổ (0.2-1.5T) (không thuốc)", "DVC00193247 Chụp cộng hưởng từ cột sống cổ có tiêm tương phản (0.2-1.5T)", "DVC19464858 Điều trị một số bệnh da bằng laser (nốt ruồi, ban vàng, u tuyến mồ hôi, thịt dư, đuôi da, mụn cóc…)-Loại 1" }));
+        cmbDichVuCLS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Dịch vụ---" }));
         cmbDichVuCLS.setPreferredSize(new java.awt.Dimension(72, 30));
         cmbDichVuCLS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
