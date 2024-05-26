@@ -38,9 +38,9 @@ public class XepGiuong extends javax.swing.JPanel {
 
     DefaultTableModel tableModel2;
     List<XepGiuongModel> dsGiuongBenhCoNguoi = new ArrayList<>();
-    
+
     private List<DonGiaPhongBenhModel> dsLoaiPhong;
-    
+
     public XepGiuong() {
         initComponents();
         tableModel1 = (DefaultTableModel) tblDanhSachGiuongBenhTrong.getModel();
@@ -62,7 +62,7 @@ public class XepGiuong extends javax.swing.JPanel {
             Logger.getLogger(XepGiuong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
+
     private void hienThiDanhSachLoaiPhongComboBox() {
         try {
             dsLoaiPhong = DonGiaPhongBenhCtrl.hienThiTatCa();
@@ -94,7 +94,7 @@ public class XepGiuong extends javax.swing.JPanel {
                 xg.getTenPhong(), xg.getTenLoaiPhong(), xg.getCoNguoi(), xg.getDonGia()});
         });
     }
-    
+
     private void locLoaiPhong(String tuKhoa) throws ClassNotFoundException {
         dsGiuongBenhTrong = XepGiuongCtrl.locPhongTheoLoai(tuKhoa);
         tableModel1.setRowCount(0);
@@ -189,8 +189,10 @@ public class XepGiuong extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         txtTenLoaiPhong = new javax.swing.JTextField();
 
+        setPreferredSize(new java.awt.Dimension(1360, 585));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 660));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhập Viện", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 153, 0))); // NOI18N
@@ -648,7 +650,7 @@ public class XepGiuong extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGap(0, 585, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -709,7 +711,7 @@ public class XepGiuong extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             String tuKhoa = txtTimKiemNhapVien.getText();
-            if(tuKhoa.equals("")){
+            if (tuKhoa.equals("")) {
                 hienThiCacGiuongTrong();
             } else {
                 timKiemNhapVien(tuKhoa);

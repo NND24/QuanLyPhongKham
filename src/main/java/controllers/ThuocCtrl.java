@@ -286,8 +286,17 @@ public class ThuocCtrl {
 
         try {
             connection = ConnectDB.getConnection();
-            String sql = "SELECT THUOC.*, NHOMTHUOC.TenNhomThuoc FROM THUOC JOIN NHOMTHUOC ON THUOC.MaNhomThuoc = NHOMTHUOC.MaNhomThuoc"
-                    + "AND (MaThuoc LIKE ? OR TenThuoc LIKE ? OR THUOC.MaNhomThuoc LIKE ? OR NHOMTHUOC.TenNhomThuoc LIKE ? OR SoDangKy LIKE ? OR HangSanXuat LIKE ? OR NuocSanXuat LIKE ?)";
+            String sql = """
+                         SELECT THUOC.*, NHOMTHUOC.TenNhomThuoc
+                         FROM THUOC
+                         JOIN NHOMTHUOC ON THUOC.MaNhomThuoc = NHOMTHUOC.MaNhomThuoc
+                         WHERE MaThuoc LIKE ?
+                         OR TenThuoc LIKE ?
+                         OR THUOC.MaNhomThuoc LIKE ?
+                         OR NHOMTHUOC.TenNhomThuoc LIKE ?
+                         OR SoDangKy LIKE ?
+                         OR HangSanXuat LIKE ?
+                         OR NuocSanXuat LIKE ?""";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + timKiem + "%");
@@ -330,8 +339,25 @@ public class ThuocCtrl {
                 }
             }
         }
-
         return dsThuoc;
+    }
+
+    public static boolean kiemTraThuocDaDuocSuDung(String maThuoc) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM DONTHUOC WHERE MaThuoc=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maThuoc);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
     }
 
     public static void exportToExcel(List<ThuocModel> dsThuoc, String filePath) {

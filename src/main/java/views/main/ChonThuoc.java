@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 import models.DonThuocModel;
-import models.NhomThuocModelTest;
+import models.NhomThuocModel;
 import models.BenhAnModel;
 import models.BenhNhanModel;
 import models.DangKyModel;
@@ -18,7 +18,7 @@ import controllers.BenhNhanCtrl;
 import controllers.DangKyCtrl;
 import controllers.DonThuocCtrl;
 import controllers.KhamLamSangCtrl;
-import controllers.NhomThuocCtrlTest;
+import controllers.NhomThuocCtrl;
 import controllers.ThuocCtrl;
 import models.ThuocModel;
 import pdfForm.GenerateDonThuoc;
@@ -32,7 +32,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     public String maBenhNhan, maBenhAn, maBacSi;
 
     DefaultTableModel tableModel;
-    List<NhomThuocModelTest> dsNhomThuoc = new ArrayList<>();
+    List<NhomThuocModel> dsNhomThuoc = new ArrayList<>();
     List<ThuocModel> dsThuoc = new ArrayList<>();
     public List<DonThuocModel> dsDonThuoc = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class ChonThuoc extends javax.swing.JPanel {
 
     private void hienThiDSNhomThuoc() {
         try {
-            dsNhomThuoc = NhomThuocCtrlTest.timTatCaNhomThuoc();
+            dsNhomThuoc = NhomThuocCtrl.timTatCaNhomThuoc();
             cmbNhomThuoc.removeAllItems();
             dsNhomThuoc.forEach(nt -> {
                 cmbNhomThuoc.addItem(nt.getTenNhomThuoc());
@@ -127,11 +127,11 @@ public class ChonThuoc extends javax.swing.JPanel {
         txtDuongDung = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(1110, 503));
+        setPreferredSize(new java.awt.Dimension(1107, 437));
 
         ChiDinhPanel.setBackground(new java.awt.Color(255, 255, 255));
         ChiDinhPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        ChiDinhPanel.setPreferredSize(new java.awt.Dimension(1110, 503));
+        ChiDinhPanel.setPreferredSize(new java.awt.Dimension(1107, 437));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Chọn thuốc");
@@ -389,9 +389,7 @@ public class ChonThuoc extends javax.swing.JPanel {
         ChiDinhPanelLayout.setHorizontalGroup(
             ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ChiDinhPanelLayout.createSequentialGroup()
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(ChiDinhPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -467,6 +465,9 @@ public class ChonThuoc extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40))))
+            .addGroup(ChiDinhPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane7)
+                .addContainerGap())
         );
         ChiDinhPanelLayout.setVerticalGroup(
             ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -540,7 +541,7 @@ public class ChonThuoc extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ChiDinhPanel, 509, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ChiDinhPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -32,14 +32,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -82,8 +82,8 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtMaNhomDichVu" min="-2" pref="406" max="-2" attributes="0"/>
-                                      <Component id="txtTenNhomDichVu" min="-2" pref="406" max="-2" attributes="0"/>
+                                      <Component id="txtMaNhomDichVuCLS" min="-2" pref="406" max="-2" attributes="0"/>
+                                      <Component id="txtTenNhomDichVuCLS" min="-2" pref="406" max="-2" attributes="0"/>
                                       <Component id="cmbtrangthai" min="-2" pref="406" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -100,12 +100,12 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblMaNhomDichVu" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaNhomDichVu" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="txtMaNhomDichVuCLS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblTenNhomDichVu" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTenNhomDichVu" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="txtTenNhomDichVuCLS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -202,15 +202,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="txtMaNhomDichVu">
+        <Component class="javax.swing.JTextField" name="txtMaNhomDichVuCLS">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMaNhomDichVuActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTenNhomDichVu">
+        <Component class="javax.swing.JTextField" name="txtTenNhomDichVuCLS">
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbtrangthai">
           <Properties>
@@ -221,9 +218,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbtrangthaiActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

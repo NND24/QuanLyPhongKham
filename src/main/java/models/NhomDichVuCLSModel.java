@@ -2,28 +2,37 @@ package models;
 
 public class NhomDichVuCLSModel {
 
-    private String maNhomDichVu, tenNhomDichVu, trangThai;
+    private String maNhomDichVuCLS, tenNhomDichVuCLS, trangThai;
 
-    public NhomDichVuCLSModel(String maNhomDichVu, String tenNhomDichVu, String trangThai) {
-        this.maNhomDichVu = maNhomDichVu;
-        this.tenNhomDichVu = tenNhomDichVu;
+    public NhomDichVuCLSModel(String maNhomDichVuCLS) {
+        this.maNhomDichVuCLS = maNhomDichVuCLS;
+    }
+
+    public NhomDichVuCLSModel(String maNhomDichVuCLS, String tenNhomDichVuCLS) {
+        this.maNhomDichVuCLS = maNhomDichVuCLS;
+        this.tenNhomDichVuCLS = tenNhomDichVuCLS;
+    }
+
+    public NhomDichVuCLSModel(String maNhomDichVuCLS, String tenNhomDichVuCLS, String trangThai) {
+        this.maNhomDichVuCLS = maNhomDichVuCLS;
+        this.tenNhomDichVuCLS = tenNhomDichVuCLS;
         this.trangThai = trangThai;
     }
 
-    public String getMaNhomDichVu() {
-        return maNhomDichVu;
+    public String getMaNhomDichVuCLS() {
+        return maNhomDichVuCLS;
     }
 
-    public void setMaNhomDichVu(String maNhomDichVu) {
-        this.maNhomDichVu = maNhomDichVu;
+    public void setMaNhomDichVuCLS(String maNhomDichVuCLS) {
+        this.maNhomDichVuCLS = maNhomDichVuCLS;
     }
 
-    public String getTenNhomDichVu() {
-        return tenNhomDichVu;
+    public String getTenNhomDichVuCLS() {
+        return tenNhomDichVuCLS;
     }
 
-    public void setTenNhomDichVu(String tenNhomDichVu) {
-        this.tenNhomDichVu = tenNhomDichVu;
+    public void setTenNhomDichVuCLS(String tenNhomDichVuCLS) {
+        this.tenNhomDichVuCLS = tenNhomDichVuCLS;
     }
 
     public String getTrangThai() {

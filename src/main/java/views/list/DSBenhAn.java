@@ -70,11 +70,11 @@ public class DSBenhAn extends javax.swing.JPanel {
         tuNgayDateChooser = new com.toedter.calendar.JDateChooser();
         denNgayDateChooser = new com.toedter.calendar.JDateChooser();
 
-        setPreferredSize(new java.awt.Dimension(1100, 503));
+        setPreferredSize(new java.awt.Dimension(1107, 437));
 
         ChiDinhPanel.setBackground(new java.awt.Color(255, 255, 255));
         ChiDinhPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        ChiDinhPanel.setPreferredSize(new java.awt.Dimension(1100, 503));
+        ChiDinhPanel.setPreferredSize(new java.awt.Dimension(1107, 437));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Tìm kiếm");
@@ -199,7 +199,7 @@ public class DSBenhAn extends javax.swing.JPanel {
                 .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1098, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1098, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
             .addGroup(ChiDinhPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
@@ -242,11 +242,11 @@ public class DSBenhAn extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ChiDinhPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1102, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ChiDinhPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ChiDinhPanel, 505, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ChiDinhPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

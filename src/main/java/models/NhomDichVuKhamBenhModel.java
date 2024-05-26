@@ -4,6 +4,15 @@ public class NhomDichVuKhamBenhModel {
 
     private String maNhomDichVuKB, tenNhomDichVuKB, trangThai;
 
+    public NhomDichVuKhamBenhModel(String maNhomDichVuKB) {
+        this.maNhomDichVuKB = maNhomDichVuKB;
+    }
+
+    public NhomDichVuKhamBenhModel(String maNhomDichVuKB, String tenNhomDichVuKB) {
+        this.maNhomDichVuKB = maNhomDichVuKB;
+        this.tenNhomDichVuKB = tenNhomDichVuKB;
+    }
+
     public NhomDichVuKhamBenhModel(String maNhomDichVuKB, String tenNhomDichVuKB, String trangThai) {
         this.maNhomDichVuKB = maNhomDichVuKB;
         this.tenNhomDichVuKB = tenNhomDichVuKB;
@@ -22,7 +31,7 @@ public class NhomDichVuKhamBenhModel {
         return tenNhomDichVuKB;
     }
 
-    public void setTenNhomDichVu(String tenNhomDichVuKB) {
+    public void setTenNhomDichVuKB(String tenNhomDichVuKB) {
         this.tenNhomDichVuKB = tenNhomDichVuKB;
     }
 

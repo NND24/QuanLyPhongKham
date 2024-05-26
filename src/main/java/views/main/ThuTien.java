@@ -130,10 +130,10 @@ public class ThuTien extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         txtDaThu = new javax.swing.JTextField();
 
-        setPreferredSize(new java.awt.Dimension(1360, 635));
+        setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 635));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
