@@ -24,12 +24,13 @@ public class DSDichVuCLS extends javax.swing.JFrame {
             initComponents();
 
             tableModel = (DefaultTableModel) tblDSDichVuKB.getModel();
+            dsDichVu = DichVuCLSCtrl.timTatCaDichVu();
 
-            hienThiTatCaDichVu();
+            timKiemDVCLS();
             hienThiDSNhomDichVu();
 
             cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
-            cmbTimKiemNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
+            cmbTKNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,22 +40,21 @@ public class DSDichVuCLS extends javax.swing.JFrame {
         try {
             dsNhomDichVu = NhomDichVuCLSCtrl.timTatNhomDichVuCLS();
             cmbNhomDichVu.removeAllItems();
-            cmbTimKiemNhomDichVu.removeAllItems();
+            cmbTKNhomDichVu.removeAllItems();
             dsNhomDichVu.forEach(ndv -> {
                 if (ndv.getTrangThai().equals("Kích hoạt")) {
                     cmbNhomDichVu.addItem(ndv.getTenNhomDichVuCLS());
-                    cmbTimKiemNhomDichVu.addItem(ndv.getTenNhomDichVuCLS());
+                    cmbTKNhomDichVu.addItem(ndv.getTenNhomDichVuCLS());
                 }
             });
             cmbNhomDichVu.addItem("---Nhóm dịch vụ---");
-            cmbTimKiemNhomDichVu.addItem("---Nhóm dịch vụ---");
+            cmbTKNhomDichVu.addItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void hienThiTatCaDichVu() throws ClassNotFoundException {
-        dsDichVu = DichVuCLSCtrl.timTatCaDichVu();
+    private void hienThiDSDichVu() throws ClassNotFoundException {
 
         tableModel.setRowCount(0);
 
@@ -68,10 +68,34 @@ public class DSDichVuCLS extends javax.swing.JFrame {
         txtMaDichVu.setText("");
         txtTenDichVu.setText("");
         cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
-        cmbTimKiemNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         txtGiaTien.setText("");
         txtGiaBaoHiem.setText("");
         cmbTrangThai.setSelectedIndex(0);
+    }
+
+    private void timKiemDVCLS() {
+        try {
+            if (cmbTKNhomDichVu.getSelectedItem() != null) {
+                String timKiem = txtTimKiem.getText();
+                if (timKiem.equals("") && cmbTKNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
+                    dsDichVu = DichVuCLSCtrl.timTatCaDichVu();
+                    hienThiDSDichVu();
+                    return;
+                }
+
+                String maNhomDichVu = "";
+                if (cmbTKNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
+                    maNhomDichVu = "---Nhóm dịch vụ---";
+                } else {
+                    int nhomDichVuId = cmbTKNhomDichVu.getSelectedIndex();
+                    maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuCLS();
+                }
+                dsDichVu = DichVuCLSCtrl.timTatCaDichVuTheoDK(timKiem, maNhomDichVu);
+                hienThiDSDichVu();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -103,7 +127,7 @@ public class DSDichVuCLS extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        cmbTimKiemNhomDichVu = new javax.swing.JComboBox<>();
+        cmbTKNhomDichVu = new javax.swing.JComboBox<>();
 
         jButton3.setText("jButton3");
 
@@ -255,10 +279,10 @@ public class DSDichVuCLS extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Tìm kiếm");
 
-        cmbTimKiemNhomDichVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Nhóm dịch vụ---" }));
-        cmbTimKiemNhomDichVu.addActionListener(new java.awt.event.ActionListener() {
+        cmbTKNhomDichVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Nhóm dịch vụ---" }));
+        cmbTKNhomDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTimKiemNhomDichVuActionPerformed(evt);
+                cmbTKNhomDichVuActionPerformed(evt);
             }
         });
 
@@ -274,7 +298,7 @@ public class DSDichVuCLS extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(cmbTimKiemNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbTKNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );
         jPanel6Layout.setVerticalGroup(
@@ -285,7 +309,7 @@ public class DSDichVuCLS extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(cmbTimKiemNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTKNhomDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -386,29 +410,28 @@ public class DSDichVuCLS extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        try {
-            hienThiDSNhomDichVu();
-            hienThiTatCaDichVu();
-            lamMoi();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        lamMoi();
+        cmbTKNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
+        txtTimKiem.setText("");
+        timKiemDVCLS();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtTenDichVu.getText().isEmpty()) {
-            DialogHelper.showError("Tên dịch vụ không được để trống!");
-        } else if (!txtMaDichVu.getText().isEmpty()) {
-            DialogHelper.showError("Dịch vụ đã tồn tại");
-        } else if (cmbNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
-            DialogHelper.showError("Nhóm dịch vụ không được để trống");
-        } else if (txtGiaTien.getText().isEmpty()) {
-            DialogHelper.showError("Giá tiền không được để trống");
-        } else if (txtGiaBaoHiem.getText().isEmpty()) {
-            DialogHelper.showError("Giá bảo hiểm không được để trống");
-        } else {
-            try {
-                String maDichVu = GenerateCode.generateMa("DVC");
+        try {
+            String maDichVu = GenerateCode.generateMa("DVC");
+            if (DichVuCLSCtrl.kiemTraMaDVCLSTonTai(maDichVu)) {
+                DialogHelper.showError("Mã dịch vụ cận lâm sàng đã tồn tại");
+            } else if (txtTenDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Tên dịch vụ không được để trống!");
+            } else if (!txtMaDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Dịch vụ đã tồn tại");
+            } else if (cmbNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
+                DialogHelper.showError("Nhóm dịch vụ không được để trống");
+            } else if (txtGiaTien.getText().isEmpty()) {
+                DialogHelper.showError("Giá tiền không được để trống");
+            } else if (txtGiaBaoHiem.getText().isEmpty()) {
+                DialogHelper.showError("Giá bảo hiểm không được để trống");
+            } else {
                 String tenDichVu = txtTenDichVu.getText();
                 int nhomDichVuId = cmbNhomDichVu.getSelectedIndex();
                 String maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuCLS();
@@ -418,27 +441,27 @@ public class DSDichVuCLS extends javax.swing.JFrame {
 
                 DichVuCLSModel dv = new DichVuCLSModel(maDichVu, tenDichVu, maNhomDichVu, giaTien, giaBaoHiem, trangThai);
                 DichVuCLSCtrl.themDichVuCLS(dv);
-                hienThiTatCaDichVu();
+                timKiemDVCLS();
                 lamMoi();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
-            String maDichVu = txtMaDichVu.getText();
-            if (maDichVu.isEmpty()) {
-                DialogHelper.showError("Chưa có dịch vụ được chọn");
-            } else if (DichVuCLSCtrl.kiemTraDVDaDuocSuDung(maDichVu)) {
+            if (txtMaDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Vui lòng chọn dịch vụ cận lâm sàng muốn xóa");
+            } else if (DichVuCLSCtrl.kiemTraDVDaDuocSuDung(txtMaDichVu.getText())) {
                 DialogHelper.showError("Dịch vụ cận lâm sàng đã được sử dụng, không thể xóa");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa dịch vụ cận lâm sàn này")) {
+                    String maDichVu = txtMaDichVu.getText();
                     DichVuCLSCtrl.xoaDichVuCLS(maDichVu);
                     DialogHelper.showMessage("Xóa dịch vụ cận lâm sàng thành công!");
                     lamMoi();
-                    hienThiTatCaDichVu();
+                    timKiemDVCLS();
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -448,12 +471,12 @@ public class DSDichVuCLS extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
-            if (txtTenDichVu.getText().isEmpty()) {
+            if (txtMaDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Vui lòng chọn dịch vụ cận lâm sàng muốn chỉnh sửa");
+            } else if (txtTenDichVu.getText().isEmpty()) {
                 DialogHelper.showError("Tên dịch vụ không được để trống!");
             } else if (cmbNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
                 DialogHelper.showError("Nhóm dịch vụ không được để trống");
-            } else if (txtMaDichVu.getText().isEmpty()) {
-                DialogHelper.showError("Mã dịch vụ không được để trống!");
             } else if (txtGiaTien.getText().isEmpty()) {
                 DialogHelper.showError("Giá tiền không được để trống");
             } else if (txtGiaBaoHiem.getText().isEmpty()) {
@@ -471,7 +494,7 @@ public class DSDichVuCLS extends javax.swing.JFrame {
                     DichVuCLSModel dv = new DichVuCLSModel(maDichVu, tenDichVu, maNhomDichVu, giaTien, giaBaoHiem, trangThai);
                     DichVuCLSCtrl.capNhatDichVuCLS(dv);
                     DialogHelper.showMessage("Sửa dịch vụ cận lâm sàng thành công!");
-                    hienThiTatCaDichVu();
+                    timKiemDVCLS();
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -493,34 +516,7 @@ public class DSDichVuCLS extends javax.swing.JFrame {
     }//GEN-LAST:event_tblDSDichVuKBMouseClicked
 
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
-        try {
-            if (cmbTimKiemNhomDichVu.getSelectedItem() != null) {
-                String timKiem = txtTimKiem.getText();
-                if (timKiem.equals("")) {
-                    hienThiTatCaDichVu();
-                } else if (!timKiem.equals("") && cmbTimKiemNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
-                    dsDichVu = DichVuCLSCtrl.timTatCaDichVuTheoDK(timKiem, "---Nhóm dịch vụ---");
-                    tableModel.setRowCount(0);
-
-                    dsDichVu.forEach(dv -> {
-                        tableModel.addRow(new Object[]{dv.getMaDichVuCLS(), dv.getTenDichVuCLS(),
-                            dv.getTenNhomDichVuCLS(), dv.getGiaTien(), dv.getGiaBaoHiem(), dv.getTrangThai()});
-                    });
-                } else {
-                    int nhomDichVuId = cmbNhomDichVu.getSelectedIndex();
-                    String maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuCLS();
-                    dsDichVu = DichVuCLSCtrl.timTatCaDichVuTheoDK(timKiem, maNhomDichVu);
-                    tableModel.setRowCount(0);
-
-                    dsDichVu.forEach(dv -> {
-                        tableModel.addRow(new Object[]{dv.getMaDichVuCLS(), dv.getTenDichVuCLS(),
-                            dv.getTenNhomDichVuCLS(), dv.getGiaTien(), dv.getGiaBaoHiem(), dv.getTrangThai()});
-                    });
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemDVCLS();
     }//GEN-LAST:event_txtTimKiemKeyTyped
 
     private void btnxuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatDSActionPerformed
@@ -549,28 +545,9 @@ public class DSDichVuCLS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtGiaTienFocusLost
 
-    private void cmbTimKiemNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTimKiemNhomDichVuActionPerformed
-        try {
-            if (cmbTimKiemNhomDichVu.getSelectedItem() != null) {
-                String timKiem = txtTimKiem.getText();
-                if (cmbTimKiemNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
-                    hienThiTatCaDichVu();
-                } else {
-                    int nhomDichVuId = cmbTimKiemNhomDichVu.getSelectedIndex();
-                    String maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuCLS();
-                    dsDichVu = DichVuCLSCtrl.timTatCaDichVuTheoDK(timKiem, maNhomDichVu);
-                    tableModel.setRowCount(0);
-
-                    dsDichVu.forEach(dv -> {
-                        tableModel.addRow(new Object[]{dv.getMaDichVuCLS(), dv.getTenDichVuCLS(),
-                            dv.getTenNhomDichVuCLS(), dv.getGiaTien(), dv.getGiaBaoHiem(), dv.getTrangThai()});
-                    });
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_cmbTimKiemNhomDichVuActionPerformed
+    private void cmbTKNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTKNhomDichVuActionPerformed
+        timKiemDVCLS();
+    }//GEN-LAST:event_cmbTKNhomDichVuActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -587,7 +564,7 @@ public class DSDichVuCLS extends javax.swing.JFrame {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnxuatDS;
     private javax.swing.JComboBox<String> cmbNhomDichVu;
-    private javax.swing.JComboBox<String> cmbTimKiemNhomDichVu;
+    private javax.swing.JComboBox<String> cmbTKNhomDichVu;
     private javax.swing.JComboBox<String> cmbTrangThai;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;

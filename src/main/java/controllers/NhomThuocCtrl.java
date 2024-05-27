@@ -125,6 +125,24 @@ public class NhomThuocCtrl {
         return flag;
     }
 
+    public static boolean kiemTraMaNhomThuocTonTai(String maNhomThuoc) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM NHOMTHUOC WHERE MaNhomThuoc=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maNhomThuoc);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
+
     public static void exportToExcel(List<NhomThuocModel> dsNhomThuoc, String filePath) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("DanhSachNhomThuoc");

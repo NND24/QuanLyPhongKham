@@ -41,7 +41,7 @@ public class DSDangKy extends javax.swing.JPanel {
 
             cmbLocPhong.setSelectedItem("---Phòng khám---");
             cmbPhongKham.setSelectedItem("---Phòng khám---");
-            //    cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
+            cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,8 +67,10 @@ public class DSDangKy extends javax.swing.JPanel {
 
             dsPhongKham = PhongKhamCtrl.timTatCaPhongKham();
             dsPhongKham.forEach(pk -> {
-                cmbLocPhong.addItem(pk.getTenPhongKham());
-                cmbPhongKham.addItem(pk.getTenPhongKham());
+                if (pk.getTrangThai().equals("Kích hoạt")) {
+                    cmbLocPhong.addItem(pk.getTenPhongKham());
+                    cmbPhongKham.addItem(pk.getTenPhongKham());
+                }
             });
             cmbLocPhong.addItem("---Phòng khám---");
             cmbPhongKham.addItem("---Phòng khám---");
@@ -82,9 +84,11 @@ public class DSDangKy extends javax.swing.JPanel {
             cmbNhomDichVu.removeAllItems();
             dsNhomDichVu = NhomDichVuKhamBenhCtrl.timTatNhomDichVuKhamBenh();
             dsNhomDichVu.forEach(ndv -> {
-                cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
+                if (ndv.getTrangThai().equals("Kích hoạt")) {
+                    cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
+                }
             });
-            //    cmbNhomDichVu.addItem("---Nhóm dịch vụ---");
+            cmbNhomDichVu.addItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -710,6 +714,8 @@ public class DSDangKy extends javax.swing.JPanel {
             hienThiDSNhomDichVu();
             hienThiDSPhongKham();
 
+            lamMoiThongTin();
+
             txtTimKiemBN.setText("");
             cmbLocPhong.setSelectedItem("---Phòng khám---");
             cmbPhongKham.setSelectedItem("---Phòng khám---");
@@ -748,36 +754,45 @@ public class DSDangKy extends javax.swing.JPanel {
 
         int selectedIndex = tblDSDangKy.getSelectedRow();
         if (selectedIndex >= 0) {
-            DangKyBenhNhanModel dangKy = dsDangKy.get(selectedIndex);
-            txtMaBenhNhan.setText(dangKy.getMaBenhNhan());
-            txtHoTen.setText(dangKy.getHoTen());
-            txtNamSinh.setText(dangKy.getNamSinh());
-            txtGioiTinh.setText(dangKy.getGioiTinh());
-            txtLyDoKham.setText(dangKy.getLyDoKham());
-            cmbDichVuKham.setSelectedItem(dangKy.getTenDichVuKB());
-            cmbDichVuKham.setSelectedItem(dangKy.getTenDichVuKB());
-            cmbPhongKham.setSelectedItem(dangKy.getTenPhongKham());
-            txtMaDangKy.setText(dangKy.getMaDangKy());
-            cmbTrangThai.setSelectedItem(dangKy.getTrangThai());
-            String dateString = dateFormat.format(dangKy.getNgayKham());
-            txtNgayKham.setText(dateString);
+            try {
+                DangKyBenhNhanModel dangKy = dsDangKy.get(selectedIndex);
+                txtMaBenhNhan.setText(dangKy.getMaBenhNhan());
+                txtHoTen.setText(dangKy.getHoTen());
+                txtNamSinh.setText(dangKy.getNamSinh());
+                txtGioiTinh.setText(dangKy.getGioiTinh());
+                txtLyDoKham.setText(dangKy.getLyDoKham());
+                NhomDichVuKhamBenhModel nhomDichVuKB = NhomDichVuKhamBenhCtrl.timNhomDichVuTheoMaDichVu(dangKy.getMaDichVuKB());
+                cmbNhomDichVu.setSelectedItem(nhomDichVuKB.getTenNhomDichVuKB());
+                cmbDichVuKham.setSelectedItem(dangKy.getTenDichVuKB());
+                cmbPhongKham.setSelectedItem(dangKy.getTenPhongKham());
+                txtMaDangKy.setText(dangKy.getMaDangKy());
+                cmbTrangThai.setSelectedItem(dangKy.getTrangThai());
+                String dateString = dateFormat.format(dangKy.getNgayKham());
+                txtNgayKham.setText(dateString);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_tblDSDangKyMouseClicked
 
     private void cmbNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhomDichVuActionPerformed
         try {
             if (cmbNhomDichVu.getSelectedItem() != null) {
-                int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
-                String maNhomDichVuKB = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
+                if (!cmbNhomDichVu.getSelectedItem().equals("---Nhóm dịch vụ---")) {
+                    int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
+                    String maNhomDichVuKB = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
 
-                cmbDichVuKham.removeAllItems();
-                dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVuKB);
-                dsDichVu.forEach(dv -> {
-                    if (dv.getTrangThai().equals("Kích hoạt")) {
-                        cmbDichVuKham.addItem(dv.getTenDichVuKB());
-                    }
-                });
-                cmbDichVuKham.addItem("---Dịch vụ---");
+                    cmbDichVuKham.removeAllItems();
+                    dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVuKB);
+                    dsDichVu.forEach(dv -> {
+                        if (dv.getTrangThai().equals("Kích hoạt")) {
+                            cmbDichVuKham.addItem(dv.getTenDichVuKB());
+                        }
+                    });
+                    cmbDichVuKham.addItem("---Dịch vụ---");
+
+                    cmbDichVuKham.setSelectedItem("---Dịch vụ---");
+                }
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);

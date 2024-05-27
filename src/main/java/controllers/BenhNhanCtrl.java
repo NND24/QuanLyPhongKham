@@ -299,6 +299,24 @@ public class BenhNhanCtrl {
         }
     }
 
+    public static boolean kiemTraMaBenhNhanTonTai(String maBenhNhan) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM BENHNHAN WHERE MaBenhNhan=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maBenhNhan);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
+
     public static boolean kiemTraBenhNhanDaKhamBenh(String maBenhNhan) throws ClassNotFoundException {
         boolean flag = false;
         String sql = "SELECT DISTINCT MaBenhNhan FROM BENHAN WHERE MaBenhNhan=?";

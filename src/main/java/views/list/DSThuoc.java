@@ -25,8 +25,10 @@ public class DSThuoc extends javax.swing.JPanel {
 
             tableModel = (DefaultTableModel) tblDSThuoc.getModel();
 
-            hienThiTatThuoc();
+            dsThuoc = ThuocCtrl.timTatCaThuoc();
+
             hienThiDSNhomThuoc();
+            hienThiDSThuoc();
 
             cmbNhomThuoc.setSelectedItem("---Nhóm thuốc---");
             cmbTKNhomThuoc.setSelectedItem("---Nhóm thuốc---");
@@ -54,10 +56,9 @@ public class DSThuoc extends javax.swing.JPanel {
         }
     }
 
-    private void hienThiTatThuoc() throws ClassNotFoundException {
+    private void hienThiDSThuoc() throws ClassNotFoundException {
         tableModel.setRowCount(0);
 
-        dsThuoc = ThuocCtrl.timTatCaThuoc();
         dsThuoc.forEach(thuoc -> {
             tableModel.addRow(new Object[]{thuoc.getMaThuoc(), thuoc.getTenThuoc(),
                 thuoc.getTenHoatChat(), thuoc.getTenNhomThuoc(), thuoc.getDuongDung(), thuoc.getHamLuong(),
@@ -70,10 +71,9 @@ public class DSThuoc extends javax.swing.JPanel {
         txtMaThuoc.setText("");
         txtTenThuoc.setText("");
         cmbNhomThuoc.setSelectedItem("---Nhóm thuốc---");
-        cmbTKNhomThuoc.setSelectedItem("---Nhóm thuốc---");
         txtTenHoaChat.setText("");
         txtDuongDung.setText("");
-        txthamLuong.setText("");
+        txtHamLuong.setText("");
         txtSoDangKy.setText("");
         txtDongGoi.setText("");
         txtDonViTinh.setText("");
@@ -81,6 +81,27 @@ public class DSThuoc extends javax.swing.JPanel {
         txtNuocSanXuat.setText("");
         txtGiaTien.setText("");
         txtGiaBHYT.setText("");
+    }
+
+    private void timKiemThuoc() {
+        try {
+            if (cmbTKNhomThuoc.getSelectedItem() != null) {
+                if (txtTimKiem.getText().equals("") && cmbTKNhomThuoc.getSelectedItem().toString().equals("---Nhóm thuốc---")) {
+                    dsThuoc = ThuocCtrl.timTatCaThuoc();
+                    hienThiDSThuoc();
+                    return;
+                }
+
+                String timKiem = txtTimKiem.getText();
+                int nhomThuocId = cmbTKNhomThuoc.getSelectedIndex();
+                String maNhomThuoc = dsNhomThuoc.get(nhomThuocId).getMaNhomThuoc();
+
+                dsThuoc = ThuocCtrl.timKiemThuoc(timKiem, maNhomThuoc);
+                hienThiDSThuoc();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -112,7 +133,7 @@ public class DSThuoc extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         txtTenHoaChat = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        txthamLuong = new javax.swing.JTextField();
+        txtHamLuong = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         txtHangSanXuat = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
@@ -477,7 +498,7 @@ public class DSThuoc extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtGiaTien, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDonViTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txthamLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(txtHamLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -497,7 +518,7 @@ public class DSThuoc extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txthamLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHamLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(cmbNhomThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDuongDung, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -549,25 +570,27 @@ public class DSThuoc extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemThuocActionPerformed
-        if (txtTenThuoc.getText().isEmpty()) {
-            DialogHelper.showError("Tên thuốc không được để trống!");
-        } else if (txtDuongDung.getText().isEmpty()) {
-            DialogHelper.showError("Đường dùng không được để trống!");
-        } else if (!txtMaThuoc.getText().isEmpty()) {
-            DialogHelper.showError("Thuốc đã tồn tại");
-        } else if (cmbNhomThuoc.getSelectedItem().equals("---Nhóm thuốc---")) {
-            DialogHelper.showError("Nhóm thuốc không được để trống");
-        } else if (txtGiaTien.getText().isEmpty()) {
-            DialogHelper.showError("Giá tiền không được để trống");
-        } else if (txtGiaBHYT.getText().isEmpty()) {
-            DialogHelper.showError("Giá bảo hiểm không được để trống");
-        } else {
-            try {
-                String maThuoc = GenerateCode.generateMa("T");
+        try {
+            String maThuoc = GenerateCode.generateMa("T");
+            if (ThuocCtrl.kiemTraMaThuocTonTai(maThuoc)) {
+                DialogHelper.showError("Mã thuốc đã tồn tại");
+            } else if (txtTenThuoc.getText().isEmpty()) {
+                DialogHelper.showError("Tên thuốc không được để trống!");
+            } else if (txtDuongDung.getText().isEmpty()) {
+                DialogHelper.showError("Đường dùng không được để trống!");
+            } else if (!txtMaThuoc.getText().isEmpty()) {
+                DialogHelper.showError("Thuốc đã tồn tại");
+            } else if (cmbNhomThuoc.getSelectedItem().equals("---Nhóm thuốc---")) {
+                DialogHelper.showError("Nhóm thuốc không được để trống");
+            } else if (txtGiaTien.getText().isEmpty()) {
+                DialogHelper.showError("Giá tiền không được để trống");
+            } else if (txtGiaBHYT.getText().isEmpty()) {
+                DialogHelper.showError("Giá bảo hiểm không được để trống");
+            } else {
                 String tenThuoc = txtTenThuoc.getText();
                 String tenHoatChat = txtTenHoaChat.getText();
                 String duongDung = txtDuongDung.getText();
-                String hamLuong = txthamLuong.getText();
+                String hamLuong = txtHamLuong.getText();
                 String soDangKy = txtSoDangKy.getText();
                 String dongGoi = txtDongGoi.getText();
                 String donViTinh = txtDonViTinh.getText();
@@ -581,23 +604,11 @@ public class DSThuoc extends javax.swing.JPanel {
                 String maNhomThuoc = dsNhomThuoc.get(nhomThuocIndex).getMaNhomThuoc();
                 ThuocModel thuoc = new ThuocModel(maThuoc, tenThuoc, tenHoatChat, maNhomThuoc, duongDung, hamLuong, soDangKy, dongGoi, donViTinh, hangSanXuat, nuocSanXuat, giaTien, giaBaoHiem, trangThai);
                 ThuocCtrl.themThuoc(thuoc);
-                hienThiTatThuoc();
-
-                txtMaThuoc.setText("");
-                txtTenThuoc.setText("");
-                txtTenHoaChat.setText("");
-                txtDuongDung.setText("");
-                txthamLuong.setText("");
-                txtSoDangKy.setText("");
-                txtDongGoi.setText("");
-                txtDonViTinh.setText("");
-                txtHangSanXuat.setText("");
-                txtNuocSanXuat.setText("");
-                txtGiaTien.setText("");
-                txtGiaBHYT.setText("");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
+                timKiemThuoc();
+                lamMoi();
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnThemThuocActionPerformed
 
@@ -613,7 +624,7 @@ public class DSThuoc extends javax.swing.JPanel {
                     ThuocCtrl.xoaThuoc(maThuoc);
                     DialogHelper.showError("Xóa thuốc thành công!");
                     lamMoi();
-                    hienThiTatThuoc();
+                    timKiemThuoc();
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -641,7 +652,7 @@ public class DSThuoc extends javax.swing.JPanel {
                     String tenThuoc = txtTenThuoc.getText();
                     String tenHoatChat = txtTenHoaChat.getText();
                     String duongDung = txtDuongDung.getText();
-                    String hamLuong = txthamLuong.getText();
+                    String hamLuong = txtHamLuong.getText();
                     String soDangKy = txtSoDangKy.getText();
                     String dongGoi = txtDongGoi.getText();
                     String donViTinh = txtDonViTinh.getText();
@@ -656,7 +667,7 @@ public class DSThuoc extends javax.swing.JPanel {
                     ThuocModel dv = new ThuocModel(maThuoc, tenThuoc, tenHoatChat, maNhomThuoc, duongDung, hamLuong, soDangKy, dongGoi, donViTinh, hangSanXuat, nuocSanXuat, giaTien, giaBaoHiem, trangThai);
                     ThuocCtrl.capNhatThuoc(dv);
                     DialogHelper.showMessage("Sửa thông tin thuốc thành công!");
-                    hienThiTatThuoc();
+                    timKiemThuoc();
                     lamMoi();
                 }
             }
@@ -666,13 +677,10 @@ public class DSThuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaThongTinActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        try {
-            hienThiDSNhomThuoc();
-            hienThiTatThuoc();
-            lamMoi();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        lamMoi();
+        txtTimKiem.setText("");
+        cmbTKNhomThuoc.setSelectedItem("---Nhóm thuốc---");
+        timKiemThuoc();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnXuatDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDSActionPerformed
@@ -686,24 +694,7 @@ public class DSThuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXuatDSActionPerformed
 
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
-        try {
-            String timKiem = txtTimKiem.getText();
-            if (timKiem.equals("")) {
-                hienThiTatThuoc();
-            } else {
-                dsThuoc = ThuocCtrl.timTatCaThuocTheoDK(timKiem);
-                tableModel.setRowCount(0);
-
-                dsThuoc.forEach(thuoc -> {
-                    tableModel.addRow(new Object[]{thuoc.getMaThuoc(), thuoc.getTenThuoc(),
-                        thuoc.getTenHoatChat(), thuoc.getTenNhomThuoc(), thuoc.getDuongDung(), thuoc.getHamLuong(),
-                        thuoc.getSoDangKy(), thuoc.getDongGoi(), thuoc.getDonViTinh(), thuoc.getHangSanXuat(),
-                        thuoc.getNuocSanXuat(), thuoc.getGiaTien(), thuoc.getGiaBHYT(), thuoc.getTrangThai()});
-                });
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemThuoc();
     }//GEN-LAST:event_txtTimKiemKeyTyped
 
     private void txtGiaTienFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGiaTienFocusLost
@@ -723,34 +714,12 @@ public class DSThuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_txtGiaBHYTFocusLost
 
     private void cmbTKNhomThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTKNhomThuocActionPerformed
-        try {
-            if (cmbTKNhomThuoc.getSelectedItem() != null) {
-                String nhomThuoc = cmbTKNhomThuoc.getSelectedItem().toString();
-                if (nhomThuoc.equals("---Nhóm thuốc---")) {
-                    hienThiTatThuoc();
-                } else {
-                    int nhomThuocIndex = cmbTKNhomThuoc.getSelectedIndex();
-                    String maNhomThuoc = dsNhomThuoc.get(nhomThuocIndex).getMaNhomThuoc();
-                    dsThuoc = ThuocCtrl.timThuocTheoNhomThuoc(maNhomThuoc);
-                    tableModel.setRowCount(0);
-
-                    dsThuoc.forEach(thuoc -> {
-                        tableModel.addRow(new Object[]{thuoc.getMaThuoc(), thuoc.getTenThuoc(),
-                            thuoc.getTenHoatChat(), thuoc.getTenNhomThuoc(), thuoc.getDuongDung(), thuoc.getHamLuong(),
-                            thuoc.getSoDangKy(), thuoc.getDongGoi(), thuoc.getDonViTinh(), thuoc.getHangSanXuat(),
-                            thuoc.getNuocSanXuat(), thuoc.getGiaTien(), thuoc.getGiaBHYT(), thuoc.getTrangThai()});
-                    });
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSThuoc.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemThuoc();
     }//GEN-LAST:event_cmbTKNhomThuocActionPerformed
 
     private void tblDSThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSThuocMouseClicked
         int selectedIndex = tblDSThuoc.getSelectedRow();
-        if (selectedIndex
-                >= 0) {
+        if (selectedIndex >= 0) {
             ThuocModel thuoc = dsThuoc.get(selectedIndex);
 
             txtMaThuoc.setText(thuoc.getMaThuoc());
@@ -758,7 +727,7 @@ public class DSThuoc extends javax.swing.JPanel {
             txtTenHoaChat.setText(thuoc.getTenHoatChat());
             cmbNhomThuoc.setSelectedItem(thuoc.getTenNhomThuoc());
             txtDuongDung.setText(thuoc.getDuongDung());
-            txthamLuong.setText(thuoc.getHamLuong());
+            txtHamLuong.setText(thuoc.getHamLuong());
             txtSoDangKy.setText(thuoc.getSoDangKy());
             txtDongGoi.setText(thuoc.getDongGoi());
             txtDonViTinh.setText(thuoc.getDonViTinh());
@@ -807,6 +776,7 @@ public class DSThuoc extends javax.swing.JPanel {
     private javax.swing.JTextField txtDuongDung;
     private javax.swing.JTextField txtGiaBHYT;
     private javax.swing.JTextField txtGiaTien;
+    private javax.swing.JTextField txtHamLuong;
     private javax.swing.JTextField txtHangSanXuat;
     private javax.swing.JTextField txtMaThuoc;
     private javax.swing.JTextField txtNuocSanXuat;
@@ -814,6 +784,5 @@ public class DSThuoc extends javax.swing.JPanel {
     private javax.swing.JTextField txtTenHoaChat;
     private javax.swing.JTextField txtTenThuoc;
     private javax.swing.JTextField txtTimKiem;
-    private javax.swing.JTextField txthamLuong;
     // End of variables declaration//GEN-END:variables
 }

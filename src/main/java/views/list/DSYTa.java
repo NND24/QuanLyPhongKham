@@ -1,7 +1,6 @@
 package views.list;
 
 import controllers.YTaCtrl;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -21,14 +20,14 @@ public class DSYTa extends javax.swing.JPanel {
         try {
             initComponents();
             tableModel = (DefaultTableModel) tblDSYTa.getModel();
-            hienThiCacYTa();
+            dsYTa = YTaCtrl.hienthiYTa();
+            hienThiDSYTa();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void hienThiCacYTa() throws ClassNotFoundException {
-        dsYTa = YTaCtrl.hienthiYTa();
+    private void hienThiDSYTa() throws ClassNotFoundException {
         tableModel.setRowCount(0);
 
         dsYTa.forEach(yTa -> {
@@ -47,6 +46,24 @@ public class DSYTa extends javax.swing.JPanel {
         txtCanCuoc.setText("");
         txtEmail.setText("");
         txtSoDienThoai.setText("");
+    }
+
+    private void timKiemYTa() {
+        try {
+            String timKiem = txtTimKiem.getText();
+            String gioiTinh = cmbTKGioiTinh.getSelectedItem().toString();
+
+            if (timKiem.equals("") && gioiTinh.equals("Tất cả")) {
+                dsYTa = YTaCtrl.hienthiYTa();
+                hienThiDSYTa();
+                return;
+            }
+
+            dsYTa = YTaCtrl.timYTaTheoDK(timKiem, gioiTinh);
+            hienThiDSYTa();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -124,7 +141,7 @@ public class DSYTa extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 660));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1360, 585));
 
         jPanel4.setPreferredSize(new java.awt.Dimension(88, 35));
 
@@ -240,7 +257,7 @@ public class DSYTa extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Giới tính");
 
-        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Căn cước");
@@ -265,11 +282,6 @@ public class DSYTa extends javax.swing.JPanel {
 
         txtEmail.setEditable(false);
         txtEmail.setBackground(new java.awt.Color(204, 204, 204));
-        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtEmailFocusLost(evt);
-            }
-        });
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel17.setText("Năm sinh");
@@ -288,7 +300,7 @@ public class DSYTa extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("DANH SÁCH Y TÁ");
 
-        cmbTKGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ", "Khác" }));
+        cmbTKGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ" }));
         cmbTKGioiTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTKGioiTinhActionPerformed(evt);
@@ -448,63 +460,62 @@ public class DSYTa extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1389, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
-            String tenYTa = txtHoTen.getText();
-            String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-            String diaChi = txtDiaChi.getText();
-            String namSinh = txtNamSinh.getText();
-            String cccd = txtCanCuoc.getText();
-            String sdt = txtSoDienThoai.getText();
-
             if (!txtMaYTa.getText().isEmpty()) {
                 DialogHelper.showError("Y tá đã có trong cơ sở dữ liệu");
-            } else if (tenYTa.isEmpty()) {
+            } else if (txtHoTen.getText().isEmpty()) {
                 DialogHelper.showError("Họ tên không được để trống");
-            } else if (namSinh.isEmpty()) {
+            } else if (txtNamSinh.getText().isEmpty()) {
                 DialogHelper.showError("Năm sinh không được để trống");
-            } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
+            } else if (!txtNamSinh.getText().isEmpty() && !Validator.isValidYearOfBirth(txtNamSinh.getText())) {
                 DialogHelper.showError("Năm sinh không hợp lệ");
-            } else if (sdt.isEmpty()) {
+            } else if (txtSoDienThoai.getText().isEmpty()) {
                 DialogHelper.showError("Số điện thoại không được để trống");
-            } else if (!sdt.isEmpty() && !Validator.isValidPhoneNumber(sdt)) {
+            } else if (!txtSoDienThoai.getText().isEmpty() && !Validator.isValidPhoneNumber(txtSoDienThoai.getText())) {
                 DialogHelper.showError("Số điện thoại không hợp lệ");
-            } else if (diaChi.isEmpty()) {
+            } else if (txtDiaChi.getText().isEmpty()) {
                 DialogHelper.showError("Địa chỉ không được để trống");
-            } else if (!cccd.isEmpty() && !Validator.isValidCccd(cccd)) {
+            } else if (!txtCanCuoc.getText().isEmpty() && !Validator.isValidCccd(txtCanCuoc.getText())) {
                 DialogHelper.showError("Căn cước công dân không hợp lệ");
-            } else if (YTaCtrl.kiemTraCccdCoTonTai(cccd)) {
+            } else if (YTaCtrl.kiemTraCccdCoTonTai(txtCanCuoc.getText())) {
                 DialogHelper.showError("CCCD đã tồn tại");
             } else {
+                String tenYTa = txtHoTen.getText();
+                String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+                String diaChi = txtDiaChi.getText();
+                String namSinh = txtNamSinh.getText();
+                String cccd = txtCanCuoc.getText();
+                String sdt = txtSoDienThoai.getText();
+
                 YTaModel yTa = new YTaModel(tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd, currentImage);
 
                 YTaCtrl.themYTa(yTa);
-                hienThiCacYTa();
+                timKiemYTa();
                 lamMoi();
                 DialogHelper.showMessage("Thêm y tá thành công!");
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
             if (txtMaYTa.getText().isEmpty()) {
-                DialogHelper.showError("Chưa có y tá được chọn");
+                DialogHelper.showError("Vui lòng chọn y tá muốn xóa");
             } else {
                 if (YTaCtrl.kiemTraYTaCoGiamSatPhong(txtMaYTa.getText())) {
                     DialogHelper.showError("Y tá đang giám sát phòng bệnh\nVui lòng chỉnh lại Giám Sát phòng bệnh trước khi xóa");
@@ -517,7 +528,7 @@ public class DSYTa extends javax.swing.JPanel {
                         YTaCtrl.xoaYTa(yTa);
                         DialogHelper.showError("Xóa y tá thành công!");
                         lamMoi();
-                        hienThiCacYTa();
+                        timKiemYTa();
                     }
                 }
             }
@@ -528,35 +539,37 @@ public class DSYTa extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
-            String maYTa = txtMaYTa.getText();
-            String tenYTa = txtHoTen.getText();
-            String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-            String diaChi = txtDiaChi.getText();
-            String namSinh = txtNamSinh.getText();
-            String cccd = txtCanCuoc.getText();
-            String sdt = txtSoDienThoai.getText();
+            if (txtMaYTa.getText().isEmpty()) {
+                DialogHelper.showError("Vui lòng chọn y tá muốn chỉnh sửa");
+            } else if (DialogHelper.showConfirmation("Bạn có chắc muốn chỉnh sửa thông tin y tá này")) {
+                if (txtHoTen.getText().isEmpty()) {
+                    DialogHelper.showError("Họ tên không được để trống");
+                } else if (txtNamSinh.getText().isEmpty()) {
+                    DialogHelper.showError("Năm sinh không được để trống");
+                } else if (!txtNamSinh.getText().isEmpty() && !Validator.isValidYearOfBirth(txtNamSinh.getText())) {
+                    DialogHelper.showError("Năm sinh không hợp lệ");
+                } else if (txtSoDienThoai.getText().isEmpty()) {
+                    DialogHelper.showError("Số điện thoại không được để trống");
+                } else if (!txtSoDienThoai.getText().isEmpty() && !Validator.isValidPhoneNumber(txtSoDienThoai.getText())) {
+                    DialogHelper.showError("Số điện thoại không hợp lệ");
+                } else if (txtDiaChi.getText().isEmpty()) {
+                    DialogHelper.showError("Địa chỉ không được để trống");
+                } else if (txtMaYTa.getText().isEmpty()) {
+                    DialogHelper.showError("Mã y tá không được để trống");
+                } else if (!txtCanCuoc.getText().isEmpty() && !Validator.isValidCccd(txtCanCuoc.getText())) {
+                    DialogHelper.showError("Căn cước công dân không hợp lệ");
+                } else {
+                    String maYTa = txtMaYTa.getText();
+                    String tenYTa = txtHoTen.getText();
+                    String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+                    String diaChi = txtDiaChi.getText();
+                    String namSinh = txtNamSinh.getText();
+                    String cccd = txtCanCuoc.getText();
+                    String sdt = txtSoDienThoai.getText();
 
-            if (tenYTa.isEmpty()) {
-                DialogHelper.showError("Họ tên không được để trống");
-            } else if (namSinh.isEmpty()) {
-                DialogHelper.showError("Năm sinh không được để trống");
-            } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
-                DialogHelper.showError("Năm sinh không hợp lệ");
-            } else if (sdt.isEmpty()) {
-                DialogHelper.showError("Số điện thoại không được để trống");
-            } else if (!sdt.isEmpty() && !Validator.isValidPhoneNumber(sdt)) {
-                DialogHelper.showError("Số điện thoại không hợp lệ");
-            } else if (diaChi.isEmpty()) {
-                DialogHelper.showError("Địa chỉ không được để trống");
-            } else if (maYTa.isEmpty()) {
-                DialogHelper.showError("Mã y tá không được để trống");
-            } else if (!cccd.isEmpty() && !Validator.isValidCccd(cccd)) {
-                DialogHelper.showError("Căn cước công dân không hợp lệ");
-            } else {
-                if (DialogHelper.showConfirmation("Bạn có chắc sửa thông tin y tá này")) {
                     YTaModel yTa = new YTaModel(maYTa, tenYTa, gioiTinh, namSinh, diaChi, sdt, cccd, cccd);
                     YTaCtrl.capNhatYTa(yTa);
-                    hienThiCacYTa();
+                    timKiemYTa();
                     lamMoi();
                     DialogHelper.showMessage("Sửa thông tin y tá thành công");
                 }
@@ -568,6 +581,9 @@ public class DSYTa extends javax.swing.JPanel {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         lamMoi();
+        txtTimKiem.setText("");
+        cmbTKGioiTinh.setSelectedIndex(0);
+        timKiemYTa();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void txtCanCuocFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCanCuocFocusLost
@@ -593,10 +609,6 @@ public class DSYTa extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtSoDienThoaiFocusLost
 
-    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-
-    }//GEN-LAST:event_txtEmailFocusLost
-
     private void txtNamSinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNamSinhFocusLost
         String namSinh = txtNamSinh.getText();
         if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
@@ -607,7 +619,7 @@ public class DSYTa extends javax.swing.JPanel {
 
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
         try {
-            List<YTaModel> dsYTa = YTaCtrl.hienthiYTa();
+            dsYTa = YTaCtrl.hienthiYTa();
             YTaCtrl.exportToExcel(dsYTa, "src/main/java/ExcelStorage/DSYTa.xlsx");
             DialogHelper.showError("Xuất file thành công");
         } catch (ClassNotFoundException ex) {
@@ -616,49 +628,11 @@ public class DSYTa extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXuatActionPerformed
 
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
-        try {
-            String timKiem = txtTimKiem.getText();
-            String gioiTinh = cmbTKGioiTinh.getSelectedItem().toString();
-
-            if (timKiem.equals("")) {
-                hienThiCacYTa();
-            } else {
-                dsYTa = YTaCtrl.timYTaTheoDK(timKiem, gioiTinh);;
-                tableModel.setRowCount(0);
-
-                dsYTa.forEach(yTa -> {
-                    tableModel.addRow(new Object[]{yTa.getMaYT(), yTa.getHoTen(), yTa.getGioiTinh(),
-                        yTa.getNamSinh(), yTa.getCCCD(), yTa.getDiaChi(),
-                        yTa.getSDT(), yTa.getEmail()});
-                });
-            }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemYTa();
     }//GEN-LAST:event_txtTimKiemKeyTyped
 
     private void cmbTKGioiTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTKGioiTinhActionPerformed
-        try {
-            String timKiem = txtTimKiem.getText();
-            String gioiTinh = cmbTKGioiTinh.getSelectedItem().toString();
-
-            if (gioiTinh.equals("Tất cả")) {
-                hienThiCacYTa();
-            } else {
-                dsYTa = YTaCtrl.timYTaTheoDK(timKiem, gioiTinh);
-
-                tableModel.setRowCount(0);
-
-                dsYTa.forEach(yTa -> {
-                    tableModel.addRow(new Object[]{yTa.getMaYT(), yTa.getHoTen(), yTa.getGioiTinh(),
-                        yTa.getNamSinh(), yTa.getCCCD(), yTa.getDiaChi(),
-                        yTa.getSDT(), yTa.getEmail()});
-                });
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemYTa();
     }//GEN-LAST:event_cmbTKGioiTinhActionPerformed
 
     private void tblDSYTaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSYTaMouseClicked

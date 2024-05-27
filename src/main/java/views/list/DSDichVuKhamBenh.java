@@ -25,7 +25,9 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
 
             tableModel = (DefaultTableModel) tblDSDichVuKB.getModel();
 
-            hienThiTatCaDichVu();
+            dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVu();
+
+            hienThiDSDichVu();
             hienThiDSNhomDichVu();
 
             cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
@@ -53,9 +55,7 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
         }
     }
 
-    private void hienThiTatCaDichVu() throws ClassNotFoundException {
-
-        dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVu();
+    private void hienThiDSDichVu() throws ClassNotFoundException {
         tableModel.setRowCount(0);
 
         dsDichVu.forEach(dv -> {
@@ -68,10 +68,35 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
         txtMaDichVu.setText("");
         txtTenDichVu.setText("");
         cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
-        cmbTKNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         txtGiaTien.setText("");
         txtGiaBaoHiem.setText("");
         cmbTrangThai.setSelectedIndex(0);
+    }
+
+    private void timKiemDVKB() {
+        try {
+            if (cmbTKNhomDichVu.getSelectedItem() != null) {
+                String timKiem = txtTimKiem.getText();
+                if (timKiem.equals("") && cmbTKNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
+                    dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVu();
+                    hienThiDSDichVu();
+                    return;
+                }
+
+                String maNhomDichVu = "";
+                if (cmbTKNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
+                    maNhomDichVu = "---Nhóm dịch vụ---";
+                } else {
+                    int nhomDichVuId = cmbTKNhomDichVu.getSelectedIndex();
+                    maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuKB();
+                }
+
+                dsDichVu = DichVuKhamBenhCtrl.timKiemDichVuKhamBenh(timKiem, maNhomDichVu);
+                hienThiDSDichVu();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -378,29 +403,28 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        try {
-            hienThiDSNhomDichVu();
-            hienThiTatCaDichVu();
-            lamMoi();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuKhamBenh.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        lamMoi();
+        cmbTKNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
+        txtTimKiem.setText("");
+        timKiemDVKB();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtTenDichVu.getText().isEmpty()) {
-            DialogHelper.showError("Tên dịch vụ không được để trống!");
-        } else if (!txtMaDichVu.getText().isEmpty()) {
-            DialogHelper.showError("Dịch vụ đã tồn tại");
-        } else if (cmbNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
-            DialogHelper.showError("Nhóm dịch vụ không được để trống");
-        } else if (txtGiaTien.getText().isEmpty()) {
-            DialogHelper.showError("Giá tiền không được để trống");
-        } else if (txtGiaBaoHiem.getText().isEmpty()) {
-            DialogHelper.showError("Giá bảo hiểm không được để trống");
-        } else {
-            try {
-                String maDichVu = GenerateCode.generateMa("DVKB");
+        try {
+            String maDichVu = GenerateCode.generateMa("DVKB");
+            if (DichVuKhamBenhCtrl.kiemTraMaDVKBTonTai(maDichVu)) {
+                DialogHelper.showError("Mã dịch vụ khám bệnh đã tồn tại");
+            } else if (txtTenDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Tên dịch vụ không được để trống!");
+            } else if (!txtMaDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Dịch vụ đã tồn tại");
+            } else if (cmbNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
+                DialogHelper.showError("Nhóm dịch vụ không được để trống");
+            } else if (txtGiaTien.getText().isEmpty()) {
+                DialogHelper.showError("Giá tiền không được để trống");
+            } else if (txtGiaBaoHiem.getText().isEmpty()) {
+                DialogHelper.showError("Giá bảo hiểm không được để trống");
+            } else {
                 String tenDichVu = txtTenDichVu.getText();
                 int nhomDichVuId = cmbNhomDichVu.getSelectedIndex();
                 String maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuKB();
@@ -411,31 +435,27 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
                 DichVuKhamBenhModel dv = new DichVuKhamBenhModel(maDichVu, tenDichVu, giaTien, giaBaoHiem, trangThai, maNhomDichVu);
                 DichVuKhamBenhCtrl.themDichVuKhamBenh(dv);
 
-                hienThiTatCaDichVu();
-                txtMaDichVu.setText("");
-                txtTenDichVu.setText("");
-                txtGiaTien.setText("");
-                txtGiaBaoHiem.setText("");
-                cmbTrangThai.setSelectedIndex(0);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DSDichVuKhamBenh.class.getName()).log(Level.SEVERE, null, ex);
+                lamMoi();
+                timKiemDVKB();
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDichVuKhamBenh.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
-            String maDichVu = txtMaDichVu.getText();
-            if (maDichVu.isEmpty()) {
-                DialogHelper.showError("Chưa có dịch vụ được chọn");
-            } else if (DichVuKhamBenhCtrl.kiemTraDVDaDuocSuDung(maDichVu)) {
+            if (txtMaDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Vui lòng chọn dịch vụ khám bệnh muốn xóa");
+            } else if (DichVuKhamBenhCtrl.kiemTraDVDaDuocSuDung(txtMaDichVu.getText())) {
                 DialogHelper.showError("Dịch vụ khám bệnh đã được sử dụng, không thể xóa");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa dịch vụ khám bệnh này")) {
+                    String maDichVu = txtMaDichVu.getText();
                     DichVuKhamBenhCtrl.xoaDichVuKhamBenh(maDichVu);
                     DialogHelper.showMessage("Xóa dịch vụ khám bệnh thành công!");
                     lamMoi();
-                    hienThiTatCaDichVu();
+                    timKiemDVKB();
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -446,7 +466,7 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
             if (txtMaDichVu.getText().isEmpty()) {
-                DialogHelper.showError("Mã dịch vụ không được để trống!");
+                DialogHelper.showError("Vui lòng chọn dịch vụ khám bệnh muốn chỉnh sửa");
             } else if (txtTenDichVu.getText().isEmpty()) {
                 DialogHelper.showError("Tên dịch vụ không được để trống!");
             } else if (cmbNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
@@ -468,7 +488,8 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
                     DichVuKhamBenhModel dv = new DichVuKhamBenhModel(maDichVu, tenDichVu, giaTien, giaBaoHiem, trangThai, maNhomDichVu);
                     DichVuKhamBenhCtrl.capNhatDichVuKhamBenh(dv);
                     DialogHelper.showMessage("Sửa dịch vụ khám bệnh thành công!");
-                    hienThiTatCaDichVu();
+                    lamMoi();
+                    timKiemDVKB();
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -491,34 +512,7 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
     }//GEN-LAST:event_tblDSDichVuKBMouseClicked
 
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
-        try {
-            if (cmbTKNhomDichVu.getSelectedItem() != null) {
-                String timKiem = txtTimKiem.getText();
-                if (timKiem.equals("")) {
-                    hienThiTatCaDichVu();
-                } else if (!timKiem.equals("") && cmbTKNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
-                    dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoDK(timKiem, "---Nhóm dịch vụ---");
-                    tableModel.setRowCount(0);
-
-                    dsDichVu.forEach(dv -> {
-                        tableModel.addRow(new Object[]{dv.getMaDichVuKB(), dv.getTenDichVuKB(),
-                            dv.getTenNhomDichVuKB(), dv.getGiaTien(), dv.getGiaBaoHiem(), dv.getTrangThai()});
-                    });
-                } else {
-                    int nhomDichVuId = cmbNhomDichVu.getSelectedIndex();
-                    String maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuKB();
-                    dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoDK(timKiem, maNhomDichVu);
-                    tableModel.setRowCount(0);
-
-                    dsDichVu.forEach(dv -> {
-                        tableModel.addRow(new Object[]{dv.getMaDichVuKB(), dv.getTenDichVuKB(),
-                            dv.getTenNhomDichVuKB(), dv.getGiaTien(), dv.getGiaBaoHiem(), dv.getTrangThai()});
-                    });
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemDVKB();
     }//GEN-LAST:event_txtTimKiemKeyTyped
 
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
@@ -548,26 +542,7 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
     }//GEN-LAST:event_txtGiaBaoHiemFocusLost
 
     private void cmbTKNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTKNhomDichVuActionPerformed
-        try {
-            if (cmbTKNhomDichVu.getSelectedItem() != null) {
-                if (cmbTKNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
-                    hienThiTatCaDichVu();
-                } else {
-                    String timKiem = txtTimKiem.getText();
-                    int nhomDichVuId = cmbTKNhomDichVu.getSelectedIndex();
-                    String maNhomDichVu = dsNhomDichVu.get(nhomDichVuId).getMaNhomDichVuKB();
-                    dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoDK(timKiem, maNhomDichVu);
-                    tableModel.setRowCount(0);
-
-                    dsDichVu.forEach(dv -> {
-                        tableModel.addRow(new Object[]{dv.getMaDichVuKB(), dv.getTenDichVuKB(),
-                            dv.getTenNhomDichVuKB(), dv.getGiaTien(), dv.getGiaBaoHiem(), dv.getTrangThai()});
-                    });
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemDVKB();
     }//GEN-LAST:event_cmbTKNhomDichVuActionPerformed
 
     public static void main(String args[]) {

@@ -115,4 +115,22 @@ public class DonThuocCtrl {
             Logger.getLogger(DonThuocCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static boolean kiemTraMaDonThuocTonTai(String maDonThuoc) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM DONTHUOC WHERE MaDonThuoc=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maDonThuoc);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
 }

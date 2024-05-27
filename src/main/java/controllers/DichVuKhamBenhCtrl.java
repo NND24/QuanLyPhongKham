@@ -112,7 +112,7 @@ public class DichVuKhamBenhCtrl {
         }
     }
 
-    public static List<DichVuKhamBenhModel> timTatCaDichVuTheoDK(String timKiem, String maNhomDichVu) throws ClassNotFoundException {
+    public static List<DichVuKhamBenhModel> timKiemDichVuKhamBenh(String timKiem, String maNhomDichVu) throws ClassNotFoundException {
         List<DichVuKhamBenhModel> dsDichVu = new ArrayList<>();
         try (Connection connection = ConnectDB.getConnection()) {
             String sql = "SELECT MaDichVuKB, TenDichVuKB, DICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, GiaTien, GiaBaoHiem, DICHVUKB.TrangThai "
@@ -160,6 +160,24 @@ public class DichVuKhamBenhCtrl {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dsDichVu;
+    }
+
+    public static boolean kiemTraMaDVKBTonTai(String maDichVuKB) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM DICHVUKB WHERE MaDichVuKB=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maDichVuKB);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
     }
 
     public static boolean kiemTraDVDaDuocSuDung(String maDichVu) throws ClassNotFoundException {

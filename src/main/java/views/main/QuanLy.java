@@ -340,7 +340,7 @@ public class QuanLy extends javax.swing.JFrame {
         mniQuanLyKhamBenh.add(mniQuanLyDVKB);
         mniQuanLyKhamBenh.add(jSeparator3);
 
-        mniQuanLyNhomDVCLS.setText("Danh sách nhóm DV cận lâm sàn");
+        mniQuanLyNhomDVCLS.setText("Danh sách nhóm DV cận lâm sàng");
         mniQuanLyNhomDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyNhomDVCLS.setPreferredSize(new java.awt.Dimension(222, 30));
         mniQuanLyNhomDVCLS.addActionListener(new java.awt.event.ActionListener() {
@@ -350,7 +350,7 @@ public class QuanLy extends javax.swing.JFrame {
         });
         mniQuanLyKhamBenh.add(mniQuanLyNhomDVCLS);
 
-        mniQuanLyDVCLS.setText("Danh sách DV cận lâm sàn");
+        mniQuanLyDVCLS.setText("Danh sách DV cận lâm sàng");
         mniQuanLyDVCLS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mniQuanLyDVCLS.setPreferredSize(new java.awt.Dimension(187, 30));
         mniQuanLyDVCLS.addActionListener(new java.awt.event.ActionListener() {

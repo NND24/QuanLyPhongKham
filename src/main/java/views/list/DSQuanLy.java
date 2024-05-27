@@ -373,7 +373,7 @@ public class DSQuanLy extends javax.swing.JPanel {
         jLabel21.setText("Giới tính");
 
         cboGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Năm sinh");

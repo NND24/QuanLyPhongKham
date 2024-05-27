@@ -306,20 +306,22 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtTenNhomThuoc.getText().isEmpty()) {
-            DialogHelper.showError("tên nhóm thuốc không được bỏ trống");
-        } else {
-            try {
-                String maNhomThuoc = GenerateCode.generateMa("NT");
+        try {
+            String maNhomThuoc = GenerateCode.generateMa("NT");
+            if (NhomThuocCtrl.kiemTraMaNhomThuocTonTai(maNhomThuoc)) {
+                DialogHelper.showError("Mã nhóm thuốc đã tồn tại");
+            } else if (txtTenNhomThuoc.getText().isEmpty()) {
+                DialogHelper.showError("tên nhóm thuốc không được bỏ trống");
+            } else {
                 String tenNhomThuoc = txtTenNhomThuoc.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
                 NhomThuocModel nt = new NhomThuocModel(maNhomThuoc, tenNhomThuoc, trangThai);
                 NhomThuocCtrl.themNhomThuoc(nt);
                 lamMoi();
                 hienThiTatCaNhomThuoc();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSNhomThuoc.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnThemActionPerformed
 

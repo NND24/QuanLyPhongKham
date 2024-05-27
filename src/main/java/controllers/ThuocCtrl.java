@@ -62,57 +62,6 @@ public class ThuocCtrl {
                 }
             }
         }
-
-        return dsThuoc;
-    }
-
-    public static List<ThuocModel> timThuocTheoNhomThuoc(String maNhomThuoc) throws ClassNotFoundException {
-        List<ThuocModel> dsThuoc = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            connection = ConnectDB.getConnection();
-            String sql = """
-                         SELECT THUOC.*, NHOMTHUOC.TenNhomThuoc FROM THUOC
-                         JOIN NHOMTHUOC ON THUOC.MaNhomThuoc = NHOMTHUOC.MaNhomThuoc AND THUOC.MaNhomThuoc = ?
-                         """;
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, maNhomThuoc);
-
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                ThuocModel thuoc = new ThuocModel(
-                        resultSet.getString("MaThuoc"), resultSet.getString("TenThuoc"),
-                        resultSet.getString("TenHoatChat"), resultSet.getString("MaNhomThuoc"),
-                        resultSet.getString("TenNhomThuoc"), resultSet.getString("DuongDung"),
-                        resultSet.getString("HamLuong"), resultSet.getString("SoDangKy"),
-                        resultSet.getString("DongGoi"), resultSet.getString("DonViTinh"),
-                        resultSet.getString("HangSanXuat"), resultSet.getString("NuocSanXuat"),
-                        resultSet.getInt("GiaTien"), resultSet.getInt("GiaBaoHiem"),
-                        resultSet.getString("TrangThai"));
-                dsThuoc.add(thuoc);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
         return dsThuoc;
     }
 
@@ -279,7 +228,7 @@ public class ThuocCtrl {
         }
     }
 
-    public static List<ThuocModel> timTatCaThuocTheoDK(String timKiem) throws ClassNotFoundException {
+    public static List<ThuocModel> timKiemThuoc(String timKiem, String maNhomThuoc) throws ClassNotFoundException {
         List<ThuocModel> dsThuoc = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -290,13 +239,17 @@ public class ThuocCtrl {
                          SELECT THUOC.*, NHOMTHUOC.TenNhomThuoc
                          FROM THUOC
                          JOIN NHOMTHUOC ON THUOC.MaNhomThuoc = NHOMTHUOC.MaNhomThuoc
-                         WHERE MaThuoc LIKE ?
+                         WHERE (MaThuoc LIKE ?
                          OR TenThuoc LIKE ?
                          OR THUOC.MaNhomThuoc LIKE ?
                          OR NHOMTHUOC.TenNhomThuoc LIKE ?
                          OR SoDangKy LIKE ?
                          OR HangSanXuat LIKE ?
-                         OR NuocSanXuat LIKE ?""";
+                         OR NuocSanXuat LIKE ?)""";
+
+            if (!maNhomThuoc.isEmpty()) {
+                sql += " AND NHOMTHUOC.MaNhomThuoc = ?";
+            }
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + timKiem + "%");
@@ -306,6 +259,9 @@ public class ThuocCtrl {
             statement.setString(5, "%" + timKiem + "%");
             statement.setString(6, "%" + timKiem + "%");
             statement.setString(7, "%" + timKiem + "%");
+            if (!maNhomThuoc.isEmpty()) {
+                statement.setString(8, maNhomThuoc);
+            }
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -340,6 +296,24 @@ public class ThuocCtrl {
             }
         }
         return dsThuoc;
+    }
+
+    public static boolean kiemTraMaThuocTonTai(String maThuoc) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM THUOC WHERE MaThuoc=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maThuoc);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
     }
 
     public static boolean kiemTraThuocDaDuocSuDung(String maThuoc) throws ClassNotFoundException {

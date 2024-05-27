@@ -71,7 +71,9 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             cmbPhongKham.removeAllItems();
             dsPhongKham = PhongKhamCtrl.timTatCaPhongKham();
             dsPhongKham.forEach(pk -> {
-                cmbPhongKham.addItem(pk.getTenPhongKham() + " " + pk.getSoLuongBenhNhan());
+                if (pk.getTrangThai().equals("Kích hoạt")) {
+                    cmbPhongKham.addItem(pk.getTenPhongKham() + " " + pk.getSoLuongBenhNhan());
+                }
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +85,9 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             cmbNhomDichVu.removeAllItems();
             dsNhomDichVu = NhomDichVuKhamBenhCtrl.timTatNhomDichVuKhamBenh();
             dsNhomDichVu.forEach(ndv -> {
-                cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
+                if (ndv.getTrangThai().equals("Kích hoạt")) {
+                    cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
+                }
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
@@ -814,42 +818,44 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void btnLuuBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuBenhNhanActionPerformed
         try {
             String maBenhNhan = GenerateCode.generateMa("BN");
-            String hoTen = txtHoTen.getText();
-            String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-            String namSinh = txtNamSinh.getText();
-            String diaChi = txtDiaChi.getText();
-            String canCuoc = txtCanCuoc.getText();
-            String BHYT = txtBHYT.getText();
-            String soDienThoai = txtSoDienThoai.getText();
-            String ngheNghiep = txtNgheNghiep.getText();
-            String danToc = txtDanToc.getText();
-            String quocTich = txtQuocTich.getText();
-
-            if (!txtMaBenhNhan.getText().isEmpty()) {
+            if (BenhNhanCtrl.kiemTraMaBenhNhanTonTai(maBenhNhan)) {
+                DialogHelper.showError("Mã bệnh nhân đã tồn tại");
+            } else if (!txtMaBenhNhan.getText().isEmpty()) {
                 DialogHelper.showError("Bệnh nhân đã tồn tại");
-            } else if (hoTen.isEmpty()) {
+            } else if (txtHoTen.getText().isEmpty()) {
                 DialogHelper.showError("Họ tên không được để trống");
-            } else if (namSinh.isEmpty()) {
+            } else if (txtNamSinh.getText().isEmpty()) {
                 DialogHelper.showError("Năm sinh không được để trống");
-            } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
+            } else if (!txtNamSinh.getText().isEmpty() && !Validator.isValidYearOfBirth(txtNamSinh.getText())) {
                 DialogHelper.showError("Năm sinh không hợp lệ");
-            } else if (!Validator.isValidYearOfBirth(namSinh)) {
+            } else if (!Validator.isValidYearOfBirth(txtNamSinh.getText())) {
                 DialogHelper.showError("Năm sinh không hợp lệ");
-            } else if (soDienThoai.isEmpty()) {
+            } else if (txtSoDienThoai.getText().isEmpty()) {
                 DialogHelper.showError("Số điện thoại không được để trống");
-            } else if (!soDienThoai.isEmpty() && !Validator.isValidPhoneNumber(soDienThoai)) {
+            } else if (!txtSoDienThoai.getText().isEmpty() && !Validator.isValidPhoneNumber(txtSoDienThoai.getText())) {
                 DialogHelper.showError("Số điện thoại không hợp lệ");
-            } else if (diaChi.isEmpty()) {
+            } else if (txtDiaChi.getText().isEmpty()) {
                 DialogHelper.showError("Địa chỉ không được để trống");
-            } else if (!canCuoc.isEmpty() && !Validator.isValidCccd(canCuoc)) {
+            } else if (!txtCanCuoc.getText().isEmpty() && !Validator.isValidCccd(txtCanCuoc.getText())) {
                 DialogHelper.showError("Căn cước công dân không hợp lệ");
-            } else if (!canCuoc.isEmpty() && BenhNhanCtrl.kiemTraCccdCoTonTai(canCuoc)) {
+            } else if (!txtCanCuoc.getText().isEmpty() && BenhNhanCtrl.kiemTraCccdCoTonTai(txtCanCuoc.getText())) {
                 DialogHelper.showError("CCCD đã tồn tại");
-            } else if (!BHYT.isEmpty() && !Validator.isValidBhyt(BHYT)) {
+            } else if (!txtBHYT.getText().isEmpty() && !Validator.isValidBhyt(txtBHYT.getText())) {
                 DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
-            } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT, maBenhNhan)) {
+            } else if (!txtBHYT.getText().isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(txtBHYT.getText(), maBenhNhan)) {
                 DialogHelper.showError("BHYT đã tồn tại");
             } else {
+                String hoTen = txtHoTen.getText();
+                String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+                String namSinh = txtNamSinh.getText();
+                String diaChi = txtDiaChi.getText();
+                String canCuoc = txtCanCuoc.getText();
+                String BHYT = txtBHYT.getText();
+                String soDienThoai = txtSoDienThoai.getText();
+                String ngheNghiep = txtNgheNghiep.getText();
+                String danToc = txtDanToc.getText();
+                String quocTich = txtQuocTich.getText();
+
                 BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
                 BenhNhanCtrl.themBenhNhan(bn);
                 DialogHelper.showMessage("Thêm bệnh nhân thành công");
@@ -889,24 +895,24 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void btnLuuDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuDangKyActionPerformed
         try {
             String maDangKy = GenerateCode.generateMa("DK");
-            String maBenhNhan = txtMaBenhNhan.getText();
-            String lyDoKham = txtLyDoKham.getText();
-            int thuTuKham = Integer.parseInt(txtThuTuKham.getText());
-
-            LocalDate currentDate = LocalDate.now();
-            java.sql.Date ngayKham = java.sql.Date.valueOf(currentDate);
-
-            if (!txtMaDangKy.getText().isEmpty()) {
-                DialogHelper.showError("Đã có mã đăng ký khám");
-            } else if (maBenhNhan.isEmpty()) {
+            if (DangKyCtrl.kiemTraMaDangKyTonTai(maDangKy)) {
+                DialogHelper.showError("Mã đăng ký đã tồn tại");
+            } else if (!txtMaDangKy.getText().isEmpty()) {
+                DialogHelper.showError("Mã đăng ký khám đã tồn tại. Vui lòng nhập mới");
+            } else if (txtMaBenhNhan.getText().isEmpty()) {
                 DialogHelper.showError("Mã bệnh nhân không được để trống!");
-            } else if (lyDoKham.isEmpty()) {
+            } else if (txtLyDoKham.getText().isEmpty()) {
                 DialogHelper.showError("Lý do khám không được để trống!");
             } else if (cmbPhongKham.getSelectedItem().equals("---Phòng khám---")) {
                 DialogHelper.showError("Phòng khám không được để trống!");
             } else if (cmbDichVu.getSelectedItem() != null && cmbDichVu.getSelectedItem().equals("---Dịch vụ---")) {
                 DialogHelper.showError("Dịch vụ khám không được để trống!");
             } else {
+                String maBenhNhan = txtMaBenhNhan.getText();
+                String lyDoKham = txtLyDoKham.getText();
+                LocalDate currentDate = LocalDate.now();
+                java.sql.Date ngayKham = java.sql.Date.valueOf(currentDate);
+                int thuTuKham = Integer.parseInt(txtThuTuKham.getText());
                 int dichVuIndex = cmbDichVu.getSelectedIndex();
                 String maDichVu = dsDichVu.get(dichVuIndex).getMaDichVuKB();
 
@@ -960,44 +966,48 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
     private void btnSuaBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaBenhNhanActionPerformed
         try {
-            String maBenhNhan = txtMaBenhNhan.getText();
-            String hoTen = txtHoTen.getText();
-            String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-            String namSinh = txtNamSinh.getText();
-            String diaChi = txtDiaChi.getText();
-            String canCuoc = txtCanCuoc.getText();
-            String BHYT = txtBHYT.getText();
-            String soDienThoai = txtSoDienThoai.getText();
-            String ngheNghiep = txtNgheNghiep.getText();
-            String danToc = txtDanToc.getText();
-            String quocTich = txtQuocTich.getText();
-
-            if (hoTen.isEmpty()) {
-                DialogHelper.showError("Họ tên không được để trống");
-            } else if (namSinh.isEmpty()) {
-                DialogHelper.showError("Năm sinh không được để trống");
-            } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
-                DialogHelper.showError("Năm sinh không hợp lệ");
-            } else if (!Validator.isValidYearOfBirth(namSinh)) {
-                DialogHelper.showError("Năm sinh không hợp lệ");
-            } else if (soDienThoai.isEmpty()) {
-                DialogHelper.showError("Số điện thoại không được để trống");
-            } else if (!soDienThoai.isEmpty() && !Validator.isValidPhoneNumber(soDienThoai)) {
-                DialogHelper.showError("Số điện thoại không hợp lệ");
-            } else if (diaChi.isEmpty()) {
-                DialogHelper.showError("Địa chỉ không được để trống");
-            } else if (!canCuoc.isEmpty() && !Validator.isValidCccd(canCuoc)) {
-                DialogHelper.showError("Căn cước công dân không hợp lệ");
-            } else if (!BHYT.isEmpty() && !Validator.isValidBhyt(BHYT)) {
-                DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
-            } else if (!BHYT.isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(BHYT, maBenhNhan)) {
-                DialogHelper.showError("Bảo hiểm y tế đã tồn tại");
+            if (txtMaBenhNhan.getText().isEmpty()) {
+                DialogHelper.showError("Vui lòng chọn bệnh nhân muốn chỉnh sửa");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc sửa thông tin bệnh nhân này")) {
-                    BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
-                    BenhNhanCtrl.capNhatBenhNhan(bn);
-                    hienThiTatCaBenhNhan();
-                    DialogHelper.showMessage("Sửa thông tin bệnh nhân thành công");
+                    if (txtHoTen.getText().isEmpty()) {
+                        DialogHelper.showError("Họ tên không được để trống");
+                    } else if (txtNamSinh.getText().isEmpty()) {
+                        DialogHelper.showError("Năm sinh không được để trống");
+                    } else if (!txtNamSinh.getText().isEmpty() && !Validator.isValidYearOfBirth(txtNamSinh.getText())) {
+                        DialogHelper.showError("Năm sinh không hợp lệ");
+                    } else if (!Validator.isValidYearOfBirth(txtNamSinh.getText())) {
+                        DialogHelper.showError("Năm sinh không hợp lệ");
+                    } else if (txtSoDienThoai.getText().isEmpty()) {
+                        DialogHelper.showError("Số điện thoại không được để trống");
+                    } else if (!txtSoDienThoai.getText().isEmpty() && !Validator.isValidPhoneNumber(txtSoDienThoai.getText())) {
+                        DialogHelper.showError("Số điện thoại không hợp lệ");
+                    } else if (txtDiaChi.getText().isEmpty()) {
+                        DialogHelper.showError("Địa chỉ không được để trống");
+                    } else if (!txtCanCuoc.getText().isEmpty() && !Validator.isValidCccd(txtCanCuoc.getText())) {
+                        DialogHelper.showError("Căn cước công dân không hợp lệ");
+                    } else if (!txtBHYT.getText().isEmpty() && !Validator.isValidBhyt(txtBHYT.getText())) {
+                        DialogHelper.showError("Bảo hiểm y tế không hợp lệ");
+                    } else if (!txtBHYT.getText().isEmpty() && BenhNhanCtrl.kiemTrabHYTCoTonTai(txtBHYT.getText(), txtMaBenhNhan.getText())) {
+                        DialogHelper.showError("Bảo hiểm y tế đã tồn tại");
+                    } else {
+                        String maBenhNhan = txtMaBenhNhan.getText();
+                        String hoTen = txtHoTen.getText();
+                        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+                        String namSinh = txtNamSinh.getText();
+                        String diaChi = txtDiaChi.getText();
+                        String canCuoc = txtCanCuoc.getText();
+                        String BHYT = txtBHYT.getText();
+                        String soDienThoai = txtSoDienThoai.getText();
+                        String ngheNghiep = txtNgheNghiep.getText();
+                        String danToc = txtDanToc.getText();
+                        String quocTich = txtQuocTich.getText();
+
+                        BenhNhanModel bn = new BenhNhanModel(maBenhNhan, hoTen, gioiTinh, namSinh, diaChi, canCuoc, BHYT, soDienThoai, ngheNghiep, danToc, quocTich);
+                        BenhNhanCtrl.capNhatBenhNhan(bn);
+                        hienThiTatCaBenhNhan();
+                        DialogHelper.showMessage("Sửa thông tin bệnh nhân thành công");
+                    }
                 }
             }
         } catch (ClassNotFoundException ex) {

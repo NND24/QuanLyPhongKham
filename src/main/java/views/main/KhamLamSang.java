@@ -628,10 +628,10 @@ public class KhamLamSang extends javax.swing.JPanel {
                 if (!chieuCao.isEmpty() && !Validator.isIntegerString(chieuCao)) {
                     DialogHelper.showError("Chiều cao không hợp lệ");
                     txtChieuCao.requestFocus();
-                } else if (!canNang.isEmpty() && !Validator.isIntegerString(canNang)) {
+                } else if (!canNang.isEmpty() && !Validator.isDecimalString(canNang)) {
                     DialogHelper.showError("Cân nặng không hợp lệ");
                     txtCanNang.requestFocus();
-                } else if (!nhietDo.isEmpty() && !Validator.isIntegerString(nhietDo)) {
+                } else if (!nhietDo.isEmpty() && !Validator.isDecimalString(nhietDo)) {
                     DialogHelper.showError("Nhiêt độ không hợp lệ");
                     txtNhietDo.requestFocus();
                 } else if (!nhipTho.isEmpty() && !Validator.isIntegerString(nhipTho)) {
@@ -771,7 +771,7 @@ public class KhamLamSang extends javax.swing.JPanel {
 
     private void txtCanNangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCanNangFocusLost
         String canNang = txtCanNang.getText();
-        if (!canNang.isEmpty()) {
+        if (!canNang.isEmpty() && !Validator.isDecimalString(canNang)) {
             DialogHelper.showError("Cân nặng không hợp lệ");
             txtCanNang.requestFocus();
         }
@@ -779,7 +779,7 @@ public class KhamLamSang extends javax.swing.JPanel {
 
     private void txtNhietDoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNhietDoFocusLost
         String nhietDo = txtNhietDo.getText();
-        if (!nhietDo.isEmpty()) {
+        if (!nhietDo.isEmpty() && !Validator.isDecimalString(nhietDo)) {
             DialogHelper.showError("Nhiêt độ không hợp lệ");
             txtNhietDo.requestFocus();
         }
