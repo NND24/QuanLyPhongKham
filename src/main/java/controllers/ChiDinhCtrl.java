@@ -100,4 +100,22 @@ public class ChiDinhCtrl {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static boolean kiemTraMaChiDinhTonTai(String maChiDinh) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM CHIDINH WHERE MaChiDinh=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maChiDinh);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
 }

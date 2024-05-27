@@ -99,4 +99,10 @@ public class Validator {
 
         return Pattern.matches(regex, input);
     }
+
+    public static boolean isDecimalString(String input) {
+        String regex = "^\\d*\\.?\\d+$";
+
+        return Pattern.matches(regex, input);
+    }
 }

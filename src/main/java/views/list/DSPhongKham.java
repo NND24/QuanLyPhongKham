@@ -300,13 +300,15 @@ public class DSPhongKham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtTenPhongKham.getText().isEmpty()) {
-            DialogHelper.showError("Tên phòng khám không được để trống!");
-        } else if (!txtMaPhongKham.getText().isEmpty()) {
-            DialogHelper.showError("Phòng khám đã tồn tại");
-        } else {
-            try {
-                String maPhongKham = GenerateCode.generateMa("PK");
+        try {
+            String maPhongKham = GenerateCode.generateMa("PK");
+            if (PhongKhamCtrl.kiemTraMaPhongKhamTonTai(maPhongKham)) {
+                DialogHelper.showError("Mã phòng khám đã tồn tại");
+            } else if (txtTenPhongKham.getText().isEmpty()) {
+                DialogHelper.showError("Tên phòng khám không được để trống!");
+            } else if (!txtMaPhongKham.getText().isEmpty()) {
+                DialogHelper.showError("Phòng khám đã tồn tại");
+            } else {
                 String tenPhongKham = txtTenPhongKham.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
 
@@ -314,9 +316,9 @@ public class DSPhongKham extends javax.swing.JFrame {
                 PhongKhamCtrl.themPhongKham(pk);
                 lamMoi();
                 hienThiTatCaPhongKham();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DSPhongKham.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSPhongKham.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnThemActionPerformed
 

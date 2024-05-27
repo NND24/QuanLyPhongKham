@@ -139,6 +139,24 @@ public class PhongKhamCtrl {
         return flag;
     }
 
+    public static boolean kiemTraMaPhongKhamTonTai(String maPhongKham) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM PHONGKHAM WHERE MaPhongKham=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maPhongKham);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
+
     public static void exportToExcel(List<PhongKhamModel> dsDichVu, String filePath) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("DanhSachDichVuKhamBenh");

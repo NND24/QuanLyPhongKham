@@ -188,6 +188,24 @@ public class DichVuCLSCtrl {
         }
     }
 
+    public static boolean kiemTraMaDVCLSTonTai(String maDichVuCLS) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM DICHVUCLS WHERE MaDichVuCLS=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maDichVuCLS);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
+
     public static boolean kiemTraDVDaDuocSuDung(String maDichVu) throws ClassNotFoundException {
         boolean flag = false;
         String sql = """

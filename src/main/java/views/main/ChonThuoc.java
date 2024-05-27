@@ -587,8 +587,11 @@ public class ChonThuoc extends javax.swing.JPanel {
 
     private void btnThemThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemThuocActionPerformed
         try {
+            String maDonThuoc = GenerateCode.generateMa("DT");
             if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
                 DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
+            } else if (DonThuocCtrl.kiemTraMaDonThuocTonTai(maDonThuoc)) {
+                DialogHelper.showError("Mã đơn thuốc đã tồn tại");
             } else if (txtSoLuong.getText().isEmpty()) {
                 DialogHelper.showError("Số lượng không được để trống");
             } else if (txtSoLuong.getText().equals("0")) {
@@ -612,7 +615,6 @@ public class ChonThuoc extends javax.swing.JPanel {
             } else if (!txtToi.getText().isEmpty() && !Validator.isIntegerString(txtToi.getText())) {
                 DialogHelper.showError("Tối không hợp lệ");
             } else {
-                String maDonThuoc = GenerateCode.generateMa("DT");
                 String tenThuoc = txtTenThuoc.getText();
                 String duongDung = txtDuongDung.getText();
                 String cachDung = txtCachDung.getText();
@@ -705,7 +707,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                             String maNhomThuoc = dsNhomThuoc.get(nhomThuocIndex).getMaNhomThuoc();
 
                             cmbThuoc.removeAllItems();
-                            dsThuoc = ThuocCtrl.timThuocTheoNhomThuoc(maNhomThuoc);
+                            dsThuoc = ThuocCtrl.timKiemThuoc("", maNhomThuoc);
                             dsThuoc.forEach(t -> {
                                 cmbThuoc.addItem(t.getTenThuoc());
                             });

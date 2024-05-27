@@ -74,7 +74,8 @@ public class NhomDichVuKhamBenhCtrl {
 
     public static List<NhomDichVuKhamBenhModel> timTatCaDichVuTheoDK(String timKiem) throws ClassNotFoundException {
         List<NhomDichVuKhamBenhModel> dsNhomDichVu = new ArrayList<>();
-        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM NHOMDICHVUKB WHERE MaNhomDichVuKB LIKE ? OR TenNhomDichVuKB LIKE ?")) {
+        String sql = "SELECT * FROM NHOMDICHVUKB WHERE MaNhomDichVuKB LIKE ? OR TenNhomDichVuKB LIKE ?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, "%" + timKiem + "%");
             statement.setString(2, "%" + timKiem + "%");
@@ -92,6 +93,49 @@ public class NhomDichVuKhamBenhCtrl {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dsNhomDichVu;
+    }
+
+    public static NhomDichVuKhamBenhModel timNhomDichVuTheoMaDichVu(String maDichVu) throws ClassNotFoundException {
+        NhomDichVuKhamBenhModel dichVuKB = null;
+        String sql = """
+                     SELECT NHOMDICHVUKB.MaNhomDichVuKB, TenNhomDichVuKB, NHOMDICHVUKB.TrangThai FROM NHOMDICHVUKB
+                     JOIN DICHVUKB ON DICHVUKB.MaNhomDichVuKB=NHOMDICHVUKB.MaNhomDichVuKB
+                     WHERE MaDichVuKB=? """;
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, maDichVu);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    NhomDichVuKhamBenhModel dvkb = new NhomDichVuKhamBenhModel(
+                            resultSet.getString("MaNhomDichVuKB"),
+                            resultSet.getString("TenNhomDichVuKB"),
+                            resultSet.getString("TrangThai"));
+                    dichVuKB = dvkb;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dichVuKB;
+    }
+
+    public static boolean kiemTraMaNhomDVKBTonTai(String MaNhomDichVuKB) throws ClassNotFoundException {
+        boolean flag = false;
+        String sql = "SELECT 1 FROM NHOMDICHVUKB WHERE MaNhomDichVuKB=?";
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, MaNhomDichVuKB);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                flag = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
     }
 
     public static boolean kiemTraDVTrongNhomDVDaDuocSuDung(String maNhomDichVu) throws ClassNotFoundException {

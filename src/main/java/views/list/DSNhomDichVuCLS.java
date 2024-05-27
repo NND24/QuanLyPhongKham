@@ -310,13 +310,15 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNhapMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtTenNhomDichVuCLS.getText().isEmpty()) {
-            DialogHelper.showError("Tên nhóm dịch vụ không được để trống!");
-        } else if (!txtMaNhomDichVuCLS.getText().isEmpty()) {
-            DialogHelper.showError("Nhóm dịch vụ đã tồn tại");
-        } else {
-            try {
-                String maNhomDichVuCLS = GenerateCode.generateMa("NDVC");
+        try {
+            String maNhomDichVuCLS = GenerateCode.generateMa("NDVC");
+            if (NhomDichVuCLSCtrl.kiemTraMaNhomDVCLSTonTai(maNhomDichVuCLS)) {
+                DialogHelper.showError("Mã nhóm dịch vụ cận lâm sàng đã tồn tại");
+            } else if (txtTenNhomDichVuCLS.getText().isEmpty()) {
+                DialogHelper.showError("Tên nhóm dịch vụ không được để trống!");
+            } else if (!txtMaNhomDichVuCLS.getText().isEmpty()) {
+                DialogHelper.showError("Nhóm dịch vụ đã tồn tại");
+            } else {
                 String tenNhomDichVuCLS = txtTenNhomDichVuCLS.getText();
                 String trangThai = cmbtrangthai.getSelectedItem().toString();
 
@@ -324,9 +326,9 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
                 NhomDichVuCLSCtrl.themNhomDichVuCLS(ndv);
                 lamMoi();
                 hienThiTatCaNhomDichVu();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DSNhomDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSNhomDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnThemActionPerformed
 

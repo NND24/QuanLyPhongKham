@@ -234,11 +234,6 @@ public class ChiDinh extends javax.swing.JPanel {
                 tblDSChiDinhMouseClicked(evt);
             }
         });
-        tblDSChiDinh.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tblDSChiDinhPropertyChange(evt);
-            }
-        });
         jScrollPane7.setViewportView(tblDSChiDinh);
 
         txtTenDichVu.setEditable(false);
@@ -433,10 +428,6 @@ public class ChiDinh extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblDSChiDinhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblDSChiDinhPropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblDSChiDinhPropertyChange
-
     private void TongChiDinhPanelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TongChiDinhPanelMouseMoved
         int tongDichVu = 0;
         int tongTien = 0;
@@ -514,8 +505,11 @@ public class ChiDinh extends javax.swing.JPanel {
 
     private void btnThemChiDinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemChiDinhActionPerformed
         try {
+            String maChiDinh = GenerateCode.generateMa("CD");
             if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
                 DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
+            } else if (ChiDinhCtrl.kiemTraMaChiDinhTonTai(maChiDinh)) {
+                DialogHelper.showError("Mã chỉ định đã tồn tại");
             } else if (txtSoLan.getText().isEmpty()) {
                 DialogHelper.showError("Số lần không được để trống");
             } else if (txtSoLan.getText().equals("0")) {
@@ -523,7 +517,6 @@ public class ChiDinh extends javax.swing.JPanel {
             } else if (!txtSoLan.getText().isEmpty() && !Validator.isIntegerString(txtSoLan.getText())) {
                 DialogHelper.showError("Số lần không hợp lệ");
             } else {
-                String maChiDinh = GenerateCode.generateMa("CD");
                 int dichVuCLSIndex = cmbDichVuCLS.getSelectedIndex();
                 String maDichVuCLS = dsDichVuCLS.get(dichVuCLSIndex).getMaDichVuCLS();
                 int soLuong = Integer.parseInt(txtSoLan.getText());
@@ -543,7 +536,6 @@ public class ChiDinh extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemChiDinhActionPerformed
 
     private void btnThemChiDinhMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemChiDinhMouseMoved
-        // TODO add your handling code here:
         int tongDichVu = 0;
         int tongTien = 0;
 
