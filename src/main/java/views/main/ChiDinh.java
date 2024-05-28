@@ -48,8 +48,12 @@ public class ChiDinh extends javax.swing.JPanel {
             dsNhomDichVu = NhomDichVuCLSCtrl.timTatNhomDichVuCLS();
             cmbNhomDichVuCLS.removeAllItems();
             dsNhomDichVu.forEach(ndv -> {
-                cmbNhomDichVuCLS.addItem(ndv.getTenNhomDichVuCLS());
+                if (ndv.getTrangThai().equals("Kích hoạt")) {
+                    cmbNhomDichVuCLS.addItem(ndv.getTenNhomDichVuCLS());
+                }
             });
+            cmbNhomDichVuCLS.addItem("---Nhóm dịch vụ---");
+            cmbNhomDichVuCLS.setSelectedItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,8 +70,7 @@ public class ChiDinh extends javax.swing.JPanel {
     }
 
     private void lamMoi() {
-        cmbNhomDichVuCLS.setSelectedIndex(0);
-        cmbDichVuCLS.setSelectedIndex(0);
+        cmbNhomDichVuCLS.setSelectedItem("---Nhóm dịch vụ---");
         txtTenDichVu.setText("");
         txtDonGia.setText("0");
         txtSoLan.setText("");
@@ -78,7 +81,7 @@ public class ChiDinh extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TongChiDinhPanel = new javax.swing.JPanel();
+        pnlChiDinh = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         cmbDichVuCLS = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
@@ -109,12 +112,12 @@ public class ChiDinh extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(1107, 437));
 
-        TongChiDinhPanel.setBackground(new java.awt.Color(255, 255, 255));
-        TongChiDinhPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        TongChiDinhPanel.setPreferredSize(new java.awt.Dimension(1107, 437));
-        TongChiDinhPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        pnlChiDinh.setBackground(new java.awt.Color(255, 255, 255));
+        pnlChiDinh.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlChiDinh.setPreferredSize(new java.awt.Dimension(1107, 437));
+        pnlChiDinh.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                TongChiDinhPanelMouseMoved(evt);
+                pnlChiDinhMouseMoved(evt);
             }
         });
 
@@ -165,6 +168,9 @@ public class ChiDinh extends javax.swing.JPanel {
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel27.setText("dịch vụ");
+
+        txtTongTien.setEditable(false);
+        txtTongTien.setBackground(new java.awt.Color(255, 255, 255));
 
         btnKetThucKham.setBackground(new java.awt.Color(0, 102, 255));
         btnKetThucKham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -308,48 +314,48 @@ public class ChiDinh extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout TongChiDinhPanelLayout = new javax.swing.GroupLayout(TongChiDinhPanel);
-        TongChiDinhPanel.setLayout(TongChiDinhPanelLayout);
-        TongChiDinhPanelLayout.setHorizontalGroup(
-            TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlChiDinhLayout = new javax.swing.GroupLayout(pnlChiDinh);
+        pnlChiDinh.setLayout(pnlChiDinhLayout);
+        pnlChiDinhLayout.setHorizontalGroup(
+            pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
-            .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
+            .addGroup(pnlChiDinhLayout.createSequentialGroup()
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1097, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 6, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TongChiDinhPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChiDinhLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
-            .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
-                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
+            .addGroup(pnlChiDinhLayout.createSequentialGroup()
+                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlChiDinhLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel25)
-                            .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
-                                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlChiDinhLayout.createSequentialGroup()
+                                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel22)
                                     .addComponent(txtSoLan, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbNhomDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(50, 50, 50)
-                                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel23)
                                     .addComponent(cmbDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel19))))
                         .addGap(30, 30, 30)
-                        .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
-                                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlChiDinhLayout.createSequentialGroup()
+                                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20)
                                     .addComponent(txtTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(35, 35, 35)
-                                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21)
                                     .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
+                            .addGroup(pnlChiDinhLayout.createSequentialGroup()
                                 .addComponent(btnThemChiDinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(45, 45, 45)
                                 .addComponent(btnXoaChiDinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,7 +363,7 @@ public class ChiDinh extends javax.swing.JPanel {
                                 .addComponent(btnSuaChiDinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(40, 40, 40)
                                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
+                    .addGroup(pnlChiDinhLayout.createSequentialGroup()
                         .addGap(360, 360, 360)
                         .addComponent(btnKetThucKham, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(65, 65, 65)
@@ -370,27 +376,27 @@ public class ChiDinh extends javax.swing.JPanel {
                         .addComponent(jLabel27)))
                 .addContainerGap())
         );
-        TongChiDinhPanelLayout.setVerticalGroup(
-            TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TongChiDinhPanelLayout.createSequentialGroup()
+        pnlChiDinhLayout.setVerticalGroup(
+            pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlChiDinhLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
                     .addComponent(jLabel19)
                     .addComponent(jLabel20)
                     .addComponent(jLabel21))
                 .addGap(2, 2, 2)
-                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbNhomDichVuCLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
-                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(jLabel23))
                 .addGap(2, 2, 2)
-                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSoLan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemChiDinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -402,7 +408,7 @@ public class ChiDinh extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addGroup(TongChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChiDinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -419,16 +425,16 @@ public class ChiDinh extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(TongChiDinhPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlChiDinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TongChiDinhPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlChiDinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TongChiDinhPanelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TongChiDinhPanelMouseMoved
+    private void pnlChiDinhMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlChiDinhMouseMoved
         int tongDichVu = 0;
         int tongTien = 0;
         for (ChiDinhModel dcd : dsChiDinh) {
@@ -437,7 +443,7 @@ public class ChiDinh extends javax.swing.JPanel {
         }
         lblTongDichVu.setText(Integer.toString(tongDichVu));
         txtTongTien.setText(Integer.toString(tongTien));
-    }//GEN-LAST:event_TongChiDinhPanelMouseMoved
+    }//GEN-LAST:event_pnlChiDinhMouseMoved
 
     private void cmbNhomDichVuCLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhomDichVuCLSActionPerformed
         if (maBenhAn != null) {
@@ -450,6 +456,9 @@ public class ChiDinh extends javax.swing.JPanel {
                         txtDonGia.setText("0");
                         txtSoLan.setText("");
                         txtGhiChu.setText("");
+                        cmbDichVuCLS.removeAllItems();
+                        cmbDichVuCLS.addItem("---Dịch vụ---");
+                        cmbDichVuCLS.setSelectedItem("---Dịch vụ---");
                     } else {
                         try {
                             int nhomDichVuIndex = cmbNhomDichVuCLS.getSelectedIndex();
@@ -459,8 +468,12 @@ public class ChiDinh extends javax.swing.JPanel {
                             cmbDichVuCLS.removeAllItems();
                             dsDichVuCLS = DichVuCLSCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVu);
                             dsDichVuCLS.forEach(dv -> {
-                                cmbDichVuCLS.addItem(dv.getTenDichVuCLS());
+                                if (dv.getTrangThai().equals("Kích hoạt")) {
+                                    cmbDichVuCLS.addItem(dv.getTenDichVuCLS());
+                                }
                             });
+                            cmbDichVuCLS.addItem("---Dịch vụ---");
+                            cmbDichVuCLS.setSelectedItem("---Dịch vụ---");
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -635,8 +648,8 @@ public class ChiDinh extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaChiDinhActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        lamMoi();
         hienThiDSNhomDV();
+        lamMoi();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void txtSoLanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLanFocusLost
@@ -712,7 +725,6 @@ public class ChiDinh extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInChiDinhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel TongChiDinhPanel;
     private javax.swing.JButton btnInChiDinh;
     private javax.swing.JButton btnKetThucKham;
     private javax.swing.JButton btnLamMoi;
@@ -734,6 +746,7 @@ public class ChiDinh extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel lblTongDichVu;
+    private javax.swing.JPanel pnlChiDinh;
     private javax.swing.JTable tblDSChiDinh;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtGhiChu;
