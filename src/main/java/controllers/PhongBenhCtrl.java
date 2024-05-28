@@ -103,14 +103,12 @@ public class PhongBenhCtrl {
             statement.setString(1, maPhong);
             ResultSet resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {
-                String coNguoi = resultSet.getString("CoNguoi");
-                if (!"-".equals(coNguoi) || !coNguoi.isEmpty()) {
+            while (resultSet.next()) {
+                if (resultSet.getString("CoNguoi").equals("Có người")) {
                     flag = true;
+                    break;
                 }
-
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,7 +176,7 @@ public class PhongBenhCtrl {
             //Nếu tất cả trạng thái xóa của giường trong phòng bệnh là false
             if (count == 0) {
                 boSungGiuong(soGiuongCanThem, pb.getMaPhong());
-            } //Nếu có giường có trạng thái xóa là true thì khôi phục lại giường đó         
+            } //Nếu có giường có trạng thái xóa là true thì khôi phục lại giường đó
             else {
                 //Trường hợp có đủ số giường để khôi phục
                 if (count >= soGiuongCanThem) {
@@ -232,9 +230,9 @@ public class PhongBenhCtrl {
     private static boolean chinhSoGiuong(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
         boolean flag = false;
         if (soGiuongMoi >= pb.getSoGiuong()) {
-            if (themGiuongBenh(pb, soGiuongMoi)){
+            if (themGiuongBenh(pb, soGiuongMoi)) {
                 return true;
-            }        
+            }
         } else if (soGiuongMoi < pb.getSoGiuong()) {
             if (giamGiuongBenh(pb, soGiuongMoi)) {
                 flag = true;

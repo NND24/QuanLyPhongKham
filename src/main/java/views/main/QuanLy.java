@@ -77,7 +77,6 @@ public class QuanLy extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(getIconImage());
-        setPreferredSize(new java.awt.Dimension(1360, 715));
 
         lypQuanLy.setBackground(new java.awt.Color(255, 255, 255));
         lypQuanLy.setPreferredSize(new java.awt.Dimension(1674, 800));

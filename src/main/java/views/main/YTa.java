@@ -5,7 +5,6 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
-import views.list.DSKhoa;
 
 public class YTa extends javax.swing.JFrame {
 
@@ -30,6 +29,8 @@ public class YTa extends javax.swing.JFrame {
         dSThuTien1 = new views.list.DSThuTien();
         tabTaiKhoanCaNhan = new javax.swing.JTabbedPane();
         taiKhoanCaNhan1 = new views.main.TaiKhoanCaNhan();
+        tabPhongBenh = new javax.swing.JTabbedPane();
+        dSPhongBenhYTa1 = new views.list.DSPhongBenhYTa();
         header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -42,6 +43,8 @@ public class YTa extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mniTiepNhanBenhNhan = new javax.swing.JMenu();
         mniKhamBenh = new javax.swing.JMenu();
+        mniDSPhongBenh = new javax.swing.JMenu();
+        mniDSVienPhi = new javax.swing.JMenu();
         mniTaiKhoan = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,6 +72,10 @@ public class YTa extends javax.swing.JFrame {
         tabTaiKhoanCaNhan.addTab("Thông tin cá nhân", taiKhoanCaNhan1);
 
         lypQuanLy.add(tabTaiKhoanCaNhan, "card2");
+
+        tabPhongBenh.addTab("Danh sách phòng bệnh", dSPhongBenhYTa1);
+
+        lypQuanLy.add(tabPhongBenh, "card2");
 
         header.setBackground(new java.awt.Color(50, 112, 83));
         header.setPreferredSize(new java.awt.Dimension(1360, 61));
@@ -130,9 +137,9 @@ public class YTa extends javax.swing.JFrame {
                         .addComponent(HoTenUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(132, 132, 132)
                 .addComponent(jLabel6)
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,6 +186,24 @@ public class YTa extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(mniKhamBenh);
+
+        mniDSPhongBenh.setText("Danh sách phòng bệnh");
+        mniDSPhongBenh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniDSPhongBenh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniDSPhongBenhMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(mniDSPhongBenh);
+
+        mniDSVienPhi.setText("Danh sách viện phí");
+        mniDSVienPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniDSVienPhi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniDSVienPhiMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(mniDSVienPhi);
 
         mniTaiKhoan.setText("Tài khoản cá nhân");
         mniTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -230,7 +255,6 @@ public class YTa extends javax.swing.JFrame {
     }//GEN-LAST:event_mniKhamBenhMouseClicked
 
     private void mniTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniTaiKhoanMouseClicked
-        // TODO add your handling code here:
         lypQuanLy.removeAll();
         lypQuanLy.add(tabTaiKhoanCaNhan);
         lypQuanLy.repaint();
@@ -238,10 +262,23 @@ public class YTa extends javax.swing.JFrame {
     }//GEN-LAST:event_mniTaiKhoanMouseClicked
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         new DangNhap().setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
+
+    private void mniDSPhongBenhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniDSPhongBenhMouseClicked
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabPhongBenh);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniDSPhongBenhMouseClicked
+
+    private void mniDSVienPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniDSVienPhiMouseClicked
+        lypQuanLy.removeAll();
+        lypQuanLy.add(tabVienPhi);
+        lypQuanLy.repaint();
+        lypQuanLy.revalidate();
+    }//GEN-LAST:event_mniDSVienPhiMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -269,6 +306,7 @@ public class YTa extends javax.swing.JFrame {
     private javax.swing.JLabel ChucVuUserLabel;
     private javax.swing.JLabel HoTenUserLabel;
     private javax.swing.JButton btnDangXuat;
+    private views.list.DSPhongBenhYTa dSPhongBenhYTa1;
     private views.list.DSThuTien dSThuTien1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel3;
@@ -279,10 +317,13 @@ public class YTa extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private views.main.KhamBenhYTa khamBenhYTa1;
     private javax.swing.JLayeredPane lypQuanLy;
+    private javax.swing.JMenu mniDSPhongBenh;
+    private javax.swing.JMenu mniDSVienPhi;
     private javax.swing.JMenu mniKhamBenh;
     private javax.swing.JMenu mniTaiKhoan;
     private javax.swing.JMenu mniTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabKhamBenh;
+    private javax.swing.JTabbedPane tabPhongBenh;
     private javax.swing.JTabbedPane tabTaiKhoanCaNhan;
     private javax.swing.JTabbedPane tabTiepNhanBenhNhan;
     private javax.swing.JTabbedPane tabVienPhi;

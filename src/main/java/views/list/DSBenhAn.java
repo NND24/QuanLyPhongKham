@@ -65,10 +65,10 @@ public class DSBenhAn extends javax.swing.JPanel {
         txtTimKiem = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblDSBenhAn = new javax.swing.JTable();
         tuNgayDateChooser = new com.toedter.calendar.JDateChooser();
         denNgayDateChooser = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDSBenhAn = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1107, 437));
 
@@ -104,7 +104,7 @@ public class DSBenhAn extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 858, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -152,12 +152,21 @@ public class DSBenhAn extends javax.swing.JPanel {
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel25.setText("Đến ngày");
 
+        tuNgayDateChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tuNgayDateChooserPropertyChange(evt);
+            }
+        });
+
+        denNgayDateChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                denNgayDateChooserPropertyChange(evt);
+            }
+        });
+
         tblDSBenhAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã bệnh án", "Mã bệnh nhân", "Họ tên", "Giới tính", "Phòng khám", "Dịch vụ khám", "Ngày khám"
@@ -171,36 +180,20 @@ public class DSBenhAn extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDSBenhAn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblDSBenhAn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDSBenhAnMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblDSBenhAn);
-
-        tuNgayDateChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tuNgayDateChooserPropertyChange(evt);
-            }
-        });
-
-        denNgayDateChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                denNgayDateChooserPropertyChange(evt);
-            }
-        });
+        jScrollPane2.setViewportView(tblDSBenhAn);
 
         javax.swing.GroupLayout ChiDinhPanelLayout = new javax.swing.GroupLayout(ChiDinhPanel);
         ChiDinhPanel.setLayout(ChiDinhPanelLayout);
         ChiDinhPanelLayout.setHorizontalGroup(
             ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ChiDinhPanelLayout.createSequentialGroup()
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1098, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1098, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 5, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1098, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
             .addGroup(ChiDinhPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -212,7 +205,9 @@ public class DSBenhAn extends javax.swing.JPanel {
                 .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
                     .addComponent(denNgayDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(365, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
         );
         ChiDinhPanelLayout.setVerticalGroup(
             ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,13 +223,12 @@ public class DSBenhAn extends javax.swing.JPanel {
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChiDinhPanelLayout.createSequentialGroup()
-                        .addComponent(tuNgayDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tuNgayDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(denNgayDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -307,6 +301,33 @@ public class DSBenhAn extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_denNgayDateChooserPropertyChange
 
+    private void tuNgayDateChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tuNgayDateChooserPropertyChange
+        if (tuNgayDateChooser.getDate() != null && denNgayDateChooser.getDate() != null) {
+            java.util.Date tuNgayUtil = tuNgayDateChooser.getDate();
+            java.util.Date denNgayUtil = denNgayDateChooser.getDate();
+            java.sql.Date tuNgay = new java.sql.Date(tuNgayUtil.getTime());
+            java.sql.Date denNgay = new java.sql.Date(denNgayUtil.getTime());
+            if (tuNgay.equals("")) {
+                DialogHelper.showError("Chưa chọn ngày bắt đầu");
+            } else if (tuNgayUtil.after(denNgayUtil)) {
+                DialogHelper.showError("Từ ngày phải trước đến ngày");
+            } else {
+                try {
+                    dsBenhAn = BenhAnCtrl.timBenhAnTheoThoiGian(tuNgay, denNgay);
+
+                    tableModel.setRowCount(0);
+                    dsBenhAn.forEach(ba -> {
+                        tableModel.addRow(new Object[]{ba.getMaBenhAn(), ba.getMaBenhNhan(), ba.getHoTen(),
+                            ba.getGioiTinh(), ba.getTenPhongKham(), ba.getTenDichVuKham(),
+                            ba.getNgayKham()});
+                    });
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(DSBenhAn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_tuNgayDateChooserPropertyChange
+
     private void tblDSBenhAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSBenhAnMouseClicked
         int selectedIndex = tblDSBenhAn.getSelectedRow();
         if (selectedIndex >= 0) {
@@ -378,33 +399,6 @@ public class DSBenhAn extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblDSBenhAnMouseClicked
 
-    private void tuNgayDateChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tuNgayDateChooserPropertyChange
-        if (tuNgayDateChooser.getDate() != null && denNgayDateChooser.getDate() != null) {
-            java.util.Date tuNgayUtil = tuNgayDateChooser.getDate();
-            java.util.Date denNgayUtil = denNgayDateChooser.getDate();
-            java.sql.Date tuNgay = new java.sql.Date(tuNgayUtil.getTime());
-            java.sql.Date denNgay = new java.sql.Date(denNgayUtil.getTime());
-            if (tuNgay.equals("")) {
-                DialogHelper.showError("Chưa chọn ngày bắt đầu");
-            } else if (tuNgayUtil.after(denNgayUtil)) {
-                DialogHelper.showError("Từ ngày phải trước đến ngày");
-            } else {
-                try {
-                    dsBenhAn = BenhAnCtrl.timBenhAnTheoThoiGian(tuNgay, denNgay);
-
-                    tableModel.setRowCount(0);
-                    dsBenhAn.forEach(ba -> {
-                        tableModel.addRow(new Object[]{ba.getMaBenhAn(), ba.getMaBenhNhan(), ba.getHoTen(),
-                            ba.getGioiTinh(), ba.getTenPhongKham(), ba.getTenDichVuKham(),
-                            ba.getNgayKham()});
-                    });
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(DSBenhAn.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }//GEN-LAST:event_tuNgayDateChooserPropertyChange
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ChiDinhPanel;
     private javax.swing.JButton btnLamMoi;
@@ -416,7 +410,7 @@ public class DSBenhAn extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblDSBenhAn;
     private com.toedter.calendar.JDateChooser tuNgayDateChooser;
     private javax.swing.JTextField txtTimKiem;

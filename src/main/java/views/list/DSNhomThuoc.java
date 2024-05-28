@@ -310,8 +310,10 @@ public class DSNhomThuoc extends javax.swing.JFrame {
             String maNhomThuoc = GenerateCode.generateMa("NT");
             if (NhomThuocCtrl.kiemTraMaNhomThuocTonTai(maNhomThuoc)) {
                 DialogHelper.showError("Mã nhóm thuốc đã tồn tại");
+            } else if (!txtMaNhomThuoc.getText().isEmpty()) {
+                DialogHelper.showError("Nhóm thuốc đã tồn tại");
             } else if (txtTenNhomThuoc.getText().isEmpty()) {
-                DialogHelper.showError("tên nhóm thuốc không được bỏ trống");
+                DialogHelper.showError("Tên nhóm thuốc không được bỏ trống");
             } else {
                 String tenNhomThuoc = txtTenNhomThuoc.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
@@ -327,14 +329,13 @@ public class DSNhomThuoc extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
-            String maNhomThuoc = txtMaNhomThuoc.getText();
-
-            if (maNhomThuoc.isEmpty()) {
+            if (txtMaNhomThuoc.getText().isEmpty()) {
                 DialogHelper.showError("Chưa có nhóm thuốc cần chọn để xóa");
-            } else if (NhomThuocCtrl.kiemTraThuocTrongNhomThuocDaDuocSuDung(maNhomThuoc)) {
+            } else if (NhomThuocCtrl.kiemTraThuocTrongNhomThuocDaDuocSuDung(txtMaNhomThuoc.getText())) {
                 DialogHelper.showError("Thuốc trong nhóm thuốc này đã được sử dụng, không thể xóa");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa nhóm thuốc này không")) {
+                    String maNhomThuoc = txtMaNhomThuoc.getText();
                     NhomThuocCtrl.xoaNhomThuoc(maNhomThuoc);
                     DialogHelper.showMessage("Xóa nhóm thuốc thành công!");
                     lamMoi();
@@ -349,7 +350,7 @@ public class DSNhomThuoc extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
             if (txtMaNhomThuoc.getText().isEmpty()) {
-                DialogHelper.showError("Mã nhóm thuốc không được để trống!");
+                DialogHelper.showError("MChưa có nhóm thuốc cần chọn để chỉnh sửa");
             } else if (txtTenNhomThuoc.getText().isEmpty()) {
                 DialogHelper.showError("Tên nhóm thuốc không được để trống!");
             } else {

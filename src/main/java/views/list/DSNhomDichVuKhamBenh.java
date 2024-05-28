@@ -309,10 +309,10 @@ public class DSNhomDichVuKhamBenh extends javax.swing.JFrame {
             String maNhomDichVu = GenerateCode.generateMa("NDVK");
             if (NhomDichVuKhamBenhCtrl.kiemTraMaNhomDVKBTonTai(maNhomDichVu)) {
                 DialogHelper.showError("Mã nhóm dịch vụ khám bệnh đã tồn tại");
+            } else if (!txtMaNhomDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Nhóm dịch vụ khám bệnh đã tồn tại");
             } else if (txtTenNhomDichVu.getText().isEmpty()) {
                 DialogHelper.showError("Tên nhóm dịch vụ không được để trống!");
-            } else if (!txtMaNhomDichVu.getText().isEmpty()) {
-                DialogHelper.showError("Nhóm dịch vụ đã tồn tại");
             } else {
                 String tenNhomDichVu = txtTenNhomDichVu.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
