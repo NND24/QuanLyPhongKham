@@ -75,6 +75,8 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                     cmbPhongKham.addItem(pk.getTenPhongKham() + " " + pk.getSoLuongBenhNhan());
                 }
             });
+            cmbPhongKham.addItem("---Phòng khám---");
+            cmbPhongKham.setSelectedItem("---Phòng khám---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +91,8 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                     cmbNhomDichVu.addItem(ndv.getTenNhomDichVuKB());
                 }
             });
+            cmbNhomDichVu.addItem("---Nhóm dịch vụ---");
+            cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1122,13 +1126,21 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private void cmbNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhomDichVuActionPerformed
         if (cmbNhomDichVu.getSelectedItem() != null) {
             try {
-                int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
-                String maNhomDichVu = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
-                cmbDichVu.removeAllItems();
-                dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVu);
-                dsDichVu.forEach(dv -> {
-                    cmbDichVu.addItem(dv.getTenDichVuKB());
-                });
+                if (!cmbNhomDichVu.getSelectedItem().equals("---Nhóm dịch vụ---")) {
+                    int nhomDVIndex = cmbNhomDichVu.getSelectedIndex();
+                    String maNhomDichVu = dsNhomDichVu.get(nhomDVIndex).getMaNhomDichVuKB();
+                    cmbDichVu.removeAllItems();
+                    dsDichVu = DichVuKhamBenhCtrl.timTatCaDichVuTheoMaNhom(maNhomDichVu);
+                    dsDichVu.forEach(dv -> {
+                        cmbDichVu.addItem(dv.getTenDichVuKB());
+                    });
+                    cmbDichVu.addItem("---Dịch vụ---");
+                    cmbDichVu.setSelectedItem("---Dịch vụ---");
+                } else {
+                    cmbDichVu.removeAllItems();
+                    cmbDichVu.addItem("---Dịch vụ---");
+                    cmbDichVu.setSelectedItem("---Dịch vụ---");
+                }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -310,9 +310,9 @@ public class DSBenhAnYTa extends javax.swing.JPanel {
                 KhamBenhYTa.Instance.MaBNLabel.setText(ba.getMaBenhNhan());
                 KhamBenhYTa.Instance.NameLabel.setText(ba.getHoTen());
                 KhamBenhYTa.Instance.SexLabel.setText(ba.getGioiTinh());
-                KhamBenhYTa.Instance.RoomLabel.setText(ba.getMaPhongKham() + " " + ba.getTenPhongKham());
+                KhamBenhYTa.Instance.RoomLabel.setText(ba.getTenPhongKham());
                 KhamBenhYTa.Instance.MaBALabel.setText(ba.getMaBenhAn());
-                KhamBenhYTa.Instance.ServiceLabel.setText(ba.getMaDichVuKham() + " " + ba.getTenDichVuKham());
+                KhamBenhYTa.Instance.ServiceLabel.setText(ba.getTenDichVuKham());
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = inputFormat.parse(ba.getNgayKham());

@@ -48,8 +48,12 @@ public class ChonThuoc extends javax.swing.JPanel {
             dsNhomThuoc = NhomThuocCtrl.timTatCaNhomThuoc();
             cmbNhomThuoc.removeAllItems();
             dsNhomThuoc.forEach(nt -> {
-                cmbNhomThuoc.addItem(nt.getTenNhomThuoc());
+                if (nt.getTrangThai().equals("Kích hoạt")) {
+                    cmbNhomThuoc.addItem(nt.getTenNhomThuoc());
+                }
             });
+            cmbNhomThuoc.addItem("---Nhóm thuốc---");
+            cmbNhomThuoc.setSelectedItem("---Nhóm thuốc---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,8 +72,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     }
 
     private void lamMoi() {
-        cmbNhomThuoc.setSelectedIndex(0);
-        cmbThuoc.setSelectedIndex(0);
+        cmbNhomThuoc.setSelectedItem("---Nhóm thuốc---");
         txtTenThuoc.setText("");
         txtDuongDung.setText("");
         txtCachDung.setText("");
@@ -86,7 +89,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ChiDinhPanel = new javax.swing.JPanel();
+        pnlChonThuoc = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -129,9 +132,14 @@ public class ChonThuoc extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(1107, 437));
 
-        ChiDinhPanel.setBackground(new java.awt.Color(255, 255, 255));
-        ChiDinhPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        ChiDinhPanel.setPreferredSize(new java.awt.Dimension(1107, 437));
+        pnlChonThuoc.setBackground(new java.awt.Color(255, 255, 255));
+        pnlChonThuoc.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlChonThuoc.setPreferredSize(new java.awt.Dimension(1107, 437));
+        pnlChonThuoc.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                pnlChonThuocMouseMoved(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Chọn thuốc");
@@ -148,6 +156,7 @@ public class ChonThuoc extends javax.swing.JPanel {
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel24.setText("Số tiền:");
 
+        lblTongSoThuoc.setBackground(new java.awt.Color(255, 255, 255));
         lblTongSoThuoc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTongSoThuoc.setForeground(new java.awt.Color(255, 0, 0));
         lblTongSoThuoc.setText("0");
@@ -157,6 +166,9 @@ public class ChonThuoc extends javax.swing.JPanel {
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel27.setText("thuốc");
+
+        txtTongTien.setEditable(false);
+        txtTongTien.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel28.setText("Chiều");
@@ -384,61 +396,61 @@ public class ChonThuoc extends javax.swing.JPanel {
         jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel34.setText("Đường dùng");
 
-        javax.swing.GroupLayout ChiDinhPanelLayout = new javax.swing.GroupLayout(ChiDinhPanel);
-        ChiDinhPanel.setLayout(ChiDinhPanelLayout);
-        ChiDinhPanelLayout.setHorizontalGroup(
-            ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChiDinhPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlChonThuocLayout = new javax.swing.GroupLayout(pnlChonThuoc);
+        pnlChonThuoc.setLayout(pnlChonThuocLayout);
+        pnlChonThuocLayout.setHorizontalGroup(
+            pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlChonThuocLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(ChiDinhPanelLayout.createSequentialGroup()
+            .addGroup(pnlChonThuocLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
                     .addComponent(cmbNhomThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCachDung, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31))
                 .addGap(18, 18, 18)
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChiDinhPanelLayout.createSequentialGroup()
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlChonThuocLayout.createSequentialGroup()
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel19))
                         .addGap(18, 18, 18)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTenThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
                         .addGap(18, 18, 18)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel33))
                         .addGap(18, 18, 18)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel34)
                             .addComponent(txtDuongDung, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(ChiDinhPanelLayout.createSequentialGroup()
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlChonThuocLayout.createSequentialGroup()
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSoNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel21))
                         .addGap(18, 18, 18)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel29))
                         .addGap(18, 18, 18)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSang, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22))
                         .addGap(18, 18, 18)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTrua, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23))
                         .addGap(18, 18, 18)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel28)
-                            .addGroup(ChiDinhPanelLayout.createSequentialGroup()
+                            .addGroup(pnlChonThuocLayout.createSequentialGroup()
                                 .addComponent(txtChieu, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel30)
                                     .addComponent(txtToi, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(25, 25, 25)
@@ -449,7 +461,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ChiDinhPanelLayout.createSequentialGroup()
+                    .addGroup(pnlChonThuocLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnKetThucKham, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
@@ -465,38 +477,38 @@ public class ChonThuoc extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40))))
-            .addGroup(ChiDinhPanelLayout.createSequentialGroup()
+            .addGroup(pnlChonThuocLayout.createSequentialGroup()
                 .addComponent(jScrollPane7)
                 .addContainerGap())
         );
-        ChiDinhPanelLayout.setVerticalGroup(
-            ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChiDinhPanelLayout.createSequentialGroup()
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChiDinhPanelLayout.createSequentialGroup()
+        pnlChonThuocLayout.setVerticalGroup(
+            pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlChonThuocLayout.createSequentialGroup()
+                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlChonThuocLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
                             .addComponent(jLabel32)
                             .addComponent(jLabel20))
                         .addGap(2, 2, 2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChiDinhPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChonThuocLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel33)
                             .addComponent(jLabel34))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTenThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmbNhomThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtDonGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtDuongDung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(15, 15, 15)
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel29)
                         .addComponent(jLabel21)
                         .addComponent(jLabel22)
@@ -505,7 +517,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                         .addComponent(jLabel28))
                     .addComponent(jLabel31))
                 .addGap(2, 2, 2)
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -522,7 +534,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(ChiDinhPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlChonThuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(lblTongSoThuoc)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,11 +549,11 @@ public class ChonThuoc extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ChiDinhPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlChonThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ChiDinhPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlChonThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -671,15 +683,15 @@ public class ChonThuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemThuocMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemThuocMouseMoved
-        int tongDichVu = 0;
+        int tongThuoc = 0;
         int tongTien = 0;
 
         for (DonThuocModel dt : dsDonThuoc) {
-            tongDichVu += 1;
+            tongThuoc += 1;
             tongTien += dt.getThanhTien();
         }
 
-        lblTongSoThuoc.setText(Integer.toString(tongDichVu));
+        lblTongSoThuoc.setText(Integer.toString(tongThuoc));
         txtTongTien.setText(Integer.toString(tongTien));
     }//GEN-LAST:event_btnThemThuocMouseMoved
 
@@ -701,6 +713,9 @@ public class ChonThuoc extends javax.swing.JPanel {
                         txtTrua.setText(Integer.toString(0));
                         txtChieu.setText(Integer.toString(0));
                         txtToi.setText(Integer.toString(0));
+                        cmbThuoc.removeAllItems();
+                        cmbThuoc.addItem("---Thuốc---");
+                        cmbThuoc.setSelectedItem("---Thuốc---");
                     } else {
                         try {
                             int nhomThuocIndex = cmbNhomThuoc.getSelectedIndex();
@@ -709,8 +724,12 @@ public class ChonThuoc extends javax.swing.JPanel {
                             cmbThuoc.removeAllItems();
                             dsThuoc = ThuocCtrl.timKiemThuoc("", maNhomThuoc);
                             dsThuoc.forEach(t -> {
-                                cmbThuoc.addItem(t.getTenThuoc());
+                                if (t.getTrangThai().equals("Kích hoạt")) {
+                                    cmbThuoc.addItem(t.getTenThuoc());
+                                }
                             });
+                            cmbThuoc.addItem("---Thuốc---");
+                            cmbThuoc.setSelectedItem("---Thuốc---");
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -813,8 +832,8 @@ public class ChonThuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_tblDSDonThuocMouseClicked
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        lamMoi();
         hienThiDSNhomThuoc();
+        lamMoi();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnKetThucKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucKhamActionPerformed
@@ -951,8 +970,18 @@ public class ChonThuoc extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnInDonThuocActionPerformed
 
+    private void pnlChonThuocMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlChonThuocMouseMoved
+        int tongThuoc = 0;
+        int tongTien = 0;
+        for (DonThuocModel dt : dsDonThuoc) {
+            tongThuoc += 1;
+            tongTien += dt.getThanhTien();
+        }
+        lblTongSoThuoc.setText(Integer.toString(tongThuoc));
+        txtTongTien.setText(Integer.toString(tongTien));
+    }//GEN-LAST:event_pnlChonThuocMouseMoved
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ChiDinhPanel;
     private javax.swing.JButton btnInDonThuoc;
     private javax.swing.JButton btnKetThucKham;
     private javax.swing.JButton btnLamMoi;
@@ -980,6 +1009,7 @@ public class ChonThuoc extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel lblTongSoThuoc;
+    private javax.swing.JPanel pnlChonThuoc;
     private javax.swing.JTable tblDSDonThuoc;
     private javax.swing.JTextField txtCachDung;
     private javax.swing.JTextField txtChieu;
