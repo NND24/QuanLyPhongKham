@@ -696,8 +696,10 @@ public class DSBacSi extends javax.swing.JPanel {
                 String trinhDo = txtTrinhDo.getText();
 
                 int index = cboKhoa.getSelectedIndex();
-                String maKhoa = dsKhoa.get(index - 1).getMaKhoa();
-                if (hoTen.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty() || maKhoa.isEmpty()) {
+                
+                if(cboKhoa.getSelectedIndex()==0){
+                    DialogHelper.showError("Vui lòng chọn khoa ");
+                } else if (hoTen.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty()) {
                     DialogHelper.showError("Vui lòng điền đầy đủ các thông tin");
                 } else if (!canCuoc.isEmpty() && !Validator.isValidCccd(canCuoc)) {
                     DialogHelper.showError("Căn cước không hợp lệ");
@@ -708,6 +710,7 @@ public class DSBacSi extends javax.swing.JPanel {
                 } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
                     DialogHelper.showError("Năm sinh không hợp lệ");
                 } else {
+                    String maKhoa = dsKhoa.get(index - 1).getMaKhoa();
                     BacSiModel bs = new BacSiModel(maBacSi, maKhoa.split(" ")[0], hoTen, gioiTinh, namSinh, diaChi, soDienThoai, canCuoc, trinhDo, currentImage);
                     BacSiCtrl.capNhatBacSi(bs);
                     DialogHelper.showMessage("Cập nhật thành công.");
@@ -757,11 +760,9 @@ public class DSBacSi extends javax.swing.JPanel {
                 String sdt = txtSoDienThoai.getText();
                 String trinhDo = txtTrinhDo.getText();
                 String maKhoa = "";
-                if (!dsKhoa.isEmpty()) {
-                    int index = cboKhoa.getSelectedIndex();
-                    maKhoa = dsKhoa.get(index - 1).getMaKhoa();
-                }
-                if (tenBS.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty() || maKhoa.isEmpty()) {
+                if (cboKhoa.getSelectedIndex() == 0) {
+                    DialogHelper.showError("Vui lòng điền đầy đủ các thông tin");
+                } else if (tenBS.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty()) {
                     DialogHelper.showError("Vui lòng điền đầy đủ các thông tin");
                 } else if (!canCuoc.isEmpty() && !Validator.isValidCccd(canCuoc)) {
                     DialogHelper.showError("Căn cước không hợp lệ");
@@ -772,6 +773,10 @@ public class DSBacSi extends javax.swing.JPanel {
                 } else if (!namSinh.isEmpty() && !Validator.isValidYearOfBirth(namSinh)) {
                     DialogHelper.showError("Năm sinh không hợp lệ");
                 } else {
+                    if (!dsKhoa.isEmpty()) {
+                        int index = cboKhoa.getSelectedIndex();
+                        maKhoa = dsKhoa.get(index - 1).getMaKhoa();
+                    }
                     BacSiModel bs = new BacSiModel(maKhoa, tenBS, gioiTinh, namSinh, diaChi, sdt, canCuoc, trinhDo, currentImage);
                     try {
                         BacSiCtrl.themBacSi(bs);
