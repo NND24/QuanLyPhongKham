@@ -314,10 +314,10 @@ public class DSNhomDichVuCLS extends javax.swing.JFrame {
             String maNhomDichVuCLS = GenerateCode.generateMa("NDVC");
             if (NhomDichVuCLSCtrl.kiemTraMaNhomDVCLSTonTai(maNhomDichVuCLS)) {
                 DialogHelper.showError("Mã nhóm dịch vụ cận lâm sàng đã tồn tại");
+            } else if (!txtMaNhomDichVuCLS.getText().isEmpty()) {
+                DialogHelper.showError("Nhóm dịch vụ cận lâm sàng đã tồn tại");
             } else if (txtTenNhomDichVuCLS.getText().isEmpty()) {
                 DialogHelper.showError("Tên nhóm dịch vụ không được để trống!");
-            } else if (!txtMaNhomDichVuCLS.getText().isEmpty()) {
-                DialogHelper.showError("Nhóm dịch vụ đã tồn tại");
             } else {
                 String tenNhomDichVuCLS = txtTenNhomDichVuCLS.getText();
                 String trangThai = cmbtrangthai.getSelectedItem().toString();

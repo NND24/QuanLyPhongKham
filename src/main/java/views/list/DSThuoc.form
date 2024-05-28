@@ -670,9 +670,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtGiaTien">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtGiaTienFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel28">
           <Properties>
@@ -683,9 +680,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtGiaBHYT">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtGiaBHYTFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel30">
           <Properties>

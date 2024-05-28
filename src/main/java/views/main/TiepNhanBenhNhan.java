@@ -49,7 +49,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             hienThiDSPhongKham();
             hienThiDSNhomDichVu();
         } catch (ClassNotFoundException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -193,7 +192,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         cmbNhomDichVu = new javax.swing.JComboBox<>();
         txtLyDoKham = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tblDSBenhNhan = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -371,7 +370,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Giới tính");
 
-        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         cmbGioiTinh.setPreferredSize(new java.awt.Dimension(109, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -579,30 +578,26 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
         tblDSBenhNhan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Mã bệnh nhân", "Họ tên", "Giới tính", "Năm sinh", "Địa chỉ", "Căn cước", "Bảo hiểm", "Số điện thoại", "Nghề nghiệp", "Dân tộc", "Quốc tịch"
+                "Mã bệnh nhân", "Họ tên", "Giới tính", "Năm sinh", "Địa chỉ", "Bảo hiểm", "Số điện thoại", "Nghề nghiệp", "Dân tộc", "Quốc tịch"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, true, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblDSBenhNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblDSBenhNhan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDSBenhNhanMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblDSBenhNhan);
+        jScrollPane2.setViewportView(tblDSBenhNhan);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -717,7 +712,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtThuTuKham, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))))
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane2)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -797,7 +792,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                         .addComponent(jLabel25)
                         .addComponent(txtThuTuKham, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -887,7 +882,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
             }
         } catch (ClassNotFoundException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLuuBenhNhanActionPerformed
@@ -935,10 +929,8 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 BenhAnModel ba = new BenhAnModel(maBenhAn, maDangKy, maKhamLamSang, maBenhNhan);
                 BenhAnCtrl.themBenhAn(ba);
                 PhongKhamCtrl.themSoLuong(maPhongKham);
-                hienThiDSPhongKham();
             }
         } catch (ClassNotFoundException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLuuDangKyActionPerformed
@@ -963,7 +955,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 });
             }
         } catch (ClassNotFoundException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cmbLocActionPerformed
@@ -1015,7 +1006,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSuaBenhNhanActionPerformed
@@ -1041,7 +1031,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
             }
 
         } catch (ClassNotFoundException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(TiepNhanBenhNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_txtTimKiemKeyTyped
@@ -1104,25 +1093,6 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtDanTocFocusLost
 
-    private void tblDSBenhNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSBenhNhanMouseClicked
-        int selectedIndex = tblDSBenhNhan.getSelectedRow();
-        if (selectedIndex >= 0) {
-            BenhNhanModel bn = dsBenhNhan.get(selectedIndex);
-
-            txtMaBenhNhan.setText(bn.getMaBenhNhan());
-            txtHoTen.setText(bn.getHoTen());
-            txtDiaChi.setText(bn.getDiaChi());
-            cmbGioiTinh.setSelectedIndex(0);
-            txtNamSinh.setText(bn.getNamSinh());
-            txtCanCuoc.setText(bn.getCanCuoc());
-            txtBHYT.setText(bn.getBhyt());
-            txtNgheNghiep.setText(bn.getNgheNghiep());
-            txtSoDienThoai.setText(bn.getSoDienThoai());
-            txtDanToc.setText(bn.getDanToc());
-            txtQuocTich.setText(bn.getQuocTich());
-        }
-    }//GEN-LAST:event_tblDSBenhNhanMouseClicked
-
     private void cmbNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhomDichVuActionPerformed
         if (cmbNhomDichVu.getSelectedItem() != null) {
             try {
@@ -1149,18 +1119,20 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
 
     private void btnInPhieuKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInPhieuKhamActionPerformed
         try {
-            if (txtHoTen.getText().isEmpty()) {
-                DialogHelper.showError("Chưa có tên của bệnh nhân");
-            } else if (cmbGioiTinh.getSelectedItem().toString().isEmpty()) {
-                DialogHelper.showError("Chưa có giới tính của bệnh nhân");
+            if (txtMaBenhNhan.getText().isEmpty()) {
+                DialogHelper.showError("Vui lòng chọn bệnh nhân");
+            } else if (txtHoTen.getText().isEmpty()) {
+                DialogHelper.showError("Tên bệnh nhân không được bỏ trống");
             } else if (txtDiaChi.getText().isEmpty()) {
-                DialogHelper.showError("Chưa có địa chỉ của bệnh nhân");
+                DialogHelper.showError("Địa chỉ bệnh nhân không được bỏ trống");
             } else if (txtMaDangKy.getText().isEmpty()) {
-                DialogHelper.showError("Chưa có mã đăng ký");
-            } else if (txtMaBenhNhan.getText().isEmpty()) {
-                DialogHelper.showError("Chưa có mã bệnh nhân");
-            } else if (cmbDichVu.getSelectedItem().toString().split(" ")[0].isEmpty()) {
-                DialogHelper.showError("Chưa có dịch vụ khám");
+                DialogHelper.showError("Vui lòng đăng ký khám cho bệnh nhân");
+            } else if (cmbDichVu.getSelectedItem().toString().equals("---Dịch vụ---")) {
+                DialogHelper.showError("Dịch vụ khám không được bỏ trống");
+            } else if (cmbPhongKham.getSelectedItem().toString().equals("---Phòng khám---")) {
+                DialogHelper.showError("Phòng khám không được bỏ trống");
+            } else if (txtLyDoKham.getText().isEmpty()) {
+                DialogHelper.showError("Lý do khám không được bỏ trống");
             } else {
                 int namHienTai = LocalDate.now().getYear();
 
@@ -1170,12 +1142,9 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
                 String diaChi = txtDiaChi.getText();
                 String maDangKy = txtMaDangKy.getText();
                 String maBenhNhan = txtMaBenhNhan.getText();
-                String[] dichVuKham = cmbDichVu.getSelectedItem().toString().split(" ");
-                String tenDichVu = "";
 
-                for (int i = 1; i < dichVuKham.length; i++) {
-                    tenDichVu += dichVuKham[i] + " ";
-                }
+                String tenDichVu = cmbDichVu.getSelectedItem().toString();
+
                 String[] phongKham = cmbPhongKham.getSelectedItem().toString().split(" ");
                 String tenPhongKham = "";
                 for (int i = 1; i < phongKham.length - 1; i++) {
@@ -1230,6 +1199,25 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLamMoiThuTuActionPerformed
 
+    private void tblDSBenhNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSBenhNhanMouseClicked
+        int selectedIndex = tblDSBenhNhan.getSelectedRow();
+        if (selectedIndex >= 0) {
+            BenhNhanModel bn = dsBenhNhan.get(selectedIndex);
+
+            txtMaBenhNhan.setText(bn.getMaBenhNhan());
+            txtHoTen.setText(bn.getHoTen());
+            txtDiaChi.setText(bn.getDiaChi());
+            cmbGioiTinh.setSelectedIndex(0);
+            txtNamSinh.setText(bn.getNamSinh());
+            txtCanCuoc.setText(bn.getCanCuoc());
+            txtBHYT.setText(bn.getBhyt());
+            txtNgheNghiep.setText(bn.getNgheNghiep());
+            txtSoDienThoai.setText(bn.getSoDienThoai());
+            txtDanToc.setText(bn.getDanToc());
+            txtQuocTich.setText(bn.getQuocTich());
+        }
+    }//GEN-LAST:event_tblDSBenhNhanMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInPhieuKham;
     private javax.swing.JButton btnLamMoiThuTu;
@@ -1278,7 +1266,7 @@ public class TiepNhanBenhNhan extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblDSBenhNhan;
     private javax.swing.JTextField txtBHYT;
     private javax.swing.JTextField txtCanCuoc;

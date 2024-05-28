@@ -304,10 +304,10 @@ public class DSPhongKham extends javax.swing.JFrame {
             String maPhongKham = GenerateCode.generateMa("PK");
             if (PhongKhamCtrl.kiemTraMaPhongKhamTonTai(maPhongKham)) {
                 DialogHelper.showError("Mã phòng khám đã tồn tại");
-            } else if (txtTenPhongKham.getText().isEmpty()) {
-                DialogHelper.showError("Tên phòng khám không được để trống!");
             } else if (!txtMaPhongKham.getText().isEmpty()) {
                 DialogHelper.showError("Phòng khám đã tồn tại");
+            } else if (txtTenPhongKham.getText().isEmpty()) {
+                DialogHelper.showError("Tên phòng khám không được để trống!");
             } else {
                 String tenPhongKham = txtTenPhongKham.getText();
                 String trangThai = cmbTrangThai.getSelectedItem().toString();
@@ -324,13 +324,13 @@ public class DSPhongKham extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
-            String maPhongKham = txtMaPhongKham.getText();
-            if (maPhongKham.isEmpty()) {
-                DialogHelper.showError("Chưa có phòng khám được chọn");
-            } else if (PhongKhamCtrl.kiemTraPhongKhamDaDuocSuDung(maPhongKham)) {
+            if (txtMaPhongKham.getText().isEmpty()) {
+                DialogHelper.showError("Chưa có phòng khám được chọn để xóa");
+            } else if (PhongKhamCtrl.kiemTraPhongKhamDaDuocSuDung(txtMaPhongKham.getText())) {
                 DialogHelper.showError("Phòng khám đã được sử dụng, không thể xóa");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa phòng khám này")) {
+                    String maPhongKham = txtMaPhongKham.getText();
                     PhongKhamCtrl.xoaPhongKham(maPhongKham);
                     DialogHelper.showMessage("Xóa phòng khám thành công!");
                     lamMoi();
@@ -346,7 +346,7 @@ public class DSPhongKham extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
             if (txtMaPhongKham.getText().isEmpty()) {
-                DialogHelper.showError("Mã phòng khám không được để trống!");
+                DialogHelper.showError("Chưa có phòng khám được chọn để chỉnh sửa");
             } else if (txtTenPhongKham.getText().isEmpty()) {
                 DialogHelper.showError("Tên phòng khám không được để trống!");
             } else {
