@@ -514,7 +514,15 @@ public class DSQuanLy extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXuatDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDanhSachActionPerformed
-
+        String tenTep = "DSQuanLy.xlsx";
+        String duongDan = "src/main/java/ExcelStorage/" + tenTep;
+        try {
+            dsQuanLy = QuanLyCtrl.hienThiTatCa();
+            QuanLyCtrl.exportToExcel(this.dsQuanLy, duongDan);
+            DialogHelper.showMessage("Xuất file thành công");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXuatDanhSachActionPerformed
 
     private void lamMoi() {

@@ -695,8 +695,7 @@ public class DSBacSi extends javax.swing.JPanel {
                 String trinhDo = txtTrinhDo.getText();
 
                 int index = cboKhoa.getSelectedIndex();
-                
-                if(cboKhoa.getSelectedIndex()==0){
+                if (cboKhoa.getSelectedIndex() == 0) {
                     DialogHelper.showError("Vui lòng chọn khoa ");
                 } else if (hoTen.isEmpty() || canCuoc.isEmpty() || trinhDo.isEmpty()) {
                     DialogHelper.showError("Vui lòng điền đầy đủ các thông tin");
@@ -710,8 +709,8 @@ public class DSBacSi extends javax.swing.JPanel {
                     DialogHelper.showError("Năm sinh không hợp lệ");
                 } else {
                     String maKhoa = dsKhoa.get(index - 1).getMaKhoa();
-                    BacSiModel bs = new BacSiModel(maBacSi, maKhoa.split(" ")[0], hoTen, gioiTinh, namSinh, diaChi, soDienThoai, canCuoc, trinhDo, currentImage);
-                    BacSiCtrl.capNhatBacSi(bs);
+                    BacSiModel bs = new BacSiModel(maKhoa.split(" ")[0], hoTen, gioiTinh, namSinh, diaChi, soDienThoai, canCuoc, trinhDo, currentImage);
+                    BacSiCtrl.capNhatBacSi(maBacSi, bs);
                     DialogHelper.showMessage("Cập nhật thành công.");
                     hienThiCacBacSi();
                     lamMoi();
