@@ -354,7 +354,7 @@ public class ThuocCtrl {
             headerRow.createCell(11).setCellValue("NuocSanXuat");
             headerRow.createCell(12).setCellValue("GiaTien");
             headerRow.createCell(13).setCellValue("GiaBaoHiem");
-            headerRow.createCell(13).setCellValue("TrangThai");
+            headerRow.createCell(14).setCellValue("TrangThai");
 
             // Ghi dữ liệu vào sheet
             int rowNum = 1;
@@ -374,7 +374,7 @@ public class ThuocCtrl {
                 row.createCell(11).setCellValue(thuoc.getNuocSanXuat());
                 row.createCell(12).setCellValue(thuoc.getGiaTien());
                 row.createCell(13).setCellValue(thuoc.getGiaBHYT());
-                row.createCell(13).setCellValue(thuoc.getTrangThai());
+                row.createCell(14).setCellValue(thuoc.getTrangThai());
             }
 
             // Xuất workbook ra file Excel

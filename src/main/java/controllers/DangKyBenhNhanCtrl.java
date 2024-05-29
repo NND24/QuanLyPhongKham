@@ -60,123 +60,68 @@ public class DangKyBenhNhanCtrl {
 
     public static List<DangKyBenhNhanModel> timTatCaBenhNhanDKTheoDieuKien(String maPhongKham, String timKiem, String trangThai) throws ClassNotFoundException {
         List<DangKyBenhNhanModel> dsBenhNhan = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
 
-        try {
-            connection = ConnectDB.getConnection();
+        String sql = """
+        SELECT DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
+        BENHNHAN.MaBenhNhan, HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa, DANGKY.ThuTu
+        FROM DANGKY
+        JOIN BENHAN ON BENHAN.MaDangKy = DANGKY.MaDangKy
+        JOIN BENHNHAN ON BENHNHAN.MaBenhNhan = BENHAN.MaBenhNhan
+        JOIN PHONGKHAM ON DANGKY.MaPhongKham = PHONGKHAM.MaPhongKham
+        JOIN DICHVUKB ON DICHVUKB.MaDichVuKB = DANGKY.MaDichVuKB
+        WHERE (DANGKY.MaDangKy LIKE ? OR BENHNHAN.MaBenhNhan LIKE ? OR PHONGKHAM.MaPhongKham LIKE ? OR HoTen LIKE ? OR CanCuoc LIKE ? OR SoDienThoai LIKE ? OR TenPhongKham LIKE ? OR TenDichVuKB LIKE ? OR DANGKY.MaDichVuKB LIKE ?)
+    """;
 
-            if (!timKiem.isEmpty() && maPhongKham.equals("---Phòng khám---") && trangThai.equals("Tất cả")) {
-                String sql = """
-                         SELECT DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
-                         BENHAN.MaBenhNhan, HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa, DANGKY.ThuTu
-                         FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
-                         WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
-                         AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy
-                         AND (DANGKY.MaDangKy LIKE ? OR BENHNHAN.MaBenhNhan LIKE ? OR PHONGKHAM.MaPhongKham LIKE ? OR HoTen LIKE ? OR CanCuoc LIKE ? OR SoDienThoai LIKE ? OR TenPhongKham LIKE ? OR TenDichVuKB LIKE ? OR MaDichVuKham LIKE ?)
-                         ORDER BY DANGKY.ThuTu ASC
-                         """;
+        if (!maPhongKham.equals("---Phòng khám---")) {
+            sql += " AND PHONGKHAM.MaPhongKham = ?";
+        }
 
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + timKiem + "%");
-                statement.setString(2, "%" + timKiem + "%");
-                statement.setString(3, "%" + timKiem + "%");
-                statement.setString(4, "%" + timKiem + "%");
-                statement.setString(5, "%" + timKiem + "%");
-                statement.setString(6, "%" + timKiem + "%");
-                statement.setString(7, "%" + timKiem + "%");
-                statement.setString(8, "%" + timKiem + "%");
-                statement.setString(9, "%" + timKiem + "%");
-                ResultSet resultSet = statement.executeQuery();
+        if (!trangThai.equals("Tất cả")) {
+            sql += " AND DANGKY.TrangThai LIKE ?";
+        }
 
+        sql += " ORDER BY DANGKY.ThuTu ASC";
+
+        try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            int paramIndex = 1;
+            for (int i = 0; i < 9; i++) {
+                statement.setString(paramIndex++, "%" + timKiem + "%");
+            }
+
+            if (!maPhongKham.equals("---Phòng khám---")) {
+                statement.setString(paramIndex++, maPhongKham);
+            }
+
+            if (!trangThai.equals("Tất cả")) {
+                statement.setString(paramIndex++, "%" + trangThai + "%");
+            }
+
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     if (!resultSet.getString("TrangThai").equals("Đã khám") && !resultSet.getBoolean("TrangThaiXoa")) {
                         DangKyBenhNhanModel bn = new DangKyBenhNhanModel(
-                                resultSet.getString("HoTen"), resultSet.getString("GioiTinh"),
-                                resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
-                                resultSet.getString("MaBenhNhan"), resultSet.getString("MaDichVuKB"),
-                                resultSet.getString("MaPhongKham"), resultSet.getString("LyDoKham"),
-                                resultSet.getInt("ThuTu"), resultSet.getDate("NgayKham"),
-                                resultSet.getString("TrangThai")
+                                resultSet.getString("HoTen"),
+                                resultSet.getString("GioiTinh"),
+                                resultSet.getString("NamSinh"),
+                                resultSet.getString("MaDangKy"),
+                                resultSet.getString("MaBenhNhan"),
+                                resultSet.getString("MaDichVuKB"),
+                                resultSet.getString("MaPhongKham"),
+                                resultSet.getString("LyDoKham"),
+                                resultSet.getInt("ThuTu"),
+                                resultSet.getDate("NgayKham"),
+                                resultSet.getString("TrangThai"),
+                                resultSet.getString("TenPhongKham"),
+                                resultSet.getString("TenDichVuKB")
                         );
                         dsBenhNhan.add(bn);
                     }
                 }
             }
-            if (timKiem.isEmpty() && !maPhongKham.equals("---Phòng khám---") && trangThai.equals("Tất cả")) {
-                String sql = """
-                         SELECT DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
-                         BENHAN.MaBenhNhan, HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa, DANGKY.ThuTu
-                         FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
-                         WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
-                         AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy AND PHONGKHAM.MaPhongKham=?
-                         ORDER BY DANGKY.ThuTu ASC
-                         """;
 
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, maPhongKham);
-
-                ResultSet resultSet = statement.executeQuery();
-
-                while (resultSet.next()) {
-                    if (!resultSet.getString("TrangThai").equals("Đã khám") && !resultSet.getBoolean("TrangThaiXoa")) {
-                        DangKyBenhNhanModel bn = new DangKyBenhNhanModel(
-                                resultSet.getString("HoTen"), resultSet.getString("GioiTinh"),
-                                resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
-                                resultSet.getString("MaBenhNhan"), resultSet.getString("MaDichVuKB"),
-                                resultSet.getString("MaPhongKham"), resultSet.getString("LyDoKham"),
-                                resultSet.getInt("ThuTu"), resultSet.getDate("NgayKham"),
-                                resultSet.getString("TrangThai")
-                        );
-                        dsBenhNhan.add(bn);
-                    }
-                }
-            }
-            if (timKiem.isEmpty() && maPhongKham.equals("---Phòng khám---") && !trangThai.equals("Tất cả")) {
-                String sql = """
-                         SELECT DANGKY.MaDangKy, DANGKY.MaDichVuKB, PHONGKHAM.MaPhongKham, LyDoKham, NgayKham, DANGKY.TrangThai,
-                         BENHAN.MaBenhNhan, HoTen, GioiTinh, NamSinh, TenPhongKham, TenDichVuKB, ThuTu, DANGKY.TrangThaiXoa, DANGKY.ThuTu
-                         FROM DANGKY, BENHNHAN, PHONGKHAM, DICHVUKB, BENHAN
-                         WHERE BENHAN.MaBenhNhan = BENHNHAN.MaBenhNhan AND DANGKY.MaPhongKham=PHONGKHAM.MaPhongKham
-                         AND DICHVUKB.MaDichVuKB=DANGKY.MaDichVuKB AND BENHAN.MaDangKy=DANGKY.MaDangKy AND DANGKY.TrangThai LIKE ?
-                         ORDER BY DANGKY.ThuTu ASC
-                         """;
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + trangThai + "%");
-
-                ResultSet resultSet = statement.executeQuery();
-
-                while (resultSet.next()) {
-                    if (!resultSet.getString("TrangThai").equals("Đã khám") && !resultSet.getBoolean("TrangThaiXoa")) {
-                        DangKyBenhNhanModel bn = new DangKyBenhNhanModel(
-                                resultSet.getString("HoTen"), resultSet.getString("GioiTinh"),
-                                resultSet.getString("NamSinh"), resultSet.getString("MaDangKy"),
-                                resultSet.getString("MaBenhNhan"), resultSet.getString("MaDichVuKB"),
-                                resultSet.getString("MaPhongKham"), resultSet.getString("LyDoKham"),
-                                resultSet.getInt("ThuTu"), resultSet.getDate("NgayKham"),
-                                resultSet.getString("TrangThai")
-                        );
-                        dsBenhNhan.add(bn);
-                    }
-                }
-            }
         } catch (SQLException ex) {
             Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BenhNhanCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
 
         return dsBenhNhan;
