@@ -621,7 +621,7 @@ public class DSYTa extends javax.swing.JPanel {
         try {
             dsYTa = YTaCtrl.hienthiYTa();
             YTaCtrl.exportToExcel(dsYTa, "src/main/java/ExcelStorage/DSYTa.xlsx");
-            DialogHelper.showError("Xuất file thành công");
+            DialogHelper.showMessage("Xuất file thành công");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSYTa.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -35,17 +35,16 @@ public class DSDangKy extends javax.swing.JPanel {
 
             tableModel = (DefaultTableModel) tblDSDangKy.getModel();
 
+            dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDK();
             hienThiDSDangKy();
             hienThiDSNhomDichVu();
             hienThiDSPhongKham();
         } catch (ClassNotFoundException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void hienThiDSDangKy() throws ClassNotFoundException {
-        dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDK();
         tableModel.setRowCount(0);
 
         dsDangKy.forEach(bn -> {
@@ -105,6 +104,33 @@ public class DSDangKy extends javax.swing.JPanel {
         cmbPhongKham.setSelectedItem("---Phòng khám---");
         cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         cmbDichVuKham.setSelectedItem("---Dịch vụ---");
+    }
+
+    private void timKiemDK() {
+        try {
+            if (cmbLocPhong.getSelectedItem() != null) {
+                String trangThai = cmbLocTrangThai.getSelectedItem().toString();
+                String timKiem = txtTimKiemBN.getText();
+                if (trangThai.equals("Tất cả") && cmbLocPhong.getSelectedItem().toString().equals("---Phòng khám---") && timKiem.isEmpty()) {
+                    dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDK();
+                    hienThiDSDangKy();
+                    return;
+                }
+
+                String maPhongKham = "";
+                if (cmbLocPhong.getSelectedItem().toString().equals("---Phòng khám---")) {
+                    maPhongKham = "---Phòng khám---";
+                } else {
+                    int phongKhamIndex = cmbLocPhong.getSelectedIndex();
+                    maPhongKham = dsPhongKham.get(phongKhamIndex).getMaPhongKham();
+                }
+
+                dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDKTheoDieuKien(maPhongKham, timKiem, trangThai);
+                hienThiDSDangKy();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -599,11 +625,12 @@ public class DSDangKy extends javax.swing.JPanel {
                     txtTimKiemBN.setText("");
                     cmbLocTrangThai.setSelectedIndex(0);
                     cmbLocPhong.setSelectedItem("---Phòng khám---");
-                    hienThiDSDangKy();
+                    timKiemDK();
                     lamMoiThongTin();
                 } catch (ClassNotFoundException ex) {
                     DialogHelper.showError("Đã có lỗi xảy ra");
                     Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -612,68 +639,15 @@ public class DSDangKy extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBatDauKhamActionPerformed
 
     private void cmbLocPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocPhongActionPerformed
-        try {
-            if (cmbLocPhong.getSelectedItem() != null) {
-                if (cmbLocPhong.getSelectedItem().toString().equals("---Phòng khám---")) {
-                    hienThiDSDangKy();
-                } else {
-                    int phongKhamIndex = cmbLocPhong.getSelectedIndex();
-                    String maPhongKham = dsPhongKham.get(phongKhamIndex).getMaPhongKham();
-                    dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDKTheoDieuKien(maPhongKham, "", "Tất cả");
-                    tableModel.setRowCount(0);
-
-                    dsDangKy.forEach(bn -> {
-                        tableModel.addRow(new Object[]{bn.getThuTuKham(), bn.getMaDangKy(), bn.getNgayKham(),
-                            bn.getHoTen(), bn.getMaBenhNhan(), bn.getGioiTinh(), bn.getNamSinh(),
-                            bn.getTenPhongKham(), bn.getTrangThai()});
-                    });
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemDK();
     }//GEN-LAST:event_cmbLocPhongActionPerformed
 
     private void cmbLocTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocTrangThaiActionPerformed
-        try {
-            String trangThai = cmbLocTrangThai.getSelectedItem().toString();
-            if (trangThai.equals("Tất cả")) {
-                hienThiDSDangKy();
-            } else {
-                dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDKTheoDieuKien("---Phòng khám---", "", trangThai);
-                tableModel.setRowCount(0);
-
-                dsDangKy.forEach(bn -> {
-                    tableModel.addRow(new Object[]{
-                        bn.getThuTuKham(), bn.getMaDangKy(), bn.getMaBenhNhan(),
-                        bn.getHoTen(), bn.getGioiTinh(), bn.getNamSinh(),
-                        bn.getTenPhongKham(), bn.getNgayKham(), bn.getTrangThai()});
-                });
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemDK();
     }//GEN-LAST:event_cmbLocTrangThaiActionPerformed
 
     private void txtTimKiemBNKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemBNKeyTyped
-        try {
-            String timKiem = txtTimKiemBN.getText();
-            if (timKiem.equals("")) {
-                hienThiDSDangKy();
-            } else {
-                dsDangKy = DangKyBenhNhanCtrl.timTatCaBenhNhanDKTheoDieuKien("---Phòng khám---", timKiem, "Tất cả");
-                tableModel.setRowCount(0);
-
-                dsDangKy.forEach(bn -> {
-                    tableModel.addRow(new Object[]{
-                        bn.getThuTuKham(), bn.getMaDangKy(), bn.getMaBenhNhan(),
-                        bn.getHoTen(), bn.getGioiTinh(), bn.getNamSinh(),
-                        bn.getTenPhongKham(), bn.getNgayKham(), bn.getTrangThai()});
-                });
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        timKiemDK();
     }//GEN-LAST:event_txtTimKiemBNKeyTyped
 
     private void btnSuaThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinActionPerformed
@@ -699,7 +673,7 @@ public class DSDangKy extends javax.swing.JPanel {
                     DangKyModel dk = new DangKyModel(maDangKy, maDichVu, maPhongKham, lyDoKham, trangThai);
                     DangKyCtrl.capNhatDangKy(dk);
                     DialogHelper.showMessage("Sửa thông tin khám bệnh thành công!");
-                    hienThiDSDangKy();
+                    timKiemDK();
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -719,8 +693,10 @@ public class DSDangKy extends javax.swing.JPanel {
             txtTimKiemBN.setText("");
             cmbLocTrangThai.setSelectedIndex(0);
             cmbLocPhong.setSelectedItem("---Phòng khám---");
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DSDangKy.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
@@ -736,7 +712,7 @@ public class DSDangKy extends javax.swing.JPanel {
                     txtTimKiemBN.setText("");
                     cmbLocTrangThai.setSelectedIndex(0);
                     cmbLocPhong.setSelectedItem("---Phòng khám---");
-                    hienThiDSDangKy();
+                    timKiemDK();
                     lamMoiThongTin();
                     DialogHelper.showMessage("Xóa thông tin đăng ký thành công");
                 } catch (ClassNotFoundException ex) {
@@ -767,6 +743,7 @@ public class DSDangKy extends javax.swing.JPanel {
                 cmbTrangThai.setSelectedItem(dangKy.getTrangThai());
                 String dateString = dateFormat.format(dangKy.getNgayKham());
                 txtNgayKham.setText(dateString);
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DSDangKy.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -793,6 +770,7 @@ public class DSDangKy extends javax.swing.JPanel {
                     cmbDichVuKham.removeAllItems();
                     cmbDichVuKham.addItem("---Dịch vụ---");
                     cmbDichVuKham.setSelectedItem("---Dịch vụ---");
+
                 }
             }
         } catch (ClassNotFoundException ex) {
