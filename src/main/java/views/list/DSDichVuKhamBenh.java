@@ -29,9 +29,6 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
 
             hienThiDSDichVu();
             hienThiDSNhomDichVu();
-
-            cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
-            cmbTKNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuKhamBenh.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,7 +46,9 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
                 }
             });
             cmbNhomDichVu.addItem("---Nhóm dịch vụ---");
+            cmbNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
             cmbTKNhomDichVu.addItem("---Nhóm dịch vụ---");
+            cmbTKNhomDichVu.setSelectedItem("---Nhóm dịch vụ---");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DSDichVuKhamBenh.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -250,20 +249,8 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Giá tiền");
 
-        txtGiaTien.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtGiaTienFocusLost(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Giá bảo hiểm");
-
-        txtGiaBaoHiem.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtGiaBaoHiemFocusLost(evt);
-            }
-        });
 
         jPanel6.setPreferredSize(new java.awt.Dimension(88, 35));
 
@@ -414,16 +401,20 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
             String maDichVu = GenerateCode.generateMa("DVKB");
             if (DichVuKhamBenhCtrl.kiemTraMaDVKBTonTai(maDichVu)) {
                 DialogHelper.showError("Mã dịch vụ khám bệnh đã tồn tại");
+            } else if (!txtMaDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Dịch vụ khám bệnh đã tồn tại");
             } else if (txtTenDichVu.getText().isEmpty()) {
                 DialogHelper.showError("Tên dịch vụ không được để trống!");
-            } else if (!txtMaDichVu.getText().isEmpty()) {
-                DialogHelper.showError("Dịch vụ đã tồn tại");
             } else if (cmbNhomDichVu.getSelectedItem().toString().equals("---Nhóm dịch vụ---")) {
                 DialogHelper.showError("Nhóm dịch vụ không được để trống");
             } else if (txtGiaTien.getText().isEmpty()) {
                 DialogHelper.showError("Giá tiền không được để trống");
+            } else if (!txtGiaTien.getText().isEmpty() && !Validator.isIntegerString(txtGiaTien.getText())) {
+                DialogHelper.showMessage("Giá tiền không hợp lệ");
             } else if (txtGiaBaoHiem.getText().isEmpty()) {
                 DialogHelper.showError("Giá bảo hiểm không được để trống");
+            } else if (!txtGiaBaoHiem.getText().isEmpty() && !Validator.isIntegerString(txtGiaBaoHiem.getText())) {
+                DialogHelper.showMessage("Giá bảo hiểm không hợp lệ");
             } else {
                 String tenDichVu = txtTenDichVu.getText();
                 int nhomDichVuId = cmbNhomDichVu.getSelectedIndex();
@@ -473,8 +464,12 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
                 DialogHelper.showError("Nhóm dịch vụ không được để trống!");
             } else if (txtGiaTien.getText().isEmpty()) {
                 DialogHelper.showError("Giá tiền không được để trống");
+            } else if (!txtGiaTien.getText().isEmpty() && !Validator.isIntegerString(txtGiaTien.getText())) {
+                DialogHelper.showMessage("Giá tiền không hợp lệ");
             } else if (txtGiaBaoHiem.getText().isEmpty()) {
                 DialogHelper.showError("Giá bảo hiểm không được để trống");
+            } else if (!txtGiaBaoHiem.getText().isEmpty() && !Validator.isIntegerString(txtGiaBaoHiem.getText())) {
+                DialogHelper.showMessage("Giá bảo hiểm không hợp lệ");
             } else {
                 if (DialogHelper.showConfirmation("Bạn có chắc muốn sửa dịch vụ khám bệnh này")) {
                     String maDichVu = txtMaDichVu.getText();
@@ -524,22 +519,6 @@ public class DSDichVuKhamBenh extends javax.swing.JFrame {
             Logger.getLogger(DSDichVuCLS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXuatActionPerformed
-
-    private void txtGiaTienFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGiaTienFocusLost
-        String giaTien = txtGiaTien.getText();
-        if (!giaTien.isEmpty() && !Validator.isIntegerString(giaTien)) {
-            DialogHelper.showMessage("Giá tiền không hợp lệ");
-            txtGiaTien.requestFocus();
-        }
-    }//GEN-LAST:event_txtGiaTienFocusLost
-
-    private void txtGiaBaoHiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGiaBaoHiemFocusLost
-        String giaBH = txtGiaBaoHiem.getText();
-        if (!giaBH.isEmpty() && !Validator.isIntegerString(giaBH)) {
-            DialogHelper.showMessage("Giá bảo hiểm không hợp lệ");
-            txtGiaBaoHiem.requestFocus();
-        }
-    }//GEN-LAST:event_txtGiaBaoHiemFocusLost
 
     private void cmbTKNhomDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTKNhomDichVuActionPerformed
         timKiemDVKB();

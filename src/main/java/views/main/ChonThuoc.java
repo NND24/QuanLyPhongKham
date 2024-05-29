@@ -638,7 +638,6 @@ public class ChonThuoc extends javax.swing.JPanel {
                 int trua = Integer.parseInt(txtTrua.getText());
                 int chieu = Integer.parseInt(txtChieu.getText());
                 int toi = Integer.parseInt(txtToi.getText());
-                int tong = soNgay * (sang + trua + chieu + toi);
 
                 if (cmbThuoc.getSelectedItem().equals("---Thuốc---")) {
                     DialogHelper.showError("Chọn thuốc không được để trống");
@@ -646,8 +645,6 @@ public class ChonThuoc extends javax.swing.JPanel {
                     DialogHelper.showError("Tên thuốc không được để trống");
                 } else if (duongDung.isEmpty()) {
                     DialogHelper.showError("Đường dùng không được để trống");
-                } else if (soLuong != tong) {
-                    DialogHelper.showError("Số lượng = số ngày x (sáng + trưa + chiều + tối)");
                 } else {
                     int thuocIndex = cmbThuoc.getSelectedIndex();
                     String maThuoc = dsThuoc.get(thuocIndex).getMaThuoc();
@@ -667,12 +664,16 @@ public class ChonThuoc extends javax.swing.JPanel {
         int selectedIndex = tblDSDonThuoc.getSelectedRow();
         if (selectedIndex >= 0) {
             try {
-                if (DialogHelper.showConfirmation("Bạn có chắc muốn đơn xóa thuốc này")) {
-                    DonThuocModel dt = dsDonThuoc.get(selectedIndex);
-                    DonThuocCtrl.xoaThuocKhoiDon(dt.getMaDonThuoc());
-                    dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
-                    hienThiDSDonThuoc();
-                    lamMoi();
+                if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+                    DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
+                } else {
+                    if (DialogHelper.showConfirmation("Bạn có chắc muốn đơn xóa thuốc này")) {
+                        DonThuocModel dt = dsDonThuoc.get(selectedIndex);
+                        DonThuocCtrl.xoaThuocKhoiDon(dt.getMaDonThuoc());
+                        dsDonThuoc = DonThuocCtrl.timDonThuocTheoMa(maBenhAn);
+                        hienThiDSDonThuoc();
+                        lamMoi();
+                    }
                 }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ChonThuoc.class.getName()).log(Level.SEVERE, null, ex);
@@ -782,7 +783,6 @@ public class ChonThuoc extends javax.swing.JPanel {
                     int trua = Integer.parseInt(txtTrua.getText());
                     int chieu = Integer.parseInt(txtChieu.getText());
                     int toi = Integer.parseInt(txtToi.getText());
-                    int tong = soNgay * (sang + trua + chieu + toi);
 
                     if (cmbThuoc.getSelectedItem().equals("---Thuốc---")) {
                         DialogHelper.showError("Chọn thuốc không được để trống");
@@ -790,8 +790,6 @@ public class ChonThuoc extends javax.swing.JPanel {
                         DialogHelper.showError("Tên thuốc không được để trống");
                     } else if (duongDung.isEmpty()) {
                         DialogHelper.showError("Đường dùng không được để trống");
-                    } else if (soLuong != tong) {
-                        DialogHelper.showError("Số lượng = số ngày x (sáng + trưa + chiều + tối)");
                     } else {
                         int thuocIndex = cmbThuoc.getSelectedIndex();
                         String maThuoc = dsThuoc.get(thuocIndex).getMaThuoc();
@@ -939,7 +937,7 @@ public class ChonThuoc extends javax.swing.JPanel {
                 dsDonThuoc.forEach(thuoc -> {
                     medicines.add(thuoc.getTenThuoc());
                     quantities.add(Integer.toString(thuoc.getSoLuong()));
-                    usages.add(thuoc.getDuongDung() + ". Sáng: " + thuoc.getSang() + ", Trưa: " + thuoc.getTrua() + ", Chiều: " + thuoc.getChieu() + ", Tối: " + thuoc.getToi());
+                    usages.add(thuoc.getDuongDung() + ". Sáng: " + thuoc.getSang() + ", Trưa: " + thuoc.getTrua() + ", Chiều: " + thuoc.getChieu() + ", Tối: " + thuoc.getToi() + ". " + thuoc.getCachDung());
                 });
 
                 if (medicines.isEmpty() || quantities.isEmpty() || usages.isEmpty()) {

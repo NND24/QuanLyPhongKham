@@ -523,6 +523,10 @@ public class ChiDinh extends javax.swing.JPanel {
                 DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
             } else if (ChiDinhCtrl.kiemTraMaChiDinhTonTai(maChiDinh)) {
                 DialogHelper.showError("Mã chỉ định đã tồn tại");
+            } else if (txtTenDichVu.getText().isEmpty()) {
+                DialogHelper.showError("Dịch vụ không được bỏ trống");
+            } else if (cmbDichVuCLS.getSelectedItem().toString().equals("---Dịch vụ---")) {
+                DialogHelper.showError("Dịch vụ không được bỏ trống");
             } else if (txtSoLan.getText().isEmpty()) {
                 DialogHelper.showError("Số lần không được để trống");
             } else if (txtSoLan.getText().equals("0")) {
@@ -565,15 +569,18 @@ public class ChiDinh extends javax.swing.JPanel {
         int selectedIndex = tblDSChiDinh.getSelectedRow();
         if (selectedIndex >= 0) {
             try {
-                if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa chỉ định này")) {
-                    ChiDinhModel cd = dsChiDinh.get(selectedIndex);
-                    ChiDinhCtrl.xoaChiDinh(cd.getMaChiDinh());
-                    dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(maBenhAn);
-                    hienThiDSDichvu();
-                    lamMoi();
-                    DialogHelper.showMessage("Xóa chỉ định thành công");
+                if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+                    DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
+                } else {
+                    if (DialogHelper.showConfirmation("Bạn có chắc muốn xóa chỉ định này")) {
+                        ChiDinhModel cd = dsChiDinh.get(selectedIndex);
+                        ChiDinhCtrl.xoaChiDinh(cd.getMaChiDinh());
+                        dsChiDinh = ChiDinhCtrl.timChiDinhTheoMa(maBenhAn);
+                        hienThiDSDichvu();
+                        lamMoi();
+                        DialogHelper.showMessage("Xóa chỉ định thành công");
+                    }
                 }
-                hienThiDSDichvu();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ChiDinh.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -616,12 +623,16 @@ public class ChiDinh extends javax.swing.JPanel {
         try {
             int selectedIndex = tblDSChiDinh.getSelectedRow();
             if (selectedIndex >= 0) {
-                if (!txtSoLan.getText().isEmpty() && !Validator.isIntegerString(txtSoLan.getText())) {
-                    DialogHelper.showError("Số lần không hợp lệ");
-                } else if (txtSoLan.getText().equals("0")) {
-                    DialogHelper.showError("Số lần phải lớn hơn không");
+                if (maBenhAn.isEmpty() || maBenhAn.startsWith("__")) {
+                    DialogHelper.showError("Chưa có bệnh án nào được chọn. Vui lòng chọn bệnh án");
+                } else if (txtTenDichVu.getText().isEmpty()) {
+                    DialogHelper.showError("Dịch vụ không được bỏ trống");
+                } else if (cmbDichVuCLS.getSelectedItem().toString().equals("---Dịch vụ---")) {
+                    DialogHelper.showError("Dịch vụ không được bỏ trống");
                 } else if (txtSoLan.getText().isEmpty()) {
                     DialogHelper.showError("Số lần không được để trống");
+                } else if (txtSoLan.getText().equals("0")) {
+                    DialogHelper.showError("Số lần phải lớn hơn không");
                 } else if (!txtSoLan.getText().isEmpty() && !Validator.isIntegerString(txtSoLan.getText())) {
                     DialogHelper.showError("Số lần không hợp lệ");
                 } else {

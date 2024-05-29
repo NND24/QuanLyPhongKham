@@ -650,7 +650,6 @@ public class KhamLamSang extends javax.swing.JPanel {
                 }
             }
         } catch (ClassNotFoundException | ParseException ex) {
-            DialogHelper.showError("Đã có lỗi xảy ra");
             Logger.getLogger(KhamLamSang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnKhamBenhActionPerformed
@@ -665,7 +664,6 @@ public class KhamLamSang extends javax.swing.JPanel {
                 DangKyCtrl.capNhatTrangThai(dangKy);
                 DialogHelper.showMessage("Kết thúc khám bệnh thành công!");
             } catch (ClassNotFoundException ex) {
-                DialogHelper.showError("Đã có lỗi xảy ra");
                 Logger.getLogger(KhamLamSang.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

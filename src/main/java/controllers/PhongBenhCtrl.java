@@ -104,10 +104,9 @@ public class PhongBenhCtrl {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                String coNguoi = resultSet.getString("CoNguoi");
-                if (coNguoi != null && !"-".equals(coNguoi) && !coNguoi.isEmpty()) {
+                if (resultSet.getString("CoNguoi").equals("Có người")) {
                     flag = true;
-                    break; // Không cần tiếp tục duyệt các kết quả khác nếu đã tìm thấy một giá trị hợp lệ
+                    break;
                 }
             }
         } catch (SQLException ex) {
@@ -177,7 +176,7 @@ public class PhongBenhCtrl {
             //Nếu tất cả trạng thái xóa của giường trong phòng bệnh là false
             if (count == 0) {
                 boSungGiuong(soGiuongCanThem, pb.getMaPhong());
-            } //Nếu có giường có trạng thái xóa là true thì khôi phục lại giường đó         
+            } //Nếu có giường có trạng thái xóa là true thì khôi phục lại giường đó
             else {
                 //Trường hợp có đủ số giường để khôi phục
                 if (count >= soGiuongCanThem) {
