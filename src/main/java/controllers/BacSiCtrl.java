@@ -168,7 +168,7 @@ public class BacSiCtrl {
         return flag;
     }
 
-    public static void capNhatBacSi(BacSiModel bs) throws ClassNotFoundException {
+    public static void capNhatBacSi(String maBacSi,BacSiModel bs) throws ClassNotFoundException {
         String sql = "UPDATE BACSI SET MaKhoa=?, HoTen=?, GioiTinh=?, NamSinh=?, DiaChi=?, SoDienThoai=?, CanCuoc=?, TrinhDo=?, Anh=? WHERE MaBacSi=?";
         try (Connection connection = ConnectDB.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, bs.getMaKhoa());
@@ -180,9 +180,8 @@ public class BacSiCtrl {
             statement.setString(7, bs.getCanCuoc());
             statement.setString(8, bs.getTrinhDo());
             statement.setString(9, bs.getAnh());
-            statement.setString(10, bs.getMaBacSi());
+            statement.setString(10, maBacSi);
             statement.executeUpdate();
-
         } catch (SQLException ex) {
             Logger.getLogger(BacSiCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }

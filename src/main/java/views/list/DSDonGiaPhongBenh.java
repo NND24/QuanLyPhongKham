@@ -199,6 +199,11 @@ public class DSDonGiaPhongBenh extends javax.swing.JFrame {
         btnXuatDanhSach.setForeground(new java.awt.Color(255, 255, 255));
         btnXuatDanhSach.setText("Xuất danh sách");
         btnXuatDanhSach.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnXuatDanhSach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatDanhSachActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("DANH SÁCH ĐƠN GIÁ");
@@ -491,6 +496,19 @@ public class DSDonGiaPhongBenh extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cboSapXepActionPerformed
+
+    private void btnXuatDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDanhSachActionPerformed
+        // TODO add your handling code here:
+        String tenTep = "DSDonGiaPhongBenh.xlsx";
+        String duongDan = "src/main/java/ExcelStorage/" + tenTep;
+        try {
+            dsDonGiaPhongBenh = DonGiaPhongBenhCtrl.hienThiTatCa();
+            DonGiaPhongBenhCtrl.exportToExcel(this.dsDonGiaPhongBenh, duongDan);
+            DialogHelper.showMessage("Xuất file thành công");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSDonGiaPhongBenh.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnXuatDanhSachActionPerformed
 
     /**
      * @param args the command line arguments

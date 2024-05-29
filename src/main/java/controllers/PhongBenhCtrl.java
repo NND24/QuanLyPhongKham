@@ -103,14 +103,13 @@ public class PhongBenhCtrl {
             statement.setString(1, maPhong);
             ResultSet resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 String coNguoi = resultSet.getString("CoNguoi");
-                if (!"-".equals(coNguoi) || !coNguoi.isEmpty()) {
+                if (coNguoi != null && !"-".equals(coNguoi) && !coNguoi.isEmpty()) {
                     flag = true;
+                    break; // Không cần tiếp tục duyệt các kết quả khác nếu đã tìm thấy một giá trị hợp lệ
                 }
-
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(PhongBenhCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -232,9 +231,9 @@ public class PhongBenhCtrl {
     private static boolean chinhSoGiuong(PhongBenhModel pb, int soGiuongMoi) throws ClassNotFoundException {
         boolean flag = false;
         if (soGiuongMoi >= pb.getSoGiuong()) {
-            if (themGiuongBenh(pb, soGiuongMoi)){
+            if (themGiuongBenh(pb, soGiuongMoi)) {
                 return true;
-            }        
+            }
         } else if (soGiuongMoi < pb.getSoGiuong()) {
             if (giamGiuongBenh(pb, soGiuongMoi)) {
                 flag = true;

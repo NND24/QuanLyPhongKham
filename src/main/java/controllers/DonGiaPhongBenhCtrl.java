@@ -1,6 +1,8 @@
 package controllers;
 
 import database.ConnectDB;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +17,12 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.DonGiaPhongBenhModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -131,5 +139,39 @@ public class DonGiaPhongBenhCtrl {
         List<DonGiaPhongBenhModel> dsDichVu = hienThiTatCa();
         Collections.sort(dsDichVu, (DonGiaPhongBenhModel donGia1, DonGiaPhongBenhModel donGia2) -> donGia2.getTenLoaiPhong().compareTo(donGia1.getTenLoaiPhong()));
         return dsDichVu;
+    }
+    
+    public static void exportToExcel(List<DonGiaPhongBenhModel> dsDonGia, String filePath) {
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("DanhSachDonGia");
+
+            // Thêm tiêu đề "Danh Sách Khoa"
+            Row titleRow = sheet.createRow(0);
+            Cell titleCell = titleRow.createCell(0);
+            titleCell.setCellValue("Danh Sách Đơn Giá");
+            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 9)); // Merge cells cho tiêu đề
+
+            // Tạo header
+            Row headerRow = sheet.createRow(1); // Dòng 1 là dòng header
+            headerRow.createCell(0).setCellValue("Mã đơn giá");
+            headerRow.createCell(1).setCellValue("Tên loại phòng");
+            headerRow.createCell(2).setCellValue("Đơn giá");
+
+            // Ghi dữ liệu vào sheet
+            int rowNum = 2; // Bắt đầu ghi từ dòng 2
+            for (DonGiaPhongBenhModel dg : dsDonGia) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(dg.getMaDonGia());
+                row.createCell(1).setCellValue(dg.getTenLoaiPhong());
+                row.createCell(2).setCellValue(dg.getDonGia());
+            }
+
+            // Xuất workbook ra file Excel
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                workbook.write(fileOut);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

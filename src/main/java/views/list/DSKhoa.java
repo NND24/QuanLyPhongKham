@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhoaModel;
 import utils.DialogHelper;
@@ -419,6 +418,15 @@ public class DSKhoa extends javax.swing.JFrame {
 
     private void btnXuatDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatDanhSachActionPerformed
         // TODO add your handling code here:
+        String tenTep = "DSKhoa.xlsx";
+        String duongDan = "src/main/java/ExcelStorage/" + tenTep;
+        try {
+            dsKhoa = KhoaCtrl.hienThiTatCa();
+            KhoaCtrl.exportToExcel(this.dsKhoa, duongDan);
+            DialogHelper.showMessage("Xuất file thành công");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DSKhoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXuatDanhSachActionPerformed
 
     /**

@@ -1,6 +1,8 @@
 package controllers;
 
 import database.ConnectDB;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.QuanLyModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utils.GenerateCode;
 
 public class QuanLyCtrl {
@@ -206,6 +214,49 @@ public class QuanLyCtrl {
         List<QuanLyModel> dsQuanLy = hienThiTatCa();
         dsQuanLy.sort(Comparator.comparing(QuanLyModel::getNamSinh).reversed());
         return dsQuanLy;
+    }
+    
+     public static void exportToExcel(List<QuanLyModel> dsQuanLy, String filePath) {
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("DanhSachDonGia");
+
+            // Thêm tiêu đề "Danh Sách Khoa"
+            Row titleRow = sheet.createRow(0);
+            Cell titleCell = titleRow.createCell(0);
+            titleCell.setCellValue("Danh Sách Quản Lý");
+            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 9)); // Merge cells cho tiêu đề
+
+            // Tạo header
+            Row headerRow = sheet.createRow(1); // Dòng 1 là dòng header
+            headerRow.createCell(0).setCellValue("Mã quản lý");
+            headerRow.createCell(1).setCellValue("Họ tên");
+            headerRow.createCell(2).setCellValue("Email");
+            headerRow.createCell(3).setCellValue("Giới tính");
+            headerRow.createCell(4).setCellValue("Địa chỉ");
+            headerRow.createCell(5).setCellValue("Năm sinh");
+            headerRow.createCell(6).setCellValue("Số điện thoại");
+            headerRow.createCell(7).setCellValue("Căn cước");
+            // Ghi dữ liệu vào sheet
+            int rowNum = 2; // Bắt đầu ghi từ dòng 2
+            for (QuanLyModel ql : dsQuanLy) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(ql.getMaQuanLy());
+                row.createCell(1).setCellValue(ql.getHoTen());
+                row.createCell(2).setCellValue(ql.getEmail());
+                row.createCell(3).setCellValue(ql.getGioiTinh());
+                row.createCell(4).setCellValue(ql.getDiaChi());
+                row.createCell(5).setCellValue(ql.getNamSinh());
+                row.createCell(6).setCellValue(ql.getSoDienThoai());
+                row.createCell(7).setCellValue(ql.getCanCuoc());
+            }
+
+            // Xuất workbook ra file Excel
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                workbook.write(fileOut);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
