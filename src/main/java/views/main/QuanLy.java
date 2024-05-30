@@ -12,6 +12,7 @@ import views.list.DSKhoa;
 import views.list.DSNhomDichVuCLS;
 import views.list.DSNhomDichVuKhamBenh;
 import views.list.DSNhomThuoc;
+import views.list.DSPhongKham;
 
 public class QuanLy extends javax.swing.JFrame {
 
@@ -63,6 +64,7 @@ public class QuanLy extends javax.swing.JFrame {
         mniDonGiaPB = new javax.swing.JMenuItem();
         mniQuanLyKhamBenh = new javax.swing.JMenu();
         mniQuanLyKhoa = new javax.swing.JMenuItem();
+        mniQuanLyPhongKham = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mniQuanLyNhomThuoc = new javax.swing.JMenuItem();
         mniQuanLyThuoc = new javax.swing.JMenuItem();
@@ -295,6 +297,16 @@ public class QuanLy extends javax.swing.JFrame {
             }
         });
         mniQuanLyKhamBenh.add(mniQuanLyKhoa);
+
+        mniQuanLyPhongKham.setText("Danh sách phòng khám");
+        mniQuanLyPhongKham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mniQuanLyPhongKham.setPreferredSize(new java.awt.Dimension(132, 30));
+        mniQuanLyPhongKham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyPhongKhamActionPerformed(evt);
+            }
+        });
+        mniQuanLyKhamBenh.add(mniQuanLyPhongKham);
         mniQuanLyKhamBenh.add(jSeparator1);
 
         mniQuanLyNhomThuoc.setText("Danh sách nhóm thuốc");
@@ -479,11 +491,10 @@ public class QuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_mniQuanLyDVCLSActionPerformed
 
     private void mniQuanLyTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_mniQuanLyTaiKhoanActionPerformed
 
     private void mniQuanLyTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniQuanLyTaiKhoanMouseClicked
-        // TODO add your handling code here:
         lypQuanLy.removeAll();
         lypQuanLy.add(tabThongTinCaNhan);
         lypQuanLy.repaint();
@@ -498,10 +509,14 @@ public class QuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_mniQuanLyVienPhiMouseClicked
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         new DangNhap().setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
+
+    private void mniQuanLyPhongKhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyPhongKhamActionPerformed
+        new DSPhongKham().setVisible(true);
+        new DSPhongKham().setAlwaysOnTop(true);
+    }//GEN-LAST:event_mniQuanLyPhongKhamActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -561,6 +576,7 @@ public class QuanLy extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniQuanLyNhomDVKB;
     private javax.swing.JMenuItem mniQuanLyNhomThuoc;
     private javax.swing.JMenu mniQuanLyPhongBenh;
+    private javax.swing.JMenuItem mniQuanLyPhongKham;
     private javax.swing.JMenu mniQuanLyTaiKhoan;
     private javax.swing.JMenuItem mniQuanLyThuoc;
     private javax.swing.JMenu mniQuanLyVienPhi;
