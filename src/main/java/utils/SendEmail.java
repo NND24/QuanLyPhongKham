@@ -10,9 +10,9 @@ import java.util.Properties;
 public class SendEmail {
 
     public static void sendEmail(String code, String email) throws MessagingException, UnsupportedEncodingException {
-        final String fromEmail = "n21dccn007@student.ptithcm.edu.vn";
+        final String fromEmail = "email@gmail.com";
         // Mat khai email cua ban
-        final String password = "gada nxya ynnx igam";
+        final String password = "*******************;
         // dia chi email nguoi nhan
         final String toEmail = email;
         final String subject = "Verify Code";
